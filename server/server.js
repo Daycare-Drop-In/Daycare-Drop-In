@@ -8,6 +8,15 @@ const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
 
 // Route includes
+
+const availabilityRouter = require('./routes/availability.router');
+const bookingRouter = require('./routes/bookings.router');
+const caretakerRouter = require('./routes/caretaker.router');
+const childRouter = require('./routes/children.router');
+const familyRouter = require('./routes/families.router');
+const mapRouter = require('./routes/maps.api.router');
+const photoRouter = require('./routes/photos.api.router');
+const providerRouter = require('./routes/providers.router');
 const userRouter = require('./routes/user.router');
 
 // Body parser middleware
@@ -22,7 +31,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
+app.use('/api/availability', availabilityRouter);
+app.use('/api/booking', bookingRouter);
+app.use('/api/caretaker', caretakerRouter);
+app.use('/api/child', childRouter);
+app.use('/api/family', familyRouter);
+app.use('/api/maps', mapRouter);
+app.use('/api/photo', photoRouter);
+app.use('/api/provider', providerRouter);
 app.use('/api/user', userRouter);
+
 
 // Serve static files
 app.use(express.static('build'));

@@ -1,6 +1,6 @@
 const responsibleAdultsReducer = (state = [], action) => {
     switch(action.type) {
-        case 'SET_MEAT':
+        case 'SET_ADULT':
             return action.payload;
             default:
                 return state;

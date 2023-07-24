@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./LandingPage.css";
 
-
 function LandingPage() {
   const [heading, setHeading] = useState("Welcome");
   const history = useHistory();
@@ -11,6 +10,9 @@ function LandingPage() {
     history.push("/login");
   };
 
+  const onRegister = (event) => {
+    history.push("/registration");
+  };
   return (
     <div className="container">
       <h2>{heading}</h2>
@@ -52,7 +54,9 @@ function LandingPage() {
         <div className="grid-col grid-col_4">
           <center>
             <h4>Register a New User</h4>
-            <p>Replace this with a link to the Registration Landing Page</p>
+            <button className="btn btn_sizeSm" onClick={onRegister}>
+              Register
+            </button>
             <h4>Already a Member?</h4>
             <button className="btn btn_sizeSm" onClick={onLogin}>
               Login

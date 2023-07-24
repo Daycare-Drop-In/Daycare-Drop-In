@@ -10,7 +10,7 @@ CREATE TABLE "families" (
 	"access_code" VARCHAR (255) NOT NULL
 );
 
-CREATE TABLE "user_info" (
+CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,

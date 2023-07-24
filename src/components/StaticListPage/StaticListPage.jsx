@@ -1,7 +1,7 @@
 import React from "react";
 import StaticProviderCards from "../StaticListProviderCards/StaticProviderCards";
 
-function StaticListView() {
+function StaticListPage() {
   return (
     <div className="container">
       <h1>Static List View</h1>
@@ -16,4 +16,4 @@ function StaticListView() {
   );
 }
 
-export default StaticListView;
+export default StaticListPage;

@@ -67,8 +67,10 @@ CREATE TABLE "providers" (
 CREATE TABLE "provider_photos" (
 	"id" SERIAL PRIMARY KEY,
 	"provider_id" INT REFERENCES "providers" (id),
-	"photo_url" VARCHAR (1000)
+	"photo_url" VARCHAR (1000),
+	"description" VARCHAR (1000)
 );
+
 
 CREATE TABLE "availability" (
 	"id" SERIAL PRIMARY KEY,

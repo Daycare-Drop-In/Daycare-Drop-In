@@ -3,7 +3,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import RegisterFormNewFamily from '../RegisterFormNewFamily/RegisterFormNewFamily';
 
-function RegisterPageProvider() {
+function RegisterPageNewFamily() {
   const history = useHistory();
 
   return (

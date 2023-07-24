@@ -5,7 +5,7 @@ import AdminProviderTable from "../AdminProviderTable/AdminProviderTable";
 import AdminFamilyTable from "../AdminFamilyTable/AdminFamilyTable";
 
 
-function HomePageAdmin() {
+function AdminHomePage() {
 
     const user = useSelector((store) => store.user);
 
@@ -21,4 +21,4 @@ function HomePageAdmin() {
   );
 }
 
-export default HomePageAdmin;
+export default AdminHomePage;

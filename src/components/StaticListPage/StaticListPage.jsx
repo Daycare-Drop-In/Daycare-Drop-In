@@ -1,5 +1,5 @@
 import React from "react";
-import StaticProviderCards from "../StaticProviderCards/StaticProviderCards";
+import StaticProviderCards from "../StaticListProviderCards/StaticProviderCards";
 
 function StaticListView() {
   return (

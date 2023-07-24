@@ -1,12 +1,12 @@
 import React from 'react';
 
-function ProviderSearchBar () {
+function ListPageSearchBar () {
     return (
         <div className="container">
-            <h2>Provider Search Bar</h2>
+            <h2>Search Bar</h2>
             <p>This will be the search bar to sort the providers!</p>
         </div>
     )
 }
 
-export default ProviderSearchBar
+export default ListPageSearchBar

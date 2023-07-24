@@ -1,14 +1,16 @@
 import React from 'react';
 
 import { useHistory } from 'react-router-dom';
-import RegisterForm from '../RegisterForm/RegisterForm';
+import RegisterFormNewFamily from '../RegisterFormNewFamily/RegisterFormNewFamily';
 
-function RegisterPage() {
+function RegisterPageProvider() {
   const history = useHistory();
 
   return (
     <div>
-      <RegisterForm />
+      <h1>NEW FAMILY REGISTRATION PAGE</h1>
+      <RegisterFormNewFamily />
+    
 
       <center>
         <button
@@ -25,4 +27,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default RegisterPageNewFamily;

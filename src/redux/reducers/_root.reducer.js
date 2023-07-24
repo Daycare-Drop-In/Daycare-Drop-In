@@ -17,6 +17,7 @@ import photoUploadReducer from './photo.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user,
+  //all reducers correspond to a data table
   familyReducer,
   providerReducer,
   bookingReducer,

@@ -9,7 +9,7 @@ function RegisterFormNewFamily() {
   const [unit, setUnit] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
-  const [zip, setZip] = useState(0);
+  const [zip, setZip] = useState('');
   const [photo, setPhoto] = useState('');
   const [accessCode, setAccessCode] = useState('');
 
@@ -84,7 +84,71 @@ function RegisterFormNewFamily() {
           />
         </label>
       </div>
-      
+      <div>
+      <label htmlFor="unit">
+          Unit:
+          <input 
+          type="text"
+          name="unit"
+          value={unit}
+          required
+          onChange={(event) => setUnit(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="city">
+          City:
+          <input 
+          type="text"
+          name="city"
+          value={city}
+          required
+          onChange={(event) => setCity(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="state">
+          State:
+          <input 
+          type="text"
+          name="state"
+          value={state}
+          required
+          onChange={(event) => setState(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="zip">
+          Zipcode:
+          <input 
+          type="number"
+          name="zip"
+          value={zip}
+          required
+          onChange={(event) => setZip(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="photo">
+          Photo:
+          <input 
+          type="url"
+          name="photo"
+          value={photo}
+          required
+          onChange={(event) => setPhoto(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+          
+        </div>
+
+
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>

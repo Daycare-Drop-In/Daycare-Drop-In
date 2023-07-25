@@ -31,7 +31,8 @@ function RegisterFormProvider() {
     city: "",
     state: "",
     zip: "",
-    hours: "",
+    start_time: "",
+    end_time: "",
     rates: "",
     meals: false,
     business_description: "",
@@ -248,7 +249,6 @@ function RegisterFormProvider() {
           <input
             type="text"
             name="zip"
-            placeholder="00000"
             value={newProvider.zip}
             required
             onChange={(event) =>
@@ -262,17 +262,35 @@ function RegisterFormProvider() {
       </div>
 
       <div>
-        <label htmlFor="hours">
-          Hours AM-PM
+        <label htmlFor="start_time">
+          Start time
           <input
-            type="text"
-            name="hours"
-            value={newProvider.hours}
+            type="time"
+            name="start_time"
+            value={newProvider.start_time}
             required
             onChange={(event) =>
               setNewProvider({
                 ...newProvider,
-                hours: event.target.value,
+                start_time: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
+
+      <div>
+        <label htmlFor="end_time">
+          End time
+          <input
+            type="time"
+            name="end_time"
+            value={newProvider.end_time}
+            required
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                end_time: event.target.value,
               })
             }
           />

@@ -23,12 +23,13 @@ import axios from 'axios';
 // }
 
 function* registerFamilyUser(action) {
+  const credentials = {username: action.payload.username , password: action.payload.password }
 	try {
 		yield put({ type: "CLEAR_REGISTRATION_ERROR" });
 
-		yield axios.post("/api/user/register/<UPDATE FROM ROUTER>", action.payload);
+		yield axios.post("/api/user/register/family", action.payload);
 
-		yield put({ type: "LOGIN", payload: action.payload });
+		yield put({ type: "LOGIN", payload: credentials });
 		yield put({ type: "SET_TO_LOGIN_MODE" });
 	} catch (error) {
 		console.log("Error with user registration:", error);
@@ -37,12 +38,16 @@ function* registerFamilyUser(action) {
 }
 
 function* registerJoinFamilyUser(action) {
+  const credentials = {
+		username: action.payload.username,
+		password: action.payload.password,
+  };
 	try {
 		yield put({ type: "CLEAR_REGISTRATION_ERROR" });
 
-		yield axios.post("/api/user/register/<UPDATE FROM ROUTER>", action.payload);
+		yield axios.post("/api/user/register/new_family_user", action.payload);
 
-		yield put({ type: "LOGIN", payload: action.payload });
+		yield put({ type: "LOGIN", payload: credentials });
 		yield put({ type: "SET_TO_LOGIN_MODE" });
 	} catch (error) {
 		console.log("Error with user registration:", error);
@@ -51,12 +56,16 @@ function* registerJoinFamilyUser(action) {
 }
 
 function* registerProviderUser(action) {
+  const credentials = {
+		username: action.payload.username,
+		password: action.payload.password,
+  };
 	try {
 		yield put({ type: "CLEAR_REGISTRATION_ERROR" });
 
-		yield axios.post("/api/user/register/<UPDATE FROM ROUTER>", action.payload);
+		yield axios.post("/api/user/register/provider", action.payload);
 
-		yield put({ type: "LOGIN", payload: action.payload });
+		yield put({ type: "LOGIN", payload: credentials });
 		yield put({ type: "SET_TO_LOGIN_MODE" });
 	} catch (error) {
 		console.log("Error with user registration:", error);

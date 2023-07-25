@@ -11,9 +11,9 @@ function RegisterFormProvider() {
     console.log("New provider submitted:", newProvider);
 
     dispatch({
-      type: "REGISTER",
-      payload: newProvider,
-    });
+		type: "REGISTER_PROVIDER",
+		payload: newProvider,
+	});
   };
 
   const providerData = {

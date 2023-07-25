@@ -8,16 +8,33 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-// Handles Ajax request for user information if user is authenticated
+// Handles Axios request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
   res.send(req.user);
 });
 
-// Handles POST request with new user data
-// The only thing different from this and every other post we've seen
-// is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {
+// // Handles POST request with new user data
+// // The only thing different from this and every other post we've seen
+// // is that the password gets encrypted before being inserted
+// router.post('/register', (req, res, next) => {
+//   const username = req.body.username;
+//   const password = encryptLib.encryptPassword(req.body.password);
+
+//   const queryText = `INSERT INTO "user" (username, password)
+//     VALUES ($1, $2) RETURNING id`;
+//   pool
+//     .query(queryText, [username, password])
+//     .then(() => res.sendStatus(201))
+//     .catch((err) => {
+//       console.log('User registration failed: ', err);
+//       res.sendStatus(500);
+//     });
+// });
+
+router.post('/register/family', (req, res, next) => {
+  const {} = req.body
+
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 
@@ -31,6 +48,43 @@ router.post('/register', (req, res, next) => {
       res.sendStatus(500);
     });
 });
+
+router.post('/register/new_family_user', (req, res, next) => {
+  const {} = req.body;
+
+
+  const username = req.body.username;
+  const password = encryptLib.encryptPassword(req.body.password);
+
+  const queryText = `INSERT INTO "user" (username, password)
+    VALUES ($1, $2) RETURNING id`;
+  pool
+    .query(queryText, [username, password])
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.log('User registration failed: ', err);
+      res.sendStatus(500);
+    });
+});
+
+router.post('/register/provider', (req, res, next) => {
+  const {} = req.body;
+
+
+  const username = req.body.username;
+  const password = encryptLib.encryptPassword(req.body.password);
+
+  const queryText = `INSERT INTO "user" (username, password)
+    VALUES ($1, $2) RETURNING id`;
+  pool
+    .query(queryText, [username, password])
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.log('User registration failed: ', err);
+      res.sendStatus(500);
+    });
+});
+
 
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
@@ -48,3 +102,5 @@ router.post('/logout', (req, res) => {
 });
 
 module.exports = router;
+
+// '/register/family'

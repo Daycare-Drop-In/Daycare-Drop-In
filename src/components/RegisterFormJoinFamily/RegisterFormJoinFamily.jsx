@@ -7,7 +7,6 @@ function RegisterFormJoinFamily() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] =- useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
   const [relationship, setRelationship] = useState('');
   const [photo_url, setPhoto_Url] = useState('');
   const errors = useSelector((store) => store.errors);
@@ -24,7 +23,7 @@ function RegisterFormJoinFamily() {
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
-        email: email,
+        email: username,
         relationship: relationship,
         photo_url: photo_url,
       },
@@ -41,10 +40,11 @@ function RegisterFormJoinFamily() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
+          Email:
           <input
             type="text"
             name="username"
+            placeholder="youremail@example.com"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
@@ -99,18 +99,7 @@ function RegisterFormJoinFamily() {
           />
         </label>
       </div>
-      <div>
-      <label htmlFor="email">
-          Email:
-          <input
-            type="text"
-            name="email"
-            value={email}
-            required
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-      </div>
+      
       <div>
       <label htmlFor="relationship">
           Relation To Child:

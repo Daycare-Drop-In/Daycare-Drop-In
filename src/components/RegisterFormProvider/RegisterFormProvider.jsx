@@ -21,7 +21,7 @@ function RegisterFormProvider() {
     password: "",
     first_name: "",
     last_name: "",
-    email: "",
+    email: username,
     phone_number: "",
     photo_url: "",
     license: "",
@@ -52,10 +52,11 @@ function RegisterFormProvider() {
       )}
       <div>
         <label htmlFor="username">
-          Username
+          Email:
           <input
             type="text"
             name="username"
+            placeholder="youremail@example.com"
             value={newProvider.username}
             required
             onChange={(event) =>
@@ -105,21 +106,6 @@ function RegisterFormProvider() {
             required
             onChange={(event) =>
               setNewProvider({ ...newProvider, last_name: event.target.value })
-            }
-          />
-        </label>
-      </div>
-
-      <div>
-        <label htmlFor="email">
-          Email
-          <input
-            type="text"
-            name="email"
-            value={newProvider.email}
-            required
-            onChange={(event) =>
-              setNewProvider({ ...newProvider, email: event.target.value })
             }
           />
         </label>

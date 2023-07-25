@@ -8,6 +8,8 @@ function RegisterFormProvider() {
   const registerUser = (event) => {
     event.preventDefault();
 
+    console.log("New provider submitted:", newProvider);
+
     dispatch({
       type: "REGISTER",
       payload: newProvider,
@@ -301,12 +303,9 @@ function RegisterFormProvider() {
           <input
             type="checkbox"
             name="meals"
-            value={newProvider.meals}
+            checked={newProvider.meals}
             onChange={(event) =>
-              setNewProvider({
-                ...newProvider,
-                meals: event.target.value,
-              })
+              setNewProvider({ ...newProvider, meals: event.target.checked })
             }
           />
         </label>
@@ -351,7 +350,6 @@ function RegisterFormProvider() {
           />
         </label>
       </div>
-
 
       <div>
         <label htmlFor="contract_language">

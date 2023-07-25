@@ -4,6 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 function RegisterFormNewFamily() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [familyName, setFamilyName] = useState('');
+  const [address, setAddress] = useState('');
+  const [unit, setUnit] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
+  const [photo, setPhoto] = useState('');
+  const [accessCode, setAccessCode] = useState('');
+
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -51,6 +60,104 @@ function RegisterFormNewFamily() {
           />
         </label>
       </div>
+      <div>
+        <label htmlFor="family_name">
+          Family Name:
+          <input 
+          type="text" 
+          name="family name"
+          value={familyName}
+          required
+          onChange={(event) => setFamilyName(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+      <label htmlFor="street_address">
+          Street Address:
+          <input 
+          type="text"
+          name="address"
+          value={address}
+          required
+          onChange={(event) => setAddress(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+      <label htmlFor="unit">
+          Unit:
+          <input 
+          type="text"
+          name="unit"
+          value={unit}
+          required
+          onChange={(event) => setUnit(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="city">
+          City:
+          <input 
+          type="text"
+          name="city"
+          value={city}
+          required
+          onChange={(event) => setCity(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="state">
+          State:
+          <input 
+          type="text"
+          name="state"
+          value={state}
+          required
+          onChange={(event) => setState(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="zip">
+          Zipcode:
+          <input 
+          type="number"
+          name="zip"
+          value={zip}
+          required
+          onChange={(event) => setZip(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="photo">
+          Photo:
+          <input 
+          type="url"
+          name="photo"
+          value={photo}
+          required
+          onChange={(event) => setPhoto(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="acess_code">
+          Family Access Code:
+          <input 
+          type="text"
+          name="photo"
+          value={accessCode}
+          required
+          onChange={(event) => setAccessCode(event.target.value)}
+          />
+        </label>
+        </div>
+
+
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>

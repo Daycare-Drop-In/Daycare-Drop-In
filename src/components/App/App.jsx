@@ -21,11 +21,9 @@ import UserHomePage from "../UserHomePage/UserHomePage";
 import RegistrationLanding from "../RegistrationLanding/RegistrationLanding";
 // import StaticListPage from "..StaticListPage/StaticListPage";
 import ListPage from "../ListPage/ListPage";
-import RegisterPageProvider from "../RegisterPageProvider/RegisterPageProvider";
-import RegisterPageNewFamily from "../RegisterPageNewFamily/RegisterPageNewFamily";
-import RegisterPageJoinFamily from "../RegisterPageJoinFamily/RegisterPageJoinFamily";
 
 import "./App.css";
+import AdminHomePage from "../AdminHomePage/AdminHomePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -95,39 +93,6 @@ function App() {
             )}
           </Route>
 
-          <Route exact path="/registration_newprovider">
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to="/user" />
-            ) : (
-              // Otherwise, show the registration page
-              <RegisterPageProvider/>
-            )}
-          </Route>
-
-          <Route exact path="/registration_newfamily">
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to="/user" />
-            ) : (
-              // Otherwise, show the registration page
-              <RegisterPageNewFamily/>
-            )}
-          </Route>
-
-          <Route exact path="/registration_joinfamily">
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to="/user" />
-            ) : (
-              // Otherwise, show the registration page
-              <RegisterPageJoinFamily/>
-            )}
-          </Route>
-
           <Route exact path="/home">
             {user.id ? (
               // If the user is already logged in,
@@ -138,6 +103,14 @@ function App() {
               <LandingPage />
             )}
           </Route>
+
+          <ProtectedRoute 
+          //if admin is logged in will show admin page
+          exact 
+          path="/admin"
+          >
+            <AdminHomePage />
+          </ProtectedRoute>
 
           {/* <Route exact path="/static_list">
             <StaticListPage />

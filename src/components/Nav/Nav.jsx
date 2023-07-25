@@ -32,6 +32,14 @@ function Nav() {
               Info Page
             </Link>
 
+            {
+              user.user_type === "admin" && (
+                <Link className="navLink" to="/admin">
+                  Admin
+                </Link>
+              )
+            }
+
             <LogOutButton className="navLink" />
           </>
         )}

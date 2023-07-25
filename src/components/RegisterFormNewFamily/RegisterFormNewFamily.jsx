@@ -150,7 +150,7 @@ function RegisterFormNewFamily() {
             type="text"
             name="unit"
             value={unit}
-            required
+            
             onChange={(event) => setUnit(event.target.value)}
           />
         </label>
@@ -198,7 +198,7 @@ function RegisterFormNewFamily() {
             type="url"
             name="photo_url"
             value={photo_Url}
-            required
+            
             onChange={(event) => setPhoto_Url(event.target.value)}
           />
         </label>

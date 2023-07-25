@@ -49,7 +49,7 @@ function RegisterFormProvider() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
+          Username
           <input
             type="text"
             name="username"
@@ -147,7 +147,6 @@ function RegisterFormProvider() {
             type="text"
             name="photo_url"
             value={newProvider.photo_url}
-            required
             onChange={(event) =>
               setNewProvider({ ...newProvider, photo_url: event.target.value })
             }
@@ -208,12 +207,11 @@ function RegisterFormProvider() {
 
       <div>
         <label htmlFor="unit">
-         Unit
+          Unit
           <input
             type="text"
             name="unit"
             value={newProvider.unit}
-            required
             onChange={(event) =>
               setNewProvider({
                 ...newProvider,
@@ -224,10 +222,9 @@ function RegisterFormProvider() {
         </label>
       </div>
 
-
       <div>
         <label htmlFor="state">
-         State
+          State
           <input
             type="text"
             name="state"
@@ -237,6 +234,139 @@ function RegisterFormProvider() {
               setNewProvider({
                 ...newProvider,
                 state: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
+
+      <div>
+        <label htmlFor="zip">
+          Zip Code
+          <input
+            type="text"
+            name="zip"
+            placeholder="00000"
+            value={newProvider.zip}
+            required
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                zip: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
+
+      <div>
+        <label htmlFor="hours">
+          Hours AM-PM
+          <input
+            type="text"
+            name="hours"
+            value={newProvider.hours}
+            required
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                hours: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
+
+      <div>
+        <label htmlFor="rates">
+          Drop-in Rate $
+          <input
+            type="text"
+            name="rates"
+            value={newProvider.rates}
+            required
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                rates: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
+
+      <div>
+        <label htmlFor="meals">
+          Are meals/snacks provided?
+          <input
+            type="checkbox"
+            name="meals"
+            value={newProvider.meals}
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                meals: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
+
+      <div>
+        <label htmlFor="business_description">
+          Business Description
+          <textarea
+            rows="4"
+            cols="50"
+            name="business_description"
+            placeholder="Tell us about your daycare! What makes it special? Anything you particularly want parents to know?"
+            value={newProvider.business_description}
+            required
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                business_description: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
+
+      <div>
+        <label htmlFor="personal_description">
+          Personal Description
+          <textarea
+            rows="4"
+            cols="50"
+            name="personal_description"
+            placeholder="Tell us about yourself! Who are you? What do you love about childcare?"
+            value={newProvider.personal_description}
+            required
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                personal_description: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
+
+
+      <div>
+        <label htmlFor="contract_language">
+          Drop-Off Contract
+          <textarea
+            rows="4"
+            cols="50"
+            name="contract_language"
+            placeholder="This is a sample drop-off contract agreement. Please review it and edit/add anything specific to your business."
+            value={newProvider.contract_language}
+            required
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                contract_language: event.target.value,
               })
             }
           />

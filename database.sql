@@ -34,7 +34,7 @@ CREATE TABLE "responsible_adults" (
 	"relationship_to_child" VARCHAR (255) NOT NULL,
 	"photo_url" VARCHAR (1000)
 	);
-	
+
 CREATE TABLE "children" (
 	"id" SERIAL PRIMARY KEY,
 	"family_id" INT REFERENCES "families" (id) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE "providers" (
 	"personal_description" TEXT,
 	"contract_language" TEXT
 	);
-	
+
 CREATE TABLE "provider_photos" (
 	"id" SERIAL PRIMARY KEY,
 	"provider_id" INT REFERENCES "providers" (id),
@@ -81,7 +81,7 @@ CREATE TABLE "availability" (
 	"schoolage" INT,
 	"date" DATE,
 	"time_created" TIMESTAMP
-	
+
 );
 
 CREATE TABLE "bookings" (

@@ -23,24 +23,24 @@ function RegisterFormNewFamily() {
     event.preventDefault();
 
     dispatch({
-      type: "REGISTER",
-      payload: {
-        username: username,
-        password: password,
-        first_name: firstName,
-        last_name: lastName,
-        email: username,
-        family_name: familyName,
-        phone_number: phoneNumber,
-        address: address,
-        unit: unit,
-        city: city,
-        state: state,
-        zip: zip,
-        photo_url: photo_Url,
-        accessCode: accessCode,
-      },
-    });
+		type: "REGISTER_FAMILY",
+		payload: {
+			username: username,
+			password: password,
+			first_name: firstName,
+			last_name: lastName,
+			email: username,
+			family_name: familyName,
+			phone_number: phoneNumber,
+			address: address,
+			unit: unit,
+			city: city,
+			state: state,
+			zip: zip,
+			photo_url: photo_Url,
+			accessCode: accessCode,
+		},
+	});
   }; // end registerUser
 
   return (

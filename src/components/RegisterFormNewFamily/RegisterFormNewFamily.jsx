@@ -145,7 +145,16 @@ function RegisterFormNewFamily() {
         </label>
         </div>
         <div>
-          
+        <label htmlFor="acess_code">
+          Family Access Code:
+          <input 
+          type="text"
+          name="photo"
+          value={accessCode}
+          required
+          onChange={(event) => setAccessCode(event.target.value)}
+          />
+        </label>
         </div>
 
 

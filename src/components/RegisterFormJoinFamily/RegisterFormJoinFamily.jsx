@@ -9,7 +9,7 @@ function RegisterFormJoinFamily() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [relationship, setRelationship] = useState('');
-  const [photoJoinFam, setPhotoJoinFam] = useState('');
+  const [photo_url, setPhoto_Url] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ function RegisterFormJoinFamily() {
         phoneNumber: phoneNumber,
         email: email,
         relationship: relationship,
-        photoJoinFam: photoJoinFam
+        photo_url: photo_url,
       },
     });
   }; // end registerUser
@@ -129,9 +129,9 @@ function RegisterFormJoinFamily() {
           <input
             type="url"
             name="photo"
-            value={photoJoinFam}
+            value={photo_url}
             required
-            onChange={(event) => setPhotoJoinFam(event.target.value)}
+            onChange={(event) => setPhoto_Url(event.target.value)}
           />
         </label>
       </div>

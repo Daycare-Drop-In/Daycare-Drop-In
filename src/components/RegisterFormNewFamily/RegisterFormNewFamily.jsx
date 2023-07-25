@@ -10,7 +10,7 @@ function RegisterFormNewFamily() {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
-  const [photoNewFam, setPhotoNewFam] = useState('');
+  const [photo_url, setPhoto_Url] = useState('');
   const [accessCode, setAccessCode] = useState('');
 
   const errors = useSelector((store) => store.errors);
@@ -30,7 +30,7 @@ function RegisterFormNewFamily() {
         city: city,
         state: state,
         zip: zip,
-        photoNewFam: photoNewFam,
+        photo_url: photo_url,
         accessCode: accessCode
       },
     });
@@ -146,9 +146,9 @@ function RegisterFormNewFamily() {
           <input 
           type="url"
           name="photo"
-          value={photoNewFam}
+          value={photo_url}
           required
-          onChange={(event) => setPhotoNewFam(event.target.value)}
+          onChange={(event) => setPhoto_Url(event.target.value)}
           />
         </label>
         </div>

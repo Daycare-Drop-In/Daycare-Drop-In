@@ -4,6 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 function RegisterFormJoinFamily() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] =- useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [relationship, setRelationship] = useState('');
+  const [photo_url, setPhoto_Url] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -15,6 +21,12 @@ function RegisterFormJoinFamily() {
       payload: {
         username: username,
         password: password,
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        email: email,
+        relationship: relationship,
+        photo_url: photo_url,
       },
     });
   }; // end registerUser
@@ -51,6 +63,81 @@ function RegisterFormJoinFamily() {
           />
         </label>
       </div>
+      <div>
+      <label htmlFor="first_name">
+          First Name:
+          <input
+            type="text"
+            name="first name"
+            value={firstName}
+            required
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+      <label htmlFor="last_name">
+          Last Name:
+          <input
+            type="text"
+            name="last name"
+            value={lastName}
+            required
+            onChange={(event) => setLastName(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+      <label htmlFor="phone_number">
+          Phone #:
+          <input
+            type="text"
+            name="phone number"
+            value={phoneNumber}
+            required
+            onChange={(event) => setPhoneNumber(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+      <label htmlFor="email">
+          Email:
+          <input
+            type="text"
+            name="email"
+            value={email}
+            required
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+      <label htmlFor="relationship">
+          Relation To Child:
+          <input
+            type="text"
+            name="relationship"
+            value={relationship}
+            required
+            onChange={(event) => setRelationship(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+      <label htmlFor="photo">
+          Photo:
+          <input
+            type="url"
+            name="photo"
+            value={photo_url}
+            required
+            onChange={(event) => setPhoto_Url(event.target.value)}
+          />
+        </label>
+      </div>
+
+
+
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>

@@ -32,8 +32,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 //     });
 // });
 
-router.post('/register/family', (req, res, next) => {
-  const {} = req.body
+router.post('/register/family', async (req, res, next) => {
+  const {
+    familyName,
+    address,
+    unit,
+    city,
+    state,
+    zip,
+    photo_url,
+    accessCode
+  } = req.body
 
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
@@ -68,9 +77,28 @@ router.post('/register/new_family_user', (req, res, next) => {
 });
 
 router.post('/register/provider', (req, res, next) => {
-  const {} = req.body;
-
-
+  const {
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    photo_url,
+    license,
+    business_name,
+    street_address,
+    unit,
+    city,
+    state,
+    zip,
+    start_time,
+    end_time,
+    rates,
+    meals,
+    business_description,
+    personal_description,
+    contract_language,
+  } = req.body;
+  
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 

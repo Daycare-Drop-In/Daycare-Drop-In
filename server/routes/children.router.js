@@ -82,14 +82,22 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
-      .then(() => {
-        res.sendStatus(202);
-      })
-      .catch((error) => {
-        console.log('ERROR IN children PUT', error);
-        res.sendStatus(500);
-      });
+    const childId = req.params.id
+    const {
+      // !!! ADD OBJECT PROPERTIES HERE WHEN THEY ARE READY AND CHANGE THE BLINGS OUT ON LINE 93 !!!!
+    } = req.body
+    const queryText = `
+    UPDATE children SET first_name = $1, last_name = $2, birthdate = $3, allergies = $4, potty_trained = $5, photo_url = $6
+    WHERE id = $7;
+    `;
+      pool.query(queryText, [$1, $2, $3, $4, $5, $6, childId])
+			.then(() => {
+				res.sendStatus(202);
+			})
+			.catch((error) => {
+				console.log("ERROR IN children PUT", error);
+				res.sendStatus(500);
+			});
   } else {
     res.sendStatus(403)
   }

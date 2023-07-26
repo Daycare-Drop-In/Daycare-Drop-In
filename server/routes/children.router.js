@@ -27,9 +27,22 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // POST route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const {
+		// !!! ADD OBJECT PROPERTIES HERE WHEN THEY ARE READY AND ADD THEM TO THE ARRAY ON LINE 43 !!!
+	} = req.body;
+    const queryText = `INSERT INTO children (
+		family_id,
+		first_name,
+		last_name,
+		birthdate,
+		allergies,
+		potty_trained,
+		photo_url
+	)
+VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    pool.query(queryText, [])
       .then(() => {
-        res.sendStatus(202);
+        res.sendStatus(201);
       })
       .catch((error) => {
         console.log('ERROR IN children POST', error);

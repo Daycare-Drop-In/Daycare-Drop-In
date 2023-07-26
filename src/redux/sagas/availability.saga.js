@@ -15,10 +15,10 @@ filtered by relevance to the user
         yield put SET_FILTERED_AVAIL
 */
 
-function* responsibleAdultSaga() {
+function* availabilitySaga() {
   yield takeLatest("GET_AVAIL", getAvail);
   yield takeLatest("UPDATE_AVAIL", updateAvail);
   yield takeLatest("GET_FILTERED_AVAIL", getFilteredAvail);
 }
 
-export default responsibleAdultSaga;
+export default availabilitySaga;

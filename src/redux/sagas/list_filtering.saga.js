@@ -6,9 +6,9 @@ import axios from "axios";
 
 
 
-function* listFilteringSaga() {
+function* filterListSaga() {
 	yield takeLatest('',);
 
 }
 
-export default listFilteringSaga;
+export default filterListSaga;

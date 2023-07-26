@@ -2,13 +2,14 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import bookings from './booking.saga';
-import children from './children.saga';
-import family from './family.saga'
-import filterList from './list_filtering.saga'
-import photos from './photos.saga'
-import provider from './provider.saga'
-import responsibleAdult from './responsible_adult.saga';
+import bookingsSaga from './booking.saga';
+import childrenSaga from './children.saga';
+import familySaga from './family.saga'
+import filterListSaga from './list_filtering.saga'
+import photosSaga from './photos.saga'
+import providerSaga from './provider.saga'
+import responsibleAdultSaga from './responsible_adult.saga';
+import availabilitySaga from './availability.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -20,14 +21,15 @@ import responsibleAdult from './responsible_adult.saga';
 export default function* rootSaga() {
   yield all([
     loginSaga(), // login saga is now registered
+    availabilitySaga(),
     registrationSaga(),
     userSaga(),
-    bookings(),
-    children(),
-    family(),
-    filterList(),
-    photos(),
-    provider(),
-    responsibleAdult()
+    bookingsSaga(),
+    childrenSaga(),
+    familySaga(),
+    filterListSaga(),
+    photosSaga(),
+    providerSaga(),
+    responsibleAdultSaga()
   ]);
 }

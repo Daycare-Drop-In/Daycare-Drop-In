@@ -8,7 +8,15 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const queryText = `SELECT "user".first_name AS parent_first_name,
+	"user".last_name AS parent_last_name,
+	"user".email AS parent_email,
+	"user".phone_number AS parent_number,
+	"user".photo_url AS parent_pic,
+	families.*
+FROM "user"
+	JOIN families ON "user".family_id = families.id;`;
+    pool.query(queryText)
       .then(() => {
         res.send(result.rows);
       })

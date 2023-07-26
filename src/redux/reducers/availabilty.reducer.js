@@ -1,4 +1,4 @@
-const availabilityReducer = (state = [], action) => {
+const availReducer = (state = [], action) => {
     switch(action.type) {
         case 'SET_AVAIL':
             return action.payload;
@@ -7,7 +7,7 @@ const availabilityReducer = (state = [], action) => {
     }
 }
 
-const FilteredAvailabilityReducer = (state = [], action) => {
+const filteredAvailReducer = (state = [], action) => {
     switch(action.type) {
         case 'SET_FILTERED_AVAIL':
             return action.payload;
@@ -17,6 +17,6 @@ const FilteredAvailabilityReducer = (state = [], action) => {
 }        
 
 export default combineReducers({
-    loginMessage,
-    registrationMessage,
+   availReducer,
+   filteredAvailReducer
   });

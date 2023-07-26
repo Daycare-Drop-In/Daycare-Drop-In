@@ -1,4 +1,4 @@
-const familyReducer = (state = [], action) => {
+const familyReducer = (state = {}, action) => {
     switch(action.type) {
         case 'SET_FAMILY':
             return action.payload;
@@ -7,4 +7,16 @@ const familyReducer = (state = [], action) => {
     }
 }
 
-export default familyReducer;
+const familiesReducer = (state = [], action) => {
+    switch(action.type) {
+        case 'SET_FAMILIES':
+            return action.payload;
+            default:
+                return state;
+    }
+}
+
+export default combineReducers({
+    familyReducer,
+    familiesReducer
+   });

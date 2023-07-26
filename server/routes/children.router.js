@@ -43,7 +43,12 @@ router.post('/', (req, res) => {
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
   if (req.isAuthenticated()) {
-    pool.query()
+    const famId = req.params.id
+    const queryText = `
+    SELECT *
+    FROM children
+    WHERE family_id = $1;`;
+    pool.query(queryText, [famId])
     .then(() => {
       res.send(result.rows);
     })

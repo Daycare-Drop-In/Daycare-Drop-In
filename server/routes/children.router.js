@@ -27,9 +27,22 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // POST route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const {
+		// !!! ADD OBJECT PROPERTIES HERE WHEN THEY ARE READY AND ADD THEM TO THE ARRAY ON LINE 43 !!!
+	} = req.body;
+    const queryText = `INSERT INTO children (
+		family_id,
+		first_name,
+		last_name,
+		birthdate,
+		allergies,
+		potty_trained,
+		photo_url
+	)
+VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    pool.query(queryText, [])
       .then(() => {
-        res.sendStatus(202);
+        res.sendStatus(201);
       })
       .catch((error) => {
         console.log('ERROR IN children POST', error);
@@ -43,7 +56,12 @@ router.post('/', (req, res) => {
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
   if (req.isAuthenticated()) {
-    pool.query()
+    const famId = req.params.id
+    const queryText = `
+    SELECT *
+    FROM children
+    WHERE family_id = $1;`;
+    pool.query(queryText, [famId])
     .then(() => {
       res.send(result.rows);
     })
@@ -61,7 +79,10 @@ router.get('/details/:id', (req, res) => {
 router.delete('/delete/:id', (req, res) => {
   console.log('IN children DELETE ROUTE, and req.params is:', req.params.id);
   if (req.isAuthenticated()) {
-    pool.query()
+    const childId = req.params.id
+    const queryText = `DELETE FROM children
+WHERE id = $1;`;
+    pool.query(queryText, [childId])
     .then(() => {
       res.sendStatus(200);
     })
@@ -77,14 +98,22 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
-      .then(() => {
-        res.sendStatus(202);
-      })
-      .catch((error) => {
-        console.log('ERROR IN children PUT', error);
-        res.sendStatus(500);
-      });
+    const childId = req.params.id
+    const {
+      // !!! ADD OBJECT PROPERTIES HERE WHEN THEY ARE READY AND CHANGE THE BLINGS OUT ON LINE 93 !!!!
+    } = req.body
+    const queryText = `
+    UPDATE children SET first_name = $1, last_name = $2, birthdate = $3, allergies = $4, potty_trained = $5, photo_url = $6
+    WHERE id = $7;
+    `;
+      pool.query(queryText, [$1, $2, $3, $4, $5, $6, childId])
+			.then(() => {
+				res.sendStatus(202);
+			})
+			.catch((error) => {
+				console.log("ERROR IN children PUT", error);
+				res.sendStatus(500);
+			});
   } else {
     res.sendStatus(403)
   }

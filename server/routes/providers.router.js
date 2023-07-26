@@ -8,7 +8,15 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const queryText = `SELECT providers.*,
+	"user".first_name AS prov_first_name,
+	"user".last_name AS prov_last_name,
+	"user".email AS prov_email,
+	"user".phone_number AS prov_number,
+	"user".photo_url AS prov_pic
+FROM providers
+	JOIN "user" ON providers.user_id = "user".id;`;
+    pool.query(queryText)
       .then(() => {
         res.send(result.rows);
       })
@@ -43,7 +51,17 @@ router.post('/', (req, res) => {
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
   if (req.isAuthenticated()) {
-    pool.query()
+    const providerId = req.params.id
+    const queryText = `SELECT providers.*,
+	"user".first_name,
+	"user".last_name,
+	"user".email,
+	"user".phone_number,
+	"user".photo_url AS provider_pic
+FROM providers
+	JOIN "user" ON providers.user_id = "user".id
+WHERE providers.id = $1;`;
+    pool.query(queryText, [providerId])
     .then(() => {
       res.send(result.rows);
     })
@@ -61,7 +79,10 @@ router.get('/details/:id', (req, res) => {
 router.delete('/delete/:id', (req, res) => {
   console.log('IN providers DELETE ROUTE, and req.params is:', req.params.id);
   if (req.isAuthenticated()) {
-    pool.query()
+    const providerId = req.params.id
+    const queryText = `DELETE FROM providers
+WHERE id = $1;`;
+    pool.query(queryText, [providerId])
     .then(() => {
       res.sendStatus(200);
     })
@@ -77,7 +98,27 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
+    const providerId = req.params.id
+    const {
+      // !!! ADD OBJECT PROPERTIES HERE WHEN READY AND CHANGE THEM OUT FOR THE BLINGS ON LINE 118 !!!
+    }= req.body
+    const queryText = `UPDATE providers
+SET license = $1,
+	business_name = $2,
+	street_address = $3,
+	unit = $4,
+	city = $5,
+	state = $6,
+	zip = $7,
+	hours_open = $8,
+	hours_close = $9,
+	rates = $10,
+	meals = $11,
+	business_description = $12,
+	personal_description = $13,
+	contract_language = $14
+WHERE id = $15;`;
+      pool.query(queryText, [$1-$14, providerId])
       .then(() => {
         res.sendStatus(202);
       })

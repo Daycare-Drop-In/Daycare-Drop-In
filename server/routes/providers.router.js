@@ -8,7 +8,15 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const queryText = `SELECT providers.*,
+	"user".first_name AS prov_first_name,
+	"user".last_name AS prov_last_name,
+	"user".email AS prov_email,
+	"user".phone_number AS prov_number,
+	"user".photo_url AS prov_pic
+FROM providers
+	JOIN "user" ON providers.user_id = "user".id;`;
+    pool.query(queryText)
       .then(() => {
         res.send(result.rows);
       })

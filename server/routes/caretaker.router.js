@@ -27,7 +27,20 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // POST route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const {
+      // !!! ADD OBJECT PROPERTIES HERE WHEN READY AND SWAP THEM IN FOR THE BLINGS IN THE ARRAY ON LINE 43 !!!
+    } = req.body
+    const queryText = `INSERT INTO responsible_adults (
+		family_id,
+		first_name,
+		last_name,
+		phone_number,
+		email,
+		relationship_to_child,
+		photo_url
+	)
+VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    pool.query(queryText, [$1-$7])
       .then(() => {
         res.sendStatus(202);
       })

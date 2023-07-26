@@ -6,6 +6,8 @@ function FamilyChildCards () {
     return (
         <Card>
 
+
+
         </Card>
         // <div className="container">
         //     <h2>Child Card</h2>

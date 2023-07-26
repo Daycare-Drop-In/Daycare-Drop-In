@@ -11,6 +11,7 @@ function* getFamily() -- get all the info for a particular family (to render fam
 
 function* updateFamily() -- update info for a particular family
 	 	yield put GET_FAMILY to re-render updated info
+		needs an action.payload
 
 function deleteFamily() -- lets admin remove a family from the database
 		yield put GET_ALL_FAMILIES to rerender updated info

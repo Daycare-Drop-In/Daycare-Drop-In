@@ -9,6 +9,7 @@ function* getAvail() -- get all the availability data for a particular provider
 
 function* updateAvail() -- update availability info for a provider 
 		yield put GET_AVAIL to rerender the updated list
+    don't forget action.payload
 
 function* getFilteredAvail() -- get all the availability info for the list of providers, 
 filtered by relevance to the user

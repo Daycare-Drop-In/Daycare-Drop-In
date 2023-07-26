@@ -12,6 +12,7 @@ function* postChild() -- add a child
 
 function* updateChild() -- update info for a particular child
 		yield put SET_CHILDREN
+		needs an action.payload
 
 function deleteChild() -- delete a child from the database
 

@@ -43,7 +43,11 @@ router.post('/', (req, res) => {
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
   if (req.isAuthenticated()) {
-    pool.query()
+    const famId = req.params.id
+    const queryText = `SELECT *
+FROM responsible_adults
+WHERE responsible_adults.family_id = $1;`;
+    pool.query(queryText, [adultId])
     .then(() => {
       res.send(result.rows);
     })

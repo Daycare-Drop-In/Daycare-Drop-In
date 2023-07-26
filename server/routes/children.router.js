@@ -79,7 +79,10 @@ router.get('/details/:id', (req, res) => {
 router.delete('/delete/:id', (req, res) => {
   console.log('IN children DELETE ROUTE, and req.params is:', req.params.id);
   if (req.isAuthenticated()) {
-    pool.query()
+    const childId = req.params.id
+    const queryText = `DELETE FROM children
+WHERE id = $1;`;
+    pool.query(queryText, [childId])
     .then(() => {
       res.sendStatus(200);
     })

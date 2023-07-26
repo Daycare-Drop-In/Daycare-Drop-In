@@ -23,6 +23,7 @@ import axios from 'axios';
 // }
 
 function* registerFamilyUser(action) {
+  console.log('ARRIVED AT REGISTER FAMILY SAGA');
   const credentials = {username: action.payload.username , password: action.payload.password }
 	try {
 		yield put({ type: "CLEAR_REGISTRATION_ERROR" });

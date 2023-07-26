@@ -11,6 +11,7 @@ import providerSaga from './provider.saga'
 import responsibleAdultSaga from './responsible_adult.saga';
 import availabilitySaga from './availability.saga';
 
+
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -31,5 +32,4 @@ export default function* rootSaga() {
     photosSaga(),
     providerSaga(),
     responsibleAdultSaga()
-  ]);
 }

@@ -21,7 +21,6 @@ function RegisterFormNewFamily() {
 
   const registerUser = (event) => {
     event.preventDefault();
-
     dispatch({
 		type: "REGISTER_FAMILY",
 		payload: {
@@ -39,7 +38,7 @@ function RegisterFormNewFamily() {
 			zip: zip,
 			photo_url: photo_Url,
 			accessCode: accessCode,
-		},
+		}
 	});
   }; // end registerUser
 

@@ -81,7 +81,19 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
+    const adultId = req.params.id
+    const {
+      // !!! ADD OBJECT PROPERTIES HERE WHEN READY AND REPLACE THE BLINGS IN THE ARRAY ON LINE 96 !!!
+    } = req.body
+    const queryText = `UPDATE responsible_adults
+SET first_name = $1,
+	last_name = $2,
+	phone_number = $3,
+	email = $4,
+	relationship_to_child = $5,
+	photo_url = $6
+WHERE id = $7;`;
+      pool.query(queryText, [$1-$6, adultId])
       .then(() => {
         res.sendStatus(202);
       })

@@ -1,10 +1,22 @@
-const availabilityReducer = (state = [], action) => {
+const availReducer = (state = [], action) => {
     switch(action.type) {
-        case 'SET_AVAILABILITY':
+        case 'SET_AVAIL':
             return action.payload;
-            default:
+        default:
                 return state;
     }
 }
 
-export default availabilityReducer;
+const filteredAvailReducer = (state = [], action) => {
+    switch(action.type) {
+        case 'SET_FILTERED_AVAIL':
+            return action.payload;
+        default:
+            return state;
+    }
+}        
+
+export default combineReducers({
+   availReducer,
+   filteredAvailReducer
+  });

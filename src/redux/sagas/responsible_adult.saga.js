@@ -11,6 +11,7 @@ function* postAdult() -- add a new responsible adult to a family
 
 function* updateAdult() -- update info for a particular adult
 		yield put GET_ADULTS to rerender the updated list
+    don't forget action.payload
 
 function deleteAdult() -- delete an adult 
  		yield put GET_ADULTS to rerender the updated list

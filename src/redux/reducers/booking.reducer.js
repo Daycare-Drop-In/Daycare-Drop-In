@@ -1,5 +1,3 @@
-/* update to include SET_BOOKING and SET_BOOKINGS? */
-
 
 const bookingReducer = (state = [], action) => {
     switch(action.type) {

@@ -10,9 +10,10 @@ function* getProvider() -- get all the info for a particular provider (to render
 
 function* updateProvider() -- update info for a particular provider
 	 	yield put GET_PROVIDER to re-render updated info
+		need an action.payload
 
 function* getAllProviders() -- all the providers in the database (for admin view, maybe for static list view? )
-		yield put SET_PROVIDERS
+		yield put SET_ALL_PROVIDERS
 
 function deleteProvider() -- lets admin remove a provider from the database
 		yield put GET_ALL_PROVIDERS to rerender updated info

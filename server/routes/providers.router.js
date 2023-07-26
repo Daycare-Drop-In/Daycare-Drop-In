@@ -95,7 +95,27 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
+    const providerId = req.params.id
+    const {
+      // !!! ADD OBJECT PROPERTIES HERE WHEN READY AND CHANGE THEM OUT FOR THE BLINGS ON LINE 118 !!!
+    }= req.body
+    const queryText = `UPDATE providers
+SET license = $1,
+	business_name = $2,
+	street_address = $3,
+	unit = $4,
+	city = $5,
+	state = $6,
+	zip = $7,
+	hours_open = $8,
+	hours_close = $9,
+	rates = $10,
+	meals = $11,
+	business_description = $12,
+	personal_description = $13,
+	contract_language = $14
+WHERE id = $15;`;
+      pool.query(queryText, [$1-$14, providerId])
       .then(() => {
         res.sendStatus(202);
       })

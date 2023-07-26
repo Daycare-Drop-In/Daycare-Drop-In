@@ -95,7 +95,21 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
+    const famId = req.params.id;
+    const {
+      // !!! ADD THE OBJECT PROPERTIES HERE WHEN READY AND REPLACE THE BLING STUFF IN THE ARRAY ON LINE 112!!!
+    } = req.body;
+    const queryText = `UPDATE families
+SET family_name = $1,
+	street_address = $2,
+	unit = $3,
+	city = $4,
+	state = $5,
+	zip = $6,
+	photo_url = $7,
+	access_code = $8
+WHERE id = $9;`;
+      pool.query(queryText, [$1-$8, famId])
       .then(() => {
         res.sendStatus(202);
       })

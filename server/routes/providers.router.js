@@ -79,7 +79,10 @@ WHERE providers.id = $1;`;
 router.delete('/delete/:id', (req, res) => {
   console.log('IN providers DELETE ROUTE, and req.params is:', req.params.id);
   if (req.isAuthenticated()) {
-    pool.query()
+    const providerId = req.params.id
+    const queryText = `DELETE FROM providers
+WHERE id = $1;`;
+    pool.query(queryText, [providerId])
     .then(() => {
       res.sendStatus(200);
     })

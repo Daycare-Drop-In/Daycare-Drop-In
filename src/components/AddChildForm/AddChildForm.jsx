@@ -17,13 +17,24 @@ function AddChildForm() {
 
 
     const registerChild = (event) => {
-
+        dispatch ({
+            type: "GET_CHILDREN",
+            payload: {
+                firstName: firstName,
+                lastName: lastName,
+                birthdate: birthdate, 
+                allergies: allergies,
+                pottyTrained: pottyTrained,
+                photo_url: photo_url
+                
+            },
+        })
     }
 
 
     return (
-        <form className="formPanel" onSubmit={registerUser}>
-            <h2>Register New Family</h2>
+        <form className="formPanel" onSubmit={registerChild}>
+            <h2>Register Your Child</h2>
             {errors.registrationMessage && (
                 <h3 className="alert" role="alert">
                     {errors.registrationMessage}
@@ -109,7 +120,7 @@ function AddChildForm() {
             </div>
 
             <div>
-                <input className="btn" type="submit" name="submit" value="Register" />
+                <input className="btn" type="submit" name="submit" value="Submit" />
             </div>
         </form>
     )

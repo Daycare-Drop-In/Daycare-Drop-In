@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import errors from "./errors.reducer";
 import user from "./user.reducer";
 import familyReducer from "./family.reducer";
-import providerReducer from "./providers.reducer";
+import provider from "./providers.reducer";
 import bookingReducer from "./booking.reducer";
 import childrenReducer from "./children.reducer";
 import responsibleAdultsReducer from "./responsible_adults.reducer";
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   user,
   //all reducers correspond to a data table
   familyReducer,
-  providerReducer,
+  provider,
   bookingReducer,
   childrenReducer,
   responsibleAdultsReducer,

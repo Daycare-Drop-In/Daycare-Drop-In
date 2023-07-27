@@ -1,5 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 
 //COMPONENT IMPORTS
 import LogOutButton from "../LogOutButton/LogOutButton";
@@ -9,33 +10,34 @@ import ProviderBookingsTable from "../ProviderBookingsTable/ProviderBookingsTabl
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
 function ProviderHomePage() {
-  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  // const { providerId } = useParams();
+  const userId = useSelector((store) => store.user.id);
 
-  
+  useEffect(() => {
+    //dispatches request for provider info based on userID
+    console.log("Dispatching request for data of provider-user ID:", userId);
+    dispatch({ type: "GET_PROVIDER_USER", payload: userId });
+  }, []);
 
+  const provider = useSelector((store) => store.provider);
 
-
+  console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
   return (
     <div className="container">
-        <div className="provider-header">
-          <div className="provider-business-name">
-
-          </div>
-          <div className="provider-name">
-
-          </div>
+      <div className="provider-header">
+        <div className="provider-business-name">
+          <h1>{provider.business_name}</h1>
         </div>
-
-      <div className="provider-profile-photo">
+        <div className="provider-name"></div>
       </div>
 
-     <div className="provider-contact-info">
+      <div className="provider-profile-photo"></div>
 
-     </div>
+      <div className="provider-contact-info"></div>
 
       <ProviderAvailabilityTable />
-
 
       <ProviderBookingProcess />
 
@@ -43,7 +45,6 @@ function ProviderHomePage() {
       <div className="business-description"></div>
 
       <ProviderPhotoGallery />
-     
 
       <ProviderBookingsTable />
 

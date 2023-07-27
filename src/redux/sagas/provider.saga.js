@@ -10,8 +10,22 @@ function getFilteredProviders() -- providers to display in the list, filtered fo
 function* getProvider(id) {
   console.log("Inside getProvider saga for provider of id:", id.payload);
   try {
-    const provider = yield axios.get(`/api/provider/${id.payload}`);
-    yield put({ type: "SET_PROVIDER", payload: provider.data });
+    const provider = yield axios.get(`/api/provider/details/${id.payload}`);
+    yield put({ type: "SET_PROVIDER", payload: provider.data[0] });
+  } catch (error) {
+    console.log("Error in getProvider saga:", error);
+  }
+}
+
+//get all the info for a particular provider by userID
+function* getProviderUser(id) {
+  console.log(
+    "Inside getProviderUser saga for a provider-user of ID:",
+    id.payload
+  );
+  try {
+    const provider = yield axios.get(`/api/provider/user/${id.payload}`);
+    yield put({ type: "SET_PROVIDER", payload: provider.data[0] });
   } catch (error) {
     console.log("Error in getProvider saga:", error);
   }
@@ -39,24 +53,23 @@ function* getAllProviders() {
   }
 }
 
-
 // allows admin to remove a provider from the database
 function* deleteProvider(id) {
-	console.log("Inside deleteProvider for provider of ID:", id.payload);
-	try {
-	  yield axios.delete(`/api/provider/${id.payload}`);
-	} catch (error) {
-	  console.log("Error in deleteProvider saga", error);
-	}
+  console.log("Inside deleteProvider for provider of ID:", id.payload);
+  try {
+    yield axios.delete(`/api/provider/${id.payload}`);
+  } catch (error) {
+    console.log("Error in deleteProvider saga", error);
+  }
 }
-
 
 function* providerSaga() {
   yield takeLatest("GET_PROVIDER", getProvider);
+  yield takeLatest("GET_PROVIDER_USER", getProviderUser);
   yield takeLatest("UPDATE_PROVIDER", updateProvider);
   yield takeLatest("GET_ALL_PROVIDERS", getAllProviders);
   yield takeLatest("DELETE_PROVIDER", deleteProvider);
-//   yield takeLatest("GET_FILTERED_PROVIDERS", getFilteredProviders);
+  //   yield takeLatest("GET_FILTERED_PROVIDERS", getFilteredProviders);
 }
 
 export default providerSaga;

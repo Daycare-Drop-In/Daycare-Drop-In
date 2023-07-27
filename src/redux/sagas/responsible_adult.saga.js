@@ -1,22 +1,53 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-/*PSEUDO-CODE NOTES FOR RESPONSIBLE ADULT SAGAS:
 
-function* getAdults() -- all adults of a particular family 
-		yield put SET_ADULTS
+//Get info for all adults of a particular family
+function* getAdults(id) {
+  console.log("Inside getAdults saga for family of id:", id.payload);
+  try {
+    const adults = yield axios.get(`/api/responsible_adults/${id.payload}`);
+    yield put({ type: "SET_ADULTS", payload: adults.data });
+  } catch (error) {
+    console.log("Error in getAdults saga", error);
+  }
+}
 
-function* postAdult() -- add a new responsible adult to a family
-		yield put GET_ADULTS to rerender the updated list
+//add a new responsible adult to a family
+function* postAdult() {
+  console.log("Inside postAdults saga:", action.payload);
+  try {
+    yield axios.post("/api/responsible_adults", action.payload);
+    yield put({ type: "GET_ADULTS" });
+  } catch {
+    console.log("error with postAdults saga:", error);
+  }
+}
 
-function* updateAdult() -- update info for a particular adult
-		yield put GET_ADULTS to rerender the updated list
-    don't forget action.payload
+//update info for a particular adult
+function* updateAdult() {
+  console.log("Inside updateAdult saga:", action.payload);
+  try {
+    yield axios.put(
+      `/api/responsible_adults/${action.payload.id}`,
+      action.payload
+    );
+    yield put({ type: "GET_ADULTS", payload: action.payload.id });
+  } catch (error) {
+    console.log("error with updateAdult saga:", error);
+  }
+}
 
-function deleteAdult() -- delete an adult 
- 		yield put GET_ADULTS to rerender the updated list
-
-*/
+//Delete the adult of this ID  
+function deleteAdult(id) {
+  console.log("Inside deleteAdult saga for adult of id:", id.payload);
+  try {
+    yield axios.delete(`/api/responsible_adult/${id.payload}`);
+  } catch (error) {
+    console.log("Error in deleteAdult saga:", error);
+  }
+}
+ 	
 
 function* responsibleAdultSaga() {
   yield takeLatest("GET_ADULTS", getAdults);

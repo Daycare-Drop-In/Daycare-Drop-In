@@ -10,21 +10,37 @@ import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingPro
 
 function ProviderHomePage() {
   const user = useSelector((store) => store.user);
+
+  
+
+
+
+
   return (
     <div className="container">
-      <h1>This is a Provider Home Page</h1>
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
+        <div className="provider-header">
+          <div className="provider-business-name">
 
-      <h3>Provider Info</h3>
-      <p>Description!</p>
-      <p>Bio!</p>
-      <p>Contact Info!</p>
-      <p>Edit capabilities for all of this, if you are the provider!</p>
+          </div>
+          <div className="provider-name">
+
+          </div>
+        </div>
+
+      <div className="provider-profile-photo">
+      </div>
+
+     <div className="provider-contact-info">
+
+     </div>
+
       <ProviderAvailabilityTable />
 
 
       <ProviderBookingProcess />
+
+      <div className="provider-bio"></div>
+      <div className="business-description"></div>
 
       <ProviderPhotoGallery />
      

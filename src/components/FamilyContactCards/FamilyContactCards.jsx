@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
 	Box,
 	Card,
@@ -15,39 +15,38 @@ import {
 	DialogContent,
 	DialogTitle,
 	IconButton,
-    CardActionArea,
-
+	CardActionArea,
 } from "@mui/material";
 
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
-function FamilyContactCards () {
-    const dispatch = useDispatch()
-    const user = useSelector((store)=>store.user)
+function FamilyContactCards() {
+	const dispatch = useDispatch();
+	const user = useSelector((store) => store.user);
 
-    const responsibleAdult = {
-         family_id: user.family_id,
-         first_name: "",
-         last_name: "",
-         phone_number: "",
-         email: "",
-         relationship_to_child: "",
-         photo_url: "",
-        };
+	const responsibleAdult = {
+		family_id: user.family_id,
+		first_name: "",
+		last_name: "",
+		phone_number: "",
+		email: "",
+		relationship_to_child: "",
+		photo_url: "",
+	};
 
-  const [newAdult, setNewAdult] = useState(responsibleAdult);
-  const [open, setOpen] = useState(false)
+	const [newAdult, setNewAdult] = useState(responsibleAdult);
+	const [open, setOpen] = useState(false);
 
-  const addNewAdult = () => {
-    dispatch({type:'', payload: responsibleAdult})
-    setOpen(!open)
-    setNewAdult(responsibleAdult)
-    console.log('Submitting');
-  }
+	const addNewAdult = () => {
+		dispatch({ type: "", payload: responsibleAdult });
+		setOpen(!open);
+		setNewAdult(responsibleAdult);
+		console.log("Submitting");
+	};
 
-    return (
+	return (
 		<Container
 			maxWidth={"sm"}
 			sx={{
@@ -105,8 +104,6 @@ function FamilyContactCards () {
 							onSubmit={addNewAdult}
 							autoComplete="off"
 						>
-							{/* FIRST NAME DONE */}
-
 							<TextField
 								placeholder="First Name"
 								required
@@ -124,7 +121,6 @@ function FamilyContactCards () {
 									})
 								}
 							/>
-							{/* LAST NAME DONE */}
 							<TextField
 								placeholder="Last Name"
 								required
@@ -142,8 +138,6 @@ function FamilyContactCards () {
 									})
 								}
 							/>
-							{/* phone_number
-							 */}
 							<TextField
 								placeholder="Phone Number"
 								required
@@ -161,7 +155,6 @@ function FamilyContactCards () {
 									})
 								}
 							/>
-
 							<TextField
 								placeholder="Email"
 								required
@@ -179,7 +172,6 @@ function FamilyContactCards () {
 									})
 								}
 							/>
-
 							<TextField
 								placeholder="Relationship"
 								required
@@ -199,15 +191,18 @@ function FamilyContactCards () {
 								}
 							/>
 							<Container
-                            sx={{display:'flex', flexDirection:'column', justifyContent:'space-evenly', width:'100%'}}
-                            >
-                                <Typography>
-                                    Photo:
-                                </Typography>
+								sx={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "space-evenly",
+									width: "100%",
+								}}
+							>
+								<Typography>Photo:</Typography>
 								<TextField
 									// placeholder="Photo"
 									required
-                                    fullWidth
+									fullWidth
 									name="photo_url"
 									sx={{ bgcolor: "white" }}
 									type="file"
@@ -237,14 +232,13 @@ function FamilyContactCards () {
 			)}
 		</Container>
 	);
-        // <div className="container">
-        //     <h2>Contact Card</h2>
-        //     <p>This component will be mapped over to create contact cards
-        //         for each 'Responsible Adult'.</p>
-        //     <p>Included info: Name, contact info, misc info.</p>
-        //     <p>The page owner should also be able to edit each card.</p>
-        // </div>
-
+	// <div className="container">
+	//     <h2>Contact Card</h2>
+	//     <p>This component will be mapped over to create contact cards
+	//         for each 'Responsible Adult'.</p>
+	//     <p>Included info: Name, contact info, misc info.</p>
+	//     <p>The page owner should also be able to edit each card.</p>
+	// </div>
 }
 
 export default FamilyContactCards;

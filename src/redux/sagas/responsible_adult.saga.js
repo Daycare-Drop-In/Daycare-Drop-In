@@ -14,10 +14,10 @@ function* getAdults(id) {
 }
 
 //add a new responsible adult to a family
-function* postAdult() {
+function* postAdult(action) {
   console.log("Inside postAdults saga:", action.payload);
   try {
-    yield axios.post("/api/responsible_adults", action.payload);
+    yield axios.post("/api/caretaker", action.payload);
     yield put({ type: "GET_ADULTS" });
   } catch {
     console.log("error with postAdults saga:", error);

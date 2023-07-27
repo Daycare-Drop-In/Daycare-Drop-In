@@ -65,11 +65,11 @@ function FamilyContactCards() {
 						display: "flex",
 						flexDirection: "row",
 
-						mb: -2,
+						mb: 0,
 					}}
 					onClick={() => setOpen(!open)}
 				>
-					<Typography variant="h4">Add an adult</Typography>
+					<Typography variant="h5">Add an adult</Typography>
 					<PersonAddAlt1Icon sx={{ fontSize: "3rem", ml: 3 }} />
 				</IconButton>
 			) : (
@@ -234,21 +234,24 @@ function FamilyContactCards() {
 					</CardContent>
 				</Card>
 			)}
-			<Card
-            sx={{width:'100%',}}
-            raised
-            >
-				<Grid container spacing={1}>
-					<Grid item>
-						<CardMedia
-							component="img"
-							sx={{ objectFit: "contain", height: 450 }}
-							image={rAdult.photo_url}
-							alt={'profile picture'}
-						/>
+            <Typography variant="h7" sx={{mb:1}}>
+                Family name's responsible adults
+
+            </Typography>
+			{rAdult?.map((adult) => (
+				<Card sx={{ width: "100%", mb:1.5 }} raised>
+					<Grid container spacing={1}>
+						<Grid item>
+							<CardMedia
+								component="img"
+								sx={{ objectFit: "contain", height: 80 }}
+								image={adult.photo_url}
+								alt={"profile picture"}
+							/>
+						</Grid>
 					</Grid>
-				</Grid>
-			</Card>
+				</Card>
+			))}
 		</Container>
 	);
 	// <div className="container">

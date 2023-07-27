@@ -54,19 +54,18 @@ function FamilyContactCards () {
 			}}
 		>
 			{!open ? (
-                <IconButton
-				sx={{
-					display: "flex",
-					flexDirection: "row",
+				<IconButton
+					sx={{
+						display: "flex",
+						flexDirection: "row",
 
-					mb: -2,
-				}}
-                onClick={()=>setOpen(!open)}
-			>
-				<Typography variant="h4">Add an adult</Typography>
-				<PersonAddAlt1Icon sx={{ fontSize: "3rem", ml: 3 }} />
-			</IconButton>
-
+						mb: -2,
+					}}
+					onClick={() => setOpen(!open)}
+				>
+					<Typography variant="h4">Add an adult</Typography>
+					<PersonAddAlt1Icon sx={{ fontSize: "3rem", ml: 3 }} />
+				</IconButton>
 			) : (
 				<Card
 					elevation={8}
@@ -90,9 +89,10 @@ function FamilyContactCards () {
 								title={"New responsible adult"}
 								align={"center"}
 							/>
-							<IconButton size="large"
-                            onClick={()=> setOpen(!open)}
-                            >
+							<IconButton
+								size="large"
+								onClick={() => setOpen(!open)}
+							>
 								<CloseOutlinedIcon />
 							</IconButton>
 						</CardContent>
@@ -102,6 +102,8 @@ function FamilyContactCards () {
 							onSubmit={addNewAdult}
 							autoComplete="off"
 						>
+							{/* FIRST NAME DONE */}
+
 							<TextField
 								placeholder="First Name"
 								required
@@ -110,7 +112,7 @@ function FamilyContactCards () {
 								type="text"
 								margin="normal"
 								fullWidth
-								label="Adult's First Name"
+								label="First Name"
 								value={newAdult.first_name}
 								onChange={(event) =>
 									setNewAdult({
@@ -119,6 +121,105 @@ function FamilyContactCards () {
 									})
 								}
 							/>
+							{/* LAST NAME DONE */}
+							<TextField
+								placeholder="Last Name"
+								required
+								name="last_name"
+								sx={{ bgcolor: "white" }}
+								type="text"
+								margin="normal"
+								fullWidth
+								label="Adult's Last Name"
+								value={newAdult.last_name}
+								onChange={(event) =>
+									setNewAdult({
+										...newAdult,
+										last_name: event.target.value,
+									})
+								}
+							/>
+							{/* phone_number
+							 */}
+							<TextField
+								placeholder="Phone Number"
+								required
+								name="phone_number"
+								sx={{ bgcolor: "white" }}
+								type="text"
+								margin="normal"
+								fullWidth
+								label="Phone number"
+								value={newAdult.phone_number}
+								onChange={(event) =>
+									setNewAdult({
+										...newAdult,
+										phone_number: event.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								placeholder="Email"
+								required
+								name="email"
+								sx={{ bgcolor: "white" }}
+								type="text"
+								margin="normal"
+								fullWidth
+								label="email"
+								value={newAdult.email}
+								onChange={(event) =>
+									setNewAdult({
+										...newAdult,
+										email: event.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								placeholder="Relationship"
+								required
+								name="relationship_to_child"
+								sx={{ bgcolor: "white" }}
+								type="text"
+								margin="normal"
+								fullWidth
+								label="Relationship to child"
+								value={newAdult.relationship_to_child}
+								onChange={(event) =>
+									setNewAdult({
+										...newAdult,
+										relationship_to_child:
+											event.target.value,
+									})
+								}
+							/>
+							<Container
+                            sx={{display:'flex', flexDirection:'column', justifyContent:'space-evenly', width:'100%'}}
+                            >
+                                <Typography>
+                                    Photo:
+                                </Typography>
+								<TextField
+									// placeholder="Photo"
+									required
+                                    fullWidth
+									name="photo_url"
+									sx={{ bgcolor: "white" }}
+									type="file"
+									margin="normal"
+									// label="Picture"
+									value={newAdult.photo_url}
+									onChange={(event) =>
+										setNewAdult({
+											...newAdult,
+											photo_url: event.target.value,
+										})
+									}
+								/>
+							</Container>
+
 							<Button
 								type="submit"
 								sx={{ m: 2 }}

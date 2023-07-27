@@ -25,7 +25,7 @@ function* updateAvailability(action) {
   console.log("Inside updateAvailability saga:", action.payload);
   try {
     yield axios.put(`/api/availability/${action.payload.id}`, action.payload);
-    yield put({ type: "GET_AVAILABILITY", payload: action.payload.id });
+    yield put({ type: "GET_ALL_AVAILABILITY"});
   } catch (error) {
     console.log("error with update request in post saga:", error);
   }

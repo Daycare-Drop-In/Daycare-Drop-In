@@ -239,14 +239,17 @@ ORDER BY bookings.service_date ASC;`;
 router.delete('/delete/:id', (req, res) => {
   console.log('IN bookings DELETE ROUTE, and req.params is:', req.params.id);
   if (req.isAuthenticated()) {
-    pool.query()
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.log('ERROR IN bookings DELETE', error);
-      res.sendStatus(500);
-    });
+    const bookingId = req.params.id;
+	const queryText = `DELETE FROM bookings
+WHERE id = $1;`;
+	pool.query(queryText, [bookingId])
+		.then(() => {
+			res.sendStatus(200);
+		})
+		.catch((error) => {
+			console.log("ERROR IN bookings DELETE", error);
+			res.sendStatus(500);
+		});
 } else {
   res.sendStatus(403)
 }
@@ -255,10 +258,7 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-    const bookingId = req.params.id
-    const queryText = `DELETE FROM bookings
-WHERE id = $1;`;
-      pool.query(queryText, [bookingId])
+      pool.query()
       .then(() => {
         res.sendStatus(202);
       })

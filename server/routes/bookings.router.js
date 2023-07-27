@@ -153,7 +153,10 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
+    const bookingId = req.params.id
+    const queryText = `DELETE FROM bookings
+WHERE id = $1;`;
+      pool.query(queryText, [bookingId])
       .then(() => {
         res.sendStatus(202);
       })

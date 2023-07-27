@@ -74,8 +74,8 @@ router.get('/details/:id', (req, res) => {
     const queryText = `SELECT *
 FROM responsible_adults
 WHERE responsible_adults.family_id = $1;`;
-    pool.query(queryText, [famId])
-    .then(() => {
+    pool.query(queryText, [req.params.id])
+    .then((result) => {
       res.send(result.rows);
     })
     .catch((error) => {

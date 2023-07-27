@@ -57,7 +57,23 @@ router.post('/', (req, res) => {
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
   if (req.isAuthenticated()) {
-    pool.query()
+    const providerId = req.params.id
+    const queryText = `SELECT availability.*,
+	providers.id AS provider_id,
+	providers.business_name AS biz_name,
+	providers.street_address AS provider_street,
+	providers.unit AS provider_unit,
+	providers.city AS provider_city,
+	providers.state AS provider_state,
+	providers.zip AS provider_zip,
+	providers.hours_open AS provider_open,
+	providers.hours_close AS provider_close,
+	providers.meals AS provider_meal
+FROM availability
+	JOIN providers ON availability.provider_id = providers.id
+WHERE providers.id = $1
+ORDER BY "date" ASC;`;
+    pool.query(queryText, [providerId])
     .then(() => {
       res.send(result.rows);
     })

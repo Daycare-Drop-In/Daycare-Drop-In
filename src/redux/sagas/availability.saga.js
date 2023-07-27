@@ -2,13 +2,22 @@ import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 //Gets all the availability data for a provider of the given id
-function* getAvailability(id) {
+function* getAllAvailability() {
   console.log("Inside getAvailability saga for provider of id:", id.payload);
   try {
-    const availability = yield axios.get(`api/availability/${id.payload}`);
+    const availability = yield axios.get(`/api/availability`);
     yield put({ type: "SET_AVAILABILITY", payload: availability.data });
   } catch (error) {
-    console.log("Error in getAvailability saga:", error);
+    console.log("Error in getAllAvailability saga:", error);
+  }
+}
+function* getProviderAvailability(id) {
+  console.log("Inside getAvailability saga for provider of id:", id.payload);
+  try {
+    const availability = yield axios.get(`/api/availability/${id.payload}`);
+    yield put({ type: "SET_AVAILABILITY", payload: availability.data });
+  } catch (error) {
+    console.log("Error in getProviderAvailability saga:", error);
   }
 }
 
@@ -23,7 +32,8 @@ function* updateAvailability(action) {
 }
 
 function* availabilitySaga() {
-  yield takeLatest("GET_AVAILABILITY", getAvailability);
+  yield takeLatest("GET_ALL_AVAILABILITY", getAllAvailability);
+  yield takeLatest("GET_PROVIDER_AVAILABILITY", getProviderAvailability)
   yield takeLatest("UPDATE_AVAILABILITY", updateAvailability);
   // yield takeLatest("GET_FILTERED_AVAIL", getFilteredAvailability);
 }

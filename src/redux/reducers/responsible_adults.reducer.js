@@ -1,4 +1,4 @@
-const responsibleAdultsReducer = (state = [], action) => {
+const responsibleAdults = (state = [], action) => {
   switch (action.type) {
     case "SET_ADULTS":
       return action.payload;
@@ -7,4 +7,4 @@ const responsibleAdultsReducer = (state = [], action) => {
   }
 };
 
-export default responsibleAdultsReducer;
+export default responsibleAdults;

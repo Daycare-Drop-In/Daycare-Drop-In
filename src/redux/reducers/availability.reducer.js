@@ -1,24 +1,12 @@
-import { combineReducers } from "redux";
-
-const availReducer = (state = [], action) => {
+const availability = (state = [], action) => {
   switch (action.type) {
-    case "SET_AVAIL":
+    case "SET_AVAILABILITY":
+      return action.payload;
+    case "SET_FILTERED_AVAILABILITY":
       return action.payload;
     default:
       return state;
   }
 };
 
-const filteredAvailReducer = (state = [], action) => {
-  switch (action.type) {
-    case "SET_FILTERED_AVAIL":
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-export default combineReducers({
-  availReducer,
-  filteredAvailReducer,
-});
+export default availability;

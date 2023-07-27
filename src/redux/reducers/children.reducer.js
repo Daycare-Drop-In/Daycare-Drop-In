@@ -1,6 +1,6 @@
 
 
-const childrenReducer = (state = [], action) => {
+const children = (state = [], action) => {
     switch(action.type) {
         case 'SET_CHILDREN':
             return action.payload;
@@ -9,4 +9,4 @@ const childrenReducer = (state = [], action) => {
     }
 }
 
-export default childrenReducer;
+export default children;

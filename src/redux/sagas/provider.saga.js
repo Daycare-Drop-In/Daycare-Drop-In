@@ -56,7 +56,7 @@ function* providerSaga() {
   yield takeLatest("UPDATE_PROVIDER", updateProvider);
   yield takeLatest("GET_ALL_PROVIDERS", getAllProviders);
   yield takeLatest("DELETE_PROVIDER", deleteProvider);
-  yield takeLatest("GET_FILTERED_PROVIDERS", getFilteredProviders);
+//   yield takeLatest("GET_FILTERED_PROVIDERS", getFilteredProviders);
 }
 
 export default providerSaga;

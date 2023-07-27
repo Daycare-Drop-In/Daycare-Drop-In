@@ -28,7 +28,7 @@ function FamilyContactCards () {
     const user = useSelector((store)=>store.user)
 
     const responsibleAdult = {
-         family_id: "",
+         family_id: user.family_id,
          first_name: "",
          last_name: "",
          phone_number: "",
@@ -41,6 +41,9 @@ function FamilyContactCards () {
   const [open, setOpen] = useState(false)
 
   const addNewAdult = () => {
+    dispatch({type:'', payload: responsibleAdult})
+    setOpen(!open)
+    setNewAdult(responsibleAdult)
     console.log('Submitting');
   }
 

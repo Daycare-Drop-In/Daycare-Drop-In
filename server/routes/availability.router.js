@@ -41,7 +41,19 @@ ORDER BY "date" ASC;`;
 router.post('/', (req, res) => {
   // POST route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const {
+      // !!! ADD OBJECT PROPERTIES WHEN READY AND SWAP THEM IN FOR THE BLINGS IN THE ARRAY ON LINE 56 !!!
+    } = req.body;
+    const queryText = `INSERT INTO availability (
+		provider_id,
+		infant,
+		toddler,
+		pre_k,
+		schoolage,
+		date
+	)
+VALUES($1, $2, $3, $4, $5, $6);`
+    pool.query(queryText, [$1-$6])
       .then(() => {
         res.sendStatus(202);
       })

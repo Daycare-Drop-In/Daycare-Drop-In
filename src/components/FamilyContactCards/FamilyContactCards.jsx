@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Box,
 	Card,
@@ -24,7 +24,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 function FamilyContactCards() {
 	const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch({ type: "GET_ADULTS", payload: user.family_id});
+    },[])
 	const user = useSelector((store) => store.user);
+    const rAdult = useSelector((store)=> store.responsibleAdultsReducer)
 
 	const responsibleAdult = {
 		family_id: user.family_id,
@@ -199,7 +203,7 @@ function FamilyContactCards() {
 								}}
 							>
 								<Typography>Photo:</Typography>
-								{/* <TextField
+								<TextField
 									// placeholder="Photo"
 									required
 									fullWidth
@@ -215,7 +219,7 @@ function FamilyContactCards() {
 											photo_url: event.target.value,
 										})
 									}
-								/> */}
+								/>
 							</Container>
 
 							<Button
@@ -230,6 +234,21 @@ function FamilyContactCards() {
 					</CardContent>
 				</Card>
 			)}
+			<Card
+            sx={{width:'100%',}}
+            raised
+            >
+				<Grid container spacing={1}>
+					<Grid item>
+						<CardMedia
+							component="img"
+							sx={{ objectFit: "contain", height: 450 }}
+							image={rAdult.photo_url}
+							alt={'profile picture'}
+						/>
+					</Grid>
+				</Grid>
+			</Card>
 		</Container>
 	);
 	// <div className="container">

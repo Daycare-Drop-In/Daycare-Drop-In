@@ -22,11 +22,11 @@ function AddChildForm() {
             payload: {
                 firstName: firstName,
                 lastName: lastName,
-                birthdate: birthdate, 
+                birthdate: birthdate,
                 allergies: allergies,
                 pottyTrained: pottyTrained,
                 photo_url: photo_url
-                
+
             },
         })
     }

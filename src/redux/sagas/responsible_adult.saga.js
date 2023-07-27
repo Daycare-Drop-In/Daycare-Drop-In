@@ -6,7 +6,7 @@ import axios from "axios";
 function* getAdults(id) {
   console.log("Inside getAdults saga for family of id:", id.payload);
   try {
-    const adults = yield axios.get(`/api/responsible_adults/${id.payload}`);
+    const adults = yield axios.get(`/api/caretaker/details/${id.payload}`);
     yield put({ type: "SET_ADULTS", payload: adults.data });
   } catch (error) {
     console.log("Error in getAdults saga", error);
@@ -38,7 +38,7 @@ function* updateAdult() {
   }
 }
 
-//Delete the adult of this ID  
+//Delete the adult of this ID
 function* deleteAdult(id) {
   console.log("Inside deleteAdult saga for adult of id:", id.payload);
   try {
@@ -47,7 +47,7 @@ function* deleteAdult(id) {
     console.log("Error in deleteAdult saga:", error);
   }
 }
- 	
+
 
 function* responsibleAdultSaga() {
   yield takeLatest("GET_ADULTS", getAdults);

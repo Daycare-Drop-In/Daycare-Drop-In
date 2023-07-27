@@ -119,7 +119,14 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
+    const availId = req.params.id
+    const queryText = `UPDATE availability
+SET infant = $1,
+	toddler = $2,
+	pre_k = $3,
+	schoolage = $4
+WHERE id = $5;`;
+      pool.query(queryText, [availId])
       .then(() => {
         res.sendStatus(202);
       })

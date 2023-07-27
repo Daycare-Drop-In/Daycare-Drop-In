@@ -44,7 +44,7 @@ function* updateChild(action) {
 }
 
 // Delete a child's info from the database
-function deleteChild(id) {
+function* deleteChild(id) {
 	console.log("Inside deleteChild saga for child of ID:", id.payload);
 	try {
 	  yield axios.delete(`/api/child/${id.payload}`);

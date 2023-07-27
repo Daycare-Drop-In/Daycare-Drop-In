@@ -28,7 +28,13 @@ router.post('/', (req, res) => {
   // POST route code here
   if (req.isAuthenticated()) {
     const {
-      // !!! ADD OBJECT PROPERTIES HERE WHEN READY AND SWAP THEM IN FOR THE BLINGS IN THE ARRAY ON LINE 43 !!!
+      family_id,
+      first_name,
+      last_name,
+      phone_number,
+      email,
+      relationship_to_child,
+      photo_url
     } = req.body
     const queryText = `INSERT INTO responsible_adults (
 		family_id,
@@ -40,14 +46,22 @@ router.post('/', (req, res) => {
 		photo_url
 	)
 VALUES ($1, $2, $3, $4, $5, $6, $7);`;
-    pool.query(queryText, [$1-$7])
-      .then(() => {
-        res.sendStatus(202);
-      })
-      .catch((error) => {
-        console.log('ERROR IN caretaker POST', error);
-        res.sendStatus(500);
-      });
+    pool.query(queryText, [
+		family_id,
+		first_name,
+		last_name,
+		phone_number,
+		email,
+		relationship_to_child,
+    photo_url
+	])
+		.then(() => {
+			res.sendStatus(201);
+		})
+		.catch((error) => {
+			console.log("ERROR IN caretaker POST", error);
+			res.sendStatus(500);
+		});
   } else {
     res.sendStatus(403)
   }
@@ -60,8 +74,8 @@ router.get('/details/:id', (req, res) => {
     const queryText = `SELECT *
 FROM responsible_adults
 WHERE responsible_adults.family_id = $1;`;
-    pool.query(queryText, [adultId])
-    .then(() => {
+    pool.query(queryText, [req.params.id])
+    .then((result) => {
       res.send(result.rows);
     })
     .catch((error) => {

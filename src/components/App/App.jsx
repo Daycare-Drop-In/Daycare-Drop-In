@@ -26,6 +26,7 @@ import RegisterPageNewFamily from "../RegisterPageNewFamily/RegisterPageNewFamil
 import RegisterPageJoinFamily from "../RegisterPageJoinFamily/RegisterPageJoinFamily";
 
 import "./App.css";
+import AdminHomePage from "../AdminHomePage/AdminHomePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -142,6 +143,14 @@ function App() {
           {/* <Route exact path="/static_list">
             <StaticListPage />
           </Route> */}
+
+          <ProtectedRoute
+            // logged in shows admin page else shows LoginPage
+            exact
+            path="/admin"
+          >
+            <AdminHomePage />
+          </ProtectedRoute>
 
           <Route exact path="/provider_list">
             <ListPage />

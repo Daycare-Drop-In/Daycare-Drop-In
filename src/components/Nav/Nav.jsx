@@ -31,6 +31,15 @@ function Nav() {
             <Link className="navLink" to="/info">
               Info Page
             </Link>
+            
+            {
+              // only display if admin
+              user.role === "admin" && (
+                <Link className="navLink" to="/admin">
+                Admin
+                </Link>
+              )
+            }
 
             <LogOutButton className="navLink" />
           </>

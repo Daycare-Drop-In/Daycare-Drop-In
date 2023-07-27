@@ -32,4 +32,5 @@ export default function* rootSaga() {
     photosSaga(),
     providerSaga(),
     responsibleAdultSaga()
+  ])
 }

@@ -1,19 +1,37 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-/*PSEUDO-CODE NOTES FOR PHOTOS SAGAS:
+//Get the array of photos for the provider homepage gallery
+function* getPhotos(id) {
+  console.log("Inside getPhotos saga for provider of id:", id.payload);
+  try {
+    const photos = yield axios.get(`/api/photo/${id.payload}`);
+    yield put({ type: "SET_PHOTOS", payload: photos.data });
+  } catch (error) {
+    console.log("Error in getPhotos saga", error);
+  }
+}
 
-function* getPhotos() -- get the array of photos for the provider gallery
-		yield put SET_PHOTOS
+//add a new photo to the gallery
+function* postPhoto(action) {
+  console.log("Inside postPhoto saga", action.payload);
+  try {
+    yield axios.post("/api/photo", action.payload);
+    yield put({ type: "GET_PHOTOS" });
+  } catch {
+    console.log("error in postPhoto saga", error);
+  }
+}
 
-function* postPhoto() -- add a new photo to the gallery
-		yield put GET_PHOTOS to refresh the updated array
-
-
-function* deletePhoto() -- deletes a photo from the database
-		yield put GET_PHOTOS to refresh the updated array
-
-*/
+//deletes a photo of a given id from the database
+function* deletePhoto(id) {
+  console.log("Inside deletePhoto saga for photo of ID:", id.payload);
+  try {
+    yield axios.delete(`/api/photo/${id.payload}`);
+  } catch (error) {
+    console.log("Error in deletePhoto saga", error);
+  }
+}
 
 function* photosSaga() {
   yield takeLatest("GET_PHOTOS", getPhotos);

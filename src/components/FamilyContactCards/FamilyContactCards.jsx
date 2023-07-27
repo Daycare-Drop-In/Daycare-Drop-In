@@ -199,7 +199,7 @@ function FamilyContactCards() {
 								}}
 							>
 								<Typography>Photo:</Typography>
-								<TextField
+								{/* <TextField
 									// placeholder="Photo"
 									required
 									fullWidth
@@ -215,7 +215,7 @@ function FamilyContactCards() {
 											photo_url: event.target.value,
 										})
 									}
-								/>
+								/> */}
 							</Container>
 
 							<Button

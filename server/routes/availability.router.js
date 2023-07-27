@@ -8,7 +8,21 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const queryText = `SELECT availability.*,
+	providers.business_name AS biz_name,
+	providers.street_address AS provider_street,
+	providers.unit AS provider_unit,
+	providers.city AS provider_city,
+	providers.state AS provider_state,
+	providers.zip AS provider_zip,
+	providers.hours_open AS provider_open,
+	providers.hours_close AS provider_close,
+	providers.meals AS provider_meal
+FROM availability
+	JOIN providers ON availability.provider_id = providers.id
+ORDER BY "date" ASC;`;
+// MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
+    pool.query(queryText)
       .then(() => {
         res.send(result.rows);
       })
@@ -27,7 +41,19 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // POST route code here
   if (req.isAuthenticated()) {
-    pool.query()
+    const {
+      // !!! ADD OBJECT PROPERTIES WHEN READY AND SWAP THEM IN FOR THE BLINGS IN THE ARRAY ON LINE 56 !!!
+    } = req.body;
+    const queryText = `INSERT INTO availability (
+		provider_id,
+		infant,
+		toddler,
+		pre_k,
+		schoolage,
+		date
+	)
+VALUES($1, $2, $3, $4, $5, $6);`
+    pool.query(queryText, [$1-$6])
       .then(() => {
         res.sendStatus(202);
       })
@@ -43,7 +69,23 @@ router.post('/', (req, res) => {
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
   if (req.isAuthenticated()) {
-    pool.query()
+    const providerId = req.params.id
+    const queryText = `SELECT availability.*,
+	providers.id AS provider_id,
+	providers.business_name AS biz_name,
+	providers.street_address AS provider_street,
+	providers.unit AS provider_unit,
+	providers.city AS provider_city,
+	providers.state AS provider_state,
+	providers.zip AS provider_zip,
+	providers.hours_open AS provider_open,
+	providers.hours_close AS provider_close,
+	providers.meals AS provider_meal
+FROM availability
+	JOIN providers ON availability.provider_id = providers.id
+WHERE providers.id = $1
+ORDER BY "date" ASC;`;
+    pool.query(queryText, [providerId])
     .then(() => {
       res.send(result.rows);
     })
@@ -77,7 +119,14 @@ router.delete('/delete/:id', (req, res) => {
 // PUT template
 router.put('/update/:id', (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
+    const availId = req.params.id
+    const queryText = `UPDATE availability
+SET infant = $1,
+	toddler = $2,
+	pre_k = $3,
+	schoolage = $4
+WHERE id = $5;`;
+      pool.query(queryText, [availId])
       .then(() => {
         res.sendStatus(202);
       })

@@ -10,6 +10,9 @@ function AddChildForm() {
     const [pottyTrained, setPottyTrained] = useState(false);
     const [photo_url, setPhoto_Url] = useState("");
 
+    const errors = useSelector((store) => store.errors);
+    const dispatch = useDispatch();
+
 
 
 
@@ -17,8 +20,9 @@ function AddChildForm() {
 
 
     const registerChild = (event) => {
+        event.preventDefault();
         dispatch ({
-            type: "GET_CHILDREN",
+            type: "POST_CHILD",
             payload: {
                 firstName: firstName,
                 lastName: lastName,
@@ -96,13 +100,13 @@ function AddChildForm() {
 
             <div>
                 <label htmlFor="potty trained">
-                    Street Address:
+                    Potty Trained:
                     <input
-                        type="text"
+                        type="checkbox"
                         name="potty trained"
-                        value={pottyTrained}
-                        required
-                        onChange={(event) => setPottyTrained(event.target.value)}
+                        checked={pottyTrained}
+                        onChange={(event) => 
+                            setPottyTrained(event.target.checked)}
                     />
                 </label>
             </div>
@@ -125,3 +129,6 @@ function AddChildForm() {
         </form>
     )
 }
+
+
+export default AddChildForm;

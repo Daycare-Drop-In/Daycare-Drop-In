@@ -6,7 +6,7 @@ import FamilyHomePage from "../FamilyHomePage/FamilyHomePage";
 function UserHomePage() {
   return (
     <div className="container">
-      <AdminHomePage />
+      {/* <AdminHomePage /> */}
       <FamilyHomePage />
       <ProviderHomePage />
     </div>

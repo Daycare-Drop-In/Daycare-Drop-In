@@ -1,35 +1,62 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-
-/*PSEUDO-CODE NOTES FOR PROVIDER SAGAS:
-
-
-function* getProvider() -- get all the info for a particular provider (to render provider user page) 
-		yield put SET_PROVIDER
-
-function* updateProvider() -- update info for a particular provider
-	 	yield put GET_PROVIDER to re-render updated info
-		need an action.payload
-
-function* getAllProviders() -- all the providers in the database (for admin view, maybe for static list view? )
-		yield put SET_ALL_PROVIDERS
-
-function deleteProvider() -- lets admin remove a provider from the database
-		yield put GET_ALL_PROVIDERS to rerender updated info
-
+/*
 function getFilteredProviders() -- providers to display in the list, filtered for relevance to user 
 		yield put SET_FILTERED_PROVIDERS
 */
 
+//get all the info for a particular provider to render provider home page
+function* getProvider(id) {
+  console.log("Inside getProvider saga for provider of id:", id.payload);
+  try {
+    const provider = yield axios.get(`/api/provider/${id.payload}`);
+    yield put({ type: "SET_PROVIDER", payload: provider.data });
+  } catch (error) {
+    console.log("Error in getProvider saga:", error);
+  }
+}
+
+//update info for a particular provider
+function* updateProvider(id) {
+  console.log("Inside updateProvider saga:", action.payload);
+  try {
+    yield axios.put(`/api/provider/${action.payload.id}`, action.payload);
+    yield put({ type: "GET_PROVIDER", payload: action.payload.id });
+  } catch (error) {
+    console.log("error with updateProvider saga:", error);
+  }
+}
+
+// Get all info for all the providers in the database (for admin view, maybe for static list view? )
+function* getAllProviders() {
+  console.log("Inside getAllProviders saga");
+  try {
+    const providers = yield axios.get("/api/provider");
+    yield put({ type: "SET_PROVIDERS", payload: providers.data });
+  } catch (error) {
+    console.log("Error in getProviders saga", error);
+  }
+}
+
+
+// allows admin to remove a provider from the database
+function deleteProvider(id) {
+	console.log("Inside deleteProvider for provider of ID:", id.payload);
+	try {
+	  yield axios.delete(`/api/provider/${id.payload}`);
+	} catch (error) {
+	  console.log("Error in deleteProvider saga", error);
+	}
+}
 
 
 function* providerSaga() {
-	yield takeLatest('GET_PROVIDER', getProvider);
-	yield takeLatest('UPDATE_PROVIDER', updateProvider);
-	yield takeLatest('GET_ALL_PROVIDERS', getAllProviders);
-	yield takeLatest('DELETE_PROVIDER', deleteProviders);
-	yield takeLatest('GET_FILTERED_PROVIDERS', getFilteredProviders);
+  yield takeLatest("GET_PROVIDER", getProvider);
+  yield takeLatest("UPDATE_PROVIDER", updateProvider);
+  yield takeLatest("GET_ALL_PROVIDERS", getAllProviders);
+  yield takeLatest("DELETE_PROVIDER", deleteProvider);
+  yield takeLatest("GET_FILTERED_PROVIDERS", getFilteredProviders);
 }
 
 export default providerSaga;

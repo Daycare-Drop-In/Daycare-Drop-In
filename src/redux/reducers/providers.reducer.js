@@ -1,3 +1,6 @@
+import { combineReducers } from 'redux';
+
+
 const providerReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_PROVIDER":

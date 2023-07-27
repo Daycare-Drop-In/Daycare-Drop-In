@@ -39,7 +39,7 @@ function* updateAdult() {
 }
 
 //Delete the adult of this ID  
-function deleteAdult(id) {
+function* deleteAdult(id) {
   console.log("Inside deleteAdult saga for adult of id:", id.payload);
   try {
     yield axios.delete(`/api/responsible_adult/${id.payload}`);

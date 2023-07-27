@@ -28,7 +28,7 @@ export default function* rootSaga() {
     bookingsSaga(),
     childrenSaga(),
     familySaga(),
-    filterListSaga(),
+    // filterListSaga(),
     photosSaga(),
     providerSaga(),
     responsibleAdultSaga()

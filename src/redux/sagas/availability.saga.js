@@ -1,14 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-
-/*
-function* getFilteredAvail() -- get all the availability info for the list of providers, 
-filtered by relevance to the user. We haven't quite decided how we want to do this yet!
-        yield put SET_FILTERED_AVAIL
-*/
-
-
 //Gets all the availability data for a provider of the given id
 function* getAvailability(id) {
   console.log("Inside getAvailability saga for provider of id:", id.payload);
@@ -28,7 +20,7 @@ function* updateAvailability(action) {
   } catch (error) {
     console.log("error with update request in post saga:", error);
   }
-} 
+}
 
 function* availabilitySaga() {
   yield takeLatest("GET_AVAILABILITY", getAvailability);

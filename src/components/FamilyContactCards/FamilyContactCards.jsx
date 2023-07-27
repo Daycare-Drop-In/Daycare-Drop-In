@@ -44,7 +44,7 @@ function FamilyContactCards() {
 	const [open, setOpen] = useState(false);
 
 	const addNewAdult = () => {
-		dispatch({ type: "POST_ADULT", payload: responsibleAdult });
+		dispatch({ type: "POST_ADULT", payload: newAdult});
 		setOpen(!open);
 		setNewAdult(responsibleAdult);
 		console.log("Submitting");
@@ -209,7 +209,7 @@ function FamilyContactCards() {
 									fullWidth
 									name="photo_url"
 									sx={{ bgcolor: "white" }}
-									type="file"
+									type="url"
 									margin="normal"
 									// label="Picture"
 									value={newAdult.photo_url}

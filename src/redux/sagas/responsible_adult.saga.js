@@ -6,7 +6,7 @@ import axios from "axios";
 function* getAdults(id) {
   console.log("Inside getAdults saga for family of id:", id.payload);
   try {
-    const adults = yield axios.get(`/api/responsible_adults/${id.payload}`);
+    const adults = yield axios.get(`/api/caretaker/details/${id.payload}`);
     yield put({ type: "SET_ADULTS", payload: adults.data });
   } catch (error) {
     console.log("Error in getAdults saga", error);
@@ -14,11 +14,11 @@ function* getAdults(id) {
 }
 
 //add a new responsible adult to a family
-function* postAdult() {
+function* postAdult(action) {
   console.log("Inside postAdults saga:", action.payload);
   try {
-    yield axios.post("/api/responsible_adults", action.payload);
-    yield put({ type: "GET_ADULTS" });
+    yield axios.post("/api/caretaker", action.payload);
+    yield put({ type: "GET_ADULTS", payload: action.payload.family_id });
   } catch {
     console.log("error with postAdults saga:", error);
   }
@@ -29,7 +29,7 @@ function* updateAdult() {
   console.log("Inside updateAdult saga:", action.payload);
   try {
     yield axios.put(
-      `/api/responsible_adults/${action.payload.id}`,
+      `/api/caretaker/${action.payload.id}`,
       action.payload
     );
     yield put({ type: "GET_ADULTS", payload: action.payload.id });
@@ -38,16 +38,16 @@ function* updateAdult() {
   }
 }
 
-//Delete the adult of this ID  
+//Delete the adult of this ID
 function* deleteAdult(id) {
   console.log("Inside deleteAdult saga for adult of id:", id.payload);
   try {
-    yield axios.delete(`/api/responsible_adult/${id.payload}`);
+    yield axios.delete(`/api/caretaker/${id.payload}`);
   } catch (error) {
     console.log("Error in deleteAdult saga:", error);
   }
 }
- 	
+
 
 function* responsibleAdultSaga() {
   yield takeLatest("GET_ADULTS", getAdults);

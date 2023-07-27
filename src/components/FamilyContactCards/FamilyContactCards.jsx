@@ -40,7 +40,7 @@ function FamilyContactCards() {
 	const [open, setOpen] = useState(false);
 
 	const addNewAdult = () => {
-		dispatch({ type: "", payload: responsibleAdult });
+		dispatch({ type: "POST_ADULT", payload: responsibleAdult });
 		setOpen(!open);
 		setNewAdult(responsibleAdult);
 		console.log("Submitting");

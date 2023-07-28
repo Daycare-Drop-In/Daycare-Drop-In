@@ -28,7 +28,7 @@ function FamilyContactCards() {
         dispatch({ type: "GET_ADULTS", payload: user.family_id});
     },[])
 	const user = useSelector((store) => store.user);
-    const rAdult = useSelector((store)=> store.responsibleAdultsReducer)
+    const rAdult = useSelector((store)=> store.responsibleAdults)
 
 	const responsibleAdult = {
 		family_id: user.family_id,
@@ -239,7 +239,9 @@ function FamilyContactCards() {
 
             </Typography>
 			{rAdult?.map((adult) => (
-				<Card sx={{ width: "100%", mb:1.5 }} raised>
+				<Card
+                key={adult.id}
+                sx={{ width: "100%", mb:1.5 }} raised>
 					<Grid container spacing={1}>
 						<Grid item>
 							<CardMedia

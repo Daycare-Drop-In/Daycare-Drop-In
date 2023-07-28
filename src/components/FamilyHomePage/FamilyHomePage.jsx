@@ -56,11 +56,12 @@ function FamilyHomePage() {
 
       <h3>Kids in this Family</h3>
       <p>button to add a kid</p>
-      <FamilyChildCards />
-
       <h3>Responsible Adults</h3>
       <p>button to add a card</p>
       <FamilyContactCards />
+
+      <FamilyChildCards />
+      <LogOutButton className="btn" /
 
       <FamilyDropOffs />
     </div>

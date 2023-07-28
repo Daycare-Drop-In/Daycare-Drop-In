@@ -34,7 +34,7 @@ function Nav() {
             
             {
               // only display if admin
-              user.role === "admin" && (
+              user.user_type === "admin" && (
                 <Link className="navLink" to="/admin">
                 Admin
                 </Link>

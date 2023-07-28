@@ -29,6 +29,13 @@ router.post('/', (req, res) => {
   if (req.isAuthenticated()) {
     const {
 		// !!! ADD OBJECT PROPERTIES HERE WHEN THEY ARE READY AND ADD THEM TO THE ARRAY ON LINE 43 !!!
+    family_id,
+    first_name,
+    last_name,
+    birthdate,
+    allergies,
+    potty_trained,
+    photo_url
 	} = req.body;
     const queryText = `INSERT INTO children (
 		family_id,
@@ -40,7 +47,15 @@ router.post('/', (req, res) => {
 		photo_url
 	)
 VALUES ($1, $2, $3, $4, $5, $6, $7);`;
-    pool.query(queryText, [])
+    pool.query(queryText, [
+    family_id,
+    first_name,
+    last_name,
+    birthdate,
+    allergies,
+    potty_trained,
+    photo_url
+    ])
       .then(() => {
         res.sendStatus(201);
       })

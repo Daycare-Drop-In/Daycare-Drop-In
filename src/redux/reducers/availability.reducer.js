@@ -1,3 +1,4 @@
+
 const availability = (state = [], action) => {
   switch (action.type) {
     case "SET_AVAILABILITY":
@@ -10,3 +11,4 @@ const availability = (state = [], action) => {
 };
 
 export default availability;
+

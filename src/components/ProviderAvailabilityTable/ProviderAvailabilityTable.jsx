@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function ProviderAvailabilityTable(props) {
+function ProviderAvailabilityTable() {
   const dispatch = useDispatch();
-  const provider_id = props.provider_id;
+  const provider_id = useSelector((store) => store.provider.id);
+  const availabilityArray = useSelector((store) => store.availability);
+
+  console.log("Provider availability from reducer:", availabilityArray);
 
   //Use states for availability form input
   const [dateOptions, setDateOptions] = useState([]);
@@ -14,7 +17,7 @@ function ProviderAvailabilityTable(props) {
   const [schoolage, setSchoolage] = useState(0);
 
   //Empty form state for provider availability
-  const availability = {
+  const availabilityForm = {
     provider_id: provider_id,
     date: date,
     infant: infant,
@@ -23,8 +26,7 @@ function ProviderAvailabilityTable(props) {
     schoolage: schoolage,
   };
 
-  // Anon function to populated date input dropdown menu
-  // from the present date until a month in the future
+  // populates date input dropdown menu from the present date until a month in the future
   useEffect(() => {
     const currentDate = new Date();
     const futureDate = new Date(currentDate);
@@ -60,9 +62,9 @@ function ProviderAvailabilityTable(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("New availability being submitted!", availability);
+    console.log("New availability being submitted!", availabilityForm);
 
-    dispatch({ type: "UPDATED_AVAILABILITY", payload: availability });
+    dispatch({ type: "ADD_AVAILABILITY", payload: availabilityForm });
 
     //Reset input fields
     setDate("");

@@ -23,8 +23,6 @@ function ProviderHomePage() {
   const provider = useSelector((store) => store.provider);
   const provider_id = useSelector((store) => store.provider.id);
 
-  console.log("BOOOOOOP", provider_id);
-
   console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
   const goToBooking = () => {

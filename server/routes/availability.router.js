@@ -1,11 +1,11 @@
-const express = require('express');
-const pool = require('../modules/pool');
+const express = require("express");
+const pool = require("../modules/pool");
 const router = express.Router();
 
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
     const queryText = `SELECT availability.*,
@@ -21,25 +21,26 @@ router.get('/', (req, res) => {
 FROM availability
 	JOIN providers ON availability.provider_id = providers.id
 ORDER BY "date" ASC;`;
-// MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
-    pool.query(queryText)
+    // MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
+    pool
+      .query(queryText)
       .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {
-        console.log('ERROR IN availability GET', error);
+        console.log("ERROR IN availability GET", error);
         res.sendStatus(500);
       });
   } else {
-    res.sendStatus(403)
+    res.sendStatus(403);
   }
 });
 
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
-  // POST route code here
+router.post("/", (req, res) => {
+  console.log("Inside router side of add availability", req.body);
   if (req.isAuthenticated()) {
     const {
       // !!! ADD OBJECT PROPERTIES WHEN READY AND SWAP THEM IN FOR THE BLINGS IN THE ARRAY ON LINE 56 !!!
@@ -52,24 +53,29 @@ router.post('/', (req, res) => {
 		schoolage,
 		date
 	)
-VALUES($1, $2, $3, $4, $5, $6);`
-    pool.query(queryText, [$1-$6])
+VALUES($1, $2, $3, $4, $5, $6);`;
+    pool
+      .query(queryText, [$1 - $6])
       .then(() => {
         res.sendStatus(202);
       })
       .catch((error) => {
-        console.log('ERROR IN availability POST', error);
+        console.log("ERROR IN availability POST", error);
         res.sendStatus(500);
       });
   } else {
-    res.sendStatus(403)
+    res.sendStatus(403);
   }
 });
 
 // detail view GET route template
-router.get('/details/:id', (req, res) => {
+router.get("/details/:id", (req, res) => {
   if (req.isAuthenticated()) {
-    const providerId = req.params.id
+    const providerId = req.params.id;
+    console.log(
+      "Inside router side of availability request for provider of id:",
+      providerId
+    );
     const queryText = `SELECT availability.*,
 	providers.id AS provider_id,
 	providers.business_name AS biz_name,
@@ -85,63 +91,63 @@ FROM availability
 	JOIN providers ON availability.provider_id = providers.id
 WHERE providers.id = $1
 ORDER BY "date" ASC;`;
-    pool.query(queryText, [providerId])
-    .then(() => {
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.log('ERROR IN availability details GET', error);
-      res.sendStatus(500);
-    });
-} else {
-  res.sendStatus(403)
-}
+    pool
+      .query(queryText, [providerId])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log("ERROR IN availability details GET", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
-
 // DELETE template
-router.delete('/delete/:id', (req, res) => {
-  console.log('IN availability DELETE ROUTE, and req.params is:', req.params.id);
+router.delete("/delete/:id", (req, res) => {
+  console.log(
+    "IN availability DELETE ROUTE, and req.params is:",
+    req.params.id
+  );
   if (req.isAuthenticated()) {
-    pool.query()
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.log('ERROR IN availability DELETE', error);
-      res.sendStatus(500);
-    });
-} else {
-  res.sendStatus(403)
-}
+    pool
+      .query()
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log("ERROR IN availability DELETE", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 // PUT template
-router.put('/update/:id', (req, res) => {
+router.put("/update/:id", (req, res) => {
   if (req.isAuthenticated()) {
-    const availId = req.params.id
+    const availId = req.params.id;
     const queryText = `UPDATE availability
 SET infant = $1,
 	toddler = $2,
 	pre_k = $3,
 	schoolage = $4
 WHERE id = $5;`;
-      pool.query(queryText, [availId])
+    pool
+      .query(queryText, [availId])
       .then(() => {
         res.sendStatus(202);
       })
       .catch((error) => {
-        console.log('ERROR IN availability PUT', error);
+        console.log("ERROR IN availability PUT", error);
         res.sendStatus(500);
       });
   } else {
-    res.sendStatus(403)
+    res.sendStatus(403);
   }
-  });
-
+});
 
 module.exports = router;
-
-
-
-

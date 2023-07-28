@@ -10,6 +10,7 @@ function ListPage() {
   }, [])
 
   const avail = useSelector((store) => store.availability);
+  console.log(avail);
 
   return (
     <div className="container">
@@ -19,7 +20,10 @@ function ListPage() {
       <ListPageSearchBar />
 
       {/* This component will get mapped over to display the list of providers */}
-      <ProviderListCards />
+      {avail?.map((choice)=>(
+
+        <ProviderListCards key={choice.id} choice={choice} />
+      ))}
     </div>
   );
 }

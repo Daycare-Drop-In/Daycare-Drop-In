@@ -11,6 +11,9 @@ function ListPage() {
 
   const avail = useSelector((store) => store.availability);
   console.log(avail);
+  const user = useSelector((store)=> store.user)
+  const provider = useSelector((store)=> store.provider)
+
 
   return (
     <div className="container">

@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
-    const queryText = `SELECT availability.*,
+    const queryText = `SELECT availability.*, to_char(availability.date, 'Month DD, YYYY') AS on_date,
     "user".photo_url AS provider_photo,
     providers.rates AS provider_fee,
 	providers.business_name AS biz_name,

@@ -14,7 +14,7 @@ function* getAllAvailability() {
 function* getProviderAvailability(id) {
   console.log("Inside getAvailability saga for provider of id:", id.payload);
   try {
-    const availability = yield axios.get(`/api/availability/${id.payload}`);
+    const availability = yield axios.get(`/api/availability/details/${id.payload}`);
     yield put({ type: "SET_AVAILABILITY", payload: availability.data });
   } catch (error) {
     console.log("Error in getProviderAvailability saga:", error);

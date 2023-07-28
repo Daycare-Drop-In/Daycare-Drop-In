@@ -95,67 +95,45 @@ INSERT INTO families ("family_name", "street_address", "unit", "city", "state", 
 VALUES ('Ali', '123 New Street', null, 'MPLS', 'MN', 55407, 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png', null)
 RETURNING id;
 
-INSERT INTO user ("username",
-"password",
-"user_type",
-"family_id",
-"first_name",
-"last_name",
-"email",
-"phone_number",
-"photo_url",)
+INSERT INTO user ("username", "password", "user_type", "family_id", "first_name", "last_name", "email", "phone_number", "photo_url",)
 VALUES ('abc@123.com', 'password', 'family', 1, 'Mo', 'Ali', 'abc@123.com', '(555)555-5555', 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png')
 RETURNING id;
 
+INSERT INTO children (family_id, first_name, last_name, birthdate, allergies, potty_trained, photo_url)
+VALUES (1, 'Lil', 'Buddy', 2020-12-20, 'n/a', false, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvAyXqGFi_knOElmYPrlmlBU40lV5Czgc18w')
+
+INSERT INTO children (family_id, first_name, last_name, birthdate, allergies, potty_trained, photo_url)
+VALUES (1, 'Big', 'Buddy', 2018-01-05, 'The sun, the moon, Mars, and Jupiter', true, 'https://illustoon.com/photo/4044.png')
+
+INSERT INTO children (family_id, first_name, last_name, birthdate, allergies, potty_trained, photo_url)
+VALUES (1, 'Medium', 'Buddy', 2019-4-10, 'n/a', true, 'https://content.mycutegraphics.com/graphics/kids/boy-waving.png')
+
+INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
+VALUES (1, 'Pooh', 'Bear', '(123)456-7890', 'pooh@bear.com', 'Uncle', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ85JRO44bVUT1k5vsf4Kljah2GfDUdxe2jGA')
 
 
 ----------------------------------------
 ---STARTING PROVIDER USER
 
-INSERT INTO user (
-		"username",
-		"password",
-		"user_type",
-		"family_id",
-		"first_name",
-		"last_name",
-		"email",
-		"phone_number",
-		"photo_url",
-	)
-VALUES (
-		'def@456.com',
-		'password',
-		'provider',
-		null,
-		'Winnie',
-		'Pooh',
-		'def@456.com',
-		'(555)555-5556',
-		'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
-	)
+INSERT INTO user ("username", "password", "user_type", "family_id",	"first_name", "last_name", "email", "phone_number",	"photo_url")
+VALUES ('def@456.com', 'password', 'provider', null, 'Winnie', 'Pooh', 'def@456.com', '(555)555-5556',  'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png')
 RETURNING id;
 
-
-INSERT INTO providers (
-		"user_id",
-		"license",
-		"business_name",
-		"street_address",
-		"unit",
-		"city",
-		"state",
-		"zip",
-		"hours",
-		"rates",
-		"meals",
-		"business_description",
-		"personal_description",
-		"contract_language"
-	)
-
+INSERT INTO providers (	"user_id", "license", "business_name", "street_address", "unit", "city", "state", "zip", "hours", "rates", "meals", "business_description", "personal_description", "contract_language")
 VALUES (2,'A1B2C3D4', 'Big Vibez Daycare', '456 New Street', null, 'MPLS', 'MN', 55407,'7:00', '17:00', 100, true, 'blah', 'blee', 'bluuuu' )
 RETURNING user_id;
+
+
+INSERT INTO availability (provider_id, infant, toddler, pre_k, schoolage, date)
+VALUES (1, 2, 1, 3, 0, '2023-08-02');
+
+INSERT INTO availability (provider_id, infant, toddler, pre_k, schoolage, date)
+VALUES (1, 1, 2, 0, 0, '2023-08-03');
+
+INSERT INTO availability (provider_id, infant, toddler, pre_k, schoolage, date)
+VALUES (1, 1, 0, 0, 5, '2023-08-04');
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Box,
 	Card,
@@ -24,7 +24,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 function FamilyContactCards() {
 	const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch({ type: "GET_ADULTS", payload: user.family_id});
+    },[])
 	const user = useSelector((store) => store.user);
+    const rAdult = useSelector((store)=> store.responsibleAdults)
 
 	const responsibleAdult = {
 		family_id: user.family_id,
@@ -40,7 +44,7 @@ function FamilyContactCards() {
 	const [open, setOpen] = useState(false);
 
 	const addNewAdult = () => {
-		dispatch({ type: "POST_ADULT", payload: responsibleAdult });
+		dispatch({ type: "POST_ADULT", payload: newAdult});
 		setOpen(!open);
 		setNewAdult(responsibleAdult);
 		console.log("Submitting");
@@ -61,11 +65,11 @@ function FamilyContactCards() {
 						display: "flex",
 						flexDirection: "row",
 
-						mb: -2,
+						mb: 0,
 					}}
 					onClick={() => setOpen(!open)}
 				>
-					<Typography variant="h4">Add an adult</Typography>
+					<Typography variant="h5">Add an adult</Typography>
 					<PersonAddAlt1Icon sx={{ fontSize: "3rem", ml: 3 }} />
 				</IconButton>
 			) : (
@@ -199,13 +203,13 @@ function FamilyContactCards() {
 								}}
 							>
 								<Typography>Photo:</Typography>
-								{/* <TextField
+								<TextField
 									// placeholder="Photo"
 									required
 									fullWidth
 									name="photo_url"
 									sx={{ bgcolor: "white" }}
-									type="file"
+									type="url"
 									margin="normal"
 									// label="Picture"
 									value={newAdult.photo_url}
@@ -215,7 +219,7 @@ function FamilyContactCards() {
 											photo_url: event.target.value,
 										})
 									}
-								/> */}
+								/>
 							</Container>
 
 							<Button
@@ -230,6 +234,26 @@ function FamilyContactCards() {
 					</CardContent>
 				</Card>
 			)}
+            <Typography variant="h7" sx={{mb:1}}>
+                Family name's responsible adults
+
+            </Typography>
+			{rAdult?.map((adult) => (
+				<Card
+                key={adult.id}
+                sx={{ width: "100%", mb:1.5 }} raised>
+					<Grid container spacing={1}>
+						<Grid item>
+							<CardMedia
+								component="img"
+								sx={{ objectFit: "contain", height: 80 }}
+								image={adult.photo_url}
+								alt={"profile picture"}
+							/>
+						</Grid>
+					</Grid>
+				</Card>
+			))}
 		</Container>
 	);
 	// <div className="container">

@@ -1,5 +1,5 @@
 
-const bookingReducer = (state = [], action) => {
+const booking = (state = [], action) => {
     switch(action.type) {
         case 'SET_BOOKINGS':
             return action.payload;
@@ -8,4 +8,4 @@ const bookingReducer = (state = [], action) => {
     }
 }
 
-export default bookingReducer;
+export default booking;

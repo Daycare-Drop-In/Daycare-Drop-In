@@ -21,6 +21,9 @@ function ProviderHomePage() {
   }, []);
 
   const provider = useSelector((store) => store.provider);
+  const provider_id = useSelector((store) => store.provider.id);
+
+  console.log("BOOOOOOP", provider_id);
 
   console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
@@ -82,7 +85,7 @@ function ProviderHomePage() {
         <button onClick={goToBooking}>Book a spot!</button>
       </div>
 
-      <ProviderAvailabilityTable />
+      <ProviderAvailabilityTable provider_id={provider_id} />
 
       <ProviderPhotoGallery />
 

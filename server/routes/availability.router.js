@@ -42,9 +42,14 @@ ORDER BY "date" ASC;`;
 router.post("/", (req, res) => {
   console.log("Inside router side of add availability", req.body);
   if (req.isAuthenticated()) {
-    const {
-      // !!! ADD OBJECT PROPERTIES WHEN READY AND SWAP THEM IN FOR THE BLINGS IN THE ARRAY ON LINE 56 !!!
-    } = req.body;
+    const values = [
+      req.body.provider_id,
+      req.body.infant,
+      req.body.toddler,
+      req.body.pre_k,
+      req.body.schoolage,
+      req.body.date,
+    ];
     const queryText = `INSERT INTO availability (
 		provider_id,
 		infant,
@@ -55,7 +60,7 @@ router.post("/", (req, res) => {
 	)
 VALUES($1, $2, $3, $4, $5, $6);`;
     pool
-      .query(queryText, [$1 - $6])
+      .query(queryText, values)
       .then(() => {
         res.sendStatus(202);
       })

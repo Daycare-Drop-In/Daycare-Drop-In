@@ -30,7 +30,10 @@ function* addAvailability(action) {
   console.log("Inside addAvailability saga:", action.payload);
   try {
     yield axios.post(`/api/availability`, action.payload);
-    yield put({ type: "GET_PROVIDER_AVAILABILITY" });
+    yield put({
+      type: "GET_PROVIDER_AVAILABILITY",
+      payload: action.payload.provider_id,
+    });
   } catch (error) {
     console.log("error with update request in post saga:", error);
   }

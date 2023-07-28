@@ -8,6 +8,7 @@ function ProviderAvailabilityTable() {
 
   console.log("Provider availability from reducer:", availabilityArray);
 
+
   //Use states for availability form input
   const [dateOptions, setDateOptions] = useState([]);
   const [date, setDate] = useState("");

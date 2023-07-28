@@ -24,6 +24,10 @@ function ProviderHomePage() {
 
   console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
+  const goToBooking = () => {
+    return <ProviderBookingProcess />;
+  };
+
   return (
     <div className="container">
       <div className="provider-header">
@@ -74,9 +78,11 @@ function ProviderHomePage() {
         <p>{provider.business_description}</p>
       </div>
 
-      <ProviderAvailabilityTable />
+      <div className="booking-button">
+        <button onClick={goToBooking}>Book a spot!</button>
+      </div>
 
-      <ProviderBookingProcess />
+      <ProviderAvailabilityTable />
 
       <ProviderPhotoGallery />
 

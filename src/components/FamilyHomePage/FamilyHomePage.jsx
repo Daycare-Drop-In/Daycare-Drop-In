@@ -11,16 +11,21 @@ import FamilyDropOffs from "../FamilyDropOffs/FamilyDropOffs";
 function FamilyHomePage() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const children = useSelector((store => store.children))
+  const families = useSelector((store) => store.families)
 
   useEffect(() => {
     //dispatches request for family info based on userID
     console.log("Dispatching request for data of family-user ID:", user.id);
     dispatch({ type: "GET_FAMILY_USER", payload: user.id });
+    dispatch({type: "GET_CHILDREN", payload: user.family_id })
   }, []);
+
+  console.log('these are the children of this family', children);
 
   const family = useSelector((store) => store.family);
 
-  console.log("THESE ARE THE FAMILY DETAILS:", family);
+  console.log("THESE ARE THE FAMILY DETAILS:", families);
 
   return (
     <div className="container">
@@ -55,13 +60,13 @@ function FamilyHomePage() {
       </div>
 
       <h3>Kids in this Family</h3>
-      <p>button to add a kid</p>
+      
       <h3>Responsible Adults</h3>
       <p>button to add a card</p>
       <FamilyContactCards />
 
       <FamilyChildCards />
-      <LogOutButton className="btn" /
+      <LogOutButton className="btn" />
 
       <FamilyDropOffs />
     </div>

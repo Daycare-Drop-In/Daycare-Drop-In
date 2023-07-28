@@ -19,7 +19,7 @@ function* postAdult(action) {
   try {
     yield axios.post("/api/caretaker", action.payload);
     yield put({ type: "GET_ADULTS", payload: action.payload.family_id });
-  } catch {
+  } catch (error) {
     console.log("error with postAdults saga:", error);
   }
 }

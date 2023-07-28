@@ -1,15 +1,57 @@
-import React from 'react';
-
+import React, { useState, useEffect } from "react";
 
 function ProviderAvailabilityTable() {
+  const [dates, setDates] = useState([]);
+
+  useEffect(() => {
+    // Populates the date input dropdown menu from the present date until a month in the future
+    const currentDate = new Date();
+    const futureDate = new Date(currentDate);
+    futureDate.setMonth(currentDate.getMonth() + 1);
+
+    const datesArray = [];
+    while (currentDate <= futureDate) {
+      datesArray.push(currentDate.toISOString().slice(0, 10));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    setDates(datesArray);
+  }, []);
 
   return (
     <div className="container">
-<h3>Provider Availability Table</h3>
-<p>This will contain the provider's open spots for children 
-in each age category (Infant, Toddler, Preschooler, School Age)</p>
-<p>If the user is the provider, they'll see an editable table.</p>
-<p>If the user is a family member, they'll see a pretty but static version</p>
+      <table border="1">
+        <tr>
+          <th>Date</th>
+          <th>Infant</th>
+          <th>Toddler</th>
+          <th>Preschooler</th>
+          <th>School Age</th>
+        </tr>
+        <tr>
+          <td>
+            <select>
+              {dates.map((date) => (
+                <option key={date} value={date}>
+                  {date}
+                </option>
+              ))}
+            </select>
+          </td>
+          <td>
+            <input type="number" min="0" max="9" />
+          </td>
+          <td>
+            <input type="number" min="0" max="9" />
+          </td>
+          <td>
+            <input type="number" min="0" max="9" />
+          </td>
+          <td>
+            <input type="number" min="0" max="9" />
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

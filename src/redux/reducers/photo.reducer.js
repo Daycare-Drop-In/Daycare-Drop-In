@@ -1,4 +1,4 @@
-const photoUploadReducer = (state = [], action) => {
+const photo= (state = [], action) => {
     switch(action.type) {
         case 'SET_PHOTOS':
             return action.payload;
@@ -7,4 +7,4 @@ const photoUploadReducer = (state = [], action) => {
     }
 }
 
-export default photoUploadReducer;
+export default photo;

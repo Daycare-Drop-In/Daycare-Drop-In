@@ -1,5 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 
 //Component Imports
 import LogOutButton from "../LogOutButton/LogOutButton";
@@ -7,10 +8,16 @@ import FamilyContactCards from "../FamilyContactCards/FamilyContactCards";
 import FamilyChildCards from "../FamilyChildCards/FamilyChildCards";
 import FamilyDropOffs from "../FamilyDropOffs/FamilyDropOffs";
 
-
 function FamilyHomePage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+
+  useEffect(() => {
+    //dispatches request for family info based on userID
+    console.log("Dispatching request for data of family-user ID:", user.id);
+    dispatch({ type: "GET_FAMILY_USER", payload: user.id });
+  }, []);
+
   return (
     <div className="container">
       <h1>This is a Family Home Page</h1>
@@ -29,10 +36,7 @@ function FamilyHomePage() {
       <FamilyContactCards />
       <LogOutButton className="btn" />
 
-
-      <FamilyDropOffs/>
-
-      
+      <FamilyDropOffs />
     </div>
   );
 }

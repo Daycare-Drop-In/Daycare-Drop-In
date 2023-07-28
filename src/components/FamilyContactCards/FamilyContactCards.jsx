@@ -241,15 +241,18 @@ function FamilyContactCards() {
 			{rAdult?.map((adult) => (
 				<Card
                 key={adult.id}
-                sx={{ width: "100%", mb:1.5 }} raised>
+                sx={{ width: "25%", mb:1.5 }} raised>
 					<Grid container spacing={1}>
 						<Grid item>
+							<CardContent>
+                            <Typography variant="h7" color="text.secondary"><b>{adult.first_name}</b></Typography>
 							<CardMedia
 								component="img"
 								sx={{ objectFit: "contain", height: 80 }}
 								image={adult.photo_url}
 								alt={"profile picture"}
 							/>
+							 </CardContent>
 						</Grid>
 					</Grid>
 				</Card>

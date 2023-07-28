@@ -8,7 +8,6 @@ function ProviderAvailabilityTable() {
 
   console.log("Provider availability from reducer:", availabilityArray);
 
-
   //Use states for availability form input
   const [dateOptions, setDateOptions] = useState([]);
   const [date, setDate] = useState("");
@@ -75,6 +74,12 @@ function ProviderAvailabilityTable() {
     setSchoolage(0);
   };
 
+  //DELETE AN AVAILABILITY TABLE ROW
+
+  const handleDelete = (id) => {
+    console.log("Item to delete:", id);
+  };
+
   return (
     <div className="container">
       <table border="1">
@@ -135,6 +140,18 @@ function ProviderAvailabilityTable() {
             <button onClick={handleSubmit}>Submit</button>
           </td>
         </tr>
+        {availabilityArray.map((entryRow) => (
+          <tr key={entryRow.id}>
+            <td>{entryRow.date}</td>
+            <td>{entryRow.infant}</td>
+            <td>{entryRow.toddler}</td>
+            <td>{entryRow.pre_k}</td>
+            <td>{entryRow.schoolage}</td>
+            <td>
+              <button onClick={() => handleDelete(entryRow.id)}>Delete</button>
+            </td>
+          </tr>
+        ))}
       </table>
     </div>
   );

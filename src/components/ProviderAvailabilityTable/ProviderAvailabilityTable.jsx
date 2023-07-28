@@ -78,6 +78,7 @@ function ProviderAvailabilityTable() {
 
   const handleDelete = (id) => {
     console.log("Item to delete:", id);
+    dispatch({type: "DELETE"})
   };
 
   return (

@@ -5,11 +5,16 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import Checkbox from '@mui/material/Checkbox';
+
+
 
 function FamilyChildCards() {
+    const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
 
     const myKid = {
+        family_id: user.family_id,
         firstName: "",
         lastName: "",
         birthdate: "",
@@ -128,14 +133,14 @@ function FamilyChildCards() {
                             />
 
                             <TextField
-                                placeholder="Birthdate"
+                                placeholder="YYYY/MM/DD"
                                 required
                                 name="birthdate"
                                 sx={{ bgcolor: "white" }}
                                 type="text"
                                 margin="normal"
                                 fullWidth
-                                label="Birthdate"
+                                label=""
                                 value={newChild.birthdate}
                                 onChange={(event) =>
                                     setNewChild({
@@ -198,8 +203,6 @@ function FamilyChildCards() {
                             >
                                 Save
                             </Button>
-
-
                         </Box>
                     </CardContent>
                 </Card>
@@ -219,3 +222,6 @@ function FamilyChildCards() {
 
 
 export default FamilyChildCards;
+
+
+

@@ -18,14 +18,28 @@ function FamilyHomePage() {
     dispatch({ type: "GET_FAMILY_USER", payload: user.id });
   }, []);
 
+  const family = useSelector((store) => store.family);
+
+  console.log("THESE ARE THE FAMILY DETAILS:", family);
+
   return (
     <div className="container">
-      <h1>This is a Family Home Page</h1>
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
+      <div className="family-home-page-header">
+        <h2>
+          Welcome, {family.parent_first_name} {family.parent_last_name}!
+        </h2>
+        <center>
+          <h1>{family.family_name} Home Page</h1>
+        </center>
+      </div>
 
-      <h3>Family Details</h3>
-      <p>Bio! Family photo! Other stuff?</p>
+      <div className="family-photo">
+        <center>
+          {" "}
+          <img src={family.photo_url} height="200" />
+        </center>
+      </div>
+      <div className="family-bio"></div>
 
       <h3>Kids in this Family</h3>
       <p>button to add a kid</p>

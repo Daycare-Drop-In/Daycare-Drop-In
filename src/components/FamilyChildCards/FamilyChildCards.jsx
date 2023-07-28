@@ -24,11 +24,11 @@ function FamilyChildCards() {
     };
 
     const [newChild, setNewChild] = useState(myKid);
-    const [open, setOpen] = useState(false);
+    const [clicked, setClicked] = useState(false);
 
     const registerChild = () => {
         dispatch({ type: "POST_CHILD", payload: myKid });
-        setOpen(!open);
+        setClicked(!clicked);
         setNewChild(myKid);
         console.log('adding new child');
 
@@ -45,7 +45,7 @@ function FamilyChildCards() {
                 justifyContent: "center",
             }}
         >
-            {!open ? (
+            {!clicked ? (
                 <IconButton
                     sx={{
                         display: "flex",
@@ -53,7 +53,7 @@ function FamilyChildCards() {
 
                         mb: -2,
                     }}
-                    onClick={() => setOpen(!open)}
+                    onClick={() => setClicked(!clicked)}
                 >
                     <Typography variant="h4">Add a child</Typography>
                     <ChildCareIcon sx={{ fontSize: "3rem", ml: 3 }} />
@@ -86,7 +86,7 @@ function FamilyChildCards() {
                             />
                             <IconButton
                                 size="large"
-                                onClick={() => setOpen(!open)}
+                                onClick={() => setClicked(!clicked)}
                             >
                                 <CloseOutlinedIcon />
                             </IconButton>

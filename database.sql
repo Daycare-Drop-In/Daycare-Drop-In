@@ -100,13 +100,13 @@ VALUES ('abc@123.com', 'password', 'family', 1, 'Mo', 'Ali', 'abc@123.com', '(55
 RETURNING id;
 
 INSERT INTO children (family_id, first_name, last_name, birthdate, allergies, potty_trained, photo_url)
-VALUES (1, 'Lil', 'Buddy', 2020-12-20, 'n/a', false, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvAyXqGFi_knOElmYPrlmlBU40lV5Czgc18w')
+VALUES (1, 'Lil', 'Buddy', '2020-12-20', 'n/a', false, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvAyXqGFi_knOElmYPrlmlBU40lV5Czgc18w')
 
 INSERT INTO children (family_id, first_name, last_name, birthdate, allergies, potty_trained, photo_url)
-VALUES (1, 'Big', 'Buddy', 2018-01-05, 'The sun, the moon, Mars, and Jupiter', true, 'https://illustoon.com/photo/4044.png')
+VALUES (1, 'Big', 'Buddy', '2018-01-05', 'The sun, the moon, Mars, and Jupiter', true, 'https://illustoon.com/photo/4044.png')
 
 INSERT INTO children (family_id, first_name, last_name, birthdate, allergies, potty_trained, photo_url)
-VALUES (1, 'Medium', 'Buddy', 2019-4-10, 'n/a', true, 'https://content.mycutegraphics.com/graphics/kids/boy-waving.png')
+VALUES (1, 'Medium', 'Buddy', '2019-4-10', 'n/a', true, 'https://content.mycutegraphics.com/graphics/kids/boy-waving.png')
 
 INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
 VALUES (1, 'Pooh', 'Bear', '(123)456-7890', 'pooh@bear.com', 'Uncle', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ85JRO44bVUT1k5vsf4Kljah2GfDUdxe2jGA')

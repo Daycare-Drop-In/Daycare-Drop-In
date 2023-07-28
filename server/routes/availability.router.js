@@ -9,6 +9,8 @@ router.get('/', (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
     const queryText = `SELECT availability.*,
+    "user".photo_url AS provider_photo,
+    providers.rates AS provider_fee,
 	providers.business_name AS biz_name,
 	providers.street_address AS provider_street,
 	providers.unit AS provider_unit,
@@ -20,7 +22,8 @@ router.get('/', (req, res) => {
 	providers.meals AS provider_meal
 FROM availability
 	JOIN providers ON availability.provider_id = providers.id
-ORDER BY "date" ASC;`;
+  JOIN "user" ON providers.user_id = "user"."id"
+  ORDER BY "date" ASC;`;
 // MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
     pool.query(queryText)
       .then((result) => {

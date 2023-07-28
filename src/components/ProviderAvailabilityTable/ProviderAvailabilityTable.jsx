@@ -56,9 +56,20 @@ function ProviderAvailabilityTable(props) {
     setSchoolage(parseInt(event.target.value));
   };
 
+  //SUBMIT NEW AVAILABILITY
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("New availability being submitted!", availability);
+
+    dispatch({ type: "UPDATED_AVAILABILITY", payload: availability });
+
+    //Reset input fields
+    setDate("");
+    setInfant(0);
+    setToddler(0);
+    setPreschool(0);
+    setSchoolage(0);
   };
 
   return (

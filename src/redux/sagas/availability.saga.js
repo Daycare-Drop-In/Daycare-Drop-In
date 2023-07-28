@@ -3,7 +3,7 @@ import axios from "axios";
 
 //Gets all the availability data for a provider of the given id
 function* getAllAvailability() {
-  console.log("Inside getAvailability saga for provider of id:", id.payload);
+  console.log("Inside getAllAvailability") ;
   try {
     const availability = yield axios.get(`/api/availability`);
     yield put({ type: "SET_AVAILABILITY", payload: availability.data });

@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 function ListPage() {
   const dispatch = useDispatch()
   useEffect(()=>{
-    dispatch({type:'GET_AVAILABILITY'})
+    dispatch({type:'GET_ALL_AVAILABILITY'})
   }, [])
 
   const avail = useSelector((store) => store.availability);
-  
+
   return (
     <div className="container">
       <h1>This is the Provider List Page</h1>

@@ -23,7 +23,7 @@ FROM availability
 ORDER BY "date" ASC;`;
 // MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
     pool.query(queryText)
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {

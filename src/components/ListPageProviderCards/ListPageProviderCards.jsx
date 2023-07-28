@@ -24,20 +24,21 @@ function ListPageProviderCards({ choice }) {
     const gItem = {
 		mx: 0.5,
 		p: 1.5,
+		mb: .75,
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "center",
 		border: "1px solid transparent",
-        borderRadius:4,
-		bgcolor: "#c3a4e0",
-        width:'6.5rem'
+		borderRadius: 4,
+		bgcolor: "#eee6f5",
+		width: "6.5em",
 	};
     const rowItem = {
 		p: 1,
 		display: "flex",
 		flexDirection: "row",
 		flexWrap: "wrap",
-		justifyContent: "space-around",
+		justifyContent: "space-between",
         align: 'center'
 
 	};
@@ -45,31 +46,32 @@ function ListPageProviderCards({ choice }) {
 		<div className="container">
 			<Card
 				sx={{
-					width: "90%",
+					width: "100%",
 					mb: 1.5,
-					p: 1.5,
+					p: 1,
 					display: "flex",
 					flexDirection: "column",
 					justifyContent: "center",
+					borderRadius: 4,
 				}}
 				raised
 			>
-				<CardContent sx={{ width: "50%" }}>
+				<CardContent sx={{display:'flex', justifyContent:'center' }}>
 					<Typography variant="h5" align="center">
 						{choice.biz_name}
 					</Typography>
 				</CardContent>
-				<CardContent sx={{ width: "80%", mb: 1 }}>
+				<CardContent sx={{ width: "80%", mb: 1, display:'flex', flexDirection:'column', justifyContent:'center' }}>
 					<Grid container spacing={1} sx={{ mb: 2 }}>
-						<Grid item sx={{ ml: 1, p: 1 }}>
+						<Grid item sx={{ ml: 4, p:.75 }}>
 							<CardMedia
 								component="img"
 								sx={{ objectFit: "contain", height: 80 }}
 								image={choice.provider_photo}
 								alt={"profile picture"}
 							/>
-							<Typography variant="body" align="center">
-								{choice.provider_open} -{choice.provider_close}
+							<Typography variant="caption" align="center">
+								{choice.provider_open} AM - {choice.provider_close}PM
 							</Typography>
 						</Grid>
 
@@ -88,11 +90,7 @@ function ListPageProviderCards({ choice }) {
 							>
 								Meal: {choice.provider_meal ? "✅" : "❌"}
 							</Typography>
-							<Typography
-								variant="body"
-								align="left"
-								sx={{ mb: 1 }}
-							>
+							<Typography variant="body" align="left">
 								{choice.provider_zip}
 							</Typography>
 						</Grid>
@@ -102,13 +100,12 @@ function ListPageProviderCards({ choice }) {
 						spacing={1}
 						sx={{ display: "flex", justifyContent: "center" }}
 					>
-						<Typography
-							variant="body"
-							align="center"
+						<Chip
+							label={`Availability for ${choice.on_date}`}
+							variant="outlined"
+							size="small"
 							sx={{ mb: 1 }}
-						>
-							Availability for {choice.on_date}
-						</Typography>
+						/>
 					</Grid>
 
 					<Grid container spacing={1}>
@@ -121,12 +118,9 @@ function ListPageProviderCards({ choice }) {
 								>
 									{choice.infant}
 								</Typography>
-								<Chip
-									label="Infant"
-									variant="contained"
-									size="small"
-                                    sx={{bgcolor:'white'}}
-								/>
+								<Typography variant="caption" align="center">
+									Infant
+								</Typography>
 							</Grid>
 
 							<Grid item sx={gItem}>
@@ -137,11 +131,9 @@ function ListPageProviderCards({ choice }) {
 								>
 									{choice.toddler}
 								</Typography>
-								<Chip
-									label={`Toddler: ${choice.toddler}`}
-									variant="outlined"
-									size="small"
-								/>
+								<Typography variant="caption" align="center">
+									Toddler
+								</Typography>
 							</Grid>
 							<Grid item sx={gItem}>
 								<Typography
@@ -172,9 +164,7 @@ function ListPageProviderCards({ choice }) {
 				</CardContent>
 			</Card>
 
-			<Chip label="Pre-K" variant="outlined" size="small" />
-			<Chip label="School age" variant="outlined" size="small" />
-			<h2>Provider Name: {choice.biz_name}</h2>
+			{/* <h2>Provider Name: {choice.biz_name}</h2>
 			<p>Availabilty for: {choice.date}</p>
 			<p>Age Groups</p>
 			<p>Infant: {choice.infant}</p>
@@ -188,7 +178,7 @@ function ListPageProviderCards({ choice }) {
 			<p> Unit # {choice.provider_unit}</p>
 			<p>City: {choice.provider_city}</p>
 			<p> State: {choice.provider_state}</p>
-			<p>Zip: {choice.provider_zip}</p>
+			<p>Zip: {choice.provider_zip}</p> */}
 			{/* <h2>Provider Cards</h2>
 			<p>
 				This will be the component that gets mapped over within the List

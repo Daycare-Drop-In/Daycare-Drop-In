@@ -26,8 +26,9 @@ function FamilyHomePage() {
     <div className="container">
       <div className="family-home-page-header">
         <h2>
-          Welcome, {family.parent_first_name} {family.parent_last_name}!
+          Welcome, {user.first_name} {user.last_name}!
         </h2>
+        <LogOutButton className="btn" />
         <center>
           <h1>{family.family_name} Home Page</h1>
         </center>
@@ -41,6 +42,18 @@ function FamilyHomePage() {
       </div>
       <div className="family-bio"></div>
 
+      <div className="family-details">
+        <p>
+          <b>Primary Address: </b>
+          {family.street_address} {family.unit}
+          {", "}
+          {family.city} {family.state} {family.zip}
+        </p>
+        <p>
+          <b>Family Access Code:</b> {family.access_code}
+        </p>
+      </div>
+
       <h3>Kids in this Family</h3>
       <p>button to add a kid</p>
       <FamilyChildCards />
@@ -48,7 +61,6 @@ function FamilyHomePage() {
       <h3>Responsible Adults</h3>
       <p>button to add a card</p>
       <FamilyContactCards />
-      <LogOutButton className="btn" />
 
       <FamilyDropOffs />
     </div>

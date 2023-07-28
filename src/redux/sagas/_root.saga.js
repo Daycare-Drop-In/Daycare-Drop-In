@@ -30,6 +30,5 @@ export default function* rootSaga() {
     // filterListSaga(),
     photosSaga(),
     providerSaga(),
-    responsibleAdultSaga(),
-  ]);
-}
+    responsibleAdultSaga()
+  ])}

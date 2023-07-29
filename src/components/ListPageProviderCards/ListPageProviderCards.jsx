@@ -35,23 +35,32 @@ function ListPageProviderCards({ choice }) {
 		width: "6.5em",
 	};
 	const bioItem = {
-		mx: 0.5,
-		p: 1.5,
-		mb: 0.75,
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "center",
-		border: "1px solid transparent",
-		borderRadius: 4,
-		width: "6.5em",
+		ml:-1.5
 	};
-    const rowItem = {
-		p: 1,
+    const availItem = {
 		display: "flex",
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "space-between",
-        align: 'center'
+		flexDirection: "column",
+		justifyContent: "center",
+		ml:-2
+
+	};
+    const availItem2= {
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "center",
+
+	};
+	const notChip = {
+		mb: .5,
+		border: "1px solid purple",
+		borderRadius: 8,
+		width:'100%',
+		mx:2,
+		display:'flex',
+		flexDirection:'column'
 
 	};
 	const visitProvider = (id) =>{
@@ -59,87 +68,134 @@ function ListPageProviderCards({ choice }) {
 		// dispatch({type:'VISIT_PROVIDER', payload:choice.provider_id})
 	}
 	return (
-		<Container maxWidth="sm">
+		<Container maxWidth="xs">
 			<Card
 				sx={{
-					width: "100%",
+					width: "105%",
 					mb: 1.5,
 					display: "flex",
 					flexDirection: "column",
 					justifyContent: "center",
 					borderRadius: 4,
+					ml: -1,
 				}}
 				raised
 			>
 				<CardContent
 					sx={{
 						display: "flex",
-						justifyContent: "center",
+						flexDirection: "row",
+						justifyContent: "space-evenly",
 						mb: -3,
 						mt: -1,
 					}}
 				>
-					<Typography variant="h5" align="center">
-						{choice.biz_name}
-					</Typography>
+					<CardContent
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "flex-start",
+							mb: -3,
+							ml: -2.5,
+						}}
+					>
+						<Typography variant="h7" align="left">
+							{choice.biz_name}
+						</Typography>
+						<Typography variant="caption" align="left">
+							{choice.provider_open} - {choice.provider_close}
+						</Typography>
+						<Typography variant="caption" align="left">
+							{choice.provider_city}
+						</Typography>
+					</CardContent>
+					<CardContent sx={{ mx: -3 }}>
+						<Chip
+							label={`${choice.on_date}`}
+							variant="outlined"
+							size="small"
+							sx={{ mb: 1, borderColor: "green" }}
+						/>
+					</CardContent>
 				</CardContent>
 				<CardContent
 					sx={{
-						width: "80%",
-						mb: 1,
+						width: "100%",
 						display: "flex",
 						flexDirection: "column",
 						justifyContent: "center",
 					}}
 				>
-					<Grid container spacing={1} sx={{ mb: 2 }}>
-						<Grid item sx={{ p: 0.75 }}>
+					<Grid container spacing={0.5} sx={{ mb: 2, width: "100%" }}>
+						<Grid item xs={3} sx={{ ml: -2 }}>
 							<CardMedia
 								component="img"
-								sx={{ objectFit: "contain", height: 80 }}
+								sx={{ objectFit: "contain", height: 55 }}
 								image={choice.provider_photo}
 								alt={"profile picture"}
 							/>
-							<Typography variant="caption" align="center">
-								{choice.provider_open} AM -{" "}
-								{choice.provider_close}PM
-							</Typography>
 						</Grid>
 
-						<Grid item sx={bioItem}>
+						<Grid item xs={2} sx={bioItem}>
 							<Typography
-								variant="body"
+								variant="caption"
 								align="left"
 								sx={{ mb: 1 }}
 							>
-								${choice.provider_fee}
+								${choice.provider_fee}/day
 							</Typography>
 							<Typography
-								variant="body"
+								variant="caption"
 								align="left"
 								sx={{ mb: 1 }}
 							>
 								Meal: {choice.provider_meal ? "✅" : "❌"}
 							</Typography>
-							<Typography variant="body" align="left">
-								{choice.provider_zip}
-							</Typography>
+						</Grid>
+
+						<Grid item xs={3} sx={availItem}>
+							<Box sx={notChip}>
+								<Typography variant="caption" align="center">
+									Infant: {choice.infant}
+								</Typography>
+							</Box>
+							<Box sx={notChip}>
+								<Typography variant="caption" align="center">
+									Toddler: {choice.toddler}
+								</Typography>
+							</Box>
+						</Grid>
+
+						<Grid item xs={4} sx={availItem2}>
+							<Box sx={notChip}>
+								<Typography variant="caption" align="center">
+									Pre-K: {choice.pre_k}
+								</Typography>
+							</Box>
+							<Box sx={notChip}>
+								<Typography variant="caption" align="center">
+									School Age: {choice.schoolage}
+								</Typography>
+							</Box>
 						</Grid>
 					</Grid>
-					<Grid
-						container
-						spacing={1}
-						sx={{ display: "flex", justifyContent: "center" }}
-					>
-						<Chip
-							label={`Availability for ${choice.on_date}`}
-							variant="outlined"
-							size="small"
-							sx={{ mb: 1 }}
-						/>
-					</Grid>
 
-					<Grid container spacing={1}>
+				</CardContent>
+				<Button
+					sx={{ mx: 6, mb: 2.5, p: 1, mt:-1 }}
+					variant="contained"
+					onClick={() => visitProvider(choice.provider_id)}
+				>
+					See this provider's page
+				</Button>
+			</Card>
+		</Container>
+	);
+}
+
+export default ListPageProviderCards;
+{
+	/* <Grid container spacing={1}>
 						<Grid item sx={rowItem}>
 							<Grid item sx={gItem}>
 								<Typography
@@ -191,20 +247,8 @@ function ListPageProviderCards({ choice }) {
 								</Typography>
 							</Grid>
 						</Grid>
-					</Grid>
-				</CardContent>
-				<Button sx={{ mx: 6, mb: 2.5, p: 1 }} variant="contained"
-				onClick={()=>visitProvider(choice.provider_id)}
-				>
-					See this provider's page
-
-				</Button>
-			</Card>
-		</Container>
-	);
+					</Grid> */
 }
-
-export default ListPageProviderCards;
 {
 	/* <h2>Provider Name: {choice.biz_name}</h2>
 			<p>Availabilty for: {choice.date}</p>

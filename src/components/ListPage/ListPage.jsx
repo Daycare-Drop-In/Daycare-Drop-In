@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ListPageSearchBar from "../ListPageSearchBar/ListPageSearchBar";
 import ProviderListCards from "../ListPageProviderCards/ListPageProviderCards";
 import { useDispatch, useSelector } from "react-redux";
+import {Container} from '@mui/material'
 
 function ListPage() {
   const dispatch = useDispatch()
@@ -16,18 +17,22 @@ function ListPage() {
 
 
   return (
-    <div className="container">
+      <Container maxWidth='xs'>
+
+
       <h1>This is the Provider List Page</h1>
 
       {/* Here's the import for the search bar component */}
+
       <ListPageSearchBar />
 
       {/* This component will get mapped over to display the list of providers */}
       {avail?.map((choice)=>(
 
         <ProviderListCards key={choice.id} choice={choice} />
-      ))}
-    </div>
+        ))}
+      </Container>
+
   );
 }
 

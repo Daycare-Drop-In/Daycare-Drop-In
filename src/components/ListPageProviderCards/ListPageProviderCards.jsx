@@ -21,6 +21,7 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 function ListPageProviderCards({ choice }) {
+	const dispatch=useDispatch(	)
     const gItem = {
 		mx: 0.5,
 		p: 1.5,
@@ -33,6 +34,17 @@ function ListPageProviderCards({ choice }) {
 		bgcolor: "#eee6f5",
 		width: "6.5em",
 	};
+	const bioItem = {
+		mx: 0.5,
+		p: 1.5,
+		mb: 0.75,
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "center",
+		border: "1px solid transparent",
+		borderRadius: 4,
+		width: "6.5em",
+	};
     const rowItem = {
 		p: 1,
 		display: "flex",
@@ -42,13 +54,16 @@ function ListPageProviderCards({ choice }) {
         align: 'center'
 
 	};
+	const visitProvider = (id) =>{
+		console.log('PROVIDER ID', id);
+		// dispatch({type:'VISIT_PROVIDER', payload:choice.provider_id})
+	}
 	return (
-		<div className="container">
+		<Container maxWidth="sm">
 			<Card
 				sx={{
 					width: "100%",
 					mb: 1.5,
-					p: 1,
 					display: "flex",
 					flexDirection: "column",
 					justifyContent: "center",
@@ -56,14 +71,29 @@ function ListPageProviderCards({ choice }) {
 				}}
 				raised
 			>
-				<CardContent sx={{display:'flex', justifyContent:'center' }}>
+				<CardContent
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						mb: -3,
+						mt: -1,
+					}}
+				>
 					<Typography variant="h5" align="center">
 						{choice.biz_name}
 					</Typography>
 				</CardContent>
-				<CardContent sx={{ width: "80%", mb: 1, display:'flex', flexDirection:'column', justifyContent:'center' }}>
+				<CardContent
+					sx={{
+						width: "80%",
+						mb: 1,
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "center",
+					}}
+				>
 					<Grid container spacing={1} sx={{ mb: 2 }}>
-						<Grid item sx={{ ml: 4, p:.75 }}>
+						<Grid item sx={{ p: 0.75 }}>
 							<CardMedia
 								component="img"
 								sx={{ objectFit: "contain", height: 80 }}
@@ -71,11 +101,12 @@ function ListPageProviderCards({ choice }) {
 								alt={"profile picture"}
 							/>
 							<Typography variant="caption" align="center">
-								{choice.provider_open} AM - {choice.provider_close}PM
+								{choice.provider_open} AM -{" "}
+								{choice.provider_close}PM
 							</Typography>
 						</Grid>
 
-						<Grid item sx={gItem}>
+						<Grid item sx={bioItem}>
 							<Typography
 								variant="body"
 								align="left"
@@ -162,9 +193,20 @@ function ListPageProviderCards({ choice }) {
 						</Grid>
 					</Grid>
 				</CardContent>
-			</Card>
+				<Button sx={{ mx: 6, mb: 2.5, p: 1 }} variant="contained"
+				onClick={()=>visitProvider(choice.provider_id)}
+				>
+					See this provider's page
 
-			{/* <h2>Provider Name: {choice.biz_name}</h2>
+				</Button>
+			</Card>
+		</Container>
+	);
+}
+
+export default ListPageProviderCards;
+{
+	/* <h2>Provider Name: {choice.biz_name}</h2>
 			<p>Availabilty for: {choice.date}</p>
 			<p>Age Groups</p>
 			<p>Infant: {choice.infant}</p>
@@ -178,14 +220,12 @@ function ListPageProviderCards({ choice }) {
 			<p> Unit # {choice.provider_unit}</p>
 			<p>City: {choice.provider_city}</p>
 			<p> State: {choice.provider_state}</p>
-			<p>Zip: {choice.provider_zip}</p> */}
-			{/* <h2>Provider Cards</h2>
+			<p>Zip: {choice.provider_zip}</p> */
+}
+{
+	/* <h2>Provider Cards</h2>
 			<p>
 				This will be the component that gets mapped over within the List
 				Page to display clickable info Cards for each provider
-			</p> */}
-		</div>
-	);
+			</p> */
 }
-
-export default ListPageProviderCards;

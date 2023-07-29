@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
   if (req.isAuthenticated()) {
     const queryText = `SELECT availability.*, to_char(availability.date, 'Month DD, YYYY') AS on_date,
     "user".photo_url AS provider_photo,
+    providers.id AS provider_id,
     providers.rates AS provider_fee,
 	providers.business_name AS biz_name,
 	providers.street_address AS provider_street,

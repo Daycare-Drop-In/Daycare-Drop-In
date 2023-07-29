@@ -71,7 +71,7 @@ function ListPageProviderCards({ choice }) {
 		<Container maxWidth="xs">
 			<Card
 				sx={{
-					width: "105%",
+					width: "107%",
 					mb: 1.5,
 					display: "flex",
 					flexDirection: "column",
@@ -102,11 +102,20 @@ function ListPageProviderCards({ choice }) {
 						<Typography variant="h7" align="left">
 							{choice.biz_name}
 						</Typography>
-						<Typography variant="caption" align="left">
+						<Typography
+							variant="caption"
+							align="left"
+							sx={{ mt: 0.25 }}
+						>
 							{choice.provider_open} - {choice.provider_close}
 						</Typography>
-						<Typography variant="caption" align="left">
-							{choice.provider_city}
+						<Typography
+							variant="body2"
+							align="left"
+							color="purple"
+							sx={{ mb: 0.25 }}
+						>
+							{choice.provider_city}, {choice.provider_zip}
 						</Typography>
 					</CardContent>
 					<CardContent sx={{ mx: -3 }}>
@@ -179,10 +188,9 @@ function ListPageProviderCards({ choice }) {
 							</Box>
 						</Grid>
 					</Grid>
-
 				</CardContent>
 				<Button
-					sx={{ mx: 6, mb: 2.5, p: 1, mt:-1 }}
+					sx={{ mx: 6, mb: 2.5, p: 1, mt: -1 }}
 					variant="contained"
 					onClick={() => visitProvider(choice.provider_id)}
 				>

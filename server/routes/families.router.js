@@ -2,7 +2,7 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-
+// GET for all families
 router.get("/", (req, res) => {
   console.log('In families GET');
   if (req.isAuthenticated()) {

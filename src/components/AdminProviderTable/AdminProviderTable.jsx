@@ -16,7 +16,7 @@ function AdminProviderTable() {
 
   const dispatch = useDispatch();
   const providers = useSelector(store => store.provider);
-  console.log(providers);
+  console.log("in AdminProviderTable, and providers are:" ,providers);
 
   const columns = [
     { id: 'business_name', label: "Business Name", minWidth: 100 },
@@ -67,7 +67,7 @@ function AdminProviderTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {providers.map((provider) => (
+              {/* {providers.map((provider) => (
                 <TableRow key={provider.id}>
                   <TableCell>
                     {provider.family_name}
@@ -97,7 +97,7 @@ function AdminProviderTable() {
                     </Button>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))} */}
             </TableBody>
           </Table>
         </TableContainer>

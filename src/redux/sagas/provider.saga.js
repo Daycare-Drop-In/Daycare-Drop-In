@@ -47,7 +47,7 @@ function* getAllProviders() {
   console.log("Inside getAllProviders saga");
   try {
     const providers = yield axios.get("/api/provider");
-    yield put({ type: "SET_PROVIDERS", payload: providers.data });
+    yield put({ type: "SET_ALL_PROVIDERS", payload: providers.data });
   } catch (error) {
     console.log("Error in getProviders saga", error);
   }

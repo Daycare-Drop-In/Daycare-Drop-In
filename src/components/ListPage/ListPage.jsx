@@ -39,19 +39,32 @@ function ListPage() {
 
 			{/* Here's the import for the search bar component */}
 
-			<ListPageSearchBar  avail={avail} />
+			<ListPageSearchBar avail={avail} />
 
 			{/* This component will get mapped over to display the list of providers */}
 			{!filter ? (
 				<>
+					<h4>All Availabilities</h4>
 					{avail?.map((choice) => (
 						<ProviderListCards key={choice.id} choice={choice} />
 					))}
 				</>
 			) : (
 				<>
-					<h4>Filtered results</h4>
-					{filteredAvail?.map((choice) => (
+					<h4>
+						Results for
+						{Object.values(filteredAvail[0].filterTerms).map(
+							(value, index) => (
+								<span key={index}>{` ${value}`}</span>
+							)
+						)}
+						{/* Results for at least one
+						{filteredAvail[0].filterTerms.age}, and in
+						{filteredAvail[0].filterTerms.city}, and for
+						{filteredAvail[0].filterTerms.date}, with
+						{filteredAvail[0].filterTerms.name}. */}
+					</h4>
+					{filteredAvail[1]?.newResults.map((choice) => (
 						<ProviderListCards key={choice.id} choice={choice} />
 					))}
 				</>

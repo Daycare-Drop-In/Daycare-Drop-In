@@ -17,7 +17,7 @@ function ListPageSearchBar ({avail}) {
 				cityFilter.push(city.provider_city);
 			}
 		}
-		// console.log("results based on city are:", cityFilter);
+		console.log("results based on city are:", cityFilter);
 		return cityFilter;
 	};
 	const filterByCity = filterCity();
@@ -46,11 +46,16 @@ function ListPageSearchBar ({avail}) {
 	};
 	const filterByName = filterName();
 
+
+
+
 	const [date, setDate] = useState([]);
 	const [name, setName] = useState([]);
 	const [city, setCity] = useState([]);
+    const [age, setAge]= useState(['Infant', 'Toddler', 'Pre-K', 'School age']);
 
 	const picked = {
+		age: "",
 		city: "",
 		date: "",
 		name: "",
@@ -61,7 +66,7 @@ function ListPageSearchBar ({avail}) {
 		setCity(filterByCity);
 		setDate(filterByDate);
 		setName(filterByName);
-	}, []);
+	}, [avail]);
 
 	const [results, setResults] = useState([]);
 
@@ -69,6 +74,15 @@ function ListPageSearchBar ({avail}) {
 
 	const findRelevantInfo = () => {
 		const filteredSearch = [];
+        let chosenAge = ''
+        if(`${userChoice.age.toLowerCase()}` === 'school age'){
+            chosenAge = 'schoolage'
+        } else if (`${userChoice.age.toLowerCase()}` === "pre-k") {
+            chosenAge = 'pre_k'
+		} else {
+			chosenAge = `${userChoice.age.toLowerCase()}`;
+		}
+        console.log('userchoice age', chosenAge);
 		for (let entry of avail) {
 			if (entry.biz_name === userChoice.name) {
 				filteredSearch.push(entry);
@@ -76,9 +90,11 @@ function ListPageSearchBar ({avail}) {
 				filteredSearch.push(entry);
 			} else if (entry.provider_city === userChoice.city) {
 				filteredSearch.push(entry);
-			}
-		}
+			} else if (entry[`${chosenAge}`] > 0) {
+				filteredSearch.push(entry);
+		    }
 		console.log("filteredSearch", filteredSearch);
+        }
 
 		return filteredSearch;
 	};
@@ -87,10 +103,11 @@ function ListPageSearchBar ({avail}) {
 
 	console.log("RESULTS ARRAY TO BE DISPATCHED", newResults);
 	console.log("FILTER FIELDS", userChoice);
+    console.log('USERCHOICE AGE age', `${userChoice.age.toLowerCase()}`);
 
 	const filterProviders = (event) => {
 		event.preventDefault();
-		dispatch({ type: "FETCH_FILTERED_RESULTS", payload: newResults });
+		dispatch({ type: "FETCH_FILTERED_RESULTS", payload: [{filterTerms: userChoice}, {newResults: newResults}] });
 		// dispatch({ type: "SET_FILTER" });
 	};
 
@@ -101,7 +118,7 @@ function ListPageSearchBar ({avail}) {
 		setUserChoice(picked);
 	};
 	const btn = { my: 1, mx: 1, height: "3.5rem", padding: 1 };
-	const drop = { mx: 0.75, width: 110 };
+	const drop = { mx: 0.75, width: 159, my:1 };
 
 	return (
 		<Box
@@ -116,6 +133,29 @@ function ListPageSearchBar ({avail}) {
 		>
 			<FormControl sx={drop}>
 				<InputLabel id="demo-simple-select-required-label">
+					Age
+				</InputLabel>
+				<Select
+					labelId="demo-simple-select-required-label"
+					id="demo-simple-select-required"
+					value={userChoice.age}
+					label="Age *"
+					onChange={(e) => {
+						setUserChoice({ ...userChoice, age: e.target.value });
+					}}
+				>
+					{age.map((option, i) => {
+						return (
+							<MenuItem key={i} value={option}>
+								{option}
+							</MenuItem>
+						);
+					})}
+				</Select>
+				{/* <FormHelperText>Filter by city</FormHelperText> */}
+			</FormControl>
+			<FormControl sx={drop}>
+				<InputLabel id="demo-simple-select-required-label">
 					City
 				</InputLabel>
 				<Select
@@ -127,9 +167,6 @@ function ListPageSearchBar ({avail}) {
 						setUserChoice({ ...userChoice, city: e.target.value });
 					}}
 				>
-					<MenuItem value="">
-						<em>None</em>
-					</MenuItem>
 					{city.map((option, i) => {
 						return (
 							<MenuItem key={i} value={option}>
@@ -154,9 +191,6 @@ function ListPageSearchBar ({avail}) {
 						setUserChoice({ ...userChoice, date: e.target.value })
 					}
 				>
-					<MenuItem value="">
-						<em>None</em>
-					</MenuItem>
 					{date.map((option, i) => {
 						return (
 							<MenuItem key={i} value={option}>
@@ -181,9 +215,6 @@ function ListPageSearchBar ({avail}) {
 						setUserChoice({ ...userChoice, name: e.target.value })
 					}
 				>
-					<MenuItem value="">
-						<em>None</em>
-					</MenuItem>
 					{name.map((option, i) => {
 						return (
 							<MenuItem key={i} value={option}>
@@ -195,7 +226,7 @@ function ListPageSearchBar ({avail}) {
 				{/* <FormHelperText>Filter by provider</FormHelperText> */}
 			</FormControl>
 			<Button type="submit" sx={btn} variant="contained">
-				Search
+				Filter
 			</Button>
 			<Button sx={btn} onClick={resetFilter} variant="contained">
 				Reset

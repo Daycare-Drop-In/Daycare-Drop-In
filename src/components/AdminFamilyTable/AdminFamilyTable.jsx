@@ -19,10 +19,10 @@ function AdminFamilyTable() {
   console.log(families);
 
   const columns = [
-    { id: 'family_name', label: "Family Name", minWidth: 100 },
-    { id: 'parent', label: "Primary Parent", minWidth: 150 },
-    { id: 'family_address', label: "Address", minWidth: 150 },
-    { id: 'delete_button', label: "", minWidth: 100 }
+    { id: "family", label: "Family", minWidth: 150 },
+    { id: "parent", label: "Primary Parent", minWidth: 150 },
+    // { id: "family_address", label: "Address", minWidth: 150 },
+    { id: "delete_button", label: "", minWidth: 100 }
   ]
 
   function formatPhoneNumber(phoneNumberString) {
@@ -71,6 +71,10 @@ function AdminFamilyTable() {
                 <TableRow key={family.id}>
                   <TableCell>
                     {family.family_name}
+                    <br />
+                    {family.street_address} {family.unit}
+                    <br />
+                    {family.city}, {family.state} {family.zip}
                   </TableCell>
                   <TableCell>
                     {family.parent_first_name}
@@ -79,10 +83,11 @@ function AdminFamilyTable() {
                     <br />
                     {family.parent_email}
                   </TableCell>
-                  <TableCell>{family.street_address} {family.unit}
+                  {/* <TableCell>
+                    {family.street_address} {family.unit}
                     <br />
                     {family.city}, {family.state} {family.zip}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Button
                       variant="contained"

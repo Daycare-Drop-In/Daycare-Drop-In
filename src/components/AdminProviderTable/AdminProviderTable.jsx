@@ -16,13 +16,12 @@ function AdminProviderTable() {
 
   const dispatch = useDispatch();
   const providers = useSelector(store => store.provider);
-  console.log("in AdminProviderTable, and providers are:" ,providers);
+  console.log("in AdminProviderTable, and providers are:", providers);
 
   const columns = [
-    { id: 'business_name', label: "Business Name", minWidth: 100 },
-    { id: 'provider_name', label: "Provider Name", minWidth: 150 },
-    { id: 'provider_address', label: "Address", minWidth: 150 },
-    { id: 'delete_button', label: "", minWidth: 100 }
+    { id: "business", label: "Daycare", minWidth: 150 },
+    { id: "provider", label: "Provider", minWidth: 150 },
+    { id: "delete_button", label: "", minWidth: 100 }
   ]
 
   function formatPhoneNumber(phoneNumberString) {
@@ -67,22 +66,27 @@ function AdminProviderTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {providers.map((provider) => (
+              {providers.map((provider) => (
                 <TableRow key={provider.id}>
                   <TableCell>
-                    {provider.family_name}
-                  </TableCell>
-                  <TableCell>
-                    {provider.parent_first_name}
+                    {provider.business_name}
                     <br />
-                    {formatPhoneNumber(provider.parent_number)}
-                    <br />
-                    {provider.parent_email}
-                  </TableCell>
-                  <TableCell>{provider.street_address} {provider.unit}
+                    {provider.street_address} {provider.unit}
                     <br />
                     {provider.city}, {provider.state} {provider.zip}
                   </TableCell>
+                  <TableCell>
+                    {provider.prov_first_name} {provider.prov_last_name}
+                    <br />
+                    {formatPhoneNumber(provider.prov_number)}
+                    <br />
+                    {provider.prov_email}
+                  </TableCell>
+                  {/* <TableCell>
+                  {provider.street_address} {provider.unit}
+                    <br />
+                    {provider.city}, {provider.state} {provider.zip}
+                  </TableCell> */}
                   <TableCell>
                     <Button
                       variant="contained"
@@ -97,7 +101,7 @@ function AdminProviderTable() {
                     </Button>
                   </TableCell>
                 </TableRow>
-              ))} */}
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

@@ -56,7 +56,7 @@ function* deleteFamily(id) {
 }
 
 function* familySaga() {
-  yield takeLatest("GET_ALL_FAMILIES)", getAllFamilies);
+  yield takeLatest("GET_ALL_FAMILIES", getAllFamilies);
   yield takeLatest("GET_FAMILY", getFamily);
   yield takeLatest("GET_FAMILY_USER", getFamilyUser);
   yield takeLatest("UPDATE_FAMILY", updateFamily);

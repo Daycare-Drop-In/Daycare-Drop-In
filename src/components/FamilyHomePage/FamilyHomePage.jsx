@@ -61,7 +61,7 @@ function FamilyHomePage() {
       <FamilyContactCards />
 
       <FamilyChildCards />
-      <LogOutButton className="btn" /
+      <LogOutButton className="btn" />
 
       <FamilyDropOffs />
     </div>

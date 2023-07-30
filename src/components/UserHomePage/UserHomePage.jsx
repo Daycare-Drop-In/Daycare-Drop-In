@@ -23,5 +23,5 @@ function UserHomePage() {
   }
   return <div className="container">{homePage}</div>;
 
-
+}
 export default UserHomePage;

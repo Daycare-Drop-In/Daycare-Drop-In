@@ -2,11 +2,9 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-/**
- * GET route template
- */
+
 router.get("/", (req, res) => {
-  // GET route code here
+  console.log('In families GET');
   if (req.isAuthenticated()) {
     const queryText = `SELECT "user".first_name AS parent_first_name,
 	"user".last_name AS parent_last_name,
@@ -18,7 +16,7 @@ FROM "user"
 	JOIN families ON "user".family_id = families.id;`;
     pool
       .query(queryText)
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {

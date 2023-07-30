@@ -36,7 +36,7 @@ CREATE TABLE "children" (
 	"family_id" INT REFERENCES "families" (id) NOT NULL,
 	"first_name" VARCHAR (255) NOT NULL,
 	"last_name" VARCHAR (255) NOT NULL,
-	"birthdate" DATE,
+	"birthdate" DATE,                             --modify to string??
 	"allergies" TEXT,
 	"potty_trained" BOOLEAN DEFAULT FALSE,
 	"photo_url" VARCHAR (1000)
@@ -51,8 +51,8 @@ CREATE TABLE "providers" (
 	"city" VARCHAR (255) NOT NULL,
 	"state" VARCHAR (2) NOT NULL,
 	"zip" INT NOT NULL,
-	"hours_open" VARCHAR (6),
-	"hours_close" VARCHAR (6),
+	"hours_open" VARCHAR (6),       -- test data not formatted for this 
+	"hours_close" VARCHAR (6),      -- ""
 	"rates" VARCHAR (1000),
 	"meals" BOOLEAN DEFAULT FALSE,
 	"business_description" TEXT,

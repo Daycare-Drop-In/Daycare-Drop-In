@@ -32,7 +32,7 @@ function ListPageSearchBar ({avail}) {
 		// console.log("results based on date are:", dateFilter);
 		return dateFilter;
 	};
-const filterByDate = filterDate();
+	const filterByDate = filterDate();
 
 	const filterName = () => {
 		const nameFilter = [];
@@ -44,70 +44,64 @@ const filterByDate = filterDate();
 		// console.log("results based on provider name are:", nameFilter);
 		return nameFilter;
 	};
-    const filterByName = filterName();
+	const filterByName = filterName();
 
 	const [date, setDate] = useState([]);
 	const [name, setName] = useState([]);
 	const [city, setCity] = useState([]);
 
-    const picked = {
-        city:'',
-        date:'',
-        name:'',
-
-    }
-    const [userChoice, setUserChoice] = useState(picked)
+	const picked = {
+		city: "",
+		date: "",
+		name: "",
+	};
+	const [userChoice, setUserChoice] = useState(picked);
 
 	useEffect(() => {
 		setCity(filterCity);
 		setDate(filterDate);
 		setName(filterName);
-	}, []);
+	}, [avail]);
 
+	const [results, setResults] = useState([]);
 
-    const findRelevantInfo = () => {
-        const filteredSearch = [];
-        for (let entry of avail){
-            if (entry.biz_name === userChoice.name){
+	// looping through avail store to extract entries matching drop down filters and puts them into new array newResults
+
+	const findRelevantInfo = () => {
+		const filteredSearch = [];
+		for (let entry of avail) {
+			if (entry.biz_name === userChoice.name) {
 				filteredSearch.push(entry);
 			} else if (entry.on_date === userChoice.date) {
 				filteredSearch.push(entry);
-			} else if (
-				entry.provider_city ==
-				userChoice.city
-			) {
+			} else if (entry.provider_city === userChoice.city) {
 				filteredSearch.push(entry);
 			}
-        }
-        return filteredSearch;
-    }
+		}
+		console.log("filteredSearch", filteredSearch);
 
-    const newResults = findRelevantInfo();
+		return filteredSearch;
+	};
 
-    const [results, setResults] = useState([])
+	const newResults = findRelevantInfo();
 
-console.log('RESULTS ARRAY TO BE DISPATCHED', results);
-console.log('FILTER FIELDS', userChoice);
+	console.log("RESULTS ARRAY TO BE DISPATCHED", newResults);
+	console.log("FILTER FIELDS", userChoice);
+
 	const filterProviders = (event) => {
-		// event.preventDefault()
-
-        console.log('clicked');
-
-        console.log('RESULTS', results);
-
-        dispatch({type: "FETCH_FILTERED_RESULTS", payload: results})
+		event.preventDefault();
+		dispatch({ type: "FETCH_FILTERED_RESULTS", payload: newResults });
+		// dispatch({ type: "SET_FILTER" });
 	};
 
 	const resetFilter = (event) => {
-        // event.preventDefault()
-        dispatch({ type: "CLEAR_FILTERED_RESULTS"});
-		dispatch({ type: "CLEAR_FILTER"});
-        setUserChoice(picked)
-        setResults([])
-
+		// event.preventDefault()
+		dispatch({ type: "CLEAR_FILTERED_RESULTS" });
+		dispatch({ type: "CLEAR_FILTER" });
+		setUserChoice(picked);
 	};
 	const btn = { my: 1, mx: 1, height: "3.5rem", padding: 1 };
-	const drop = { mx: 0.75, width: 100 };
+	const drop = { mx: 0.75, width: 110 };
 
 	return (
 		<Box
@@ -129,10 +123,9 @@ console.log('FILTER FIELDS', userChoice);
 					id="demo-simple-select-required"
 					value={userChoice.city}
 					label="Age *"
-					onChange={(e) =>
-						{setUserChoice({ ...userChoice, city: e.target.value }),
-							setResults(findRelevantInfo)}
-					}
+					onChange={(e) => {
+						setUserChoice({ ...userChoice, city: e.target.value });
+					}}
 				>
 					<MenuItem value="">
 						<em>None</em>
@@ -144,10 +137,6 @@ console.log('FILTER FIELDS', userChoice);
 							</MenuItem>
 						);
 					})}
-					{/* {
-										...newAdult,
-										first_name: event.target.value,
-									} */}
 				</Select>
 				{/* <FormHelperText>Filter by city</FormHelperText> */}
 			</FormControl>
@@ -162,8 +151,7 @@ console.log('FILTER FIELDS', userChoice);
 					value={userChoice.date}
 					label="Age *"
 					onChange={(e) =>
-						{setUserChoice({ ...userChoice, date: e.target.value }),
-							setResults(findRelevantInfo)}
+						setUserChoice({ ...userChoice, date: e.target.value })
 					}
 				>
 					<MenuItem value="">
@@ -189,10 +177,9 @@ console.log('FILTER FIELDS', userChoice);
 					id="demo-simple-select-required"
 					value={userChoice.name}
 					label="Age *"
-					onChange={(e) => {
-						setUserChoice({ ...userChoice, name: e.target.value }),
-							setResults(findRelevantInfo)
-					}}
+					onChange={(e) =>
+						setUserChoice({ ...userChoice, name: e.target.value })
+					}
 				>
 					<MenuItem value="">
 						<em>None</em>

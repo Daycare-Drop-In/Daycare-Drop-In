@@ -6,8 +6,17 @@ import {Container} from '@mui/material'
 
 function ListPage() {
   const dispatch = useDispatch()
+  const avail = useSelector((store) => store.availability);
+	const filter = useSelector((store) => store.filter);
+	const filteredAvail = useSelector((store) => store.filteredAvail);
+	const user = useSelector((store) => store.user);
+	const provider = useSelector((store) => store.provider);
+
+
+
   useEffect(()=>{
       dispatch({ type: "GET_ALL_AVAILABILITY" });
+      // dispatch({ type: "FETCH_FILTERED_RESULTS" });
     // if(!filter){
     //   dispatch({ type: "GET_ALL_AVAILABILITY" });
 
@@ -16,32 +25,12 @@ function ListPage() {
     // }
   }, [])
 
-  const avail = useSelector((store) => store.availability);
-  const filter = useSelector((store)=> store.filter)
-  const filteredAvail = useSelector((store)=> store.filteredAvail)
-  const user = useSelector((store)=> store.user)
-  const provider = useSelector((store)=> store.provider)
 
-  const [filtered, setFiltered]= useState(false);
+
+  // const [filtered, setFiltered]= useState(false);
   // console.log(filter);
   console.log(filter);
 
-  // looping through library state to find books marked as not read
-  // and pust them into new array unreadBooks
-
-
-  // const selectUnreads = () => {
-	// 	const unreadBooks = [];
-	// 	for (const userBook of library) {
-	// 		if (userBook && !userBook.read_status) {
-	// 			unreadBooks.push(userBook);
-	// 		}
-	// 	}
-	// 	console.log("unreadBooks are:", unreadBooks);
-	// 	return unreadBooks;
-  // };
-  // // declare variable via called function
-  // const unreadBooks = selectUnreads();
 
 
   return (
@@ -50,7 +39,7 @@ function ListPage() {
 
 			{/* Here's the import for the search bar component */}
 
-			<ListPageSearchBar avail={avail} setFiltered={setFiltered} />
+			<ListPageSearchBar  avail={avail} />
 
 			{/* This component will get mapped over to display the list of providers */}
 			{!filter ? (
@@ -61,7 +50,7 @@ function ListPage() {
 				</>
 			) : (
 				<>
-					<h1>booo</h1>
+					<h4>Filtered results</h4>
 					{filteredAvail?.map((choice) => (
 						<ProviderListCards key={choice.id} choice={choice} />
 					))}

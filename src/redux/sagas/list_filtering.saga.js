@@ -8,6 +8,7 @@ function* filterResults(action){
         yield put({type:'SET_FILTER'})
 
     } catch (error) {
+        console.log('Problem with filtered results', error);
 
     }
 }
@@ -15,9 +16,10 @@ function* unfilterResults(){
     console.log('IN UNFILTERED RESULTS');
     try {
         yield put({type:'CLEAR_RESULTS'})
-        yield put({type:'CLEAR_FILTER'})
+        // yield put({type:'CLEAR_FILTER'})
 
     } catch (error) {
+        console.log('problem with clearing filters', error);
 
     }
 }

@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
-function ListPageProviderCards({ choice }) {
+function ListPageProviderCards({ choice, option}) {
 	const dispatch=useDispatch(	)
     const gItem = {
 		mx: 0.5,
@@ -67,138 +67,308 @@ function ListPageProviderCards({ choice }) {
 		console.log('PROVIDER ID', id);
 		// dispatch({type:'VISIT_PROVIDER', payload:choice.provider_id})
 	}
-	return (
-		<Container maxWidth="xs">
-			<Card
-				sx={{
-					width: "107%",
-					mb: 1.5,
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "center",
-					borderRadius: 4,
-					ml: -1,
-				}}
-				raised
-			>
-				<CardContent
+	// if(choice){
+		return (
+			<Container maxWidth="xs">
+				<Card
 					sx={{
+						width: "107%",
+						mb: 1.5,
 						display: "flex",
-						flexDirection: "row",
-						justifyContent: "space-evenly",
-						mb: -3,
-						mt: -1,
+						flexDirection: "column",
+						justifyContent: "center",
+						borderRadius: 4,
+						ml: -1,
 					}}
+					raised
 				>
 					<CardContent
 						sx={{
 							display: "flex",
-							flexDirection: "column",
-							justifyContent: "flex-start",
+							flexDirection: "row",
+							justifyContent: "space-evenly",
 							mb: -3,
-							ml: -2.5,
+							mt: -1,
 						}}
 					>
-						<Typography variant="h7" align="left">
-							{choice.biz_name}
-						</Typography>
-						<Typography
-							variant="caption"
-							align="left"
-							sx={{ mt: 0.25 }}
+						<CardContent
+							sx={{
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "flex-start",
+								mb: -3,
+								ml: -2.5,
+							}}
 						>
-							{choice.provider_open} - {choice.provider_close}
-						</Typography>
-						<Typography
-							variant="body2"
-							align="left"
-							color="purple"
-							sx={{ mb: 0.25 }}
-						>
-							{choice.provider_city}, {choice.provider_zip}
-						</Typography>
-					</CardContent>
-					<CardContent sx={{ mx: -3 }}>
-						<Chip
-							label={`${choice.on_date}`}
-							variant="outlined"
-							size="small"
-							sx={{ mb: 1, borderColor: "green" }}
-						/>
-					</CardContent>
-				</CardContent>
-				<CardContent
-					sx={{
-						width: "100%",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-					}}
-				>
-					<Grid container spacing={0.5} sx={{ mb: 2, width: "100%" }}>
-						<Grid item xs={3} sx={{ ml: -2 }}>
-							<CardMedia
-								component="img"
-								sx={{ objectFit: "contain", height: 55 }}
-								image={choice.provider_photo}
-								alt={"profile picture"}
+							<Typography variant="h7" align="left">
+								{choice.biz_name}
+							</Typography>
+							<Typography
+								variant="caption"
+								align="left"
+								sx={{ mt: 0.25 }}
+							>
+								{choice.provider_open} - {choice.provider_close}
+							</Typography>
+							<Typography
+								variant="body2"
+								align="left"
+								color="purple"
+								sx={{ mb: 0.25 }}
+							>
+								{choice.provider_city}, {choice.provider_zip}
+							</Typography>
+						</CardContent>
+						<CardContent sx={{ mx: -3 }}>
+							<Chip
+								label={`${choice.on_date}`}
+								variant="outlined"
+								size="small"
+								sx={{ mb: 1, borderColor: "green" }}
 							/>
-						</Grid>
+						</CardContent>
+					</CardContent>
+					<CardContent
+						sx={{
+							width: "100%",
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+						}}
+					>
+						<Grid
+							container
+							spacing={0.5}
+							sx={{ mb: 2, width: "100%" }}
+						>
+							<Grid item xs={3} sx={{ ml: -2 }}>
+								<CardMedia
+									component="img"
+									sx={{ objectFit: "contain", height: 55 }}
+									image={choice.provider_photo}
+									alt={"profile picture"}
+								/>
+							</Grid>
 
-						<Grid item xs={2} sx={bioItem}>
-							<Typography
-								variant="caption"
-								align="left"
-								sx={{ mb: 1 }}
-							>
-								${choice.provider_fee}/day
-							</Typography>
-							<Typography
-								variant="caption"
-								align="left"
-								sx={{ mb: 1 }}
-							>
-								Meal: {choice.provider_meal ? "✅" : "❌"}
-							</Typography>
-						</Grid>
+							<Grid item xs={2} sx={bioItem}>
+								<Typography
+									variant="caption"
+									align="left"
+									sx={{ mb: 1 }}
+								>
+									${choice.provider_fee}/day
+								</Typography>
+								<Typography
+									variant="caption"
+									align="left"
+									sx={{ mb: 1 }}
+								>
+									Meal: {choice.provider_meal ? "✅" : "❌"}
+								</Typography>
+							</Grid>
 
-						<Grid item xs={3} sx={availItem}>
-							<Box sx={notChip}>
-								<Typography variant="caption" align="center">
-									Infant: {choice.infant}
-								</Typography>
-							</Box>
-							<Box sx={notChip}>
-								<Typography variant="caption" align="center">
-									Toddler: {choice.toddler}
-								</Typography>
-							</Box>
-						</Grid>
+							<Grid item xs={3} sx={availItem}>
+								<Box sx={notChip}>
+									<Typography
+										variant="caption"
+										align="center"
+									>
+										Infant: {choice.infant}
+									</Typography>
+								</Box>
+								<Box sx={notChip}>
+									<Typography
+										variant="caption"
+										align="center"
+									>
+										Toddler: {choice.toddler}
+									</Typography>
+								</Box>
+							</Grid>
 
-						<Grid item xs={4} sx={availItem2}>
-							<Box sx={notChip}>
-								<Typography variant="caption" align="center">
-									Pre-K: {choice.pre_k}
-								</Typography>
-							</Box>
-							<Box sx={notChip}>
-								<Typography variant="caption" align="center">
-									School Age: {choice.schoolage}
-								</Typography>
-							</Box>
+							<Grid item xs={4} sx={availItem2}>
+								<Box sx={notChip}>
+									<Typography
+										variant="caption"
+										align="center"
+									>
+										Pre-K: {choice.pre_k}
+									</Typography>
+								</Box>
+								<Box sx={notChip}>
+									<Typography
+										variant="caption"
+										align="center"
+									>
+										School Age: {choice.schoolage}
+									</Typography>
+								</Box>
+							</Grid>
 						</Grid>
-					</Grid>
-				</CardContent>
-				<Button
-					sx={{ mx: 6, mb: 2.5, p: 1, mt: -1 }}
-					variant="contained"
-					onClick={() => visitProvider(choice.provider_id)}
-				>
-					See this provider's page
-				</Button>
-			</Card>
-		</Container>
-	);
+					</CardContent>
+					<Button
+						sx={{ mx: 6, mb: 2.5, p: 1, mt: -1 }}
+						variant="contained"
+						onClick={() => visitProvider(choice.provider_id)}
+					>
+						See this provider's page
+					</Button>
+				</Card>
+			</Container>
+		);
+
+	// } else{
+	// 	return (
+	// 		<Container maxWidth="xs">
+	// 			<Card
+	// 				sx={{
+	// 					width: "107%",
+	// 					mb: 1.5,
+	// 					display: "flex",
+	// 					flexDirection: "column",
+	// 					justifyContent: "center",
+	// 					borderRadius: 4,
+	// 					ml: -1,
+	// 				}}
+	// 				raised
+	// 			>
+	// 				<CardContent
+	// 					sx={{
+	// 						display: "flex",
+	// 						flexDirection: "row",
+	// 						justifyContent: "space-evenly",
+	// 						mb: -3,
+	// 						mt: -1,
+	// 					}}
+	// 				>
+	// 					<CardContent
+	// 						sx={{
+	// 							display: "flex",
+	// 							flexDirection: "column",
+	// 							justifyContent: "flex-start",
+	// 							mb: -3,
+	// 							ml: -2.5,
+	// 						}}
+	// 					>
+	// 						<Typography variant="h7" align="left">
+	// 							{option.biz_name}
+	// 						</Typography>
+	// 						<Typography
+	// 							variant="caption"
+	// 							align="left"
+	// 							sx={{ mt: 0.25 }}
+	// 						>
+	// 							{option.provider_open} - {option.provider_close}
+	// 						</Typography>
+	// 						<Typography
+	// 							variant="body2"
+	// 							align="left"
+	// 							color="purple"
+	// 							sx={{ mb: 0.25 }}
+	// 						>
+	// 							{option.provider_city}, {option.provider_zip}
+	// 						</Typography>
+	// 					</CardContent>
+	// 					<CardContent sx={{ mx: -3 }}>
+	// 						<Chip
+	// 							label={`${option.on_date}`}
+	// 							variant="outlined"
+	// 							size="small"
+	// 							sx={{ mb: 1, borderColor: "green" }}
+	// 						/>
+	// 					</CardContent>
+	// 				</CardContent>
+	// 				<CardContent
+	// 					sx={{
+	// 						width: "100%",
+	// 						display: "flex",
+	// 						flexDirection: "column",
+	// 						justifyContent: "center",
+	// 					}}
+	// 				>
+	// 					<Grid
+	// 						container
+	// 						spacing={0.5}
+	// 						sx={{ mb: 2, width: "100%" }}
+	// 					>
+	// 						<Grid item xs={3} sx={{ ml: -2 }}>
+	// 							<CardMedia
+	// 								component="img"
+	// 								sx={{ objectFit: "contain", height: 55 }}
+	// 								image={option.provider_photo}
+	// 								alt={"profile picture"}
+	// 							/>
+	// 						</Grid>
+
+	// 						<Grid item xs={2} sx={bioItem}>
+	// 							<Typography
+	// 								variant="caption"
+	// 								align="left"
+	// 								sx={{ mb: 1 }}
+	// 							>
+	// 								${option.provider_fee}/day
+	// 							</Typography>
+	// 							<Typography
+	// 								variant="caption"
+	// 								align="left"
+	// 								sx={{ mb: 1 }}
+	// 							>
+	// 								Meal: {option.provider_meal ? "✅" : "❌"}
+	// 							</Typography>
+	// 						</Grid>
+
+	// 						<Grid item xs={3} sx={availItem}>
+	// 							<Box sx={notChip}>
+	// 								<Typography
+	// 									variant="caption"
+	// 									align="center"
+	// 								>
+	// 									Infant: {option.infant}
+	// 								</Typography>
+	// 							</Box>
+	// 							<Box sx={notChip}>
+	// 								<Typography
+	// 									variant="caption"
+	// 									align="center"
+	// 								>
+	// 									Toddler: {option.toddler}
+	// 								</Typography>
+	// 							</Box>
+	// 						</Grid>
+
+	// 						<Grid item xs={4} sx={availItem2}>
+	// 							<Box sx={notChip}>
+	// 								<Typography
+	// 									variant="caption"
+	// 									align="center"
+	// 								>
+	// 									Pre-K: {option.pre_k}
+	// 								</Typography>
+	// 							</Box>
+	// 							<Box sx={notChip}>
+	// 								<Typography
+	// 									variant="caption"
+	// 									align="center"
+	// 								>
+	// 									School Age: {option.schoolage}
+	// 								</Typography>
+	// 							</Box>
+	// 						</Grid>
+	// 					</Grid>
+	// 				</CardContent>
+	// 				<Button
+	// 					sx={{ mx: 6, mb: 2.5, p: 1, mt: -1 }}
+	// 					variant="contained"
+	// 					onClick={() => visitProvider(option.provider_id)}
+	// 				>
+	// 					See this provider's page
+	// 				</Button>
+	// 			</Card>
+	// 		</Container>
+	// 	);
+
+	// }
+
 }
 
 export default ListPageProviderCards;

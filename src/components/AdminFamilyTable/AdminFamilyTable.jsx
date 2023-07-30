@@ -54,17 +54,15 @@ function AdminFamilyTable() {
           Families
         </Typography>
         <TableContainer component={Paper}>
-          <Table>
-            <TableHead
-              stickyHeader={true}
-            >
+          <Table stickyHeader>
+            <TableHead>
               <TableRow>
                 {columns.map((column) => (
                   <TableCell key={column.label}
-                  style={{ minWidth: column.minWidth, width: column.width }}
+                    style={{ minWidth: column.minWidth, width: column.width }}
                   >
                     {column.label}
-                    </TableCell>
+                  </TableCell>
                 ))}
               </TableRow>
             </TableHead>
@@ -87,14 +85,14 @@ function AdminFamilyTable() {
                   </TableCell>
                   <TableCell>
                     <Button
-                     variant="contained"
-                     name="delete"
-                     startIcon={<DeleteIcon />}
-                     sx={{
-                         p: 1,
-                     }}
+                      variant="contained"
+                      name="delete"
+                      startIcon={<DeleteIcon />}
+                      sx={{
+                        p: 1,
+                      }}
                     //  onClick={}
-                     >
+                    >
                       DELETE
                     </Button>
                   </TableCell>

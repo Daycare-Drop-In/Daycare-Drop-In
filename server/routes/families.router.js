@@ -63,7 +63,7 @@ FROM "user"
 WHERE "user".family_id = $1;`;
     pool
       .query(queryText, [famId])
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {

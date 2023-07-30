@@ -2,11 +2,8 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-/**
- * GET route template
- */
+
 router.get("/", (req, res) => {
-  // GET route code here
   if (req.isAuthenticated()) {
     const queryText = `SELECT providers.*,
 	"user".first_name AS prov_first_name,
@@ -18,7 +15,7 @@ FROM providers
 	JOIN "user" ON providers.user_id = "user".id;`;
     pool
       .query(queryText)
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {
@@ -65,7 +62,7 @@ FROM providers
 WHERE providers.id = $1;`;
     pool
       .query(queryText, [providerId])
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {

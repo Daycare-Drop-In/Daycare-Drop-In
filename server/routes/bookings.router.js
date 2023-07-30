@@ -1,11 +1,11 @@
-const express = require('express');
-const pool = require('../modules/pool');
+const express = require("express");
+const pool = require("../modules/pool");
 const router = express.Router();
 
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
     const queryText = `SELECT bookings.id AS booking_id,
@@ -57,28 +57,29 @@ FROM bookings
 	JOIN "user" ON bookings.user_id = "user".id
 	JOIN families ON bookings.famiily_id = families.id
 ORDER BY bookings.service_date ASC;`;
-    pool.query(queryText)
+    pool
+      .query(queryText)
       .then(() => {
         res.send(result.rows);
       })
       .catch((error) => {
-        console.log('ERROR IN bookings GET', error);
+        console.log("ERROR IN bookings GET", error);
         res.sendStatus(500);
       });
   } else {
-    res.sendStatus(403)
+    res.sendStatus(403);
   }
 });
 
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
   // POST route code here
   if (req.isAuthenticated()) {
     const {
       // !!! ADD OBJECT PROPERTIES WHEN READY AND SWAP THEM OUT FOR THE BLINGS IN THE ARRAY ON LINE 90 !!!
-    } = req.body
+    } = req.body;
     const queryText = `INSERT INTO bookings (
 		provider_id,
 		child_id,
@@ -87,23 +88,24 @@ router.post('/', (req, res) => {
 		service_date
 	)
 VALUES ($1, $2, $3, $4, $5);`;
-    pool.query(queryText, [$1-$5])
+    pool
+      .query(queryText, [$1 - $5])
       .then(() => {
         res.sendStatus(202);
       })
       .catch((error) => {
-        console.log('ERROR IN bookings POST', error);
+        console.log("ERROR IN bookings POST", error);
         res.sendStatus(500);
       });
   } else {
-    res.sendStatus(403)
+    res.sendStatus(403);
   }
 });
 
 // detail view GET route template
-router.get('/details/:id', (req, res) => {
+router.get("/details/:id", (req, res) => {
   if (req.isAuthenticated()) {
-    const familyId = req.params.id
+    const familyId = req.params.id;
     const queryText = `SELECT bookings.id AS booking_id,
 	bookings.service_date AS booked_day,
 	bookings.time_submitted AS time_booked,
@@ -154,23 +156,28 @@ FROM bookings
 	JOIN families ON bookings.family_id = families.id
 WHERE families.id = $1
 ORDER BY bookings.service_date ASC;`;
-    pool.query(queryText, [familyId])
-    .then(() => {
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.log('ERROR IN bookings details GET', error);
-      res.sendStatus(500);
-    });
-} else {
-  res.sendStatus(403)
-}
+    pool
+      .query(queryText, [familyId])
+      .then(() => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log("ERROR IN bookings details GET", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 // detail view GET route template
-router.get('/provider/:id', (req, res) => {
+router.get("/provider/:id", (req, res) => {
   if (req.isAuthenticated()) {
-    const providerId = req.params.id
+    const providerId = req.params.id;
+    console.log(
+      "Inside router side of bookings request for provider of id:",
+      providerId
+    );
     const queryText = `SELECT bookings.id AS booking_id,
 	bookings.service_date AS booked_day,
 	bookings.time_submitted AS time_booked,
@@ -221,59 +228,56 @@ FROM bookings
 	JOIN families ON bookings.family_id = families.id
 WHERE providers.id = $1
 ORDER BY bookings.service_date ASC;`;
-    pool.query(queryText, [providerId])
-    .then(() => {
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.log('ERROR IN bookings details GET', error);
-      res.sendStatus(500);
-    });
-} else {
-  res.sendStatus(403)
-}
+    pool
+      .query(queryText, [providerId])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log("ERROR IN bookings details GET", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
-
 // DELETE template
-router.delete('/delete/:id', (req, res) => {
-  console.log('IN bookings DELETE ROUTE, and req.params is:', req.params.id);
+router.delete("/delete/:id", (req, res) => {
+  console.log("IN bookings DELETE ROUTE, and req.params is:", req.params.id);
   if (req.isAuthenticated()) {
     const bookingId = req.params.id;
-	const queryText = `DELETE FROM bookings
+    const queryText = `DELETE FROM bookings
 WHERE id = $1;`;
-	pool.query(queryText, [bookingId])
-		.then(() => {
-			res.sendStatus(200);
-		})
-		.catch((error) => {
-			console.log("ERROR IN bookings DELETE", error);
-			res.sendStatus(500);
-		});
-} else {
-  res.sendStatus(403)
-}
+    pool
+      .query(queryText, [bookingId])
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log("ERROR IN bookings DELETE", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 // PUT template
-router.put('/update/:id', (req, res) => {
+router.put("/update/:id", (req, res) => {
   if (req.isAuthenticated()) {
-      pool.query()
+    pool
+      .query()
       .then(() => {
         res.sendStatus(202);
       })
       .catch((error) => {
-        console.log('ERROR IN bookings PUT', error);
+        console.log("ERROR IN bookings PUT", error);
         res.sendStatus(500);
       });
   } else {
-    res.sendStatus(403)
+    res.sendStatus(403);
   }
-  });
-
+});
 
 module.exports = router;
-
-
-
-

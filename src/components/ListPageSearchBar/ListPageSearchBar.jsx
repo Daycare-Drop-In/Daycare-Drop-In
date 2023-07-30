@@ -58,10 +58,10 @@ function ListPageSearchBar ({avail}) {
 	const [userChoice, setUserChoice] = useState(picked);
 
 	useEffect(() => {
-		setCity(filterCity);
-		setDate(filterDate);
-		setName(filterName);
-	}, [avail]);
+		setCity(filterByCity);
+		setDate(filterByDate);
+		setName(filterByName);
+	}, []);
 
 	const [results, setResults] = useState([]);
 

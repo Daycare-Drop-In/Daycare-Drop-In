@@ -65,7 +65,7 @@ FROM providers
 WHERE providers.id = $1;`;
     pool
       .query(queryText, [providerId])
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {

@@ -39,10 +39,24 @@ function* addAvailability(action) {
   }
 }
 
+function* deleteAvailability(action) {
+  console.log("Inside deleteAvailability for ID:", action.payload.id);
+  try {
+    yield axios.delete(`/api/availability/delete/${action.payload.id}`);
+    yield put({
+      type: "GET_PROVIDER_AVAILABILITY",
+      payload: action.payload.provider_id,
+    });
+  } catch (error) {
+    console.log("Error in deleteAvailability saga", error);
+  }
+}
+
 function* availabilitySaga() {
   yield takeLatest("GET_ALL_AVAILABILITY", getAllAvailability);
   yield takeLatest("GET_PROVIDER_AVAILABILITY", getProviderAvailability);
   yield takeLatest("ADD_AVAILABILITY", addAvailability);
+  yield takeLatest("DELETE AVAILABILITY", deleteAvailability);
   // yield takeLatest("GET_FILTERED_AVAIL", getFilteredAvailability);
 }
 

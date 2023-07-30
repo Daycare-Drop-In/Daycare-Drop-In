@@ -77,8 +77,12 @@ function ProviderAvailabilityTable() {
   //DELETE AN AVAILABILITY TABLE ROW
 
   const handleDelete = (id) => {
-    console.log("Item to delete:", id);
-    dispatch({type: "DELETE"})
+    const deletePayload = {
+      id: id,
+      provider_id: provider_id,
+    };
+    console.log("Handle delete triggered, payload is:", deletePayload);
+    dispatch({ type: "DELETE AVAILABILITY", payload: deletePayload });
   };
 
   return (

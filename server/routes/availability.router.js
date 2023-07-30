@@ -117,8 +117,11 @@ router.delete("/delete/:id", (req, res) => {
     req.params.id
   );
   if (req.isAuthenticated()) {
+    const id = req.params.id;
+    const queryText = `DELETE FROM availability
+WHERE id = $1;`;
     pool
-      .query()
+      .query(queryText, [id])
       .then(() => {
         res.sendStatus(200);
       })

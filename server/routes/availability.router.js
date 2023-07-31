@@ -8,22 +8,25 @@ const router = express.Router();
 router.get("/", (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
-    const queryText = `SELECT availability.*,
+    const queryText = `SELECT availability.*, to_char(availability.date, 'Mon DD, YYYY') AS on_date,
+    "user".photo_url AS provider_photo,
+    providers.id AS provider_id,
+    providers.rates AS provider_fee,
 	providers.business_name AS biz_name,
 	providers.street_address AS provider_street,
 	providers.unit AS provider_unit,
 	providers.city AS provider_city,
 	providers.state AS provider_state,
 	providers.zip AS provider_zip,
-	providers.hours_open AS provider_open,
-	providers.hours_close AS provider_close,
+	TO_CHAR(TO_TIMESTAMP(providers.hours_open, 'HH24:MI'), 'FMHH12:MI AM') AS provider_open,
+  TO_CHAR(TO_TIMESTAMP(providers.hours_close, 'HH24:MI'), 'FMHH12:MI AM') AS provider_close,
 	providers.meals AS provider_meal
 FROM availability
 	JOIN providers ON availability.provider_id = providers.id
-ORDER BY "date" ASC;`;
-    // MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
-    pool
-      .query(queryText)
+  JOIN "user" ON providers.user_id = "user"."id"
+  ORDER BY "date" ASC;`;
+// MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
+    pool.query(queryText)
       .then((result) => {
         res.send(result.rows);
       })

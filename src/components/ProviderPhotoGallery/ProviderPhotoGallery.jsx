@@ -1,14 +1,29 @@
-import React from 'react';
-import ProviderPhotoItem from '../ProviderPhotoItem/ProviderPhotoItem';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ProviderPhotoItem from "../ProviderPhotoItem/ProviderPhotoItem";
 
 function ProviderPhotoGallery() {
+  const dispatch = useDispatch();
+  const provider_id = useSelector((store) => store.provider.id);
+  const photoArray = useSelector((store) => store.photo);
+
+  useEffect(() => {
+    dispatch({ type: "GET_PHOTOS", payload: provider_id });
+  }, [provider_id]);
 
   return (
     <div className="container">
-<h3>Provider Photo Gallery</h3>
-{/* This will map over the Provider Photo component to 
-create a gallery of clickable thumbnails of the provider's space */}
-<ProviderPhotoItem/>
+      <h3>Provider Photo Gallery</h3>
+      <div className="photo-gallery-container">
+        {photoArray.map((photo) => (
+          <ProviderPhotoItem toy={photo}/>
+        ))}
+      </div>
+      <div className="photo-upload-form">
+        <form>
+          
+        </form>
+      </div>
     </div>
   );
 }

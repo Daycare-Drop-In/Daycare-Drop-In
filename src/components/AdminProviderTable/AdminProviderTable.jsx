@@ -10,6 +10,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 
 function AdminProviderTable() {
@@ -17,6 +19,7 @@ function AdminProviderTable() {
   const dispatch = useDispatch();
   const providers = useSelector(store => store.provider) || [];
   // console.log("in AdminProviderTable, and providers are:", providers);
+  const MySwal = withReactContent(Swal);
 
   const columns = [
     { id: "business", label: "Daycare", minWidth: 150 },
@@ -53,6 +56,36 @@ function AdminProviderTable() {
     return <div>Loading...</div>;
   }
 
+  const deleteProviderData = (providerId) => {
+    event.preventDefault();
+    console.log('in deleteProviderData and providerId is:', providerId);
+    MySwal.fire({
+      title: "Please confirm you want to remove this provider.",
+      text: "Click confirm to complete removal.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Remove",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire("Provider removed.", {
+          icon: "success",
+          timer: 1000,
+          buttons: false,
+        });
+        dispatch({
+          type: 'DELETE_PROVIDER',
+          payload: providerId
+        });
+      } else {
+        MySwal.fire("Canceled!", {
+          icon: "info",
+          timer: 1500,
+          buttons: false,
+        })
+      }
+    })
+  };
 
   return (
     // <div className="container">
@@ -113,7 +146,7 @@ function AdminProviderTable() {
                       sx={{
                         p: 1,
                       }}
-                    //  onClick={}
+                     onClick={() => deleteProviderData(provider.id)}
                     >
                       DELETE
                     </Button>

@@ -55,7 +55,7 @@ function* getAllProviders() {
 
 // allows admin to remove a provider from the database
 function* deleteProvider(id) {
-  console.log("Inside deleteProvider for provider of ID:", id.payload);
+  console.log("Inside deleteProvider saga for provider of ID:", id.payload);
   try {
     yield axios.delete(`/api/provider/delete/${id.payload}`);
   } catch (error) {

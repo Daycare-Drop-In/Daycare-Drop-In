@@ -17,7 +17,7 @@ function AdminFamilyTable() {
 
   const dispatch = useDispatch();
   const families = useSelector(store => store.family);
-  console.log(families);
+  // console.log(families);
   const MySwal = withReactContent(Swal);
 
   const columns = [

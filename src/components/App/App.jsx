@@ -27,6 +27,9 @@ import RegisterPageJoinFamily from "../RegisterPageJoinFamily/RegisterPageJoinFa
 
 import "./App.css";
 import AdminHomePage from "../AdminHomePage/AdminHomePage";
+import FamilyHomePage from "../FamilyHomePage/FamilyHomePage";
+import FamilyDetails from "../FamilyDetails/FamilyDetails";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +76,14 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/details/family/:id"
+          >
+            <FamilyDetails />
+          </ProtectedRoute>
+
 
           <Route exact path="/login">
             {user.id ? (

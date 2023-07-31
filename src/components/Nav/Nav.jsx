@@ -51,7 +51,7 @@ function Nav() {
           color="white"
           aria-label="open drawer"
           onClick={toggleDrawer(true)}
-          sx={{ color:"white", mr: 2, display: { xs: 'block', sm: 'none', }, }}>
+          sx={{ color: "white", mr: 2, display: { xs: 'block', sm: 'none', }, }}>
           <MenuIcon />
         </IconButton>
 
@@ -59,8 +59,8 @@ function Nav() {
           anchor="right" // drawer side
           variant="temporary" // how easily the drawer closes
           open={open} // true = drawer open
-          onClose={toggleDrawer(false)} 
-          onOpen={toggleDrawer(true)} 
+          onClose={toggleDrawer(false)}
+          onOpen={toggleDrawer(true)}
         >
 
           <Box>
@@ -71,18 +71,18 @@ function Nav() {
                 Login / Register
               </Link>
             )}
-
+            <br />
             {/* If a user is logged in, show these links */}
             {user.id && (
               <>
                 <Link className="navLink" to="/user">
                   Home
                 </Link>
-
+                <br />
                 <Link className="navLink" to="/info">
                   Info Page
                 </Link>
-
+                <br />
                 {
                   // only display if admin
                   user.user_type === "admin" && (
@@ -91,17 +91,17 @@ function Nav() {
                     </Link>
                   )
                 }
-
+                <br />
                 <LogOutButton className="navLink" />
               </>
             )}
-
+            <br />
             <Link className="navLink" to="/about">
               About
             </Link>
           </Box>
         </Drawer>
-        
+
       </div>
     </div>
   );

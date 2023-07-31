@@ -48,7 +48,7 @@ function AdminFamilyTable() {
     setTimeout(() => {
       // Set isLoading to false once the data is fetched
       setIsLoading(false);
-    }, 25);
+    }, 75);
   }, []); // Empty dependency array to run the effect only once
 
   if (isLoading) {
@@ -127,7 +127,7 @@ function AdminFamilyTable() {
               {families.map((family) => (
                 <TableRow key={family.id}>
                   <TableCell
-                  // onClick={() => history.push(`/???details???/${family.id}`)}
+                  onClick={() => history.push(`/details/family/${family.id}`)}
                   >
                     {family.family_name}
                     <br />

@@ -17,7 +17,7 @@ function FamilyChildCards() {
         dispatch({type: "GET_CHILDREN", payload: user.family_id});
     }, [])
     const user = useSelector((store) => store.user);
-    const allMyKids = useSelector((store) => store.children)
+    const allMyKids = useSelector((store) => store.children);
 
     
 
@@ -250,17 +250,10 @@ console.log('NEW CHILD OBJECT', newChild);
                                     alt={"profile picture"}
                                 />
                                 </CardContent>
-
-                             
-                               
-
-                                
                             </Grid>
                         </Grid>
                 </Card>
             ))}
-            
-
         </Container>
         // <div className="container">
         //     <h2>Child Card</h2>

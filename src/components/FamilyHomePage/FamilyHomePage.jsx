@@ -28,6 +28,7 @@ function FamilyHomePage() {
   console.log("THESE ARE THE FAMILY DETAILS:", families);
 
   return (
+    
     <div className="container">
       <div className="family-home-page-header">
         <h2>

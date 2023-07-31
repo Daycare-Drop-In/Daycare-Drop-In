@@ -56,7 +56,7 @@ function ListPageProviderCards({ choice}) {
 	};
 	const visitProvider = (id) =>{
 		console.log("PROVIDER ID", id);
-		// dispatch({type:'GET_PROVIDER', payload:choice.provider_id})
+		// dispatch({type:'GET_PROVIDER', payload:id})
 	}
 
 	return (

@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
     res.sendStatus(403);
   }
 });
-
+// NEED TO ALSO GRAB RADULS AND CHILREN INFORMATION TO SET THE FAMMILIES REDUCER WITH SO WE 
 // detail view GET route template
 router.get("/details/:id", (req, res) => {
   if (req.isAuthenticated()) {

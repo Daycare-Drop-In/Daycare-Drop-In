@@ -7,6 +7,8 @@ router.get("/", (req, res) => {
   // console.log('in db providers GET');
   if (req.isAuthenticated()) {
     const queryText = `SELECT providers.*,
+    TO_CHAR(TO_TIMESTAMP(providers.hours_open, 'HH24:MI'), 'FMHH12:MI AM') AS provider_open,
+  TO_CHAR(TO_TIMESTAMP(providers.hours_close, 'HH24:MI'), 'FMHH12:MI AM') AS provider_close,
 	"user".first_name AS prov_first_name,
 	"user".last_name AS prov_last_name,
 	"user".email AS prov_email,

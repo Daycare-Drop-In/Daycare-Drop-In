@@ -19,7 +19,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import UserHomePage from "../UserHomePage/UserHomePage";
 import RegistrationLanding from "../RegistrationLanding/RegistrationLanding";
-// import StaticListPage from "..StaticListPage/StaticListPage";
+import StaticListPage from '../StaticListPage/StaticListPage'
 import ListPage from "../ListPage/ListPage";
 import RegisterPageProvider from "../RegisterPageProvider/RegisterPageProvider";
 import RegisterPageNewFamily from "../RegisterPageNewFamily/RegisterPageNewFamily";
@@ -140,9 +140,9 @@ function App() {
             )}
           </Route>
 
-          {/* <Route exact path="/static_list">
+          <Route exact path="/static_list">
             <StaticListPage />
-          </Route> */}
+          </Route>
 
           <ProtectedRoute
             // logged in shows admin page else shows LoginPage

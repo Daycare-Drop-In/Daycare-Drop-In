@@ -48,7 +48,7 @@ function ProviderPhotoGallery() {
         <h3>Provider Photo Gallery</h3>
         <div className="photo-gallery-container">
           {photoArray.map((photo) => (
-            <ProviderPhotoItem toy={photo} />
+            <ProviderPhotoItem photo={photo} />
           ))}
         </div>
         <div className="photo-upload-form">

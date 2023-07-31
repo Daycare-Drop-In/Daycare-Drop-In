@@ -11,15 +11,13 @@ function* getAllAvailability() {
     console.log("Error in getAllAvailability saga:", error);
   }
 }
-function* getProviderAvailability(action) {
+function* getProviderAvailability(id) {
   console.log(
     "Inside getAvailability saga for provider of id:",
-    action.payload
+    id.payload
   );
   try {
-    const availability = yield axios.get(
-      `/api/availability/details/${action.payload}`
-    );
+    const availability = yield axios.get(`/api/availability/details/${id.payload}`);
     yield put({ type: "SET_AVAILABILITY", payload: availability.data });
   } catch (error) {
     console.log("Error in getProviderAvailability saga:", error);

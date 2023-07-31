@@ -8,6 +8,8 @@ import children from "./children.reducer";
 import responsibleAdults from "./responsible_adults.reducer";
 import availability from "./availability.reducer";
 import photo from "./photo.reducer";
+import filter from "./filtered_results.reducer";
+import filteredAvail from "./newResults.reducer";
 import accessCodeReducer from "./codeReducer";
 
 // rootReducer is the primary reducer for our entire project
@@ -27,7 +29,10 @@ const rootReducer = combineReducers({
   responsibleAdults,
   availability,
   photo,
+  filter,
+  filteredAvail,
   accessCodeReducer,
+
 
   // will have an id and username if someone is logged in
 });

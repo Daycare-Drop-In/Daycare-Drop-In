@@ -15,7 +15,7 @@ import axios from "axios";
 function* getChildren(id) {
   console.log("Inside getChildren saga for family of id:", id.payload);
   try {
-    const children = yield axios.get(`/api/child/${id.payload}`);
+    const children = yield axios.get(`/api/child/details/${id.payload}`);
     yield put({ type: "SET_CHILDREN", payload: children.data });
   } catch (error) {
     console.log("Error in getChildren saga", error);
@@ -27,8 +27,8 @@ function* postChild(action) {
   console.log("Inside postChild saga:", action.payload);
   try {
     yield axios.post("/api/child", action.payload);
-    yield put({ type: "GET_CHILDREN" });
-  } catch {
+    yield put({ type: "GET_CHILDREN", payload: action.payload.family_id});
+  } catch (error) {
     console.log("Error in postChild saga", error);
   }
 }

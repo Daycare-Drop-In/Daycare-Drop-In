@@ -1,3 +1,7 @@
+npm install sweetalert2
+npm install --save sweetalert2 sweetalert2-react-content
+
+
 
 # Prime Solo Project Starting Repo
 This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).

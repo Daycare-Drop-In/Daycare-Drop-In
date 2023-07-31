@@ -1,5 +1,4 @@
-
-const provider = (state = [], action) => {
+const provider = (state = {}, action) => {
   switch (action.type) {
     case "SET_PROVIDER":
       return action.payload;
@@ -12,5 +11,4 @@ const provider = (state = [], action) => {
   }
 };
 
-
-export default provider
+export default provider;

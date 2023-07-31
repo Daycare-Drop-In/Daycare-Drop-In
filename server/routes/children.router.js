@@ -5,7 +5,7 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
   // GET route code here
   if (req.isAuthenticated()) {
     pool.query()
@@ -29,6 +29,13 @@ router.post('/', (req, res) => {
   if (req.isAuthenticated()) {
     const {
 		// !!! ADD OBJECT PROPERTIES HERE WHEN THEY ARE READY AND ADD THEM TO THE ARRAY ON LINE 43 !!!
+    family_id,
+    first_name,
+    last_name,
+    birthdate,
+    allergies,
+    potty_trained,
+    photo_url
 	} = req.body;
     const queryText = `INSERT INTO children (
 		family_id,
@@ -40,7 +47,15 @@ router.post('/', (req, res) => {
 		photo_url
 	)
 VALUES ($1, $2, $3, $4, $5, $6, $7);`;
-    pool.query(queryText, [])
+    pool.query(queryText, [
+    family_id,
+    first_name,
+    last_name,
+    birthdate,
+    allergies,
+    potty_trained,
+    photo_url
+    ])
       .then(() => {
         res.sendStatus(201);
       })
@@ -55,6 +70,7 @@ VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
+  console.log("ASDJKASHDKHJKAHDJKHASKJHDJAKD", req.params.id)
   if (req.isAuthenticated()) {
     const famId = req.params.id
     const queryText = `
@@ -62,7 +78,7 @@ router.get('/details/:id', (req, res) => {
     FROM children
     WHERE family_id = $1;`;
     pool.query(queryText, [famId])
-    .then(() => {
+    .then((result) => {
       res.send(result.rows);
     })
     .catch((error) => {

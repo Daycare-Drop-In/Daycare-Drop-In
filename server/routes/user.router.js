@@ -49,6 +49,7 @@ router.post("/register/family", async (req, res, next) => {
 		accessCode,
 	} = req.body;
 	const family = "family";
+	
 
 	const username = req.body.username;
 	const password = encryptLib.encryptPassword(req.body.password);
@@ -110,21 +111,54 @@ router.post("/register/family", async (req, res, next) => {
 	}
 });
 
+router.get(`/join/family`, (req, res) => {
+	sqlText = `SELECT families.access_code, "user".family_id FROM families 
+	JOIN "user" ON families.id = "user".family_id 
+	`
+	pool.query(sqlText)
+	.then((result) => {
+		res.send(result.rows)
+}).catch(err =>{
+	res.sendStatus(500)
+})
+})
+
 // ----------------------------_ NEW FAMILY USER REGISTRATION _------------------------------------
 router.post("/register/new_family_user", (req, res, next) => {
-	const {} = req.body;
+	const {
+		first_name,
+		last_name,
+		photo_url,
+		phone_number,
+		accessCode,
+		family_id, 
+	} = req.body;
+
+		const family = "family";
 
 	const username = req.body.username;
 	const password = encryptLib.encryptPassword(req.body.password);
 
-	const queryText = `INSERT INTO "user" (username, password)
-    VALUES ($1, $2) RETURNING id`;
-	pool.query(queryText, [username, password])
-		.then(() => res.sendStatus(201))
-		.catch((err) => {
-			console.log("User registration failed: ", err);
-			res.sendStatus(500);
-		});
+	const firstQuery = `
+	INSERT INTO "user" (username, password, user_type, family_id, first_name, last_name, email, phone_number, photo_url) 
+	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+	`
+	pool.query(firstQuery, [username, password,  family, family_id, first_name, last_name, username,  phone_number, photo_url])
+	.then((result) => {
+		res.sendStatus(201) 
+	}).catch((err)=>{
+		console.log('error in', err);
+		res.sendStatus(500);
+	})
+
+	// const queryText = `INSERT INTO "user" (username, password)
+    // VALUES ($1, $2) RETURNING id`;
+	// pool.query(queryText, [username, password])
+	// 	.then(() => res.sendStatus(201))
+	// 	.catch((err) => {
+	// 		console.log("User registration failed: ", err);
+	// 		res.sendStatus(500);
+	// 	});
 });
 
 // -----------------------------_ PROVIDER REGISTRATION _-----------------------------------

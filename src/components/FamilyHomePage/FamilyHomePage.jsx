@@ -1,5 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 
 //Component Imports
 import LogOutButton from "../LogOutButton/LogOutButton";
@@ -7,32 +8,67 @@ import FamilyContactCards from "../FamilyContactCards/FamilyContactCards";
 import FamilyChildCards from "../FamilyChildCards/FamilyChildCards";
 import FamilyDropOffs from "../FamilyDropOffs/FamilyDropOffs";
 
-
 function FamilyHomePage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const children = useSelector((store => store.children))
+  const families = useSelector((store) => store.families)
+
+  useEffect(() => {
+    //dispatches request for family info based on userID
+    console.log("Dispatching request for data of family-user ID:", user.id);
+    dispatch({ type: "GET_FAMILY_USER", payload: user.id });
+    dispatch({type: "GET_CHILDREN", payload: user.family_id })
+  }, []);
+
+  console.log('these are the children of this family', children);
+
+  const family = useSelector((store) => store.family);
+
+  console.log("THESE ARE THE FAMILY DETAILS:", families);
+
   return (
     <div className="container">
-      <h1>This is a Family Home Page</h1>
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
+      <div className="family-home-page-header">
+        <h2>
+          Welcome, {user.first_name} {user.last_name}!
+        </h2>
+        <LogOutButton className="btn" />
+        <center>
+          <h1>{family.family_name} Home Page</h1>
+        </center>
+      </div>
 
-      <h3>Family Details</h3>
-      <p>Bio! Family photo! Other stuff?</p>
+      <div className="family-photo">
+        <center>
+          {" "}
+          <img src={family.photo_url} height="200" />
+        </center>
+      </div>
+      <div className="family-bio"></div>
+
+      <div className="family-details">
+        <p>
+          <b>Primary Address: </b>
+          {family.street_address} {family.unit}
+          {", "}
+          {family.city} {family.state} {family.zip}
+        </p>
+        <p>
+          <b>Family Access Code:</b> {family.access_code}
+        </p>
+      </div>
 
       <h3>Kids in this Family</h3>
-      <p>button to add a kid</p>
-      <FamilyChildCards />
-
+      
       <h3>Responsible Adults</h3>
       <p>button to add a card</p>
       <FamilyContactCards />
+
+      <FamilyChildCards />
       <LogOutButton className="btn" />
 
-
-      <FamilyDropOffs/>
-
-      
+      <FamilyDropOffs />
     </div>
   );
 }

@@ -35,7 +35,7 @@ function* getProviderUser(id) {
 function* updateProvider(id) {
   console.log("Inside updateProvider saga:", action.payload);
   try {
-    yield axios.put(`/api/provider/${action.payload.id}`, action.payload);
+    yield axios.put(`/api/provider/update/${action.payload.id}`, action.payload);
     yield put({ type: "GET_PROVIDER", payload: action.payload.id });
   } catch (error) {
     console.log("error with updateProvider saga:", error);
@@ -57,7 +57,7 @@ function* getAllProviders() {
 function* deleteProvider(id) {
   console.log("Inside deleteProvider for provider of ID:", id.payload);
   try {
-    yield axios.delete(`/api/provider/${id.payload}`);
+    yield axios.delete(`/api/provider/delete/${id.payload}`);
   } catch (error) {
     console.log("Error in deleteProvider saga", error);
   }

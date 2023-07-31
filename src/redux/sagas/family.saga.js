@@ -27,7 +27,7 @@ function* getFamilyUser(id) {
 function* updateFamily(action) {
   console.log("Inside updateFamily saga for family of id:", action.payload.id);
   try {
-    yield axios.post(`api/family/update/${action.payload.id}`, action.payload);
+    yield axios.put(`api/family/update/${action.payload.id}`, action.payload);
     yield put({ type: "GET_FAMILY" });
   } catch {
     console.log("error with update family request");

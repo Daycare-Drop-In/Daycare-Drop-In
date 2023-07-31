@@ -5,7 +5,6 @@ import ProviderHomePage from "../ProviderHomePage/ProviderHomePage";
 import FamilyHomePage from "../FamilyHomePage/FamilyHomePage";
 
 function UserHomePage() {
-
   const user = useSelector((store) => store.user);
   const userType = user.user_type;
 
@@ -23,5 +22,9 @@ function UserHomePage() {
   }
   return <div className="container">{homePage}</div>;
 
+
 }
+
+
 export default UserHomePage;
+

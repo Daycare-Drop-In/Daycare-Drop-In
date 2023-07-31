@@ -5,7 +5,7 @@ import axios from "axios";
 function* getProviderBookings(id) {
   console.log("Inside getProviderBookings for provider of id:", id.payload);
   try {
-    const bookings = yield axios.get(`/api/booking/${id.payload}`);
+    const bookings = yield axios.get(`/api/booking/provider/${id.payload}`);
     yield put({ type: "SET_BOOKINGS", payload: bookings.data[0] });
   } catch (error) {
     console.log("Error in getProviderBookings saga", error);

@@ -2,11 +2,9 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-/**
- * GET route template
- */
+// GET for all families
 router.get("/", (req, res) => {
-  // GET route code here
+  // console.log('In families GET');
   if (req.isAuthenticated()) {
     const queryText = `SELECT "user".first_name AS parent_first_name,
 	"user".last_name AS parent_last_name,
@@ -18,7 +16,7 @@ FROM "user"
 	JOIN families ON "user".family_id = families.id;`;
     pool
       .query(queryText)
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {
@@ -65,7 +63,7 @@ FROM "user"
 WHERE "user".family_id = $1;`;
     pool
       .query(queryText, [famId])
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {
@@ -108,12 +106,22 @@ router.get("/user/:id", (req, res) => {
   }
 });
 
-// DELETE template
+// this DELETE route is not finished
+// needs group input on question below
 router.delete("/delete/:id", (req, res) => {
   console.log("IN families DELETE ROUTE, and req.params is:", req.params.id);
   if (req.isAuthenticated()) {
+    const familyId = req.params.id;
+    const queryText = `
+    DELETE FROM families
+    WHERE id = $1;
+    `;
+    // here, need to discuss how we handle this delete
+    // as in, should it delete all associated data from all
+    // linked tables (users, adults, kids, etc.)?
+    // that may be only way to make this work
     pool
-      .query()
+      .query(queryText, [familyId])
       .then(() => {
         res.sendStatus(200);
       })

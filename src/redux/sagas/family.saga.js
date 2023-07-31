@@ -27,7 +27,7 @@ function* getFamilyUser(id) {
 function* updateFamily(action) {
   console.log("Inside updateFamily saga for family of id:", action.payload.id);
   try {
-    yield axios.post(`api/family/${action.payload.id}`, action.payload);
+    yield axios.put(`api/family/update/${action.payload.id}`, action.payload);
     yield put({ type: "GET_FAMILY" });
   } catch {
     console.log("error with update family request");
@@ -36,7 +36,7 @@ function* updateFamily(action) {
 
 //Returns all families for the Admin family user table
 function* getAllFamilies() {
-  console.log("Inside getAllFamiliesSaga");
+  // console.log("Inside getAllFamiliesSaga");
   try {
     const families = yield axios.get(`api/family`);
     yield put({ type: "SET_FAMILIES", payload: families.data });
@@ -49,14 +49,14 @@ function* getAllFamilies() {
 function* deleteFamily(id) {
   console.log("Inside deleteFamily saga for family of ID:", id.payload);
   try {
-    yield axios.delete(`api/family/${id.payload}`);
+    yield axios.delete(`api/family/delete/${id.payload}`);
   } catch (error) {
     console.log("Error in deleteFamily saga:", error);
   }
 }
 
 function* familySaga() {
-  yield takeLatest("GET_ALL_FAMILIES)", getAllFamilies);
+  yield takeLatest("GET_ALL_FAMILIES", getAllFamilies);
   yield takeLatest("GET_FAMILY", getFamily);
   yield takeLatest("GET_FAMILY_USER", getFamilyUser);
   yield takeLatest("UPDATE_FAMILY", updateFamily);

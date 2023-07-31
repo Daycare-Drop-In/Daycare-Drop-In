@@ -39,7 +39,7 @@ function* getProviderUser(id) {
 function* updateProvider(id) {
   console.log("Inside updateProvider saga:", action.payload);
   try {
-    yield axios.put(`/api/provider/${action.payload.id}`, action.payload);
+    yield axios.put(`/api/provider/update/${action.payload.id}`, action.payload);
     yield put({ type: "GET_PROVIDER", payload: action.payload.id });
   } catch (error) {
     console.log("error with updateProvider saga:", error);
@@ -48,10 +48,10 @@ function* updateProvider(id) {
 
 // Get all info for all the providers in the database (for admin view, maybe for static list view? )
 function* getAllProviders() {
-  console.log("Inside getAllProviders saga");
+  // console.log("Inside getAllProviders saga");
   try {
     const providers = yield axios.get("/api/provider");
-    yield put({ type: "SET_PROVIDERS", payload: providers.data });
+    yield put({ type: "SET_ALL_PROVIDERS", payload: providers.data });
   } catch (error) {
     console.log("Error in getProviders saga", error);
   }
@@ -59,9 +59,9 @@ function* getAllProviders() {
 
 // allows admin to remove a provider from the database
 function* deleteProvider(id) {
-  console.log("Inside deleteProvider for provider of ID:", id.payload);
+  console.log("Inside deleteProvider saga for provider of ID:", id.payload);
   try {
-    yield axios.delete(`/api/provider/${id.payload}`);
+    yield axios.delete(`/api/provider/delete/${id.payload}`);
   } catch (error) {
     console.log("Error in deleteProvider saga", error);
   }

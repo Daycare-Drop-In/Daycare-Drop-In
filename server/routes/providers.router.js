@@ -2,11 +2,9 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-/**
- * GET route template
- */
+
 router.get("/", (req, res) => {
-  // GET route code here
+  // console.log('in db providers GET');
   if (req.isAuthenticated()) {
     const queryText = `SELECT providers.*,
 	"user".first_name AS prov_first_name,
@@ -18,7 +16,7 @@ FROM providers
 	JOIN "user" ON providers.user_id = "user".id;`;
     pool
       .query(queryText)
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {
@@ -65,7 +63,7 @@ FROM providers
 WHERE providers.id = $1;`;
     pool
       .query(queryText, [providerId])
-      .then(() => {
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {
@@ -113,8 +111,9 @@ router.delete("/delete/:id", (req, res) => {
   console.log("IN providers DELETE ROUTE, and req.params is:", req.params.id);
   if (req.isAuthenticated()) {
     const providerId = req.params.id;
-    const queryText = `DELETE FROM providers
-WHERE id = $1;`;
+    const queryText = `
+    DELETE FROM providers
+    WHERE id = $1;`;
     pool
       .query(queryText, [providerId])
       .then(() => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, CardContent, CardMedia, CardActionArea, IconButton, Typography, Button, Container, Grid, Box, CardHeader, CardActions, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material'
+import { Card, CardContent, CardMedia, CardActionArea, IconButton, Typography, Button, Container, Grid, Box, CardHeader, CardActions, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
 // import EditIcon from "@mui/icons-material/Edit";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ChildCareIcon from '@mui/icons-material/ChildCare';
@@ -60,7 +60,6 @@ console.log('NEW CHILD OBJECT', newChild);
                     sx={{
                         display: "flex",
                         flexDirection: "row",
-
                         mb: -2,
                     }}
                     onClick={() => setClicked(!clicked)}

@@ -8,7 +8,10 @@ function ProviderPhotoGallery() {
   const photoArray = useSelector((store) => store.photo);
 
   useEffect(() => {
-    dispatch({ type: "GET_PHOTOS", payload: provider_id });
+    dispatch({
+      type: "GET_PHOTOS",
+      payload: provider_id,
+    });
   }, [provider_id]);
 
   const newPhotoInfo = {
@@ -37,6 +40,7 @@ function ProviderPhotoGallery() {
   if (!provider_id) {
     return <div>Loading...</div>;
   }
+
   return (
     <div className="container">
       <h3>Provider Photo Gallery</h3>

@@ -18,7 +18,7 @@ function* postPhoto(action) {
     console.log("Inside postPhoto saga", action.payload);
     yield axios.post("/api/photo", action.payload);
     yield put({ type: "GET_PHOTOS" });
-  } catch {
+  } catch (error) {
     console.log("error in postPhoto saga", error);
   }
 }

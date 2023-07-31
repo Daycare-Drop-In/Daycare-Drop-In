@@ -32,6 +32,8 @@ function FamilyHomePage() {
       <div className="family-home-page-header">
         <h2>
           Welcome, {user.first_name} {user.last_name}!
+          <br></br>
+          <img src={user.photo_url} height="200" />
         </h2>
         <LogOutButton className="btn" />
         <center>

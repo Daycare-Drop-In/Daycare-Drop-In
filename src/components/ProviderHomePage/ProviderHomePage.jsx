@@ -18,7 +18,7 @@ function ProviderHomePage() {
     //dispatches request for provider info based on userID
     console.log("Dispatching request for data of provider-user ID:", userId);
     dispatch({ type: "GET_PROVIDER_USER", payload: userId });
-  }, []);
+  }, [userId]);
 
   const provider = useSelector((store) => store.provider);
   const provider_id = useSelector((store) => store.provider.id);

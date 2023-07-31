@@ -8,10 +8,11 @@ function ProviderPhotoGallery() {
   const photoArray = useSelector((store) => store.photo);
 
   useEffect(() => {
-    dispatch({
-      type: "GET_PHOTOS",
-      payload: provider_id,
-    });
+    provider_id &&
+      dispatch({
+        type: "GET_PHOTOS",
+        payload: provider_id,
+      });
   }, [provider_id]);
 
   const newPhotoInfo = {
@@ -42,56 +43,58 @@ function ProviderPhotoGallery() {
   }
 
   return (
-    <div className="container">
-      <h3>Provider Photo Gallery</h3>
-      <div className="photo-gallery-container">
-        {photoArray.map((photo) => (
-          <ProviderPhotoItem toy={photo} />
-        ))}
-      </div>
-      <div className="photo-upload-form">
-        <form>
-          <div>
-            <label htmlFor="photo_url">
-              Photo URL
-              <input
-                type="text"
-                name="photo_url"
-                value={newPhoto.photo_url}
-                onChange={(event) =>
-                  setNewPhoto({
-                    ...newPhoto,
-                    photo_url: event.target.value,
-                  })
-                }
-              />
-            </label>
-          </div>
+    provider_id && (
+      <div className="container">
+        <h3>Provider Photo Gallery</h3>
+        <div className="photo-gallery-container">
+          {photoArray.map((photo) => (
+            <ProviderPhotoItem toy={photo} />
+          ))}
+        </div>
+        <div className="photo-upload-form">
+          <form>
+            <div>
+              <label htmlFor="photo_url">
+                Photo URL
+                <input
+                  type="text"
+                  name="photo_url"
+                  value={newPhoto.photo_url}
+                  onChange={(event) =>
+                    setNewPhoto({
+                      ...newPhoto,
+                      photo_url: event.target.value,
+                    })
+                  }
+                />
+              </label>
+            </div>
 
-          <div>
-            <label htmlFor="description">
-              Description
-              <textarea
-                rows="2"
-                cols="30"
-                name="description"
-                placeholder="a caption for the photo..."
-                value={newPhoto.description}
-                required
-                onChange={(event) =>
-                  setNewPhoto({
-                    ...newPhoto,
-                    description: event.target.value,
-                  })
-                }
-              />
-            </label>
-          </div>
+            <div>
+              <label htmlFor="description">
+                Description
+                <textarea
+                  rows="2"
+                  cols="30"
+                  name="description"
+                  placeholder="a caption for the photo..."
+                  value={newPhoto.description}
+                  required
+                  onChange={(event) =>
+                    setNewPhoto({
+                      ...newPhoto,
+                      description: event.target.value,
+                    })
+                  }
+                />
+              </label>
+            </div>
 
-          <button onClick={handleSubmit}>Submit</button>
-        </form>
+            <button onClick={handleSubmit}>Submit</button>
+          </form>
+        </div>
       </div>
-    </div>
+    )
   );
 }
 

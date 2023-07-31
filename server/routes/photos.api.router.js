@@ -5,12 +5,18 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get("/", (req, res) => {
-  // GET route code here
+
+router.get("/:id", (req, res) => {
+  console.log(
+    "Inside router side of getPhotos request for provider of id:",
+    req.params.id
+  );
   if (req.isAuthenticated()) {
+    const queryText = `SELECT * from provider_photos WHERE provider_photos.provider_id = $1`;
+    const id = req.params.id;
     pool
-      .query()
-      .then(() => {
+      .query(queryText, [id])
+      .then((result) => {
         res.send(result.rows);
       })
       .catch((error) => {
@@ -38,7 +44,7 @@ router.post("/", (req, res) => {
       photo_url,
      description
     )
-  VALUES($1, $2, $3,)`;
+  VALUES($1, $2, $3)`;
 
     pool
       .query(queryText, values)

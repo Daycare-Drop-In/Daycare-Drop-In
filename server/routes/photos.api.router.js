@@ -81,8 +81,10 @@ router.get("/details/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   console.log("IN photos DELETE ROUTE, and req.params is:", req.params.id);
   if (req.isAuthenticated()) {
+    const queryText = `DELETE from provider_photos WHERE provider_photos.id = $1`;
+    const id = req.params.id;
     pool
-      .query()
+      .query(queryText, [id])
       .then(() => {
         res.sendStatus(200);
       })

@@ -39,6 +39,8 @@ function ProviderPhotoGallery() {
 
   const handleDelete = (id) => {
     console.log("delete button clicked for photo of id:", id);
+    const dataToSend = {id, provider_id}
+    dispatch({ type: "DELETE_PHOTO", payload: dataToSend});
   };
 
   //LOADING STATE

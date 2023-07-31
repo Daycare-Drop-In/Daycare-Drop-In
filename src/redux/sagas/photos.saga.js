@@ -24,10 +24,11 @@ function* postPhoto(action) {
 }
 
 //deletes a photo of a given id from the database
-function* deletePhoto(id) {
-  console.log("Inside deletePhoto saga for photo of ID:", id.payload);
+function* deletePhoto(action) {
+  console.log("Inside deletePhoto saga for photo of ID:", action.payload.id);
   try {
-    yield axios.delete(`/api/photo/${id.payload}`);
+    yield axios.delete(`/api/photo/delete/${action.payload.id}`);
+    yield put({ type: "GET_PHOTOS", payload: action.payload.provider_id });
   } catch (error) {
     console.log("Error in deletePhoto saga", error);
   }

@@ -22,9 +22,7 @@ function ProviderPhotoItem({ photo, handleDelete }) {
 <button
             onClick={() => handleDelete(photo.id)}
             style={{
-              // position: "absolute",
-              bottom: 8,
-              right: 8,
+            
               backgroundColor: "transparent",
               border: "none",
               cursor: "pointer",

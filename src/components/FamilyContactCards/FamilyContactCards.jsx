@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 function FamilyContactCards() {
 	const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch({ type: "GET_ADULTS", payload: user.family_id});
+			dispatch({ type: "GET_ADULTS", payload: user.family_id});
     },[])
 	const user = useSelector((store) => store.user);
     const rAdult = useSelector((store)=> store.responsibleAdults)

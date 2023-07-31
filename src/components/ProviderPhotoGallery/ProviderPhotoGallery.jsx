@@ -11,17 +11,80 @@ function ProviderPhotoGallery() {
     dispatch({ type: "GET_PHOTOS", payload: provider_id });
   }, [provider_id]);
 
+  const newPhotoInfo = {
+    provider_id: provider_id,
+    photo_url: "",
+    description: "",
+  };
+
+  const [newPhoto, setNewPhoto] = useState(newPhotoInfo);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("New photo being submitted:", newPhoto);
+
+    dispatch({ type: "POST_PHOTO", payload: newPhoto });
+
+    setNewPhoto({
+      provider_id: provider_id,
+      photo_url: "",
+      description: "",
+    });
+  };
+
+  //LOADING STATE
+
+  if (!provider_id) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="container">
       <h3>Provider Photo Gallery</h3>
       <div className="photo-gallery-container">
         {photoArray.map((photo) => (
-          <ProviderPhotoItem toy={photo}/>
+          <ProviderPhotoItem toy={photo} />
         ))}
       </div>
       <div className="photo-upload-form">
         <form>
-          
+          <div>
+            <label htmlFor="photo_url">
+              Photo URL
+              <input
+                type="text"
+                name="photo_url"
+                value={newPhoto.photo_url}
+                onChange={(event) =>
+                  setNewPhoto({
+                    ...newPhoto,
+                    photo_url: event.target.value,
+                  })
+                }
+              />
+            </label>
+          </div>
+
+          <div>
+            <label htmlFor="description">
+              Description
+              <textarea
+                rows="2"
+                cols="30"
+                name="description"
+                placeholder="a caption for the photo..."
+                value={newPhoto.description}
+                required
+                onChange={(event) =>
+                  setNewPhoto({
+                    ...newPhoto,
+                    description: event.target.value,
+                  })
+                }
+              />
+            </label>
+          </div>
+
+          <button onClick={handleSubmit}>Submit</button>
         </form>
       </div>
     </div>

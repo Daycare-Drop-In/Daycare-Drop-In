@@ -87,7 +87,7 @@ function ProviderHomePage() {
 
       <ProviderPhotoGallery />
 
-      <ProviderBookingsTable />
+      {/* <ProviderBookingsTable /> */}
 
       <LogOutButton className="btn" />
     </div>

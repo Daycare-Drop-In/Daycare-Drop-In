@@ -14,8 +14,8 @@ function* getPhotos(id) {
 
 //add a new photo to the gallery
 function* postPhoto(action) {
-  console.log("Inside postPhoto saga", action.payload);
   try {
+    console.log("Inside postPhoto saga", action.payload);
     yield axios.post("/api/photo", action.payload);
     yield put({ type: "GET_PHOTOS" });
   } catch {

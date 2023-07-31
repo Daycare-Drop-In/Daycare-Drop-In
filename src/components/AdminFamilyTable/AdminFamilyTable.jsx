@@ -16,6 +16,7 @@ import withReactContent from 'sweetalert2-react-content';
 function AdminFamilyTable() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const families = useSelector(store => store.family);
   // console.log(families);
   const MySwal = withReactContent(Swal);
@@ -125,14 +126,18 @@ function AdminFamilyTable() {
             <TableBody>
               {families.map((family) => (
                 <TableRow key={family.id}>
-                  <TableCell>
+                  <TableCell
+                  // onClick={() => history.push(`/???details???/${family.id}`)}
+                  >
                     {family.family_name}
                     <br />
                     {family.street_address} {family.unit}
                     <br />
                     {family.city}, {family.state} {family.zip}
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                  // onClick={() => history.push(`/???details???/${family.id}`)}
+                  >
                     {family.parent_first_name}
                     <br />
                     {formatPhoneNumber(family.parent_number)}
@@ -148,7 +153,7 @@ function AdminFamilyTable() {
                       sx={{
                         p: 1,
                       }}
-                     onClick={() => deleteFamilyData(family.id)}
+                      onClick={() => deleteFamilyData(family.id)}
                     >
                       DELETE
                     </Button>

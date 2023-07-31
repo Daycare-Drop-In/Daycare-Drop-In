@@ -26,6 +26,10 @@ function* getProviderUser(id) {
   try {
     const provider = yield axios.get(`/api/provider/user/${id.payload}`);
     yield put({ type: "SET_PROVIDER", payload: provider.data[0] });
+    yield put({
+      type: "GET_PROVIDER_AVAILABILITY",
+      payload: provider.data[0].id,
+    });
   } catch (error) {
     console.log("Error in getProvider saga:", error);
   }

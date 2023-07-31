@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { Card, CardContent, CardMedia, CardActionArea, IconButton, Typography, Button, Container, Grid, Box, CardHeader, CardActions, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
 // import EditIcon from "@mui/icons-material/Edit";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -10,31 +10,41 @@ import Checkbox from '@mui/material/Checkbox';
 
 
 function FamilyChildCards() {
-    const user = useSelector((store) => store.user);
+
+
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({type: "GET_CHILDREN", payload: user.family_id});
+    }, [])
+    const user = useSelector((store) => store.user);
+    const allMyKids = useSelector((store) => store.children)
+
+    
 
     const myKid = {
         family_id: user.family_id,
-        firstName: "",
-        lastName: "",
+        first_name: "",
+        last_name: "",
         birthdate: "",
         allergies: "",
-        pottyTrained: false,
+        potty_trained: false,
         photo_url: "",
     };
 
     const [newChild, setNewChild] = useState(myKid);
-    const [open, setOpen] = useState(false);
+    const [clicked, setClicked] = useState(false);
 
-    const registerChild = () => {
-        dispatch({ type: "POST_CHILD", payload: myKid });
-        setOpen(!open);
+    const registerChild = (event) => {
+        event.preventDefault();
+        console.log('birthday', newChild.birthdate);
+        dispatch({ type: "POST_CHILD", payload: newChild });
+        setClicked(!clicked);
         setNewChild(myKid);
         console.log('adding new child');
 
     };
 
-
+console.log('NEW CHILD OBJECT', newChild);
 
     return (
         <Container
@@ -45,14 +55,14 @@ function FamilyChildCards() {
                 justifyContent: "center",
             }}
         >
-            {!open ? (
+            {!clicked ? (
                 <IconButton
                     sx={{
                         display: "flex",
                         flexDirection: "row",
                         mb: -2,
                     }}
-                    onClick={() => setOpen(!open)}
+                    onClick={() => setClicked(!clicked)}
                 >
                     <Typography variant="h4">Add a child</Typography>
                     <ChildCareIcon sx={{ fontSize: "3rem", ml: 3 }} />
@@ -85,7 +95,7 @@ function FamilyChildCards() {
                             />
                             <IconButton
                                 size="large"
-                                onClick={() => setOpen(!open)}
+                                onClick={() => setClicked(!clicked)}
                             >
                                 <CloseOutlinedIcon />
                             </IconButton>
@@ -104,11 +114,11 @@ function FamilyChildCards() {
                                 margin="normal"
                                 fullWidth
                                 label="First Name"
-                                value={newChild.firstName}
+                                value={newChild.first_name}
                                 onChange={(event) =>
                                     setNewChild({
                                         ...newChild,
-                                        firstName: event.target.value,
+                                        first_name: event.target.value,
                                     })
                                 }
                             />
@@ -122,11 +132,11 @@ function FamilyChildCards() {
                                 margin="normal"
                                 fullWidth
                                 label="Last Name"
-                                value={newChild.lastName}
+                                value={newChild.last_name}
                                 onChange={(event) =>
                                     setNewChild({
                                         ...newChild,
-                                        lastName: event.target.value,
+                                        last_name: event.target.value,
                                     })
                                 }
                             />
@@ -136,7 +146,7 @@ function FamilyChildCards() {
                                 required
                                 name="birthdate"
                                 sx={{ bgcolor: "white" }}
-                                type="text"
+                                type="date"
                                 margin="normal"
                                 fullWidth
                                 label=""
@@ -174,7 +184,7 @@ function FamilyChildCards() {
                                 margin="normal"
                                 fullWidth
                                 label="Potty-Trained"
-                                value={newChild.pottyTrained}
+                                value={newChild.potty_trained}
                                 onChange={(event) =>
                                     setNewChild({
                                         ...newChild,
@@ -192,6 +202,22 @@ function FamilyChildCards() {
                                 }}
                             >
                                 <Typography>Photo:</Typography>
+                                <TextField
+									required
+									fullWidth
+									name="photo_url"
+									sx={{ bgcolor: "white" }}
+									type="url"
+									margin="normal"
+									// label="Picture"
+									value={newChild.photo_url}
+									onChange={(event) =>
+										setNewChild({
+											...newChild,
+											photo_url: event.target.value,
+										})
+									}
+								/>
                             </Container>
 
                             <Button
@@ -206,6 +232,35 @@ function FamilyChildCards() {
                     </CardContent>
                 </Card>
             )}
+            <Typography variant="h7" sx={{mb:1}}>
+                All My Children
+            </Typography>
+            {allMyKids?.map((kid) => (
+                <Card
+                    key={kid.id}
+                    sx={{width: "25%", mb:1.5}} raised>
+                        <Grid container spacing={1}>
+                            <Grid item>
+                            <CardContent>
+                            <Typography variant="h7" color="text.secondary"><b>{kid.first_name}</b></Typography>
+                                <CardMedia 
+                                    component="img"
+                                    sx={{ objectFit: "contain", height: 80}}
+                                    image={kid.photo_url}
+                                    alt={"profile picture"}
+                                />
+                                </CardContent>
+
+                             
+                               
+
+                                
+                            </Grid>
+                        </Grid>
+                </Card>
+            ))}
+            
+
         </Container>
         // <div className="container">
         //     <h2>Child Card</h2>
@@ -214,7 +269,7 @@ function FamilyChildCards() {
         //     <p>Included info: name, age, potty training status, allergies, misc info.</p>
         //     <p>The page owner should also be able to edit each card. </p>
         // </div>
-    );
+    )
 }
 
 

@@ -5,23 +5,21 @@ import { useParams, useHistory } from "react-router-dom";
 //COMPONENT IMPORTS
 import LogOutButton from "../LogOutButton/LogOutButton";
 import ProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGallery";
-import ProviderAvailabilityTable from "../ProviderAvailabilityTable/ProviderAvailabilityTable";
-import ProviderBookingsTable from "../ProviderBookingsTable/ProviderBookingsTable";
+import PublicProviderAvailabilityTable from "../PublicProviderAvailabilityTable/PublicProviderAvailabilityTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
 function ProviderHomePage() {
   const dispatch = useDispatch();
-  // const { providerId } = useParams();
-  const userId = useSelector((store) => store.user.id);
+  const { providerId } = useParams();
 
   useEffect(() => {
-    //dispatches request for provider info based on userID
-    console.log("Dispatching request for data of provider-user ID:", userId);
-    dispatch({ type: "GET_PROVIDER_USER", payload: userId });
+    //dispatches request for provider info based on ID in url
+    console.log("Dispatching request for data of provider ID:", providerId);
+    dispatch({ type: "GET_PROVIDER", payload: providerId });
   }, []);
 
   const provider = useSelector((store) => store.provider);
-  const provider_id = useSelector((store) => store.provider.id);
+
 
   console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
@@ -83,11 +81,10 @@ function ProviderHomePage() {
         <button onClick={goToBooking}>Book a spot!</button>
       </div>
 
-      <ProviderAvailabilityTable provider_id={provider_id} />
+      <PublicProviderAvailabilityTable/>
 
       <ProviderPhotoGallery />
 
-      <ProviderBookingsTable />
 
       <LogOutButton className="btn" />
     </div>

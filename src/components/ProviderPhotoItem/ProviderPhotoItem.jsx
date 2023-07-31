@@ -1,15 +1,13 @@
 import { useHistory } from "react-router-dom";
-
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 
-function ProviderPhotoItem({ photo }) {
+function ProviderPhotoItem({ photo, handleDelete }) {
   return (
-    <div className="card">
+    <div className="card" id={photo.id}>
       <Card
         sx={{
           width: 200,
@@ -20,19 +18,31 @@ function ProviderPhotoItem({ photo }) {
         }}
         className="photo-card"
       >
+
+<button
+            onClick={() => handleDelete(photo.id)}
+            style={{
+              // position: "absolute",
+              bottom: 8,
+              right: 8,
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <DeleteIcon />
+          </button>
         <CardMedia
           component="img"
           height="194"
           image={photo.photo_url}
-          // Make the Image shrink or stretch to fit into the card
           sx={{ objectFit: "contain" }}
-          // When we want to navigate to the detail view, make sure to pass the toy's id so we can navigate correctly!
-          onClick={() => handleDetailView(photo.id)}
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
             {photo.description}
           </Typography>
+
         </CardContent>
       </Card>
     </div>

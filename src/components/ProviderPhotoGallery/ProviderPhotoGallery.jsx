@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProviderPhotoItem from "../ProviderPhotoItem/ProviderPhotoItem";
+import "./ProviderPhotoGallery.css";
 
 function ProviderPhotoGallery() {
   const dispatch = useDispatch();
@@ -36,6 +37,10 @@ function ProviderPhotoGallery() {
     });
   };
 
+  const handleDelete = (id) => {
+    console.log("delete button clicked for photo of id:", id);
+  };
+
   //LOADING STATE
 
   if (!provider_id) {
@@ -48,10 +53,15 @@ function ProviderPhotoGallery() {
         <h3>Provider Photo Gallery</h3>
         <div className="photo-gallery-container">
           {photoArray.map((photo) => (
-            <ProviderPhotoItem photo={photo} />
+            <ProviderPhotoItem
+              key={photo.id}
+              photo={photo}
+              handleDelete={handleDelete}
+            />
           ))}
         </div>
         <div className="photo-upload-form">
+          <h3>Add another photo:</h3>
           <form>
             <div>
               <label htmlFor="photo_url">

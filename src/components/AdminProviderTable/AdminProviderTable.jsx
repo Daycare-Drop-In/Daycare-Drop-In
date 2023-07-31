@@ -15,13 +15,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function AdminProviderTable() {
 
   const dispatch = useDispatch();
-  const providers = useSelector(store => store.provider);
-  console.log("in AdminProviderTable, and providers are:", providers);
+  const providers = useSelector(store => store.provider) || [];
+  // console.log("in AdminProviderTable, and providers are:", providers);
 
   const columns = [
     { id: "business", label: "Daycare", minWidth: 150 },
     { id: "provider", label: "Provider", minWidth: 150 },
-    { id: "delete_button", label: "", minWidth: 100 }
+    { id: "delete_button", label: "", minWidth: 75 }
   ]
 
   function formatPhoneNumber(phoneNumberString) {
@@ -39,6 +39,19 @@ function AdminProviderTable() {
     });
   }, []);
 
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // Simulate an asynchronous API call to fetch book details
+    setTimeout(() => {
+      // Set isLoading to false once the data is fetched
+      setIsLoading(false);
+    }, 25);
+  }, []); // Empty dependency array to run the effect only once
+
+  if (isLoading) {
+    // Render a loading state or a placeholder component
+    return <div>Loading...</div>;
+  }
 
 
   return (
@@ -47,6 +60,10 @@ function AdminProviderTable() {
     <Grid container spacing={1} >
       <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
         <Typography
+          sx={{
+            mt: 10,
+            fontSize: "2rem",
+          }}
           variant="h4"
           align="center"
         >
@@ -57,8 +74,14 @@ function AdminProviderTable() {
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <TableCell key={column.label}
-                    style={{ minWidth: column.minWidth, width: column.width }}
+                  <TableCell
+                    key={column.label}
+                    style={{
+                      minWidth: column.minWidth,
+                      width: column.width,
+                      backgroundColor: "#390854",
+                      color: "white",
+                    }}
                   >
                     {column.label}
                   </TableCell>
@@ -82,11 +105,6 @@ function AdminProviderTable() {
                     <br />
                     {provider.prov_email}
                   </TableCell>
-                  {/* <TableCell>
-                  {provider.street_address} {provider.unit}
-                    <br />
-                    {provider.city}, {provider.state} {provider.zip}
-                  </TableCell> */}
                   <TableCell>
                     <Button
                       variant="contained"

@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 router.get("/", (req, res) => {
+  // console.log('in db providers GET');
   if (req.isAuthenticated()) {
     const queryText = `SELECT providers.*,
 	"user".first_name AS prov_first_name,
@@ -110,8 +111,9 @@ router.delete("/delete/:id", (req, res) => {
   console.log("IN providers DELETE ROUTE, and req.params is:", req.params.id);
   if (req.isAuthenticated()) {
     const providerId = req.params.id;
-    const queryText = `DELETE FROM providers
-WHERE id = $1;`;
+    const queryText = `
+    DELETE FROM providers
+    WHERE id = $1;`;
     pool
       .query(queryText, [providerId])
       .then(() => {

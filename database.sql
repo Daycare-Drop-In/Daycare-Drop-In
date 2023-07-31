@@ -465,6 +465,10 @@ SET family_name = $1,
 	access_code = $8
 WHERE id = $9;`
 
+-- DELETE FAMILY BY ID
+`DELETE FROM families
+WHERE id = $1;`
+
 
 --											 ^  FAMILY  ^
 

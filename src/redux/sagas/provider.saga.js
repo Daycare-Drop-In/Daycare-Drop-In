@@ -44,7 +44,7 @@ function* updateProvider(id) {
 
 // Get all info for all the providers in the database (for admin view, maybe for static list view? )
 function* getAllProviders() {
-  console.log("Inside getAllProviders saga");
+  // console.log("Inside getAllProviders saga");
   try {
     const providers = yield axios.get("/api/provider");
     yield put({ type: "SET_ALL_PROVIDERS", payload: providers.data });

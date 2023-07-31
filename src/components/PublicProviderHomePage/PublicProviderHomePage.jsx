@@ -5,14 +5,12 @@ import { useParams, useHistory } from "react-router-dom";
 //COMPONENT IMPORTS
 import LogOutButton from "../LogOutButton/LogOutButton";
 import ProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGallery";
-import ProviderAvailabilityTable from "../ProviderAvailabilityTable/ProviderAvailabilityTable";
-import ProviderBookingsTable from "../ProviderBookingsTable/ProviderBookingsTable";
+import PublicProviderAvailabilityTable from "../PublicProviderAvailabilityTable/PublicProviderAvailabilityTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
 function ProviderHomePage() {
   const dispatch = useDispatch();
   const { providerId } = useParams();
-//   const userId = useSelector((store) => store.user.id);
 
   useEffect(() => {
     //dispatches request for provider info based on ID in url

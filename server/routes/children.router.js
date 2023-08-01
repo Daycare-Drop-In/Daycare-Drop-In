@@ -98,8 +98,8 @@ router.delete('/delete/:id', (req, res) => {
     const childId = req.params.id
     const queryText = `DELETE FROM children
 WHERE id = $1;`;
-    pool.query(queryText, [childId])
-    .then(() => {
+    pool.query(queryText, [req.params.id])
+    .then((result) => {
       res.sendStatus(200);
     })
     .catch((error) => {

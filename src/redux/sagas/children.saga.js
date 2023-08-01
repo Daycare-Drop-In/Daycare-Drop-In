@@ -47,7 +47,8 @@ function* updateChild(action) {
 function* deleteChild(id) {
 	console.log("Inside deleteChild saga for child of ID:", id.payload);
 	try {
-	  yield axios.delete(`/api/child/${id.payload}`);
+	  yield axios.delete(`/api/child/delete/${id.payload.id}`);
+    yield put({type: "GET_CHILDREN", payload: id.payload.familyId})
 	} catch (error) {
 	  console.log("Error in deleteChild saga", error);
 	}

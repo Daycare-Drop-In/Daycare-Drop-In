@@ -8,6 +8,8 @@ import { useState } from "react";
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+
 
 
 
@@ -17,12 +19,12 @@ function FamilyChildCards() {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch({type: "GET_CHILDREN", payload: user.family_id});
+        dispatch({ type: "GET_CHILDREN", payload: user.family_id });
     }, [])
     const user = useSelector((store) => store.user);
     const allMyKids = useSelector((store) => store.children)
 
-    
+
 
     const myKid = {
         family_id: user.family_id,
@@ -30,8 +32,9 @@ function FamilyChildCards() {
         last_name: "",
         birthdate: "",
         allergies: "",
-        potty_trained: false,
         photo_url: "",
+        potty_trained: false
+       
     };
 
     const [newChild, setNewChild] = useState(myKid);
@@ -47,7 +50,13 @@ function FamilyChildCards() {
 
     };
 
-console.log('NEW CHILD OBJECT', newChild);
+    const deleteKid = (childId) => {
+
+        console.log('Clicked delete', childId);
+        dispatch({type: "DELETE_CHILD", payload: {id: childId, familyId: user.family_id}})
+    }
+
+    console.log('NEW CHILD OBJECT', newChild);
 
     return (
         <Container
@@ -177,17 +186,15 @@ console.log('NEW CHILD OBJECT', newChild);
                                         allergies: event.target.value,
                                     })
                                 }
-                                />
-                                <TextField  
-                                lable                                                         
+                            />
+                            {/* <TextField
                                 placeholder="Potty  Trained"
-                                required
                                 name="potty trained"
                                 sx={{ bgcolor: "white" }}
                                 type="checkbox"
                                 margin="normal"
                                 fullWidth
-                                label={"potty trained"}
+                                label={"Potty Trained"}
                                 value={newChild.potty_trained}
                                 onClick={(event) =>
                                     setNewChild({
@@ -195,9 +202,9 @@ console.log('NEW CHILD OBJECT', newChild);
                                         potty_trained: true,
                                     })
                                 }
-                                />
+                            /> */}
 
-                             {/* <FormControlLabel 
+                            {/* <FormControlLabel 
                              control={<Checkbox />  }label="Potty Trained"
                              />    */}
 
@@ -210,23 +217,48 @@ console.log('NEW CHILD OBJECT', newChild);
                                     width: "100%",
                                 }}
                             >
+                            <FormControl>
+                                    <FormGroup>
+                                        <FormControlLabel
+                                        label="Potty Trained"
+                                        labelPlacement="end"
+                                        control={
+                                            <Checkbox 
+                                            checked={newChild.potty_trained}
+                                            onClick={(event) =>
+                                                setNewChild({
+                                                    ...newChild,
+                                                    potty_trained:event.target.clicked
+                                                })
+                                            }
+                                            />
+                                        }
+                                        />
+                                    </FormGroup>
+                                </FormControl>    
+
                                 <Typography>Photo:</Typography>
+
                                 <TextField
-									required
-									fullWidth
-									name="photo_url"
-									sx={{ bgcolor: "white" }}
-									type="url"
-									margin="normal"
-									// label="Picture"
-									value={newChild.photo_url}
-									onChange={(event) =>
-										setNewChild({
-											...newChild,
-											photo_url: event.target.value,
-										})
-									}
-								/>
+                                    required
+                                    fullWidth
+                                    name="photo_url"
+                                    sx={{ bgcolor: "white" }}
+                                    type="url"
+                                    margin="normal"
+                                    // label="Picture"
+                                    value={newChild.photo_url}
+                                    onChange={(event) =>
+                                        setNewChild({
+                                            ...newChild,
+                                            photo_url: event.target.value,
+                                        })
+                                    }
+                                />
+
+                                <input type="file"  />
+                                
+
                             </Container>
 
                             <Button
@@ -241,32 +273,65 @@ console.log('NEW CHILD OBJECT', newChild);
                     </CardContent>
                 </Card>
             )}
-            <Typography variant="h7" sx={{mb:1}}>
+            <Typography variant="h7" sx={{ mb: 1 }}>
                 All My Children
             </Typography>
-            {allMyKids?.map((kid) => (
-                <Card
-                    key={kid.id}
-                    sx={{width: "25%", mb:1.5}} raised>
-                        <Grid container spacing={1}>
-                            <Grid item>
-                            <CardContent>
-                            <Typography variant="h7" color="text.secondary"><b>{kid.first_name}</b></Typography>
-                                <CardMedia 
+            <Grid container spacing={1}>
+                <Grid item
+                    xs={12}
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
+                    {allMyKids?.map((kid) => (
+                        <Card
+                            key={kid.id}
+                            sx={{
+                                width: "50%",
+                                objectFit: "contain",
+                                mb: 1.5,
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                borderRadius: 4
+                            }}
+                            raised>
+
+
+                            <CardContent
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                mb: 2,
+                                mt: 3,
+                                ml: 2
+                            }}
+                            >
+                                <Typography variant="h6" color="text.secondary" textAlign="center"><b>{kid.first_name}</b></Typography>
+                                <CardMedia
                                     component="img"
-                                    sx={{ objectFit: "contain", height: 80}}
+                                    sx={{ objectFit: "contain", height: 80 }}
                                     image={kid.photo_url}
                                     alt={"profile picture"}
                                 />
                                 <Typography variant="h8">Potty Trained: {JSON.stringify(kid.potty_trained)}</Typography>
-                                </CardContent>
+                            </CardContent>
+                            <Button onClick={(event) => deleteKid(kid.id, event.preventDefault())}
+                            sx={{color: "red"}}
+                            >Delete</Button>
 
-                                
-                            </Grid>
-                        </Grid>
-                </Card>
-            ))}
-            
+
+
+                        </Card>
+
+                    ))}
+                </Grid>
+            </Grid>
+
 
         </Container>
         // <div className="container">

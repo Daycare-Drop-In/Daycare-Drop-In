@@ -24,11 +24,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 function FamilyContactCards() {
 	const dispatch = useDispatch();
-    useEffect(()=>{
-			dispatch({ type: "GET_ADULTS", payload: user.family_id});
-    },[])
+	useEffect(() => {
+		dispatch({ type: "GET_ADULTS", payload: user.family_id });
+	}, [])
 	const user = useSelector((store) => store.user);
-    const rAdult = useSelector((store)=> store.responsibleAdults)
+	const rAdult = useSelector((store) => store.responsibleAdults)
 
 	const responsibleAdult = {
 		family_id: user.family_id,
@@ -44,16 +44,16 @@ function FamilyContactCards() {
 	const [open, setOpen] = useState(false);
 
 	const addNewAdult = () => {
-		dispatch({ type: "POST_ADULT", payload: newAdult});
+		dispatch({ type: "POST_ADULT", payload: newAdult });
 		setOpen(!open);
 		setNewAdult(responsibleAdult);
 		console.log("Submitting");
 	};
 
 	const deleteAdult = (adultId) => {
-		
+
 		console.log('Clicked delete', adultId);
-		dispatch({type:"DELETE_ADULT", payload:{id:adultId, familyId: user.family_id}})
+		dispatch({ type: "DELETE_ADULT", payload: { id: adultId, familyId: user.family_id } })
 	}
 
 	return (
@@ -240,30 +240,66 @@ function FamilyContactCards() {
 					</CardContent>
 				</Card>
 			)}
-            <Typography variant="h7" sx={{mb:1}}>
-                Family name's responsible adults
+			<Typography variant="h7" sx={{ mb: 1 }}>
+				Family name's responsible adults
 
-            </Typography>
-			{rAdult?.map((adult) => (
-				<Card
-                key={adult.id}
-                sx={{ width: "25%", mb:1.5 }} raised>
-					<Grid container spacing={1}>
-						<Grid item>
-							<CardContent>
-                            <Typography variant="h7" color="text.secondary"><b>{adult.first_name}</b></Typography>
-							<CardMedia
-								component="img"
-								sx={{ objectFit: "contain", height: 80 }}
-								image={adult.photo_url}
-								alt={"profile picture"}
-							/>
-							 </CardContent>
-							 <Button onClick={(event) => deleteAdult(adult.id, event.preventDefault())}>Delete</Button>
-						</Grid>
-					</Grid>
-				</Card>
-			))}
+			</Typography>
+			<Grid container spacing={1}>
+				<Grid item
+				xs={12}
+				sx={{
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+				>
+					{rAdult?.map((adult) => (
+
+						<Card
+							key={adult.id}
+							sx={{
+								width: "50%",
+								objectFit: "contain",
+								mb: 1.5,
+								flexDirection: "column",
+								justifyContent: "center",
+								alignItems: "center",
+								borderRadius: 4
+							}} raised>
+
+
+							<CardContent
+								sx={{
+									display: "flex",
+									flexDirection: "row",
+									justifyContent: "center",
+									mb: 2,
+									mt: 3,
+									ml: 2
+								}}
+							>
+								<Typography variant="h6" color="text.secondary" textAlign="center"
+									sx={{ mt: -4 }}
+								><b>{adult.first_name}</b></Typography>
+								<CardMedia
+									component="img"
+									sx={{ objectFit: "contain", height: 80 }}
+									image={adult.photo_url}
+									alt={"profile picture"}
+								/>
+							</CardContent>
+							<Button onClick={(event) => deleteAdult(adult.id, event.preventDefault())}
+							sx={{color: "red"}}
+							>Delete
+							</Button>
+
+
+						</Card>
+
+					))}
+				</Grid>
+			</Grid>
 		</Container>
 	);
 	// <div className="container">

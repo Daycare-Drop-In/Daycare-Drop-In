@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 //COMPONENT IMPORTS
 import LogOutButton from "../LogOutButton/LogOutButton";
-import ProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGallery";
+import PublicProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGallery";
 import PublicProviderAvailabilityTable from "../PublicProviderAvailabilityTable/PublicProviderAvailabilityTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
@@ -19,7 +19,6 @@ function ProviderHomePage() {
   }, []);
 
   const provider = useSelector((store) => store.provider);
-
 
   console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
@@ -81,10 +80,9 @@ function ProviderHomePage() {
         <button onClick={goToBooking}>Book a spot!</button>
       </div>
 
-      <PublicProviderAvailabilityTable/>
+      <PublicProviderAvailabilityTable />
 
-      <ProviderPhotoGallery />
-
+      <PublicProviderPhotoGallery />
 
       <LogOutButton className="btn" />
     </div>

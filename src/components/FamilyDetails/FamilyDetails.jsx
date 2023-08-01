@@ -132,7 +132,7 @@ function FamilyDetails() {
                         rAdult?.map((adult) => (
                             <Card
                                 key={adult.id}
-                                sx={{ width: "25%", mb: 1.5 }} raised>
+                                sx={{ width: "75%", mb: 1.5 }} raised>
                                 <CardContent>
                                     <Typography variant="h7" color="text.secondary"><b>{adult.first_name}</b></Typography>
                                     <CardMedia

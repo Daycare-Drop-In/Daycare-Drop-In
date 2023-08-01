@@ -8,9 +8,9 @@ import PublicProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGal
 import PublicProviderAvailabilityTable from "../PublicProviderAvailabilityTable/PublicProviderAvailabilityTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
-function ProviderHomePage() {
+function PublicProviderHomePage() {
   const dispatch = useDispatch();
-  const { providerId } = useParams();
+  const providerId = useParams();
 
   useEffect(() => {
     //dispatches request for provider info based on ID in url
@@ -90,4 +90,4 @@ function ProviderHomePage() {
 }
 
 
-export default ProviderHomePage;
+export default PublicProviderHomePage;

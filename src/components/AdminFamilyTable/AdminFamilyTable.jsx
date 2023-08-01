@@ -136,7 +136,7 @@ function AdminFamilyTable() {
                     {family.city}, {family.state} {family.zip}
                   </TableCell>
                   <TableCell
-                  // onClick={() => history.push(`/???details???/${family.id}`)}
+                  onClick={() => history.push(`/details/family/${family.id}`)}
                   >
                     {family.parent_first_name}
                     <br />

@@ -6,7 +6,7 @@ function ProviderBookingProcess() {
 
   INFO WE NEED:
 
-      Passed as params from 'startBooking' function in parent component PublicProviderAvailabilityTable
+      Passed as props from 'startBooking' function in parent component PublicProviderAvailabilityTable
 
           - provider.id
           - user.id
@@ -35,7 +35,7 @@ function ProviderBookingProcess() {
               - drop down menu renders all child.first_names
               ---> select of one gathers child_id to a UseState [childID, setChildID]
      
-              "Is an adult besides you going to be dropping off/picking up?"
+      "Is an adult besides you going to be dropping off/picking up?"
 
               - drop down menu renders all responsible_adult.first_name + responsible_adult.last_name
               - default value of dropdown menu is "I'll be handling pickup/dropoff"

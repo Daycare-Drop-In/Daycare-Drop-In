@@ -11,7 +11,6 @@ function ProviderAvailabilityTable() {
 
   
 /* Notes for routing from public availability table to booking process:
-
 - each child td != 0 needs to render a booking button
 - booking button should collect the following information in a 'start booking' function and pass it to the booking process:
     - entryRow.id (=== availability.id)

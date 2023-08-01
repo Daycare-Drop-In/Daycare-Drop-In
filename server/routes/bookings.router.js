@@ -71,32 +71,49 @@ ORDER BY bookings.service_date ASC;`;
   }
 });
 
-/**
- * POST route template
- */
-router.post("/", (req, res) => {
-  // POST route code here
+
+router.post("/", async (req, res) => {
+  console.log("Inside router side of post request for new booking");
+  const client = await pool.connect();
   if (req.isAuthenticated()) {
-    const {
-      // !!! ADD OBJECT PROPERTIES WHEN READY AND SWAP THEM OUT FOR THE BLINGS IN THE ARRAY ON LINE 90 !!!
-    } = req.body;
-    const queryText = `INSERT INTO bookings (
-		provider_id,
-		child_id,
-		responsible_adult_id,
-		user_id,
-		service_date
-	)
-VALUES ($1, $2, $3, $4, $5);`;
-    pool
-      .query(queryText, [$1 - $5])
-      .then(() => {
-        res.sendStatus(202);
-      })
-      .catch((error) => {
-        console.log("ERROR IN bookings POST", error);
-        res.sendStatus(500);
-      });
+    try {
+      await client.query(`BEGIN;`);
+
+      const values1 = [
+        req.body.provider_id,
+        req.body.child_id,
+        req.body.responsible_adult_id,
+        req.body.user_id,
+        req.body.service_date,
+      ];
+
+      const queryText1 = `INSERT INTO bookings (
+		  provider_id,
+		  child_id,
+		  responsible_adult_id,
+		  user_id,
+		  service_date)
+		  VALUES ($1, $2, $3, $4, $5);`;
+
+      await client.query(queryText1, values1);
+
+      const columnName = req.body.availability_id;
+      const ageCategory = req.body.age_category;
+
+      const queryText2 = `UPDATE availability SET ${columnName} = (${columnName} - 1) WHERE id = $1`;
+
+      await client.query(queryText2, [ageCategory]);
+
+      await client.query(`COMMIT;`);
+      console.log("Booking successful!");
+      res.sendStatus(200);
+    } catch (error) {
+      await client.query(`ROLLBACK;`);
+      console.log("ERROR IN bookings POST", error);
+      res.sendStatus(500);
+    } finally {
+      client.release();
+    }
   } else {
     res.sendStatus(403);
   }

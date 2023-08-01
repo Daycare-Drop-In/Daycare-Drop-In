@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 
-function ProviderPhotoItem({ photo, handleDelete }) {
+function PublicProviderPhotoItem({ photo, handleDelete }) {
   return (
     <div className="card" id={photo.id}>
       <Card
@@ -19,17 +19,6 @@ function ProviderPhotoItem({ photo, handleDelete }) {
         className="photo-card"
       >
 
-<button
-            onClick={() => handleDelete(photo.id)}
-            style={{
-            
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            <DeleteIcon />
-          </button>
         <CardMedia
           component="img"
           height="194"
@@ -47,4 +36,4 @@ function ProviderPhotoItem({ photo, handleDelete }) {
   );
 }
 
-export default ProviderPhotoItem;
+export default PublicProviderPhotoItem;

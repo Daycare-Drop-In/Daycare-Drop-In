@@ -19,7 +19,7 @@ function FamilyChildCards() {
     const user = useSelector((store) => store.user);
     const allMyKids = useSelector((store) => store.children);
 
-    
+
 
     const myKid = {
         family_id: user.family_id,
@@ -243,17 +243,24 @@ console.log('NEW CHILD OBJECT', newChild);
                             <Grid item>
                             <CardContent>
                             <Typography variant="h7" color="text.secondary"><b>{kid.first_name}</b></Typography>
-                                <CardMedia 
+                                <CardMedia
                                     component="img"
                                     sx={{ objectFit: "contain", height: 80}}
                                     image={kid.photo_url}
                                     alt={"profile picture"}
                                 />
                                 </CardContent>
+
+
+
+
+
                             </Grid>
                         </Grid>
                 </Card>
             ))}
+
+
         </Container>
         // <div className="container">
         //     <h2>Child Card</h2>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 import PublicProviderPhotoItem from "../PublicProviderPhotoItem";
 import "./PublicProviderPhotoGallery.css";
 
 function PublicProviderPhotoGallery() {
   const dispatch = useDispatch();
+  const providerId = useParams();
   const provider_id = useSelector((store) => store.provider.id);
   const photoArray = useSelector((store) => store.photo);
 
@@ -12,9 +14,9 @@ function PublicProviderPhotoGallery() {
     provider_id &&
       dispatch({
         type: "GET_PHOTOS",
-        payload: provider_id,
+        payload: providerId,
       });
-  }, [provider_id]);
+  }, [providerId]);
 
   //LOADING STATE
 

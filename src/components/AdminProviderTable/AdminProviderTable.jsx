@@ -126,7 +126,7 @@ function AdminProviderTable() {
               {providers.map((provider) => (
                 <TableRow key={provider.id}>
                   <TableCell
-                    // onClick={() => history.push(`/???details???/${provider.id}`)}
+                  onClick={() => history.push(`/details/provider/${provider.id}`)}
                   >
                     {provider.business_name}
                     <br />
@@ -135,7 +135,7 @@ function AdminProviderTable() {
                     {provider.city}, {provider.state} {provider.zip}
                   </TableCell>
                   <TableCell
-                    // onClick={() => history.push(`/???details???/${provider.id}`)}
+                  onClick={() => history.push(`/details/provider/${provider.id}`)}
                   >
                     {provider.prov_first_name} {provider.prov_last_name}
                     <br />

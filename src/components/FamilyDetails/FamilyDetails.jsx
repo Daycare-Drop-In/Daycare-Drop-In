@@ -180,7 +180,6 @@ function FamilyDetails() {
                                     alt={"profile picture"}
                                 />
                             </CardContent>
-
                         </Card>
                     ))
                     }

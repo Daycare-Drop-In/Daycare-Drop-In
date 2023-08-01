@@ -288,19 +288,18 @@ router.get("/booking_process/family/:id", (req, res) => {
       req.params.id
     );
     const queryText = `SELECT 
-	  user.first_name, 
-	  user.last_name, 
-	  user.family_id,
-	  child.id AS child_id
-	  child.first_name||' '||child.last_name AS child_name, 
-	  responsible_adult.id AS responsible_adult_id,
-	  responsible_adult.first_name||' '||responsible_adult.last_name AS responsible_adult_name
-	  FROM user
-	  JOIN families ON user.family_id = families.id
-	  JOIN children on children.family_id = families.id
-	  JOIN responsible_adults on responsible_adults.family_id = families.id
-	  WHERE user.id = $1`;
-
+    "user".first_name, 
+    "user".last_name, 
+    "user".family_id,
+    children.id AS child_id,
+    children.first_name || ' ' || children.last_name AS child_name, 
+    responsible_adults.id AS responsible_adult_id,
+    responsible_adults.first_name || ' ' || responsible_adults.last_name AS responsible_adult_name
+FROM "user"
+JOIN families ON "user".family_id = families.id
+JOIN children ON children.family_id = families.id
+JOIN responsible_adults ON responsible_adults.family_id = families.id
+WHERE "user".id = $1;`;
     pool
       .query(queryText, [userId])
       .then((result) => {
@@ -323,11 +322,11 @@ router.get("/booking_process/provider/:id", (req, res) => {
       "Inside router side of get request for PROVIDER booking process data, id:",
       req.params.id
     );
-    const queryText = `SELECT provider.business_name, 
-	  provider.contract_language
-	  FROM provider
-	  WHERE provider.id = $2
-	  `;
+    const queryText = `SELECT providers.business_name, 
+	providers.contract_language
+	FROM providers
+	WHERE providers.id = $1`
+	
     pool
       .query(queryText, [providerId])
       .then((result) => {

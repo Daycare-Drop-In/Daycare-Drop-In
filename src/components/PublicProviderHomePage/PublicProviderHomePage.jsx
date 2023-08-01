@@ -89,5 +89,5 @@ function ProviderHomePage() {
   );
 }
 
-// this allows us to use <App /> in index.js
+
 export default ProviderHomePage;

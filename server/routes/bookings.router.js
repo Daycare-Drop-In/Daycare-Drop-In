@@ -71,7 +71,6 @@ ORDER BY bookings.service_date ASC;`;
   }
 });
 
-
 router.post("/", async (req, res) => {
   console.log("Inside router side of post request for new booking");
   const client = await pool.connect();
@@ -119,7 +118,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// detail view GET route template
+// GET for family bookings table
 router.get("/details/:id", (req, res) => {
   if (req.isAuthenticated()) {
     const familyId = req.params.id;
@@ -187,7 +186,7 @@ ORDER BY bookings.service_date ASC;`;
   }
 });
 
-// detail view GET route template
+// GET for provider bookings table
 router.get("/provider/:id", (req, res) => {
   if (req.isAuthenticated()) {
     const providerId = req.params.id;
@@ -280,21 +279,84 @@ WHERE id = $1;`;
   }
 });
 
-// PUT template
-router.put("/update/:id", (req, res) => {
+//GET for family data needed in bookings process
+router.get("/booking_process/family/:id", (req, res) => {
   if (req.isAuthenticated()) {
+    const userId = req.params.user_id;
+    console.log(
+      "Inside router side of get request for FAMILY booking process data, id:",
+      req.params.id
+    );
+    const queryText = `SELECT 
+	  user.first_name, 
+	  user.last_name, 
+	  user.family_id,
+	  child.id AS child_id
+	  child.first_name||' '||child.last_name AS child_name, 
+	  responsible_adult.id AS responsible_adult_id,
+	  responsible_adult.first_name||' '||responsible_adult.last_name AS responsible_adult_name
+	  FROM user
+	  JOIN families ON user.family_id = families.id
+	  JOIN children on children.family_id = families.id
+	  JOIN responsible_adults on responsible_adults.family_id = families.id
+	  WHERE user.id = $1`;
+
     pool
-      .query()
-      .then(() => {
-        res.sendStatus(202);
+      .query(queryText, [userId])
+      .then((result) => {
+        res.send(result.rows);
       })
       .catch((error) => {
-        console.log("ERROR IN bookings PUT", error);
+        console.log("ERROR IN family bookings details GET", error);
         res.sendStatus(500);
       });
   } else {
     res.sendStatus(403);
   }
 });
+
+//GET for provider data needed in bookings process
+router.get("/booking_process/provider/:id", (req, res) => {
+  if (req.isAuthenticated()) {
+    const providerId = req.params.user_id;
+    console.log(
+      "Inside router side of get request for PROVIDER booking process data, id:",
+      req.params.id
+    );
+    const queryText = `SELECT provider.business_name, 
+	  provider.contract_language
+	  FROM provider
+	  WHERE provider.id = $2
+	  `;
+    pool
+      .query(queryText, [providerId])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log("ERROR IN provider bookings details GET", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
+});
+
+// // PUT template
+// router.put("/update/:id", (req, res) => {
+//   if (req.isAuthenticated()) {
+//     pool
+//       .query()
+//       .then(() => {
+//         res.sendStatus(202);
+//       })
+//       .catch((error) => {
+//         console.log("ERROR IN bookings PUT", error);
+//         res.sendStatus(500);
+//       });
+//   } else {
+//     res.sendStatus(403);
+//   }
+// });
 
 module.exports = router;

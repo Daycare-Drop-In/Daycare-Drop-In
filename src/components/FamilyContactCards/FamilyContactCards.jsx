@@ -50,6 +50,12 @@ function FamilyContactCards() {
 		console.log("Submitting");
 	};
 
+	const deleteAdult = (adultId) => {
+		
+		console.log('Clicked delete', adultId);
+		dispatch({type:"DELETE_ADULT", payload:{id:adultId, familyId: user.family_id}})
+	}
+
 	return (
 		<Container
 			maxWidth={"sm"}
@@ -69,7 +75,7 @@ function FamilyContactCards() {
 					}}
 					onClick={() => setOpen(!open)}
 				>
-					<Typography variant="h5">Add an adult</Typography>
+					<Typography variant="h4">Add an adult</Typography>
 					<PersonAddAlt1Icon sx={{ fontSize: "3rem", ml: 3 }} />
 				</IconButton>
 			) : (
@@ -253,6 +259,7 @@ function FamilyContactCards() {
 								alt={"profile picture"}
 							/>
 							 </CardContent>
+							 <Button onClick={(event) => deleteAdult(adult.id, event.preventDefault())}>Delete</Button>
 						</Grid>
 					</Grid>
 				</Card>

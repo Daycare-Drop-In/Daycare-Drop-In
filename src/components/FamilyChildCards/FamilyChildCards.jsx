@@ -6,6 +6,9 @@ import ChildCareIcon from '@mui/icons-material/ChildCare';
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 
 
@@ -175,23 +178,29 @@ console.log('NEW CHILD OBJECT', newChild);
                                     })
                                 }
                                 />
-                                <TextField
+                                <TextField  
+                                lable                                                         
                                 placeholder="Potty  Trained"
                                 required
                                 name="potty trained"
                                 sx={{ bgcolor: "white" }}
-                                type="text"
+                                type="checkbox"
                                 margin="normal"
                                 fullWidth
-                                label="Potty-Trained"
+                                label={"potty trained"}
                                 value={newChild.potty_trained}
-                                onChange={(event) =>
+                                onClick={(event) =>
                                     setNewChild({
                                         ...newChild,
-                                        pottyTrained: event.target.value,
+                                        potty_trained: true,
                                     })
                                 }
                                 />
+
+                             {/* <FormControlLabel 
+                             control={<Checkbox />  }label="Potty Trained"
+                             />    */}
+
 
                             <Container
                                 sx={{
@@ -249,10 +258,8 @@ console.log('NEW CHILD OBJECT', newChild);
                                     image={kid.photo_url}
                                     alt={"profile picture"}
                                 />
+                                <Typography variant="h8">Potty Trained: {JSON.stringify(kid.potty_trained)}</Typography>
                                 </CardContent>
-
-                             
-                               
 
                                 
                             </Grid>

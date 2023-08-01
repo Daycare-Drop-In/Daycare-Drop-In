@@ -5,10 +5,10 @@ import { Card, CardContent, CardMedia, CardActionArea, IconButton, Typography, B
 
 
 //Component Imports
-import LogOutButton from "../LogOutButton/LogOutButton";
-import FamilyContactCards from "../FamilyContactCards/FamilyContactCards";
-import FamilyChildCards from "../FamilyChildCards/FamilyChildCards";
-import FamilyDropOffs from "../FamilyDropOffs/FamilyDropOffs";
+// import LogOutButton from "../LogOutButton/LogOutButton";
+// import FamilyContactCards from "../FamilyContactCards/FamilyContactCards";
+// import FamilyChildCards from "../FamilyChildCards/FamilyChildCards";
+// import FamilyDropOffs from "../FamilyDropOffs/FamilyDropOffs";
 
 function FamilyDetails() {
     const dispatch = useDispatch();
@@ -55,7 +55,6 @@ function FamilyDetails() {
     }
 
     return (
-
         <>
             <div className="family-home-page-header">
                 <center>
@@ -104,17 +103,12 @@ function FamilyDetails() {
                         {family[0].city} {family[0].state} {family[0].zip}
                     </Typography>
                 </Grid>
-
-
-
-
                 <Grid item
                     xs={12}
                     textAlign="center"
                 >
                     <h3>Responsible Adults</h3>
                 </Grid>
-
                 <Grid item
                     xs={12}
                     sx={{
@@ -152,7 +146,6 @@ function FamilyDetails() {
                 >
                     <h3>Kids in this Family</h3>
                 </Grid>
-
                 <Grid item
                     xs={12}
                     sx={{
@@ -167,25 +160,24 @@ function FamilyDetails() {
                             variant="p"
                         >No children added.</Typography>
                     ) :
-                    allMyKids?.map((kid) => (
-                        <Card
-                            key={kid.id}
-                            sx={{ width: "75%", mb: 1.5 }} raised>
-                            <CardContent>
-                                <Typography variant="h7" color="text.secondary"><b>{kid.first_name}</b></Typography>
-                                <CardMedia
-                                    component="img"
-                                    sx={{ objectFit: "contain", height: 90 }}
-                                    image={kid.photo_url}
-                                    alt={"profile picture"}
-                                />
-                            </CardContent>
-                        </Card>
-                    ))
+                        allMyKids?.map((kid) => (
+                            <Card
+                                key={kid.id}
+                                sx={{ width: "75%", mb: 1.5 }} raised>
+                                <CardContent>
+                                    <Typography variant="h7" color="text.secondary"><b>{kid.first_name}</b></Typography>
+                                    <CardMedia
+                                        component="img"
+                                        sx={{ objectFit: "contain", height: 90 }}
+                                        image={kid.photo_url}
+                                        alt={"profile picture"}
+                                    />
+                                </CardContent>
+                            </Card>
+                        ))
                     }
                 </Grid>
             </Grid>
-
         </>
     );
 }

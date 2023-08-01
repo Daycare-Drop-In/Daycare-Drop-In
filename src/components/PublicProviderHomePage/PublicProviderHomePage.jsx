@@ -84,7 +84,7 @@ function PublicProviderHomePage() {
 
       <PublicProviderPhotoGallery />
 
-      <LogOutButton className="btn" />
+      {/* <LogOutButton className="btn" /> */}
     </div>
   );
 }

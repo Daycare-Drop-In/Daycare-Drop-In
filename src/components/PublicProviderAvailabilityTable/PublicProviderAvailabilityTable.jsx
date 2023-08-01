@@ -4,11 +4,16 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 function ProviderAvailabilityTable() {
   const dispatch = useDispatch();
-  const provider_id = useParams();
+  const providerid = useParams();
   const availabilityArray = useSelector((store) => store.availability);
 
   console.log("Provider availability from reducer:", availabilityArray);
 
+  useEffect(() => {
+    //dispatches request for specific provider availability using id from useParams
+    console.log("Dispatching request for data of familyId:", providerid);
+    dispatch({ type: "GET_PROVIDER_AVAILABILITY", payload: providerid });
+  }, []);
   
   return (
     <div className="container">

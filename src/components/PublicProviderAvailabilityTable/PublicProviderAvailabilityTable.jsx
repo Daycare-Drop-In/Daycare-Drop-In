@@ -10,6 +10,14 @@ function ProviderAvailabilityTable() {
   console.log("Provider availability from reducer:", availabilityArray);
 
   
+/* Notes for routing from public availability table to booking process:
+- each child td != 0 needs to render a booking button
+- booking button should collect the following information in a 'start booking' function and pass it to the booking process:
+    - entryRow.id (=== availability.id)
+    - entryRow.[age category] (=== number of available spots for that age category)
+    - user.id (needed in order to get the user's associated family id, child ids, responsible adult ids)
+*/
+
   return (
     <div className="container">
       <table border="1">

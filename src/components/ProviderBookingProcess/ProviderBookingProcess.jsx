@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom";
+import { Card, CardContent, CardMedia, CardActionArea, IconButton, Typography, Button, Container, Grid, Box, CardHeader, CardActions, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 function ProviderBookingProcess() {
 
@@ -89,6 +90,7 @@ function ProviderBookingProcess() {
 
         return (
                 <>
+                <Typography>There is a thing here.</Typography>
                 </>
         );
 }

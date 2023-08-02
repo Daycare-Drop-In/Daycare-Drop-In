@@ -29,7 +29,7 @@ function PublicProviderAvailabilityRow({ entryRow }) {
     return (
         <>
             <tr
-            onClick={startBooking(entryRow.id)}
+            onClick={() => startBooking(entryRow.id)}
             >
                 <td>{formattedDate(entryRow.date)}</td>
                 <td>{entryRow.infant}</td>

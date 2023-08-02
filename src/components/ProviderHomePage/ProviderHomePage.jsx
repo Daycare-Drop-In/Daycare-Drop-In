@@ -79,15 +79,13 @@ function ProviderHomePage() {
         <p>{provider.business_description}</p>
       </div>
 
-      <div className="booking-button">
-        <button onClick={goToBooking}>Book a spot!</button>
-      </div>
+
 
       <ProviderAvailabilityTable provider_id={provider_id} />
 
       <ProviderPhotoGallery />
 
-      {/* <ProviderBookingsTable /> */}
+      <ProviderBookingsTable />
 
       <LogOutButton className="btn" />
     </div>

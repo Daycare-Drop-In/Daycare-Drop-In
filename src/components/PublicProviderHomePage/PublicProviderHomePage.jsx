@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 //COMPONENT IMPORTS
 import LogOutButton from "../LogOutButton/LogOutButton";
-import PublicProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGallery";
+import PublicProviderPhotoGallery from "../PublicProviderPhotoGallery/PublicProviderPhotoGallery";
 import PublicProviderAvailabilityTable from "../PublicProviderAvailabilityTable/PublicProviderAvailabilityTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
@@ -76,9 +76,9 @@ function PublicProviderHomePage() {
         <p>{provider.business_description}</p>
       </div>
 
-      <div className="booking-button">
+      {/* <div className="booking-button">
         <button onClick={goToBooking}>Book a spot!</button>
-      </div>
+      </div> */}
 
       <PublicProviderAvailabilityTable />
 

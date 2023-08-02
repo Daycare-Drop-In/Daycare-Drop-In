@@ -14,6 +14,14 @@ function ProviderAvailabilityTable() {
     console.log("Dispatching request for data of familyId:", providerid);
     dispatch({ type: "GET_PROVIDER_AVAILABILITY", payload: providerid });
   }, []);
+
+  const formattedDate = (availableDate) => {
+    return new Date(availableDate).toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric',
+    });
+  };
   
   return (
     <div className="container">
@@ -28,7 +36,8 @@ function ProviderAvailabilityTable() {
         <tr></tr>
         {availabilityArray.map((entryRow) => (
           <tr key={entryRow.id}>
-            <td>{entryRow.date}</td>
+            <td>{formattedDate(entryRow.date)}</td>
+            {/* <td>{formattedDate}</td> */}
             <td>{entryRow.infant}</td>
             <td>{entryRow.toddler}</td>
             <td>{entryRow.pre_k}</td>

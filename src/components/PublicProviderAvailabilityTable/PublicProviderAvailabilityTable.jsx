@@ -37,7 +37,6 @@ function ProviderAvailabilityTable() {
         {availabilityArray.map((entryRow) => (
           <tr key={entryRow.id}>
             <td>{formattedDate(entryRow.date)}</td>
-            {/* <td>{formattedDate}</td> */}
             <td>{entryRow.infant}</td>
             <td>{entryRow.toddler}</td>
             <td>{entryRow.pre_k}</td>

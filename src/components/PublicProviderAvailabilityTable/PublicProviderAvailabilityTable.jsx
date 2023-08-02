@@ -4,11 +4,24 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 function ProviderAvailabilityTable() {
   const dispatch = useDispatch();
-  const provider_id = useParams();
+  const providerid = useParams();
   const availabilityArray = useSelector((store) => store.availability);
 
   console.log("Provider availability from reducer:", availabilityArray);
 
+  useEffect(() => {
+    //dispatches request for specific provider availability using id from useParams
+    console.log("Dispatching request for data of familyId:", providerid);
+    dispatch({ type: "GET_PROVIDER_AVAILABILITY", payload: providerid });
+  }, []);
+
+  const formattedDate = (availableDate) => {
+    return new Date(availableDate).toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric',
+    });
+  };
   
 /* Notes for routing from public availability table to booking process:
 - each child td != 0 needs to render a booking button
@@ -17,6 +30,10 @@ function ProviderAvailabilityTable() {
     - entryRow.[age category] (=== number of available spots for that age category)
     - user.id (needed in order to get the user's associated family id, child ids, responsible adult ids)
 */
+
+const startBooking = () => {
+  
+}
 
   return (
     <div className="container">
@@ -31,7 +48,7 @@ function ProviderAvailabilityTable() {
         <tr></tr>
         {availabilityArray.map((entryRow) => (
           <tr key={entryRow.id}>
-            <td>{entryRow.date}</td>
+            <td>{formattedDate(entryRow.date)}</td>
             <td>{entryRow.infant}</td>
             <td>{entryRow.toddler}</td>
             <td>{entryRow.pre_k}</td>

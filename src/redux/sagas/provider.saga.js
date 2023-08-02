@@ -8,9 +8,9 @@ function getFilteredProviders() -- providers to display in the list, filtered fo
 
 //get all the info for a particular provider to render provider home page
 function* getProvider(id) {
-  console.log("Inside getProvider saga for provider of id:", id.payload);
+  console.log("Inside getProvider saga for provider of id:", id.payload.id);
   try {
-    const provider = yield axios.get(`/api/provider/details/${id.payload}`);
+    const provider = yield axios.get(`/api/provider/details/${id.payload.id}`);
     yield put({ type: "SET_PROVIDER", payload: provider.data[0] });
   } catch (error) {
     console.log("Error in getProvider saga:", error);

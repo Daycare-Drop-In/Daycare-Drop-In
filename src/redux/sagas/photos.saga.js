@@ -3,9 +3,9 @@ import axios from "axios";
 
 //Get the array of photos for the provider homepage gallery
 function* getPhotos(id) {
-  console.log("Inside getPhotos saga for provider of id:", id.payload);
+  console.log("Inside getPhotos saga for provider of id:", id.payload.id);
   try {
-    const photos = yield axios.get(`/api/photo/${id.payload}`);
+    const photos = yield axios.get(`/api/photo/${id.payload.id}`);
     yield put({ type: "SET_PHOTOS", payload: photos.data });
   } catch (error) {
     console.log("Error in getPhotos saga", error);

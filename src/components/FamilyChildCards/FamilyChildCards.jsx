@@ -9,7 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-
+import FormData from "form-data"
 
 
 
@@ -37,8 +37,21 @@ function FamilyChildCards() {
        
     };
 
+  
+
     const [newChild, setNewChild] = useState(myKid);
-    const [clicked, setClicked] = useState(false);
+    const [clicked, setClicked] = useState(false); 
+    
+    // const handleUpload = (e) => {
+    //     const selectedFile = e.target.files[0];
+    // const formData = new FormData();
+    // formData.append("file", selectedFile);
+    // console.log('formdata, selectedfile', formData, selectedFile);
+    // dispatch({
+    //   type: "GET_FILE",
+    //    payload: formData,
+    //  });
+    // }
 
     const registerChild = (event) => {
         event.preventDefault();
@@ -116,6 +129,7 @@ function FamilyChildCards() {
                             component="form"
                             onSubmit={registerChild}
                             autoComplete='off'
+                            encType="multipart/form-data"
                         >
                             <TextField
                                 placeholder="First Name"
@@ -224,11 +238,11 @@ function FamilyChildCards() {
                                         labelPlacement="end"
                                         control={
                                             <Checkbox 
-                                            checked={newChild.potty_trained}
-                                            onClick={(event) =>
+                                            // checked={newChild.potty_trained}
+                                            onClick={() =>
                                                 setNewChild({
                                                     ...newChild,
-                                                    potty_trained:event.target.clicked
+                                                    potty_trained:true
                                                 })
                                             }
                                             />
@@ -240,7 +254,7 @@ function FamilyChildCards() {
                                 <Typography>Photo:</Typography>
 
                                 <TextField
-                                    required
+                                    
                                     fullWidth
                                     name="photo_url"
                                     sx={{ bgcolor: "white" }}
@@ -255,8 +269,11 @@ function FamilyChildCards() {
                                         })
                                     }
                                 />
+                                {/* photo up load code!!!!!! */}
+                                {/* <input type="file"  accept="image/*" name="image"  onChange={handleUpload} */}
+                                       {/* /> */}
 
-                                <input type="file"  />
+                                    {/* <button onClick={(e) => handleUpload(e.target.value)}>Upload</button> */}
                                 
 
                             </Container>

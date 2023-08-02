@@ -11,6 +11,7 @@ import providerSaga from "./provider.saga";
 import responsibleAdultSaga from "./responsible_adult.saga";
 import availabilitySaga from "./availability.saga";
 import codeSaga from "./code.saga";
+import fileStackSaga from "./fileStack.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -32,5 +33,6 @@ export default function* rootSaga() {
     photosSaga(),
     providerSaga(),
     responsibleAdultSaga(),
-    codeSaga()
+    codeSaga(),
+    fileStackSaga()
   ])}

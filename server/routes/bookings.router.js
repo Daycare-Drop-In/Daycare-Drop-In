@@ -288,18 +288,21 @@ router.get("/booking_process/family/:id", (req, res) => {
       req.params.id
     );
     const queryText = `SELECT 
-    "user".first_name, 
-    "user".last_name, 
+    "user".id AS user_id,
+    "user".first_name AS user_first_name, 
+    "user".last_name AS user_last_name, 
     "user".family_id,
-    children.id AS child_id,
-    children.first_name || ' ' || children.last_name AS child_name, 
-    responsible_adults.id AS responsible_adult_id,
-    responsible_adults.first_name || ' ' || responsible_adults.last_name AS responsible_adult_name
+    ARRAY_AGG(DISTINCT children.id) AS child_ids,
+    ARRAY_AGG(DISTINCT children.first_name || ' ' || children.last_name) AS child_names, 
+    ARRAY_AGG(DISTINCT responsible_adults.id) AS responsible_adult_ids,
+    ARRAY_AGG(DISTINCT responsible_adults.first_name || ' ' || responsible_adults.last_name) AS responsible_adult_names
 FROM "user"
 JOIN families ON "user".family_id = families.id
 JOIN children ON children.family_id = families.id
 JOIN responsible_adults ON responsible_adults.family_id = families.id
-WHERE "user".id = $1;`;
+WHERE "user".id = $1
+GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id
+`;
     pool
       .query(queryText, [userId])
       .then((result) => {

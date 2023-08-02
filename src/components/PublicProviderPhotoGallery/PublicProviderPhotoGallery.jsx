@@ -12,8 +12,8 @@ function PublicProviderPhotoGallery() {
   const provider_id = useSelector((store) => store.provider.id);
   const photoArray = useSelector((store) => store.photo);
 
-  console.log('in PublicProviderPhotoGallery, and providerId is:', providerId);
-  console.log('in PublicProviderPhotoGallery, and photos are:', photoArray);
+  // console.log('in PublicProviderPhotoGallery, and providerId is:', providerId);
+  // console.log('in PublicProviderPhotoGallery, and photos are:', photoArray);
 
   useEffect(() => {
       dispatch({

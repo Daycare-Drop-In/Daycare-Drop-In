@@ -31,6 +31,10 @@ function ProviderAvailabilityTable() {
     - user.id (needed in order to get the user's associated family id, child ids, responsible adult ids)
 */
 
+const startBooking = () => {
+  
+}
+
   return (
     <div className="container">
       <table border="1">

@@ -14,9 +14,9 @@ function ProviderBookingsTable() {
     dispatch({ type: "GET_PROVIDER_BOOKINGS", payload: provider_id });
   }, [provider_id]);
 
-  const booking = useSelector((store) => store.bookings);
-  console.log("HERE ARE THE store:", booking);
+  const booking = useSelector((store) => store.booking);
 
+  console.log(booking)
   return (
     <div className="container">
       <table border="1">

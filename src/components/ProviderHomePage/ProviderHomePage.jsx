@@ -9,25 +9,21 @@ import ProviderAvailabilityTable from "../ProviderAvailabilityTable/ProviderAvai
 import ProviderBookingsTable from "../ProviderBookingsTable/ProviderBookingsTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
-function ProviderHomePage() {
+function ProviderHomePage({ provider }) {
   const dispatch = useDispatch();
   // const { providerId } = useParams();
   const userId = useSelector((store) => store.user.id);
 
-  useEffect(() => {
-    //dispatches request for provider info based on userID
-    console.log("Dispatching request for data of provider-user ID:", userId);
-    dispatch({ type: "GET_PROVIDER_USER", payload: userId });
-  }, [userId]);
+  // useEffect(() => {
+  //   //dispatches request for provider info based on userID
+  //   console.log("Dispatching request for data of provider-user ID:", userId);
+  //   dispatch({ type: "GET_PROVIDER_USER", payload: userId });
+  // }, [userId]);
 
-  const provider = useSelector((store) => store.provider);
-  const provider_id = useSelector((store) => store.provider.id);
+  // const provider = useSelector((store) => store.provider);
+  // const provider_id = useSelector((store) => store.provider.id);
 
   console.log("THESE ARE THE PROVIDER DETAILS:", provider);
-
-  const goToBooking = () => {
-    return <ProviderBookingProcess />;
-  };
 
   return (
     <div className="container">
@@ -79,13 +75,11 @@ function ProviderHomePage() {
         <p>{provider.business_description}</p>
       </div>
 
+      <ProviderAvailabilityTable provider={provider} />
 
+      <ProviderPhotoGallery provider={provider} />
 
-      <ProviderAvailabilityTable provider_id={provider_id} />
-
-      <ProviderPhotoGallery />
-
-      <ProviderBookingsTable />
+      <ProviderBookingsTable provider={provider} />
 
       <LogOutButton className="btn" />
     </div>

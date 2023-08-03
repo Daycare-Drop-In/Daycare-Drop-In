@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import ProviderPhotoItem from "../ProviderPhotoItem/ProviderPhotoItem";
 import "./ProviderPhotoGallery.css";
 
-function ProviderPhotoGallery() {
+function ProviderPhotoGallery({provider}) {
   const dispatch = useDispatch();
-  const provider_id = useSelector((store) => store.provider.id);
+  const provider_id = provider.id
   const photoArray = useSelector((store) => store.photo);
 
-  useEffect(() => {
-    provider_id &&
-      dispatch({
-        type: "GET_PHOTOS",
-        payload: provider_id,
-      });
-  }, [provider_id]);
+  // useEffect(() => {
+  //   provider_id &&
+  //     dispatch({
+  //       type: "GET_PHOTOS",
+  //       payload: provider_id,
+  //     });
+  // }, [provider_id]);
 
   const newPhotoInfo = {
     provider_id: provider_id,

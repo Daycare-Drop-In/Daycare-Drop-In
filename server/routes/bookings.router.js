@@ -307,7 +307,10 @@ GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
       .query(queryText, [userId])
       .then((result) => {
         res.send(result.rows);
-		console.log('in family booking process GET and result.rows are:', result.rows);
+        console.log(
+          "in family booking process GET and result.rows are:",
+          result.rows
+        );
       })
       .catch((error) => {
         console.log("ERROR IN family bookings details GET", error);
@@ -329,12 +332,15 @@ router.get("/booking_process/provider/:id", (req, res) => {
     const queryText = `SELECT providers.business_name, 
 	providers.contract_language
 	FROM providers
-	WHERE providers.id = $1;`
+	WHERE providers.id = $1;`;
     pool
       .query(queryText, [providerId])
       .then((result) => {
         res.send(result.rows);
-		console.log('in provider booking process GET and result.rows are:', result.rows);
+        console.log(
+          "in provider booking process GET and result.rows are:",
+          result.rows
+        );
       })
       .catch((error) => {
         console.log("ERROR IN provider bookings details GET", error);

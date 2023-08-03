@@ -97,9 +97,9 @@ router.delete('/delete/:id', (req, res) => {
   if (req.isAuthenticated()) {
     const childId = req.params.id
     const queryText = `DELETE FROM children
-WHERE id = $1;`;
-    pool.query(queryText, [childId])
-    .then(() => {
+    WHERE "id" = $1;`;
+    pool.query(queryText, [req.params.id])
+    .then((result) => {
       res.sendStatus(200);
     })
     .catch((error) => {
@@ -113,17 +113,28 @@ WHERE id = $1;`;
 
 // PUT template
 router.put('/update/:id', (req, res) => {
+  console.log('ARRIVED AT UPDATE');
   if (req.isAuthenticated()) {
     const childId = req.params.id
-    const {
+    console.log('this is params id', req.params.id);
       // !!! ADD OBJECT PROPERTIES HERE WHEN THEY ARE READY AND CHANGE THE BLINGS OUT ON LINE 93 !!!!
+      const {
+        // !!! ADD OBJECT PROPERTIES HERE WHEN THEY ARE READY AND ADD THEM TO THE ARRAY ON LINE 43 !!!
+        first_name,
+        last_name,
+        allergies,
+        potty_trained,
+        
+      
     } = req.body
+    console.log('this is reqbody', req.body);
     const queryText = `
-    UPDATE children SET first_name = $1, last_name = $2, birthdate = $3, allergies = $4, potty_trained = $5, photo_url = $6
-    WHERE id = $7;
+    UPDATE children SET first_name = $1, last_name = $2,  allergies = $3, potty_trained = $4 
+    WHERE id = $5;
     `;
-      pool.query(queryText, [$1, $2, $3, $4, $5, $6, childId])
-			.then(() => {
+      pool.query(queryText, [first_name, last_name, allergies, potty_trained, childId])
+			.then((result) => {
+        console.log('WE OUT HERE!');
 				res.sendStatus(202);
 			})
 			.catch((error) => {

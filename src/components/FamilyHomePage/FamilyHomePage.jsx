@@ -7,18 +7,23 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import FamilyContactCards from "../FamilyContactCards/FamilyContactCards";
 import FamilyChildCards from "../FamilyChildCards/FamilyChildCards";
 import FamilyDropOffs from "../FamilyDropOffs/FamilyDropOffs";
+import AddChildForm from "../AddChildForm/AddChildForm";
+import AddAdultForm from "../AddAdultForm/AddAdultForm"
 
 function FamilyHomePage() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const rAdult = useSelector((store) => store.responsibleAdults)
   const children = useSelector((store => store.children))
   const families = useSelector((store) => store.families)
+
 
   useEffect(() => {
     //dispatches request for family info based on userID
     console.log("Dispatching request for data of family-user ID:", user.id);
     dispatch({ type: "GET_FAMILY_USER", payload: user.id });
     dispatch({type: "GET_CHILDREN", payload: user.family_id })
+    dispatch({ type: "GET_ADULTS", payload: user.family_id });
   }, []);
 
   console.log('these are the children of this family', children);
@@ -33,6 +38,8 @@ function FamilyHomePage() {
       <div className="family-home-page-header">
         <h2>
           Welcome, {user.first_name} {user.last_name}!
+          <br></br>
+          <img src={user.photo_url} height="200" />
         </h2>
         <LogOutButton className="btn" />
         <center>
@@ -64,9 +71,21 @@ function FamilyHomePage() {
       
       <h3>Responsible Adults</h3>
       <p>button to add a card</p>
-      <FamilyContactCards />
+      <AddAdultForm/>
+      <AddChildForm />
+      
+      
 
-      <FamilyChildCards />
+      {/* need to map this component  */}
+      {children?.map((kid)=>(
+        
+      <FamilyChildCards key={kid.id} kid={kid} />
+      ))}
+
+      {rAdult?.map((adult) => (
+        <FamilyContactCards key={adult.id} adult={adult} />
+      ))}
+
       <LogOutButton className="btn" />
 
       <FamilyDropOffs />

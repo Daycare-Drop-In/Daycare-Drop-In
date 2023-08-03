@@ -1,4 +1,5 @@
 <div className="nav">
+	<img src={logo} alt="" style={{ maxHeight: "35px", marginLeft: "15px" }} />
 	<Link to="/home">
 		<h2 className="nav-title">Daycare Drop-in</h2>
 	</Link>
@@ -18,9 +19,9 @@
 					Home
 				</Link>
 
-				<Link className="navLink" to="/info">
-					Info Page
-				</Link>
+				{/* <Link className="navLink" to="/info">
+								Info Page
+							</Link> */}
 
 				{
 					// only display if admin
@@ -31,12 +32,8 @@
 					)
 				}
 
-				<LogOutButton className="navLink" />
+				{/* <LogOutButton className="navLink" /> */}
 			</>
 		)}
-
-		<Link className="navLink" to="/about">
-			About
-		</Link>
 	</div>
 </div>;

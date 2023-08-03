@@ -1,128 +1,154 @@
-<>
-	{code.hide ? (
-		<>
-			<form className="formPanel" onSubmit={validateAccessCode}>
-				<h2>Validate Access Code</h2>
+import {
+	Button,
+	TextField,
+	Box,
+	Typography,
+	Container,
+} from "@mui/material";
 
-				<div>
-					<div>
-						<label htmlFor="access code">
-							Access Code
-							<input
-								type="text"
-								name="access code"
-								placeholder="Access Code"
-								value={access_code}
-								required
-								onChange={(event) =>
-									setAccessCode(event.target.value)
-								}
-							/>
-						</label>
-					</div>
-				</div>
-
-				<div>
-					<input
-						className="btn"
-						type="submit"
-						name="Validate"
-						value="Validate"
-					/>
-				</div>
-			</form>
-		</>
-	) : (
-		<form className="formPanel" onSubmit={registerUser}>
-			<h2>Register to Join a Family</h2>
-			{errors.registrationMessage && (
-				<h3 className="alert" role="alert">
-					{errors.registrationMessage}
-				</h3>
-			)}
-			<div>
-				<label htmlFor="username">
-					Email:
-					<input
-						type="text"
-						name="username"
-						placeholder="youremail@example.com"
-						value={username}
-						required
-						onChange={(event) => setUsername(event.target.value)}
-					/>
-				</label>
-			</div>
-			<div>
-				<label htmlFor="password">
-					Password:
-					<input
-						type="password"
-						name="password"
-						value={password}
-						required
-						onChange={(event) => setPassword(event.target.value)}
-					/>
-				</label>
-			</div>
-			<div>
-				<label htmlFor="first_name">
-					First Name:
-					<input
-						type="text"
-						name="first name"
-						value={firstName}
-						required
-						onChange={(event) => setFirstName(event.target.value)}
-					/>
-				</label>
-			</div>
-			<div>
-				<label htmlFor="last_name">
-					Last Name:
-					<input
-						type="text"
-						name="last name"
-						value={lastName}
-						required
-						onChange={(event) => setLastName(event.target.value)}
-					/>
-				</label>
-			</div>
-			<div>
-				<label htmlFor="phone_number">
-					Phone #:
-					<input
-						type="text"
-						name="phone number"
-						value={phoneNumber}
-						required
-						onChange={(event) => setPhoneNumber(event.target.value)}
-					/>
-				</label>
-			</div>
-
-			<div>
-				<label htmlFor="photo">
-					Photo:
-					<input
-						type="url"
-						name="photo"
-						value={photo_url}
-						required
-						onChange={(event) => setPhoto_Url(event.target.value)}
-					/>
-				</label>
-			</div>
-
-			<div>
-				<input
-					className="btn"
-					type="submit"
-					name="submit"
-					value="Register"
+{
+	code.hide ? (
+		<Box
+			sx={{
+				marginTop: 8,
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+			}}
+		>
+			<Typography component="h1" variant="h5">
+				Enter your family's access code
+			</Typography>
+			<Box
+				component="form"
+				onSubmit={validateAccessCode}
+				sx={{ mt: 1 }}
+				autoComplete="off"
+			>
+				<TextField
+					margin="normal"
+					required
+					fullWidth
+					id="access_code"
+					value={accessCode}
+					label="Access Code"
+					name="access_code"
+					autoFocus
+					onChange={(event) => setAccessCode(event.target.value)}
+					InputLabelProps={{ shrink: true }}
 				/>
-			</div>
-		</form>
-	)}
-</>;
+				<Button
+					type="submit"
+					fullWidth
+					variant="contained"
+					sx={{ mt: 3, mb: 2, p: 2 }}
+				>
+					Validate
+				</Button>
+			</Box>
+		</Box>
+	) : (
+		<Box
+			sx={{
+				marginTop: 8,
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+			}}
+		>
+			<Typography component="h1" variant="h5">
+				Register your account
+			</Typography>
+			<Box
+				component="form"
+				onSubmit={registerUser}
+				sx={{ mt: 1 }}
+				autoComplete="off"
+			>
+				<TextField
+					margin="normal"
+					required
+					fullWidth
+					id="username"
+					value={username}
+					label="Email"
+					name="username"
+					autoFocus
+					onChange={(event) => setUsername(event.target.value)}
+					InputLabelProps={{ shrink: true }}
+				/>
+				<TextField
+					margin="normal"
+					required
+					fullWidth
+					name="password"
+					value={password}
+					label="Password"
+					type="password"
+					id="password"
+					onChange={(event) => setPassword(event.target.value)}
+					InputLabelProps={{ shrink: true }}
+				/>
+				<TextField
+					margin="normal"
+					required
+					fullWidth
+					name="first_name"
+					value={firstName}
+					label="First Name"
+					type="text"
+					id="first_name"
+					onChange={(event) => setFirstName(event.target.value)}
+					InputLabelProps={{ shrink: true }}
+				/>
+				<TextField
+					margin="normal"
+					required
+					fullWidth
+					name="last_name"
+					value={lastName}
+					label="Last Name"
+					type="text"
+					id="last_name"
+					onChange={(event) => setLastName(event.target.value)}
+					InputLabelProps={{ shrink: true }}
+				/>
+
+				<TextField
+					margin="normal"
+					required
+					fullWidth
+					name="phone_number"
+					value={phoneNumber}
+					label="Primary Contact Number"
+					type="text"
+					id="phone_number"
+					onChange={(event) => setPhoneNumber(event.target.value)}
+					InputLabelProps={{ shrink: true }}
+				/>
+
+				<TextField
+					margin="normal"
+					required
+					fullWidth
+					name="photo_url"
+					value={photo_Url}
+					label="Photo"
+					type="url"
+					id="url"
+					onChange={(event) => setPhoto_Url(event.target.value)}
+					InputLabelProps={{ shrink: true }}
+				/>
+
+				<Button
+					type="submit"
+					fullWidth
+					variant="contained"
+					sx={{ mt: 3, mb: 2, p: 2 }}
+				>
+					Register
+				</Button>
+			</Box>
+		</Box>
+	);
+}

@@ -25,6 +25,7 @@ import RegisterPageProvider from "../RegisterPageProvider/RegisterPageProvider";
 import RegisterPageNewFamily from "../RegisterPageNewFamily/RegisterPageNewFamily";
 import RegisterPageJoinFamily from "../RegisterPageJoinFamily/RegisterPageJoinFamily";
 import BottomNav from "../BottomNav/BottomNav";
+import Styled from "../_STYLED/Styled";
 
 import "./App.css";
 import AdminHomePage from "../AdminHomePage/AdminHomePage";
@@ -159,6 +160,14 @@ function App() {
 						<ListPage />
 						<BottomNav />
 					</Route>
+
+          <Route
+          exact path = '/styles'
+          >
+            <Styled />
+
+
+          </Route>
 
 					{/* If none of the other routes matched, we will show a 404. */}
 					<Route>

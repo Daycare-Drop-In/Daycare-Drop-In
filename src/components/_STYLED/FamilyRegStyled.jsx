@@ -1,174 +1,189 @@
-<form className="formPanel" onSubmit={registerUser}>
-	<h2>Register New Family</h2>
-	{errors.registrationMessage && (
-		<h3 className="alert" role="alert">
-			{errors.registrationMessage}
-		</h3>
-	)}
-	<div>
-		<label htmlFor="username">
-			Email:
-			<input
-				type="text"
-				placeholder="youremail@example.com"
-				name="username"
-				value={username}
+import { Button, TextField, Box, Typography, Container } from "@mui/material";
+<>
+	<Box
+		sx={{
+			marginTop: 8,
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+		}}
+	>
+		<Typography component="h1" variant="h5">
+			Register for an account
+		</Typography>
+		<Box
+			component="form"
+			onSubmit={registerUser}
+			sx={{ mt: 1 }}
+			autoComplete="off"
+		>
+			<TextField
+				margin="normal"
 				required
+				fullWidth
+				id="username"
+				value={username}
+				label="Email"
+				name="username"
+				autoFocus
 				onChange={(event) => setUsername(event.target.value)}
+				InputLabelProps={{ shrink: true }}
 			/>
-		</label>
-	</div>
-	<div>
-		<label htmlFor="password">
-			Password:
-			<input
-				type="password"
+			<TextField
+				margin="normal"
+				required
+				fullWidth
 				name="password"
 				value={password}
-				required
+				label="Password"
+				type="password"
+				id="password"
 				onChange={(event) => setPassword(event.target.value)}
+				InputLabelProps={{ shrink: true }}
 			/>
-		</label>
-	</div>
-
-	<div>
-		<label htmlFor="first_name">
-			First Name:
-			<input
-				type="text"
+			<TextField
+				margin="normal"
+				required
+				fullWidth
 				name="first_name"
 				value={firstName}
-				required
-				onChange={(event) => setFirstName(event.target.value)}
-			/>
-		</label>
-	</div>
-
-	<div>
-		<label htmlFor="last_name">
-			Last Name:
-			<input
+				label="First Name"
 				type="text"
+				id="first_name"
+				onChange={(event) => setFirstName(event.target.value)}
+				InputLabelProps={{ shrink: true }}
+			/>
+			<TextField
+				margin="normal"
+				required
+				fullWidth
 				name="last_name"
 				value={lastName}
-				required
+				label="Last Name"
+				type="text"
+				id="last_name"
 				onChange={(event) => setLastName(event.target.value)}
+				InputLabelProps={{ shrink: true }}
 			/>
-		</label>
-	</div>
-
-	<div>
-		<label htmlFor="family_name">
-			Family Name:
-			<input
-				type="text"
-				name="family name"
-				placeholder="A nickname for your family"
+			<TextField
+				margin="normal"
+				required
+				fullWidth
+				name="family_name"
 				value={familyName}
-				required
+				label="Family Name"
+				type="text"
+				id="familyName"
 				onChange={(event) => setFamilyName(event.target.value)}
+				InputLabelProps={{ shrink: true }}
 			/>
-		</label>
-	</div>
 
-	<div>
-		<label htmlFor="phone_number">
-			Phone Number:
-			<input
-				type="text"
-				name="phone_number"
-				placeholder="(123) 456-7890"
-				value={phoneNumber}
+			<TextField
+				margin="normal"
 				required
-				onChange={(event) => setPhoneNumber(event.target.value)}
-			/>
-		</label>
-	</div>
-
-	<div>
-		<label htmlFor="street_address">
-			Street Address:
-			<input
+				fullWidth
+				name="phone_number"
+				value={phoneNumber}
+				label="Primary Contact Number"
 				type="text"
+				id="phone_number"
+				onChange={(event) => setPhoneNumber(event.target.value)}
+				InputLabelProps={{ shrink: true }}
+			/>
+			<TextField
+				margin="normal"
+				required
+				fullWidth
 				name="address"
 				value={address}
-				required
-				onChange={(event) => setAddress(event.target.value)}
-			/>
-		</label>
-	</div>
-	<div>
-		<label htmlFor="unit">
-			Unit:
-			<input
+				label="Street Address"
 				type="text"
+				id="address"
+				onChange={(event) => setAddress(event.target.value)}
+				InputLabelProps={{ shrink: true }}
+			/>
+			<TextField
+				margin="normal"
+				fullWidth
 				name="unit"
 				value={unit}
-				onChange={(event) => setUnit(event.target.value)}
-			/>
-		</label>
-	</div>
-	<div>
-		<label htmlFor="city">
-			City:
-			<input
+				label="Unit"
 				type="text"
+				id="unit"
+				onChange={(event) => setUnit(event.target.value)}
+				InputLabelProps={{ shrink: true }}
+			/>
+			<TextField
+				margin="normal"
+				required
+				fullWidth
 				name="city"
 				value={city}
-				required
-				onChange={(event) => setCity(event.target.value)}
-			/>
-		</label>
-	</div>
-	<div>
-		<label htmlFor="state">
-			State:
-			<input
+				label="City"
 				type="text"
+				id="city"
+				onChange={(event) => setCity(event.target.value)}
+				InputLabelProps={{ shrink: true }}
+			/>
+			<TextField
+				margin="normal"
+				required
+				fullWidth
 				name="state"
 				value={state}
-				required
+				label="State (abbr.)"
+				type="text"
+				id="state"
 				onChange={(event) => setState(event.target.value)}
+				inputProps={{ maxLength: 2 }}
+				InputLabelProps={{ shrink: true }}
 			/>
-		</label>
-	</div>
-	<div>
-		<label htmlFor="zip">
-			Zipcode:
-			<input
-				type="number"
+			<TextField
+				margin="normal"
+				required
+				fullWidth
 				name="zip"
 				value={zip}
-				required
+				label="Zip Code"
+				type="number"
+				id="zip_code"
 				onChange={(event) => setZip(event.target.value)}
+				inputProps={{ maxLength: 5 }}
+				InputLabelProps={{ shrink: true }}
 			/>
-		</label>
-	</div>
-	<div>
-		<label htmlFor="photo_url">
-			Photo:
-			<input
-				type="url"
+			<TextField
+				margin="normal"
+				required
+				fullWidth
 				name="photo_url"
 				value={photo_Url}
+				label="Photo"
+				type="url"
+				id="url"
 				onChange={(event) => setPhoto_Url(event.target.value)}
+				InputLabelProps={{ shrink: true }}
 			/>
-		</label>
-	</div>
-	<div>
-		<label htmlFor="access_code">
-			Family Access Code:
-			<input
-				type="text"
-				name="photo"
-				value={accessCode}
+			<TextField
+				margin="normal"
 				required
+				fullWidth
+				name="access_code"
+				value={accessCode}
+				label="Family Access Code"
+				type="text"
+				id="access_code"
 				onChange={(event) => setAccessCode(event.target.value)}
+				InputLabelProps={{ shrink: true }}
 			/>
-		</label>
-	</div>
 
-	<div>
-		<input className="btn" type="submit" name="submit" value="Register" />
-	</div>
-</form>;
+			<Button
+				type="submit"
+				fullWidth
+				variant="contained"
+				sx={{ mt: 3, mb: 2, p: 2 }}
+			>
+				Register
+			</Button>
+		</Box>
+	</Box>
+</>;

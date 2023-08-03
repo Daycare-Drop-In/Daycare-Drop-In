@@ -1,37 +1,33 @@
-<div className="container">
-	<center>
-		<button
-			type="button"
-			className="btn btn_asLink"
-			onClick={() => {
-				history.push("/registration_newprovider");
-			}}
-		>
-			Register as a New Provider
-		</button>
-
-		<br />
-
-		<button
-			type="button"
-			className="btn btn_asLink"
-			onClick={() => {
-				history.push("/registration_newfamily");
-			}}
-		>
-			Register as a New Family
-		</button>
-
-		<br />
-
-		<button
-			type="button"
-			className="btn btn_asLink"
-			onClick={() => {
-				history.push("/registration_joinfamily");
-			}}
-		>
-			Join an existing family
-		</button>
-	</center>
-</div>;
+import {
+	Button,
+	Container,
+} from "@mui/material";
+<Container maxWidth="xs" sx={{ display: "flex", flexDirection: "column" }}>
+	<Button
+		variant="contained"
+		component={Link}
+		to=""
+		color="secondary"
+		sx={{ p: 3, my: 1.5 }}
+	>
+		Register as a New Provider
+	</Button>
+	<Button
+		variant="contained"
+		component={Link}
+		to=""
+		color="secondary"
+		sx={{ p: 3, my: 1.5 }}
+	>
+		Register a New Family
+	</Button>
+	<Button
+		variant="contained"
+		component={Link}
+		to=""
+		color="secondary"
+		sx={{ p: 3, my: 1.5 }}
+	>
+		Join an existing family
+	</Button>
+</Container>;

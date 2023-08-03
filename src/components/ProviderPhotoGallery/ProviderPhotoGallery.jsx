@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import ProviderPhotoItem from "../ProviderPhotoItem/ProviderPhotoItem";
 import "./ProviderPhotoGallery.css";
 
-function ProviderPhotoGallery({provider}) {
+function ProviderPhotoGallery({ provider }) {
   const dispatch = useDispatch();
-  const provider_id = provider.id
+  const provider_id = provider.id;
   const photoArray = useSelector((store) => store.photo);
 
   // useEffect(() => {
@@ -26,6 +26,10 @@ function ProviderPhotoGallery({provider}) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setNewPhoto({
+      ...newPhoto,
+      provider_id: provider_id,
+    });
     console.log("New photo being submitted:", newPhoto);
 
     dispatch({ type: "POST_PHOTO", payload: newPhoto });
@@ -39,8 +43,8 @@ function ProviderPhotoGallery({provider}) {
 
   const handleDelete = (id) => {
     console.log("delete button clicked for photo of id:", id);
-    const dataToSend = {id, provider_id}
-    dispatch({ type: "DELETE_PHOTO", payload: dataToSend});
+    const dataToSend = { id, provider_id };
+    dispatch({ type: "DELETE_PHOTO", payload: dataToSend });
   };
 
   //LOADING STATE

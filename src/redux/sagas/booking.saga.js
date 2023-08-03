@@ -30,6 +30,7 @@ function* getFamilyBookingProcessData(id) {
     const responseData = yield axios.get(
       `/api/booking/booking_process/family/${id.payload}`
     );
+    console.log('in getFamilyBookingProcessData and responseData.data is:', responseData.data);
     yield put({
       type: "SET_FAMILY_BOOKING_DATA",
       payload: responseData.data[0],
@@ -49,6 +50,8 @@ function* getProviderBookingProcessData(id) {
     const responseData = yield axios.get(
       `/api/booking/booking_process/provider/${id.payload}`
     );
+    console.log('in getProviderBookingProcessData and responseData.data is:', responseData.data);
+
     yield put({
       type: "SET_PROVIDER_BOOKING_DATA",
       payload: responseData.data[0],

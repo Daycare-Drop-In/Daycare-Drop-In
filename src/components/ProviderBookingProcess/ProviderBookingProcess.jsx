@@ -1,15 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom";
-import { Card, CardContent, CardMedia, CardActionArea, IconButton, Typography, Button, Container, Grid, Box, CardHeader, CardActions, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Card, CardContent, CardMedia, CardActionArea, Form, IconButton, Typography, Button, Container, Grid, Box, CardHeader, CardActions, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 function ProviderBookingProcess() {
 
         const dispatch = useDispatch();
         const user = useSelector((store) => store.user);
-
+        const booking = useSelector((store) => store.booking);
         const { providerId, availabilityId } = useParams();
+        const [childId, setChildId] = useState();
+        const [adult, setAdult] = useState();
+        const [agreed, setAgreed] = useState(false);
 
+        console.log('in ProviderBookingProcess and booking from store is:', booking);
+        console.log('in ProviderBookingProcess and user.id from store is:', user.id);
+
+
+        useEffect(() => {
+                //dispatches request for booking data based on providerId & availabilityId from useParams
+                console.log("in ProviderBookingProcess and providerId from useParams is providerId:", providerId);
+                console.log(" in ProviderBookingProcess and availabilityId from useParams is providerId:", availabilityId);
+                dispatch({ type: "GET_FAMILY_BOOKING_PROCESS_DATA", payload: user.id });
+                dispatch({ type: "GET_PROVIDER_BOOKING_PROCESS_DATA", payload: providerId });
+        }, []);
+
+
+        const [isLoading, setIsLoading] = useState(true);
+        useEffect(() => {
+                // Simulate an asynchronous API call to fetch book details
+                setTimeout(() => {
+                        // Set isLoading to false once the data is fetched
+                        setIsLoading(false);
+                }, 75);
+        }, []); // Empty dependency array to run the effect only once
+
+        if (isLoading) {
+                // Render a loading state or a placeholder component
+                return <div>Loading...</div>;
+        }
         /* Booking process notes:
       
       
@@ -77,20 +118,67 @@ function ProviderBookingProcess() {
                                   - Post to bookings table
                                   - Update provider availability by subtracting 1 from the correct child age category column
                     - triggers some kind of confirmation or error modal for user
-                      
-                                  
-      
-      
-      
-             
-             
-             
       
         */
 
+
+        const isAgreed = () => {
+                // console.log('checkbox has been clicked, triggering isAgreed');
+                if (agreed) {
+                         setAgreed(false);
+                }
+                if (!agreed) {
+                         setAgreed(true);
+                }
+                console.log('agreed is now:', agreed);
+                return setAgreed;
+        }
+
+        const makeBooking = () => {
+
+        }
+
         return (
                 <>
-                <Typography>There is a thing here.</Typography>
+                        <form>
+                                <Typography>"You are booking a spot for one [age category{ }] at 
+                                {/* {provider.business_name}  */}
+                                for the [date{ }] ."</Typography>
+
+                                <Select
+                                        labelId="which-child-selector"
+                                        id="child-selector"
+                                        // value={child}
+                                        label="Which child is this spot for?"
+                                        input={<OutlinedInput label="Which child is this spot for?" />}
+                                // onChange={(event) => setChild(event.target.value)}
+                                >
+                                        <MenuItem value={false}>Nope</MenuItem>
+                                        <MenuItem value={true}>Yep!</MenuItem>
+                                </Select>
+
+                                <Select
+                                        labelId="which-adult-selector"
+                                        id="adult-selector"
+                                        // value={adult}
+                                        label="WIs an adult besides you going to be dropping off/picking up?"
+                                        input={<OutlinedInput label="Is an adult besides you going to be dropping off/picking up?" />}
+                                // onChange={(event) => setAdult(event.target.value)}
+                                >
+                                        <MenuItem value={false}>Nope</MenuItem>
+                                        <MenuItem value={true}>Yep!</MenuItem>
+                                </Select>
+                        </form>
+
+                        <FormGroup>
+                                <FormControlLabel
+                                        value={agreed}
+                                        required
+                                        control={<Checkbox />}
+                                        label="Click to Agree"
+                                        onClick={() => isAgreed()}
+                                />
+                        </FormGroup>
                 </>
         );
 }

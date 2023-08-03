@@ -25,16 +25,19 @@ function ProviderBookingProcess() {
         const [adult, setAdult] = useState();
         const [agreed, setAgreed] = useState(false);
 
-        console.log('in ProviderBookingProcess and booking from store is:', booking);
-        console.log('in ProviderBookingProcess and user.id from store is:', user.id);
+        // console.log('in ProviderBookingProcess and booking from store is:', booking);
+        // console.log('in ProviderBookingProcess and user.id from store is:', user.id);
 
 
         useEffect(() => {
-                //dispatches request for booking data based on providerId & availabilityId from useParams
-                console.log("in ProviderBookingProcess and providerId from useParams is providerId:", providerId);
-                console.log(" in ProviderBookingProcess and availabilityId from useParams is providerId:", availabilityId);
+                // console.log("in ProviderBookingProcess and providerId from useParams is providerId:", providerId);
+                // console.log(" in ProviderBookingProcess and availabilityId from useParams is providerId:", availabilityId);
+
+                // dispatch requests for booking data based on providerId from useParams, specific booking
+                // availability from useParams, and family booking data from user id
                 dispatch({ type: "GET_FAMILY_BOOKING_PROCESS_DATA", payload: user.id });
                 dispatch({ type: "GET_PROVIDER_BOOKING_PROCESS_DATA", payload: providerId });
+                dispatch({ type: "GET_BOOKING_AVAILABILITY", payload: availabilityId });
         }, []);
 
 
@@ -125,10 +128,10 @@ function ProviderBookingProcess() {
         const isAgreed = () => {
                 // console.log('checkbox has been clicked, triggering isAgreed');
                 if (agreed) {
-                         setAgreed(false);
+                        setAgreed(false);
                 }
                 if (!agreed) {
-                         setAgreed(true);
+                        setAgreed(true);
                 }
                 console.log('agreed is now:', agreed);
                 return setAgreed;
@@ -141,11 +144,11 @@ function ProviderBookingProcess() {
         return (
                 <>
                         <form>
-                                <Typography>"You are booking a spot for one [age category{ }] at 
-                                {/* {provider.business_name}  */}
-                                for the [date{ }] ."</Typography>
+                                <Typography>"You are booking a spot for one [age category{ }] at
+                                        {/* {provider.business_name}  */}
+                                        for the [date{ }] ."</Typography>
 
-                                <Select
+                                {/* <Select
                                         labelId="which-child-selector"
                                         id="child-selector"
                                         // value={child}
@@ -167,7 +170,7 @@ function ProviderBookingProcess() {
                                 >
                                         <MenuItem value={false}>Nope</MenuItem>
                                         <MenuItem value={true}>Yep!</MenuItem>
-                                </Select>
+                                </Select> */}
                         </form>
 
                         <FormGroup>

@@ -3,7 +3,7 @@ import axios from "axios";
 
 //Gets all the bookings for the provider of the given ID
 function* getProviderBookings(id) {
-  console.log("Inside getProviderBookings for provider of id:", id.payload);
+  // console.log("Inside getProviderBookings for provider of id:", id.payload);
   try {
     const bookings = yield axios.get(`/api/booking/provider/${id.payload}`);
     yield put({ type: "SET_BOOKINGS", payload: bookings.data[0] });
@@ -14,7 +14,7 @@ function* getProviderBookings(id) {
 
 //Gets all the bookings for the family of the given ID
 function* getFamilyBookings(id) {
-  console.log("Inside getFamilyBookings for family of id:", id.payload);
+  // console.log("Inside getFamilyBookings for family of id:", id.payload);
   try {
     const bookings = yield axios.get(`/api/booking/${id.payload}`);
     yield put({ type: "SET_BOOKINGS", payload: bookings.data[0] });
@@ -25,12 +25,12 @@ function* getFamilyBookings(id) {
 
 //Get all booking PROCESS data for family corresponding to this user ID
 function* getFamilyBookingProcessData(id) {
-  console.log("Inside getFamilyBookingProcessData for user of id:", id.payload);
+  // console.log("Inside getFamilyBookingProcessData for user of id:", id.payload);
   try {
     const responseData = yield axios.get(
       `/api/booking/booking_process/family/${id.payload}`
     );
-    console.log('in getFamilyBookingProcessData and responseData.data is:', responseData.data);
+    // console.log('in getFamilyBookingProcessData and responseData.data is:', responseData.data);
     yield put({
       type: "SET_FAMILY_BOOKING_DATA",
       payload: responseData.data[0],
@@ -42,15 +42,12 @@ function* getFamilyBookingProcessData(id) {
 
 //Get  booking PROCESS data for PROVIDER corresponding to this ID
 function* getProviderBookingProcessData(id) {
-  console.log(
-    "Inside getProviderBookingProcessData for provider id:",
-    id.payload
-  );
+  // console.log("Inside getProviderBookingProcessData for provider id:", id.payload);
   try {
     const responseData = yield axios.get(
       `/api/booking/booking_process/provider/${id.payload}`
     );
-    console.log('in getProviderBookingProcessData and responseData.data is:', responseData.data);
+    // console.log('in getProviderBookingProcessData and responseData.data is:', responseData.data);
 
     yield put({
       type: "SET_PROVIDER_BOOKING_DATA",
@@ -63,7 +60,7 @@ function* getProviderBookingProcessData(id) {
 
 //Add a booking
 function* postBooking(action) {
-  console.log("Inside postBooking saga:", action.payload);
+  // console.log("Inside postBooking saga:", action.payload);
   try {
     yield axios.post("/api/booking", action.payload);
     yield put({ type: "GET_BOOKINGS" });
@@ -74,7 +71,7 @@ function* postBooking(action) {
 
 //Delete a booking
 function* deleteBooking(id) {
-  console.log("Inside deleteBooking for booking of ID:", id.payload);
+  // console.log("Inside deleteBooking for booking of ID:", id.payload);
   try {
     yield axios.delete(`/api/booking/${id.payload}`);
   } catch (error) {

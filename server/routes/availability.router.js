@@ -25,7 +25,7 @@ FROM availability
 	JOIN providers ON availability.provider_id = providers.id
   JOIN "user" ON providers.user_id = "user"."id"
   ORDER BY "date" ASC;`;
-// MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
+    // MIGHT NEED TO ADD SOME WHERE CLAUSE LOGIC (STATIC OR DYNAMIC <-- WOULD NEED TO CHANGE ENDPOINT) TO PRE-FILTER RESULTS
     pool.query(queryText)
       .then((result) => {
         res.send(result.rows);
@@ -160,5 +160,31 @@ WHERE id = $5;`;
     res.sendStatus(403);
   }
 });
+
+// detail view GET route template
+router.get("/details/specific/:id", (req, res) => {
+  if (req.isAuthenticated()) {
+    const availabilityId = req.params.id;
+    console.log("Inside router availability get for availabilityId:", availabilityId);
+    const queryText = `
+    SELECT availability.*
+    FROM availability
+    WHERE availability.id = $1;
+    `;
+    pool
+      .query(queryText, [availabilityId])
+      .then((result) => {
+        res.send(result.rows);
+        console.log("result of specific availability get for availabilityId:", availabilityId, result.rows);
+      })
+      .catch((error) => {
+        console.log("ERROR IN availability details GET", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
+});
+
 
 module.exports = router;

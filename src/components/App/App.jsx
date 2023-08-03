@@ -31,7 +31,8 @@ import "./App.css";
 import AdminHomePage from "../AdminHomePage/AdminHomePage";
 import FamilyHomePage from "../FamilyHomePage/FamilyHomePage";
 import FamilyDetails from "../FamilyDetails/FamilyDetails";
-import PublicProviderHomePage from "../PublicProviderHomePage/PublicProviderHomePage"
+import PublicProviderHomePage from "../PublicProviderHomePage/PublicProviderHomePage";
+import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
 function App() {
   const dispatch = useDispatch();
@@ -95,6 +96,12 @@ function App() {
             <PublicProviderHomePage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            exact
+            path="/booking/:providerId/:availabilityId"
+          >
+            <ProviderBookingProcess />
+          </ProtectedRoute>
 
           <Route exact path="/login">
             {user.id ? (

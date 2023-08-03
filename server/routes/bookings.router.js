@@ -282,7 +282,7 @@ WHERE id = $1;`;
 //GET for family data needed in bookings process
 router.get("/booking_process/family/:id", (req, res) => {
   if (req.isAuthenticated()) {
-    const userId = req.params.user_id;
+    const userId = req.params.id;
     console.log(
       "Inside router side of get request for FAMILY booking process data, id:",
       req.params.id
@@ -301,12 +301,13 @@ JOIN families ON "user".family_id = families.id
 JOIN children ON children.family_id = families.id
 JOIN responsible_adults ON responsible_adults.family_id = families.id
 WHERE "user".id = $1
-GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id
+GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
 `;
     pool
       .query(queryText, [userId])
       .then((result) => {
         res.send(result.rows);
+		console.log('in family booking process GET and result.rows are:', result.rows);
       })
       .catch((error) => {
         console.log("ERROR IN family bookings details GET", error);
@@ -320,7 +321,7 @@ GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id
 //GET for provider data needed in bookings process
 router.get("/booking_process/provider/:id", (req, res) => {
   if (req.isAuthenticated()) {
-    const providerId = req.params.user_id;
+    const providerId = req.params.id;
     console.log(
       "Inside router side of get request for PROVIDER booking process data, id:",
       req.params.id
@@ -328,12 +329,12 @@ router.get("/booking_process/provider/:id", (req, res) => {
     const queryText = `SELECT providers.business_name, 
 	providers.contract_language
 	FROM providers
-	WHERE providers.id = $1`
-	
+	WHERE providers.id = $1;`
     pool
       .query(queryText, [providerId])
       .then((result) => {
         res.send(result.rows);
+		console.log('in provider booking process GET and result.rows are:', result.rows);
       })
       .catch((error) => {
         console.log("ERROR IN provider bookings details GET", error);

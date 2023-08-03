@@ -19,9 +19,9 @@ function FamilyDetails() {
     const rAdult = useSelector((store) => store.responsibleAdults);
     const allMyKids = useSelector((store) => store.children);
 
-    console.log('these are the children of this family', children);
-    console.log('THESE ARE THE FAMILY DETAILS:', family);
-    console.log('these are the responsibleAdults of this family:', rAdult);
+    // console.log('these are the children of this family', children);
+    // console.log('THESE ARE THE FAMILY DETAILS:', family);
+    // console.log('these are the responsibleAdults of this family:', rAdult);
 
     useEffect(() => {
         //dispatches request for family info based on familyId

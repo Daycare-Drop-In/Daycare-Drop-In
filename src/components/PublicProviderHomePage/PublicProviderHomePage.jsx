@@ -14,17 +14,17 @@ function PublicProviderHomePage() {
 
   useEffect(() => {
     //dispatches request for provider info based on ID in url
-    console.log("Dispatching request for data of provider ID:", providerId);
+    // console.log("Dispatching request for data of provider ID:", providerId);
     dispatch({ type: "GET_PROVIDER", payload: providerId });
   }, []);
 
   const provider = useSelector((store) => store.provider);
 
-  console.log("THESE ARE THE PROVIDER DETAILS:", provider);
+  // console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
-  const goToBooking = () => {
-    return <ProviderBookingProcess />;
-  };
+  // const goToBooking = () => {
+  //   return <ProviderBookingProcess />;
+  // };
 
   return (
     <div className="container">

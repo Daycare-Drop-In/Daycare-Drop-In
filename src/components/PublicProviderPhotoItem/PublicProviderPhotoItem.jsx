@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 function PublicProviderPhotoItem({ photo, handleDelete }) {
 
-  const providerId = useParams();
+  // const providerId = useParams();
 
   return (
     <div className="card" id={photo.id}>

@@ -11,10 +11,8 @@ function AdminHomePage() {
 
   return (
     <div className="container">
-      <h1>This is the Admin Home Page</h1>
+      <h1>Admin Home Page</h1>
       <h2>Welcome, {user.username}!</h2>
-        {/* <p>Your ID is: {user.id}</p> */}
-        <LogOutButton className="btn" />
       <AdminProviderTable />
       <AdminFamilyTable />
     </div>

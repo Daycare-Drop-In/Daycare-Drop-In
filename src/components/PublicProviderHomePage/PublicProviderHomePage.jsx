@@ -4,27 +4,27 @@ import { useParams, useHistory } from "react-router-dom";
 
 //COMPONENT IMPORTS
 import LogOutButton from "../LogOutButton/LogOutButton";
-import PublicProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGallery";
+import PublicProviderPhotoGallery from "../PublicProviderPhotoGallery/PublicProviderPhotoGallery";
 import PublicProviderAvailabilityTable from "../PublicProviderAvailabilityTable/PublicProviderAvailabilityTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
-function ProviderHomePage() {
+function PublicProviderHomePage() {
   const dispatch = useDispatch();
-  const { providerId } = useParams();
+  const providerId = useParams();
 
   useEffect(() => {
     //dispatches request for provider info based on ID in url
-    console.log("Dispatching request for data of provider ID:", providerId);
+    // console.log("Dispatching request for data of provider ID:", providerId);
     dispatch({ type: "GET_PROVIDER", payload: providerId });
   }, []);
 
   const provider = useSelector((store) => store.provider);
 
-  console.log("THESE ARE THE PROVIDER DETAILS:", provider);
+  // console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
-  const goToBooking = () => {
-    return <ProviderBookingProcess />;
-  };
+  // const goToBooking = () => {
+  //   return <ProviderBookingProcess />;
+  // };
 
   return (
     <div className="container">
@@ -76,18 +76,18 @@ function ProviderHomePage() {
         <p>{provider.business_description}</p>
       </div>
 
-      <div className="booking-button">
+      {/* <div className="booking-button">
         <button onClick={goToBooking}>Book a spot!</button>
-      </div>
+      </div> */}
 
       <PublicProviderAvailabilityTable />
 
       <PublicProviderPhotoGallery />
 
-      <LogOutButton className="btn" />
+      {/* <LogOutButton className="btn" /> */}
     </div>
   );
 }
 
 
-export default ProviderHomePage;
+export default PublicProviderHomePage;

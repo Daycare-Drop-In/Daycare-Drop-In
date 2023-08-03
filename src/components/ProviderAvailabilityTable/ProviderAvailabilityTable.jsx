@@ -85,6 +85,15 @@ function ProviderAvailabilityTable() {
     dispatch({ type: "DELETE AVAILABILITY", payload: deletePayload });
   };
 
+  // formats date so it displays cleanly on table
+  const formattedDate = (availableDate) => {
+    return new Date(availableDate).toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+    });
+};
+
   return (
     <div className="container">
       <table border="1">
@@ -147,7 +156,7 @@ function ProviderAvailabilityTable() {
         </tr>
         {availabilityArray.map((entryRow) => (
           <tr key={entryRow.id}>
-            <td>{entryRow.date}</td>
+            <td>{formattedDate(entryRow.date)}</td>
             <td>{entryRow.infant}</td>
             <td>{entryRow.toddler}</td>
             <td>{entryRow.pre_k}</td>

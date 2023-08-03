@@ -17,6 +17,7 @@ import withReactContent from 'sweetalert2-react-content';
 function AdminProviderTable() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const providers = useSelector(store => store.provider) || [];
   // console.log("in AdminProviderTable, and providers are:", providers);
   const MySwal = withReactContent(Swal);
@@ -48,7 +49,7 @@ function AdminProviderTable() {
     setTimeout(() => {
       // Set isLoading to false once the data is fetched
       setIsLoading(false);
-    }, 25);
+    }, 75);
   }, []); // Empty dependency array to run the effect only once
 
   if (isLoading) {
@@ -124,14 +125,18 @@ function AdminProviderTable() {
             <TableBody>
               {providers.map((provider) => (
                 <TableRow key={provider.id}>
-                  <TableCell>
+                  <TableCell
+                  onClick={() => history.push(`/details/provider/${provider.id}`)}
+                  >
                     {provider.business_name}
                     <br />
                     {provider.street_address} {provider.unit}
                     <br />
                     {provider.city}, {provider.state} {provider.zip}
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                  onClick={() => history.push(`/details/provider/${provider.id}`)}
+                  >
                     {provider.prov_first_name} {provider.prov_last_name}
                     <br />
                     {formatPhoneNumber(provider.prov_number)}
@@ -146,7 +151,7 @@ function AdminProviderTable() {
                       sx={{
                         p: 1,
                       }}
-                     onClick={() => deleteProviderData(provider.id)}
+                      onClick={() => deleteProviderData(provider.id)}
                     >
                       DELETE
                     </Button>

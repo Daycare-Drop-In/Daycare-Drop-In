@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -6,6 +6,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 
 function PublicProviderPhotoItem({ photo, handleDelete }) {
+
+  // const providerId = useParams();
+
   return (
     <div className="card" id={photo.id}>
       <Card

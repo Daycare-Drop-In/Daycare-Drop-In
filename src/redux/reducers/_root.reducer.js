@@ -3,7 +3,8 @@ import errors from "./errors.reducer";
 import user from "./user.reducer";
 import family from "./family.reducer";
 import provider from "./providers.reducer";
-import booking from "./booking.reducer";
+import bookings from "./bookings.reducer";
+import bookingProcess from "./bookingProcess.reducer";
 import children from "./children.reducer";
 import responsibleAdults from "./responsible_adults.reducer";
 import availability from "./availability.reducer";
@@ -21,10 +22,10 @@ import accessCodeReducer from "./codeReducer";
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user,
-  //all reducers correspond to a data table
   family,
   provider,
-  booking,
+  bookings,
+  bookingProcess,
   children,
   responsibleAdults,
   availability,
@@ -32,7 +33,6 @@ const rootReducer = combineReducers({
   filter,
   filteredAvail,
   accessCodeReducer,
-
 
   // will have an id and username if someone is logged in
 });

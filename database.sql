@@ -133,6 +133,7 @@ VALUES (1, 1, 2, 0, 0, '2023-08-03');
 INSERT INTO availability (provider_id, infant, toddler, pre_k, schoolage, date)
 VALUES (1, 1, 0, 0, 5, '2023-08-04');
 
+INSERT INTO bookings (provider_id, family_id, child_id, responsible_adult_id, user_id, service_date, time_submitted)
 
 
 ------------------------------------------------------------------------------------------------------------------------

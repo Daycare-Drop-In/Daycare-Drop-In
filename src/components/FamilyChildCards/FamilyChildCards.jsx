@@ -24,6 +24,7 @@ function FamilyChildCards({kid}) {
     
     const user = useSelector((store) => store.user);
 
+
     const updatedMyKid = {
         childId: kid.id || "",
         first_name: kid.first_name || "",
@@ -37,6 +38,7 @@ function FamilyChildCards({kid}) {
     
   
     const [updatedChild, setUpdatedChild] = useState(updatedMyKid)
+
 
 
      
@@ -259,6 +261,7 @@ function FamilyChildCards({kid}) {
                             >
                                 Save
                             </Button>
+
                                 </Box>
                             )}
                             
@@ -273,6 +276,7 @@ function FamilyChildCards({kid}) {
                     
                 </Grid>
             </Grid>
+
 
 
         </Container>

@@ -19,14 +19,20 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import UserHomePage from "../UserHomePage/UserHomePage";
 import RegistrationLanding from "../RegistrationLanding/RegistrationLanding";
-// import StaticListPage from "..StaticListPage/StaticListPage";
+import StaticListPage from '../StaticListPage/StaticListPage'
 import ListPage from "../ListPage/ListPage";
 import RegisterPageProvider from "../RegisterPageProvider/RegisterPageProvider";
 import RegisterPageNewFamily from "../RegisterPageNewFamily/RegisterPageNewFamily";
 import RegisterPageJoinFamily from "../RegisterPageJoinFamily/RegisterPageJoinFamily";
+import BottomNav from "../BottomNav/BottomNav";
+import Styled from "../_STYLED/Styled";
 
 import "./App.css";
 import AdminHomePage from "../AdminHomePage/AdminHomePage";
+import FamilyHomePage from "../FamilyHomePage/FamilyHomePage";
+import FamilyDetails from "../FamilyDetails/FamilyDetails";
+import PublicProviderHomePage from "../PublicProviderHomePage/PublicProviderHomePage";
+import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,12 +64,14 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
             path="/user"
           >
             <UserHomePage />
+            <BottomNav />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -72,6 +80,27 @@ function App() {
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/details/family/:id"
+          >
+            <FamilyDetails />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/details/provider/:id"
+          >
+            <PublicProviderHomePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/booking/:providerId/:availabilityId"
+          >
+            <ProviderBookingProcess />
           </ProtectedRoute>
 
           <Route exact path="/login">
@@ -103,7 +132,7 @@ function App() {
               <Redirect to="/user" />
             ) : (
               // Otherwise, show the registration page
-              <RegisterPageProvider/>
+              <RegisterPageProvider />
             )}
           </Route>
 
@@ -114,7 +143,7 @@ function App() {
               <Redirect to="/user" />
             ) : (
               // Otherwise, show the registration page
-              <RegisterPageNewFamily/>
+              <RegisterPageNewFamily />
             )}
           </Route>
 
@@ -125,7 +154,7 @@ function App() {
               <Redirect to="/user" />
             ) : (
               // Otherwise, show the registration page
-              <RegisterPageJoinFamily/>
+              <RegisterPageJoinFamily />
             )}
           </Route>
 
@@ -140,9 +169,10 @@ function App() {
             )}
           </Route>
 
-          {/* <Route exact path="/static_list">
+          <Route exact path="/static_list">
             <StaticListPage />
-          </Route> */}
+            <BottomNav />
+          </Route>
 
           <ProtectedRoute
             // logged in shows admin page else shows LoginPage
@@ -154,9 +184,14 @@ function App() {
 
           <Route exact path="/provider_list">
             <ListPage />
+            <BottomNav />
           </Route>
-
+   <Route
+          exact path = '/styles'
+          >
+            <Styled />
           {/* If none of the other routes matched, we will show a 404. */}
+          </Route>
           <Route>
             <h1>404</h1>
           </Route>
@@ -164,6 +199,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+
   );
 }
 

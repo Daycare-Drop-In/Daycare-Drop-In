@@ -20,9 +20,12 @@ import {
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 
 function ListPageProviderCards({ choice}) {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
+	const history = useHistory();
+
 	const bioItem = {
 		display: "flex",
 		flexDirection: "column",
@@ -56,7 +59,8 @@ function ListPageProviderCards({ choice}) {
 	};
 	const visitProvider = (id) =>{
 		console.log("PROVIDER ID", id);
-		// dispatch({type:'GET_PROVIDER', payload:choice.provider_id})
+		history.push(`/details/provider/${id}`);
+		// dispatch({type:'GET_PROVIDER', payload:id})
 	}
 
 	return (

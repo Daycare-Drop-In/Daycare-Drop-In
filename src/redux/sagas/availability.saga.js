@@ -23,7 +23,7 @@ function* getProviderAvailability(id) {
 }
 
 function* getBookingAvailability(id) {
-  console.log("Inside getBookingAvailability saga for availability of id:", id.payload);
+  // console.log("Inside getBookingAvailability saga for availability of id:", id.payload);
   try {
     const availability = yield axios.get(`/api/availability/details/specific/${id.payload}`);
     yield put({ type: "SET_AVAILABILITY", payload: availability.data });

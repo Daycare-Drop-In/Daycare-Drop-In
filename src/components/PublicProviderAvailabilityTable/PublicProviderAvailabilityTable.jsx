@@ -48,14 +48,15 @@ function PublicProviderAvailabilityTable() {
         <tr>
           <th>Date</th>
           <th>Infant</th>
-          <th>Toddler</th>
-          <th>Preschooler</th>
-          <th>School Age</th>
+          <th>Toddler</th>  
+          <th>Pre-K</th>
+          <th>School-Age</th>
         </tr>
-        <tr></tr>
+        <tbody>
         {availabilityArray.map((entryRow) => (
           <PublicProviderAvailabilityRow key={entryRow.id} entryRow={entryRow}/>
         ))}
+        </tbody>
       </table>
     </div>
   );

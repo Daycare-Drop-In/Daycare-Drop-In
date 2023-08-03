@@ -25,6 +25,7 @@ import RegisterPageProvider from "../RegisterPageProvider/RegisterPageProvider";
 import RegisterPageNewFamily from "../RegisterPageNewFamily/RegisterPageNewFamily";
 import RegisterPageJoinFamily from "../RegisterPageJoinFamily/RegisterPageJoinFamily";
 import BottomNav from "../BottomNav/BottomNav";
+import Styled from "../_STYLED/Styled";
 
 import "./App.css";
 import AdminHomePage from "../AdminHomePage/AdminHomePage";
@@ -63,6 +64,7 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
@@ -184,7 +186,10 @@ function App() {
             <ListPage />
             <BottomNav />
           </Route>
-
+   <Route
+          exact path = '/styles'
+          >
+            <Styled />
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -193,6 +198,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+
   );
 }
 

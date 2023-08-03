@@ -5,8 +5,8 @@ import axios from "axios";
 function* getProviderBookings(id) {
   // console.log("Inside getProviderBookings for provider of id:", id.payload);
   try {
-    const bookings = yield axios.get(`/api/booking/provider/${id.payload}`);
-    yield put({ type: "SET_BOOKINGS", payload: bookings.data[0] });
+    const bookings = yield axios.get(`/api/booking/provider/${id?.payload}`);
+    yield put({ type: "SET_BOOKINGS", payload: bookings.data });
   } catch (error) {
     console.log("Error in getProviderBookings saga", error);
   }
@@ -32,7 +32,7 @@ function* getFamilyBookingProcessData(id) {
     );
     // console.log('in getFamilyBookingProcessData and responseData.data is:', responseData.data);
     yield put({
-      type: "SET_FAMILY_BOOKING_DATA",
+      type: "SET_FAMILY_BOOKING_PROCESS_DATA",
       payload: responseData.data[0],
     });
   } catch (error) {
@@ -50,7 +50,7 @@ function* getProviderBookingProcessData(id) {
     // console.log('in getProviderBookingProcessData and responseData.data is:', responseData.data);
 
     yield put({
-      type: "SET_PROVIDER_BOOKING_DATA",
+      type: "SET_PROVIDER_BOOKING_PROCESS_DATA",
       payload: responseData.data[0],
     });
   } catch (error) {

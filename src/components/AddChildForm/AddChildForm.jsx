@@ -12,12 +12,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormData from "form-data"
 
-    function addChildForm () {
+function addChildForm() {
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
 
     const myKid = {
-    
+
         family_id: user.family_id,
         first_name: "",
         last_name: "",
@@ -25,11 +25,11 @@ import FormData from "form-data"
         allergies: "",
         photo_url: "",
         potty_trained: false
-       
+
     };
 
     const [newChild, setNewChild] = useState(myKid);
-    const [clicked, setClicked] = useState(false); 
+    const [clicked, setClicked] = useState(false);
 
 
 
@@ -46,8 +46,8 @@ import FormData from "form-data"
 
 
     return (
-    
-             <Container
+
+        <Container
             maxWidth={"sm"}
             sx={{
                 display: "flex",
@@ -99,11 +99,11 @@ import FormData from "form-data"
                             >
                                 <CloseOutlinedIcon />
                             </IconButton>
-                            
+
                         </CardContent>
-                        
+
                         <Box
-                        
+
                             component="form"
                             onSubmit={registerChild}
                             autoComplete='off'
@@ -188,30 +188,30 @@ import FormData from "form-data"
                                     width: "100%",
                                 }}
                             >
-                            <FormControl>
+                                <FormControl>
                                     <FormGroup>
                                         <FormControlLabel
-                                        label="Potty Trained"
-                                        labelPlacement="end"
-                                        control={
-                                            <Checkbox 
-                                            // checked={newChild.potty_trained}
-                                            onClick={() =>
-                                                setNewChild({
-                                                    ...newChild,
-                                                    potty_trained:true
-                                                })
+                                            label="Potty Trained"
+                                            labelPlacement="end"
+                                            control={
+                                                <Checkbox
+                                                    // checked={newChild.potty_trained}
+                                                    onClick={() =>
+                                                        setNewChild({
+                                                            ...newChild,
+                                                            potty_trained: true
+                                                        })
+                                                    }
+                                                />
                                             }
-                                            />
-                                        }
                                         />
                                     </FormGroup>
-                                </FormControl>    
+                                </FormControl>
 
                                 <Typography>Photo:</Typography>
 
                                 <TextField
-                                    
+
                                     fullWidth
                                     name="photo_url"
                                     sx={{ bgcolor: "white" }}
@@ -226,12 +226,8 @@ import FormData from "form-data"
                                         })
                                     }
                                 />
-                                {/* photo up load code!!!!!! */}
-                                {/* <input type="file"  accept="image/*" name="image"  onChange={handleUpload} */}
-                                       {/* /> */}
 
-                                    {/* <button onClick={(e) => handleUpload(e.target.value)}>Upload</button> */}
-                                
+
 
                             </Container>
 

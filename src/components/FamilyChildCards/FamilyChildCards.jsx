@@ -18,24 +18,12 @@ function FamilyChildCards({kid}) {
 
 
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch({ type: "GET_CHILDREN", payload: user.family_id });
-    // }, [])
-    // const user = useSelector((store) => store.user);
-    // const allMyKids = useSelector((store) => store.children)
-
-
-    // const myKid = {
     
-    //     family_id: user.family_id,
-    //     first_name: "",
-    //     last_name: "",
-    //     birthdate: "",
-    //     allergies: "",
-    //     photo_url: "",
-    //     potty_trained: false
-       
-    // };
+
+
+    
+    const user = useSelector((store) => store.user);
+
     const updatedMyKid = {
         childId: kid.id || "",
         first_name: kid.first_name || "",
@@ -50,31 +38,11 @@ function FamilyChildCards({kid}) {
   
     const [updatedChild, setUpdatedChild] = useState(updatedMyKid)
 
-    // const [newChild, setNewChild] = useState(myKid);
 
-    // const [clicked, setClicked] = useState(false); 
+     
     const [edit, setEdit] = useState(false)
     
-    // const handleUpload = (e) => {
-    //     const selectedFile = e.target.files[0];
-    // const formData = new FormData();
-    // formData.append("file", selectedFile);
-    // console.log('formdata, selectedfile', formData, selectedFile);
-    // dispatch({
-    //   type: "GET_FILE",
-    //    payload: formData,
-    //  });
-    // }
-
-    // const registerChild = (event) => {
-    //     event.preventDefault();
-    //     console.log('birthday', newChild.birthdate);
-    //     dispatch({ type: "POST_CHILD", payload: newChild });
-    //     setClicked(!clicked);
-    //     setNewChild(myKid);
-    //     console.log('adding new child');
-
-    // };
+  
 
     const editChild = (event) => {
         event.preventDefault();
@@ -119,6 +87,7 @@ function FamilyChildCards({kid}) {
                 flexDirection: "column",
                 justifyContent: "center",
             }}
+            
         >
             {/* <Typography variant="h7" sx={{ mb: 1 }}>
                 All My Children
@@ -139,7 +108,6 @@ function FamilyChildCards({kid}) {
                     
 
                         <Card
-                            key={kid.id}
                             sx={{
                                 width: "50%",
                                 objectFit: "contain",
@@ -169,11 +137,11 @@ function FamilyChildCards({kid}) {
                                     image={kid.photo_url}
                                     alt={"profile picture"}
                                 />
-                                <Typography variant="h8" color="text.secondary">Allergies: {kid.allergies}</Typography>
-                                <Typography variant="h8" color="text.secondary">Potty Trained: {JSON.stringify(kid.potty_trained)}</Typography>
+                                <Typography variant="h8" color="text.secondary"><b>Allergies:</b> {kid.allergies}</Typography>
+                                <Typography variant="h8" color="text.secondary"><b>Potty Trained:</b> {JSON.stringify(kid.potty_trained)}</Typography>
                                 
                             </CardContent>
-                            <Button onClick={(event) => deleteKid(kid.id, event.preventDefault())}
+                            <Button onClick={() => deleteKid(kid.id)}
                             sx={{color: "red"}}
                             >Delete
                             </Button>

@@ -82,7 +82,7 @@ function ProviderAvailabilityTable({ provider }) {
       provider_id: provider_id,
     };
     console.log("Handle delete triggered, payload is:", deletePayload);
-    dispatch({ type: "DELETE AVAILABILITY", payload: deletePayload });
+    dispatch({ type: "DELETE_AVAILABILITY", payload: deletePayload });
   };
 
   // formats date so it displays cleanly on table

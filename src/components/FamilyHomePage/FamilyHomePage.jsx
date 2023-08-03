@@ -7,6 +7,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import FamilyContactCards from "../FamilyContactCards/FamilyContactCards";
 import FamilyChildCards from "../FamilyChildCards/FamilyChildCards";
 import FamilyDropOffs from "../FamilyDropOffs/FamilyDropOffs";
+import AddChildForm from "../AddChildForm/AddChildForm";
 
 function FamilyHomePage() {
   const dispatch = useDispatch();
@@ -65,9 +66,15 @@ function FamilyHomePage() {
       
       <h3>Responsible Adults</h3>
       <p>button to add a card</p>
+      <AddChildForm />
       <FamilyContactCards />
 
-      <FamilyChildCards />
+      {/* need to map this component  */}
+      {children?.map((kid)=>(
+        
+      <FamilyChildCards key={kid.id} kid={kid} />
+      ))}
+
       <LogOutButton className="btn" />
 
       <FamilyDropOffs />

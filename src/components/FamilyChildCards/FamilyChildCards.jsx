@@ -14,33 +14,46 @@ import FormData from "form-data"
 
 
 
-function FamilyChildCards() {
+function FamilyChildCards({kid}) {
 
 
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch({ type: "GET_CHILDREN", payload: user.family_id });
-    }, [])
-    const user = useSelector((store) => store.user);
-    const allMyKids = useSelector((store) => store.children)
+    // useEffect(() => {
+    //     dispatch({ type: "GET_CHILDREN", payload: user.family_id });
+    // }, [])
+    // const user = useSelector((store) => store.user);
+    // const allMyKids = useSelector((store) => store.children)
 
 
-
-    const myKid = {
-        family_id: user.family_id,
-        first_name: "",
-        last_name: "",
-        birthdate: "",
-        allergies: "",
-        photo_url: "",
-        potty_trained: false
+    // const myKid = {
+    
+    //     family_id: user.family_id,
+    //     first_name: "",
+    //     last_name: "",
+    //     birthdate: "",
+    //     allergies: "",
+    //     photo_url: "",
+    //     potty_trained: false
        
-    };
+    // };
+    const updatedMyKid = {
+        childId: kid.id || "",
+        first_name: kid.first_name || "",
+        last_name: kid.last_name || "",
+        allergies: kid.allergies || "",
+        potty_trained: kid.potty_trained,
+        family_id: kid.family_id
 
+    }
+
+    
   
+    const [updatedChild, setUpdatedChild] = useState(updatedMyKid)
 
-    const [newChild, setNewChild] = useState(myKid);
-    const [clicked, setClicked] = useState(false); 
+    // const [newChild, setNewChild] = useState(myKid);
+
+    // const [clicked, setClicked] = useState(false); 
+    const [edit, setEdit] = useState(false)
     
     // const handleUpload = (e) => {
     //     const selectedFile = e.target.files[0];
@@ -53,15 +66,42 @@ function FamilyChildCards() {
     //  });
     // }
 
-    const registerChild = (event) => {
-        event.preventDefault();
-        console.log('birthday', newChild.birthdate);
-        dispatch({ type: "POST_CHILD", payload: newChild });
-        setClicked(!clicked);
-        setNewChild(myKid);
-        console.log('adding new child');
+    // const registerChild = (event) => {
+    //     event.preventDefault();
+    //     console.log('birthday', newChild.birthdate);
+    //     dispatch({ type: "POST_CHILD", payload: newChild });
+    //     setClicked(!clicked);
+    //     setNewChild(myKid);
+    //     console.log('adding new child');
 
-    };
+    // };
+
+    const editChild = (event) => {
+        event.preventDefault();
+        console.log(updatedChild);
+        dispatch({type: "UPDATE_CHILD", payload: updatedChild});
+        setEdit(!edit);
+        
+        setUpdatedChild(updatedMyKid);
+        console.log('updated child is', updatedChild);
+    }
+
+    const makeUpdatedChild = (kid) =>{
+        console.log('MAKE UPDATED CHILD', kid);
+        setUpdatedChild({...updatedChild, childId: kid.id})
+        setUpdatedChild({...updatedChild, first_name: kid.first_name})
+        setUpdatedChild({...updatedChild, last_name: kid.last_name})
+        setUpdatedChild({...updatedChild, allergies: kid.allergies})
+        setUpdatedChild({...updatedChild, potty_trained: kid.potty_trained})
+        setUpdatedChild({...updatedChild, family_id: kid.family_id})
+
+       
+        
+       
+        
+        
+        
+    }
 
     const deleteKid = (childId) => {
 
@@ -69,8 +109,8 @@ function FamilyChildCards() {
         dispatch({type: "DELETE_CHILD", payload: {id: childId, familyId: user.family_id}})
     }
 
-    console.log('NEW CHILD OBJECT', newChild);
-
+    // console.log('NEW CHILD OBJECT', newChild);
+    console.log('updated CHILD', updatedChild);
     return (
         <Container
             maxWidth={"sm"}
@@ -80,219 +120,9 @@ function FamilyChildCards() {
                 justifyContent: "center",
             }}
         >
-            {!clicked ? (
-                <IconButton
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        mb: -2,
-                    }}
-                    onClick={() => setClicked(!clicked)}
-                >
-                    <Typography variant="h4">Add a child</Typography>
-                    <ChildCareIcon sx={{ fontSize: "3rem", ml: 3 }} />
-
-
-                </IconButton>
-            ) : (
-                <Card
-                    elevation={8}
-                    sx={{
-                        mb: 2,
-                        bgcolor: "#F2F2F2",
-                        color: "#4b00a1",
-                        borderRadius: 4,
-                    }}
-                >
-                    <CardContent>
-                        <CardContent
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-
-                                mb: -2
-                            }}
-                        >
-                            <CardHeader
-                                title={"Add a new child"}
-                                align={"center"}
-                            />
-                            <IconButton
-                                size="large"
-                                onClick={() => setClicked(!clicked)}
-                            >
-                                <CloseOutlinedIcon />
-                            </IconButton>
-                        </CardContent>
-                        <Box
-                            component="form"
-                            onSubmit={registerChild}
-                            autoComplete='off'
-                            encType="multipart/form-data"
-                        >
-                            <TextField
-                                placeholder="First Name"
-                                required
-                                name="first_name"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="First Name"
-                                value={newChild.first_name}
-                                onChange={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        first_name: event.target.value,
-                                    })
-                                }
-                            />
-
-                            <TextField
-                                placeholder="Last Name"
-                                required
-                                name="last name"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="Last Name"
-                                value={newChild.last_name}
-                                onChange={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        last_name: event.target.value,
-                                    })
-                                }
-                            />
-
-                            <TextField
-                                placeholder="YYYY/MM/DD"
-                                required
-                                name="birthdate"
-                                sx={{ bgcolor: "white" }}
-                                type="date"
-                                margin="normal"
-                                fullWidth
-                                label=""
-                                value={newChild.birthdate}
-                                onChange={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        birthdate: event.target.value,
-                                    })
-                                }
-                            />
-                            <TextField
-                                placeholder="Allergies"
-                                required
-                                name="allergies"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="Allergies"
-                                value={newChild.allergies}
-                                onChange={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        allergies: event.target.value,
-                                    })
-                                }
-                            />
-                            {/* <TextField
-                                placeholder="Potty  Trained"
-                                name="potty trained"
-                                sx={{ bgcolor: "white" }}
-                                type="checkbox"
-                                margin="normal"
-                                fullWidth
-                                label={"Potty Trained"}
-                                value={newChild.potty_trained}
-                                onClick={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        potty_trained: true,
-                                    })
-                                }
-                            /> */}
-
-                            {/* <FormControlLabel 
-                             control={<Checkbox />  }label="Potty Trained"
-                             />    */}
-
-
-                            <Container
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "space-evenly",
-                                    width: "100%",
-                                }}
-                            >
-                            <FormControl>
-                                    <FormGroup>
-                                        <FormControlLabel
-                                        label="Potty Trained"
-                                        labelPlacement="end"
-                                        control={
-                                            <Checkbox 
-                                            // checked={newChild.potty_trained}
-                                            onClick={() =>
-                                                setNewChild({
-                                                    ...newChild,
-                                                    potty_trained:true
-                                                })
-                                            }
-                                            />
-                                        }
-                                        />
-                                    </FormGroup>
-                                </FormControl>    
-
-                                <Typography>Photo:</Typography>
-
-                                <TextField
-                                    
-                                    fullWidth
-                                    name="photo_url"
-                                    sx={{ bgcolor: "white" }}
-                                    type="url"
-                                    margin="normal"
-                                    // label="Picture"
-                                    value={newChild.photo_url}
-                                    onChange={(event) =>
-                                        setNewChild({
-                                            ...newChild,
-                                            photo_url: event.target.value,
-                                        })
-                                    }
-                                />
-                                {/* photo up load code!!!!!! */}
-                                {/* <input type="file"  accept="image/*" name="image"  onChange={handleUpload} */}
-                                       {/* /> */}
-
-                                    {/* <button onClick={(e) => handleUpload(e.target.value)}>Upload</button> */}
-                                
-
-                            </Container>
-
-                            <Button
-                                type="submit"
-                                sx={{ m: 2 }}
-                                variant="contained"
-                                size="large"
-                            >
-                                Save
-                            </Button>
-                        </Box>
-                    </CardContent>
-                </Card>
-            )}
-            <Typography variant="h7" sx={{ mb: 1 }}>
+            {/* <Typography variant="h7" sx={{ mb: 1 }}>
                 All My Children
-            </Typography>
+            </Typography> */}
             <Grid container spacing={1}>
                 <Grid item
                     xs={12}
@@ -303,7 +133,11 @@ function FamilyChildCards() {
                         justifyContent: "center",
                     }}
                 >
-                    {allMyKids?.map((kid) => (
+                    {/* {!edit ? (
+                    
+                    ) : */}
+                    
+
                         <Card
                             key={kid.id}
                             sx={{
@@ -328,24 +162,147 @@ function FamilyChildCards() {
                                 ml: 2
                             }}
                             >
-                                <Typography variant="h6" color="text.secondary" textAlign="center"><b>{kid.first_name}</b></Typography>
+                                <Typography variant="h6" color="text.secondary" textAlign="center"><b>{kid.first_name} {kid.last_name}</b></Typography>
                                 <CardMedia
                                     component="img"
                                     sx={{ objectFit: "contain", height: 80 }}
                                     image={kid.photo_url}
                                     alt={"profile picture"}
                                 />
-                                <Typography variant="h8">Potty Trained: {JSON.stringify(kid.potty_trained)}</Typography>
+                                <Typography variant="h8" color="text.secondary">Allergies: {kid.allergies}</Typography>
+                                <Typography variant="h8" color="text.secondary">Potty Trained: {JSON.stringify(kid.potty_trained)}</Typography>
+                                
                             </CardContent>
                             <Button onClick={(event) => deleteKid(kid.id, event.preventDefault())}
                             sx={{color: "red"}}
-                            >Delete</Button>
+                            >Delete
+                            </Button>
 
+
+                            {!edit ? (
+                                <Button onClick={() => {makeUpdatedChild(kid),
+                                setEdit(!edit)}}>
+                                    Edit
+                                </Button>
+                            ):(
+                                
+                                <Box
+                                component="form"
+                            onSubmit={editChild}
+                            autoComplete='off'
+                            >
+                                <IconButton
+                                size="large"
+                                onClick={() => setEdit(!edit)}
+                            >
+                                <CloseOutlinedIcon />
+                            </IconButton>
+                                <TextField
+                                placeholder="First Name"
+                                name="first_name"
+                                sx={{ bgcolor: "white" }}
+                                type="text"
+                                margin="normal"
+                                fullWidth
+                                label="First Name"
+                                value={updatedChild.first_name}
+                                onChange={(event) =>
+                                    setUpdatedChild({
+                                        ...updatedChild,
+                                        first_name: event.target.value,
+                                    })
+                                }
+                            />
+                            <TextField
+                                placeholder="Last Name"
+                                name="last name"
+                                sx={{ bgcolor: "white" }}
+                                type="text"
+                                margin="normal"
+                                fullWidth
+                                label="last name"
+                                value={updatedChild.last_name}
+                                onChange={(event) =>
+                                    setUpdatedChild({
+                                        ...updatedChild,
+                                        last_name: event.target.value,
+                                    })
+                                }
+                            />
+
+                            {/* <TextField
+                                placeholder="YYYY/MM/DD"
+                                required
+                                name="birthdate"
+                                sx={{ bgcolor: "white" }}
+                                type="date"
+                                margin="normal"
+                                fullWidth
+                                label=""
+                                value={kid.birthdate}
+                                onChange={(event) =>
+                                    setUpdatedChild({
+                                        ...updatedChild,
+                                        birthdate: event.target.value,
+                                    })
+                                }
+                            /> */}
+                             <TextField
+                                placeholder="allergies"
+                                name="allergies"
+                                sx={{ bgcolor: "white" }}
+                                type="text"
+                                margin="normal"
+                                fullWidth
+                                label="allergies"
+                                value={updatedChild.allergies}
+                                onChange={(event) =>
+                                    setUpdatedChild({
+                                        ...updatedChild,
+                                        allergies: event.target.value,
+                                    })
+                                }
+                            />
+                            <FormControl>
+                                    <FormGroup>
+                                        <FormControlLabel
+                                        label="Potty Trained"
+                                        labelPlacement="end"
+                                        control={
+                                            <Checkbox 
+                                            checked={updatedChild.potty_trained}
+                                            onClick={() =>
+                                                setUpdatedChild({
+                                                    ...updatedChild,
+                                                    potty_trained:true
+                                                })
+                                            }
+                                            />
+                                        }
+                                        />
+                                    </FormGroup>
+                                </FormControl>    
+                                <Button
+                                type="submit"
+                                sx={{ m: 2 }}
+                                variant="contained"
+                                size="large"
+                               
+                            >
+                                Save
+                            </Button>
+                                </Box>
+                            )}
+                            
+
+                            
 
 
                         </Card>
 
-                    ))}
+                    
+
+                    
                 </Grid>
             </Grid>
 

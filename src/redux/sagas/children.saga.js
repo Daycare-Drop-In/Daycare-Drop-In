@@ -35,9 +35,9 @@ function* postChild(action) {
 // Update info for a particular child
 function* updateChild(action) {
   console.log("Inside updateChild saga", action.payload);
-  try {
-    yield axios.put(`/api/child/${action.payload.id}`, action.payload);
-    yield put({ type: "GET_CHILDREN", payload: action.payload.id });
+    try {
+    yield axios.put(`/api/child/update/${action.payload.childId}`, action.payload);
+    yield put({ type: "GET_CHILDREN", payload: action.payload.family_id });
   } catch (error) {
     console.log("error in updateChild saga", error);
   }
@@ -53,6 +53,8 @@ function* deleteChild(id) {
 	  console.log("Error in deleteChild saga", error);
 	}
 }
+
+
 
 
 function* childrenSaga() {

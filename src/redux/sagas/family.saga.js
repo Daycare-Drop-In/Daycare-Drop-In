@@ -3,12 +3,13 @@ import axios from "axios";
 
 //Get family by familyId number (for rendering view-only family page)
 function* getFamily(id) {
-  console.log("Inside get family saga for family of id:", id.payload);
+  console.log("Inside get family saga for family of id:", id.payload.id);
   try {
-    const family = yield axios.get(`api/family/${id.payload}`);
+    const family = yield axios.get(`api/family/details/${id.payload.id}`);
+    yield console.log("family.data is:", family.data);
     yield put({ type: "SET_FAMILY", payload: family.data });
   } catch (error) {
-    console.log("Error in getToy saga", error);
+    console.log("Error in getFamily saga", error);
   }
 }
 

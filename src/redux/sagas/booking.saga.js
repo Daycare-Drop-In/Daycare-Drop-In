@@ -3,10 +3,10 @@ import axios from "axios";
 
 //Gets all the bookings for the provider of the given ID
 function* getProviderBookings(id) {
-  console.log("Inside getProviderBookings for provider of id:", id.payload);
+
   try {
-    const bookings = yield axios.get(`/api/booking/provider/${id.payload}`);
-    yield put({ type: "SET_BOOKINGS", payload: bookings.data[0] });
+    const bookings = yield axios.get(`/api/booking/provider/${id?.payload}`);
+    yield put({ type: "SET_BOOKINGS", payload: bookings.data });
   } catch (error) {
     console.log("Error in getProviderBookings saga", error);
   }
@@ -20,6 +20,41 @@ function* getFamilyBookings(id) {
     yield put({ type: "SET_BOOKINGS", payload: bookings.data[0] });
   } catch (error) {
     console.log("Error in getFamilyBookings saga", error);
+  }
+}
+
+//Get all booking PROCESS data for family corresponding to this user ID
+function* getFamilyBookingProcessData(id) {
+  console.log("Inside getFamilyBookingProcessData for user of id:", id.payload);
+  try {
+    const responseData = yield axios.get(
+      `/api/booking/booking_process/family/${id.payload}`
+    );
+    yield put({
+      type: "SET_FAMILY_BOOKING_PROCESS_DATA",
+      payload: responseData.data[0],
+    });
+  } catch (error) {
+    console.log("Error in getFamilyBookingProcessData saga", error);
+  }
+}
+
+//Get  booking PROCESS data for PROVIDER corresponding to this ID
+function* getProviderBookingProcessData(id) {
+  console.log(
+    "Inside getProviderBookingProcessData for provider id:",
+    id.payload
+  );
+  try {
+    const responseData = yield axios.get(
+      `/api/booking/booking_process/provider/${id.payload}`
+    );
+    yield put({
+      type: "SET_PROVIDER_BOOKING_PROCESS_DATA",
+      payload: responseData.data[0],
+    });
+  } catch (error) {
+    console.log("Error in getProviderBookingProcessData saga", error);
   }
 }
 
@@ -47,6 +82,14 @@ function* deleteBooking(id) {
 function* bookingSaga() {
   yield takeLatest("GET_FAMILY_BOOKINGS", getFamilyBookings);
   yield takeLatest("GET_PROVIDER_BOOKINGS", getProviderBookings);
+  yield takeLatest(
+    "GET_FAMILY_BOOKING_PROCESS_DATA",
+    getFamilyBookingProcessData
+  );
+  yield takeLatest(
+    "GET_PROVIDER_BOOKING_PROCESS_DATA",
+    getProviderBookingProcessData
+  );
   yield takeLatest("POST_BOOKING", postBooking);
   yield takeLatest("DELETE_BOOKING", deleteBooking);
 }

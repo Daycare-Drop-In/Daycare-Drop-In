@@ -8,6 +8,7 @@ import ProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGallery";
 import ProviderAvailabilityTable from "../ProviderAvailabilityTable/ProviderAvailabilityTable";
 import ProviderBookingsTable from "../ProviderBookingsTable/ProviderBookingsTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
+import ProviderEditDetails from "./ProviderEditDetails";
 
 function ProviderHomePage({ provider }) {
   const dispatch = useDispatch();
@@ -39,7 +40,9 @@ function ProviderHomePage({ provider }) {
       </div>
 
       {editMode ? (
-        <div>edit form</div>
+        <div>
+          <ProviderEditDetails provider={provider} />
+        </div>
       ) : (
         <>
           <div className="provider-contact-info">

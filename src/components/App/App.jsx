@@ -186,7 +186,7 @@ function App() {
             <ListPage />
             <BottomNav />
           </Route>
-   		<Route
+   <Route
           exact path = '/styles'
           >
             <Styled />

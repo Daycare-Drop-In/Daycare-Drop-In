@@ -37,23 +37,23 @@ function ProviderBookingProcess() {
         };
         const [userChoice, setUserChoice] = useState(picked);
 
-        const ageInDays = (ageInYears) => (ageInYears * 365);
-        const infantMaxAge = ageInDays(1);
-        const toddlerMaxAge = ageInDays(2);
-        const prekMaxAge = ageInDays(5);
+        // const ageInDays = (ageInYears) => (ageInYears * 365);
+        // const infantMaxAge = ageInDays(1);
+        // const toddlerMaxAge = ageInDays(2);
+        // const prekMaxAge = ageInDays(5);
 
-        const calculateDaysOld = (birthday) => {
-                const now = new Date();
-                const birthDate = new Date(birthday);
-                const timeDifference = now.getTime() - birthDate.getTime();
-                const daysOld = Math.floor(timeDifference / (1000 * 3600 * 24));
-                return daysOld;
-        };
+        // const calculateDaysOld = (birthday) => {
+        //         const now = new Date();
+        //         const birthDate = new Date(birthday);
+        //         const timeDifference = now.getTime() - birthDate.getTime();
+        //         const daysOld = Math.floor(timeDifference / (1000 * 3600 * 24));
+        //         return daysOld;
+        // };
 
         // Example usage:
-        const birthday = formattedDate(child.child_age); // Replace this with the actual birthday
-        const daysOld = calculateDaysOld(birthday);
-        console.log("Days old:", daysOld);
+        // const birthday = formattedDate(child.child_age); // Replace this with the actual birthday
+        // const daysOld = calculateDaysOld(birthday);
+        // console.log("Days old:", daysOld);
 
 
         // console.log('in ProviderBookingProcess and booking from store is:', booking);
@@ -159,13 +159,13 @@ function ProviderBookingProcess() {
         const drop = { mx: 0.75, width: 159, my: 1 };
 
         // formats dates for table appearance
-        const formattedDate = (date) => {
-                return new Date(date).toLocaleDateString('en-US', {
-                        month: '2-digit',
-                        day: '2-digit',
-                        year: 'numeric',
-                });
-        };
+        // const formattedDate = (date) => {
+        //         return new Date(date).toLocaleDateString('en-US', {
+        //                 month: '2-digit',
+        //                 day: '2-digit',
+        //                 year: 'numeric',
+        //         });
+        // };
 
         const isAgreed = () => {
                 // console.log('checkbox has been clicked, triggering isAgreed');
@@ -196,7 +196,8 @@ function ProviderBookingProcess() {
                         <Typography>
                                 You have selected to book a spot at
                                 {/* {provider.business_name}   */}
-                                for {formattedDate(availability[0].date)}.
+                                for 
+                                {/* {formattedDate(availability[0].date)}. */}
                                 Please select the appropriate age group, and which child will be attending.
                         </Typography>
                         <FormGroup>
@@ -236,7 +237,7 @@ function ProviderBookingProcess() {
 
                                         </Select>
                                 </FormControl>
-                                <FormControl>
+                                {/* <FormControl>
                                         <Select
                                                 labelId="which-child-selector"
                                                 id="child-selector"
@@ -252,24 +253,30 @@ function ProviderBookingProcess() {
                                                                 </MenuItem>
                                                                 );
                                                         }
-                                                })
-                                                }
+                                                })}
                                         </Select>
-                                </FormControl>
-                                <FormControl>
+                                </FormControl> */}
+                                {/* <FormControl>
                                         <Select
                                                 labelId="which-adult-selector"
                                                 id="adult-selector"
                                                 // value={adult}
-                                                label="Is an adult besides you going to be dropping off/picking up?"
-                                                input={<OutlinedInput label="Is an adult besides you going to be dropping off/picking up?" />}
+                                                label="Who will be handling pickup/dropoff?"
+                                                input={<OutlinedInput label="Who will be handling pickup/dropoff?" />}
                                         // onChange={(event) => setAdult(event.target.value)}
                                         >
-                                                <MenuItem value={false}>Nope</MenuItem>
-                                                <MenuItem value={true}>Yep!</MenuItem>
+                                                {adults.map((adult, i) => {
+                                                        if (userChoice.age <=> calculateDaysOld(formattedDate(child.child_age))) {
+                                                                return (<MenuItem key={i} value={adult}>
+                                                                        {adult.child_first_name}
+                                                                </MenuItem>
+                                                                );
+                                                        }
+                                                })
+                                                }
                                         </Select>
-                                </FormControl>
-                                <Typography>{providers.contract_language}</Typography>
+                                </FormControl> */}
+                                {/* <Typography>{providers.contract_language}</Typography> */}
                                 <Typography>If above information is correct and you agree to provider's contract, please click here to agree, and then submit.</Typography>
                                 <FormControl>
                                         <FormControlLabel

@@ -18,7 +18,7 @@ function PublicProviderAvailabilityTable() {
   useEffect(() => {
     //dispatches request for specific provider availability using id from useParams
     console.log("Dispatching request for data of familyId:", providerId);
-    dispatch({ type: "GET_PROVIDER_AVAILABILITY", payload: providerId });
+    dispatch({ type: "GET_PROVIDER_AVAILABILITY", payload: providerId.id });
   }, []);
 
   // const formattedDate = (availableDate) => {
@@ -45,6 +45,7 @@ function PublicProviderAvailabilityTable() {
   return (
     <div className="container">
       <table border="1">
+        <thead>
         <tr>
           <th>Date</th>
           <th>Infant</th>
@@ -52,6 +53,7 @@ function PublicProviderAvailabilityTable() {
           <th>Pre-K</th>
           <th>School-Age</th>
         </tr>
+        </thead>
         <tbody>
         {availabilityArray.map((entryRow) => (
           <PublicProviderAvailabilityRow key={entryRow.id} entryRow={entryRow}/>

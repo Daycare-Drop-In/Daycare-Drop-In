@@ -67,21 +67,18 @@ function FamilyHomePage() {
         </p>
       </div>
 
+      
+      
+      
+      
+      
       <h3>Kids in this Family</h3>
-      
-      <h3>Responsible Adults</h3>
-      <p>button to add a card</p>
-      <AddAdultForm/>
-      <AddChildForm />
-      
-      
-
       {/* need to map this component  */}
       {children?.map((kid)=>(
         
       <FamilyChildCards key={kid.id} kid={kid} />
       ))}
-
+<h3>Responsible Adults</h3>
       {rAdult?.map((adult) => (
         <FamilyContactCards key={adult.id} adult={adult} />
       ))}
@@ -89,6 +86,11 @@ function FamilyHomePage() {
       {/* <LogOutButton className="btn" /> */}
 
       <FamilyDropOffs />
+
+      <h3>Add family members</h3>
+      <AddAdultForm/>
+      <AddChildForm />
+      
     </div>
   );
 }

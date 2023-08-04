@@ -210,7 +210,22 @@ function RegisterFormProvider() {
           />
         </label>
       </div>
-
+      <div>
+        <label htmlFor="city">
+          City
+          <input
+            type="text"
+            name="city"
+            value={newProvider.city}
+            onChange={(event) =>
+              setNewProvider({
+                ...newProvider,
+                city: event.target.value,
+              })
+            }
+          />
+        </label>
+      </div>
       <div>
         <label htmlFor="state">
           State

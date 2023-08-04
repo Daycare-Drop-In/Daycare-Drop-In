@@ -61,8 +61,8 @@ function RegisterFormNewFamily() {
   }
 
   return (
-    <>
-    
+
+
       <Box
         sx={{
           marginTop: 8,
@@ -72,7 +72,7 @@ function RegisterFormNewFamily() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Register for an account
+          Create your Family Profile
         </Typography>
         <Box
           component="form"
@@ -249,7 +249,7 @@ function RegisterFormNewFamily() {
           </Button>
         </Box>
       </Box>
-    </>
+
 
     //   <form className="formPanel" onSubmit={registerUser}>
     //   <h2>Register New Family</h2>

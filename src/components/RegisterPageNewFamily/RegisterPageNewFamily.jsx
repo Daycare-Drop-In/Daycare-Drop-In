@@ -8,9 +8,8 @@ function RegisterPageNewFamily() {
 
   return (
     <Container maxWidth="xs">
-      <h1>NEW FAMILY REGISTRATION PAGE</h1>
       <RegisterFormNewFamily />
-    
+
 
       <center>
         <button

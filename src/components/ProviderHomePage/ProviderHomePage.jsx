@@ -8,26 +8,16 @@ import ProviderPhotoGallery from "../ProviderPhotoGallery/ProviderPhotoGallery";
 import ProviderAvailabilityTable from "../ProviderAvailabilityTable/ProviderAvailabilityTable";
 import ProviderBookingsTable from "../ProviderBookingsTable/ProviderBookingsTable";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
+import ProviderEditDetails from "./ProviderEditDetails";
 
-function ProviderHomePage() {
+function ProviderHomePage({ provider }) {
   const dispatch = useDispatch();
   // const { providerId } = useParams();
   const userId = useSelector((store) => store.user.id);
 
-  useEffect(() => {
-    //dispatches request for provider info based on userID
-    console.log("Dispatching request for data of provider-user ID:", userId);
-    dispatch({ type: "GET_PROVIDER_USER", payload: userId });
-  }, [userId]);
-
-  const provider = useSelector((store) => store.provider);
-  const provider_id = useSelector((store) => store.provider.id);
-
   console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 
-  const goToBooking = () => {
-    return <ProviderBookingProcess />;
-  };
+  const [editMode, setEditMode] = useState(false);
 
   return (
     <div className="container">
@@ -41,51 +31,64 @@ function ProviderHomePage() {
       <div className="provider-profile-photo">
         <img src={provider.provider_pic} height="200" />
       </div>
-
-      <div className="provider-contact-info">
-        <p>
-          <b>Provider Name:</b> {provider.first_name} {provider.last_name}
-        </p>
-        <p>
-          <b>License:</b> {provider.license}{" "}
-        </p>
-        <p>
-          <b>Address:</b> {provider.street_address} {provider.unit}{" "}
-          {provider.city} {provider.state}
-          {provider.zip}
-        </p>
-        <p>
-          <b>Email:</b> {provider.email}
-        </p>
+      <div className="edit-button">
+        {!editMode ? (
+          <button onClick={() => setEditMode(true)}>Edit Info</button>
+        ) : (
+          <button onClick={() => setEditMode(false)}>Cancel</button>
+        )}
       </div>
 
-      <div className="provider-bio">
-        <h2>About Me:</h2>
-        <p>{provider.personal_description}</p>
-      </div>
+      {editMode ? (
+        <div>
+          <ProviderEditDetails provider={provider} />
+        </div>
+      ) : (
+        <>
+          <div className="provider-contact-info">
+            <p>
+              <b>Provider Name:</b> {provider.first_name} {provider.last_name}
+            </p>
+            <p>
+              <b>License:</b> {provider.license}{" "}
+            </p>
+            <p>
+              <b>Address:</b> {provider.street_address} {provider.unit}{" "}
+              {provider.city} {provider.state}
+              {provider.zip}
+            </p>
+            <p>
+              <b>Email:</b> {provider.email}
+            </p>
+          </div>
 
-      <div className="daycare-details">
-        <h2>About {provider.business_name}:</h2>
-        <p>
-          <b>Hours:</b> {provider.hours_open}
-          {" AM - "}
-          {provider.hours_close}
-          {"PM"}
-        </p>
-        <p>
-          <b>Meals provided? </b>
-          {provider.meals ? "Yes" : "No"}{" "}
-        </p>
-        <p>{provider.business_description}</p>
-      </div>
+          <div className="provider-bio">
+            <h2>About Me:</h2>
+            <p>{provider.personal_description}</p>
+          </div>
 
+          <div className="daycare-details">
+            <h2>About {provider.business_name}:</h2>
+            <p>
+              <b>Hours:</b> {provider.hours_open}
+              {" AM - "}
+              {provider.hours_close}
+              {"PM"}
+            </p>
+            <p>
+              <b>Meals provided? </b>
+              {provider.meals ? "Yes" : "No"}{" "}
+            </p>
+            <p>{provider.business_description}</p>
+          </div>
+        </>
+      )}
 
+      <ProviderAvailabilityTable provider={provider} />
 
-      <ProviderAvailabilityTable provider_id={provider_id} />
+      <ProviderPhotoGallery provider={provider} />
 
-      <ProviderPhotoGallery />
-
-      <ProviderBookingsTable />
+      <ProviderBookingsTable provider={provider} />
 
       <LogOutButton className="btn" />
     </div>

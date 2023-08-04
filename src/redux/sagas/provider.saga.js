@@ -26,8 +26,22 @@ function* getProviderUser(id) {
   try {
     const provider = yield axios.get(`/api/provider/user/${id.payload}`);
     yield put({ type: "SET_PROVIDER", payload: provider.data[0] });
+
+    //Additional calls to get data for child components based on newly available provider id
     yield put({
       type: "GET_PROVIDER_AVAILABILITY",
+      payload: provider.data[0].id,
+    });
+    yield put({
+      type: "GET_PROVIDER_BOOKINGS",
+      payload: provider.data[0].id,
+    });
+    yield put({
+      type: "GET_PROVIDER_AVAILABILITY",
+      payload: provider.data[0].id,
+    });
+    yield put({
+      type: "GET_PHOTOS",
       payload: provider.data[0].id,
     });
   } catch (error) {
@@ -39,7 +53,10 @@ function* getProviderUser(id) {
 function* updateProvider(id) {
   console.log("Inside updateProvider saga:", action.payload);
   try {
-    yield axios.put(`/api/provider/update/${action.payload.id}`, action.payload);
+    yield axios.put(
+      `/api/provider/update/${action.payload.id}`,
+      action.payload
+    );
     yield put({ type: "GET_PROVIDER", payload: action.payload.id });
   } catch (error) {
     console.log("error with updateProvider saga:", error);

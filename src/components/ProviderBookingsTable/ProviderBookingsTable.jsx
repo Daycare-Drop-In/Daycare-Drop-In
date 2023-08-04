@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function ProviderBookingsTable() {
+function ProviderBookingsTable({provider}) {
   const dispatch = useDispatch();
-  const provider_id = useSelector((store) => store.provider.id);
+  const provider_id = provider.id
 
-  useEffect(() => {
-    provider_id &&
-      console.log(
-        "Dispatching request for bookings data of provider:",
-        provider_id
-      );
-    dispatch({ type: "GET_PROVIDER_BOOKINGS", payload: provider_id });
-  }, [provider_id]);
+  // useEffect(() => {
+  //   // provider_id &&
+  //     console.log(
+  //       "Dispatching request for bookings data of provider:",
+  //       provider_id
+  //     );
+  //   dispatch({ type: "GET_PROVIDER_BOOKINGS", payload: provider_id });
+  // }, []);
 
   const bookingsArray = useSelector((store) => store.bookings);
   console.log("HERE ARE THE BOOKINGSSSSSS:", bookingsArray);

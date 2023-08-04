@@ -94,8 +94,8 @@ router.delete('/delete/:id', (req, res) => {
   if (req.isAuthenticated()) {
     const adultId = req.params.id
     const queryText = `DELETE FROM responsible_adults WHERE id = $1;`;
-    pool.query(queryText, adultId)
-    .then(() => {
+    pool.query(queryText, [adultId])
+    .then((result) => {
       res.sendStatus(200);
     })
     .catch((error) => {

@@ -3,9 +3,9 @@ import axios from "axios";
 
 //Gets all the bookings for the provider of the given ID
 function* getProviderBookings(id) {
-  // console.log("Inside getProviderBookings for provider of id:", id.payload);
+  console.log("Inside getProviderBookings for provider of id:", id.payload);
   try {
-    const bookings = yield axios.get(`/api/booking/provider/${id?.payload}`);
+    const bookings = yield axios.get(`/api/booking/provider/${id.payload}`);
     yield put({ type: "SET_BOOKINGS", payload: bookings.data });
   } catch (error) {
     console.log("Error in getProviderBookings saga", error);

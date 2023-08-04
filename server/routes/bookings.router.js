@@ -286,36 +286,24 @@ JOIN families ON "user".family_id = families.id
 JOIN children ON children.family_id = families.id
 JOIN responsible_adults ON responsible_adults.family_id = families.id
 WHERE "user".id = $1
-GROUP BY "user".id, "children".id, "responsible_adults".id;`;
-		//     const queryText = `SELECT 
-		//     "user".id AS user_id,
-		//     "user".first_name AS user_first_name, 
-		//     "user".last_name AS user_last_name, 
-		//     "user".family_id,
-		//     ARRAY_AGG(DISTINCT children.id) AS child_ids,
-		//     ARRAY_AGG(DISTINCT children.first_name || ' ' || children.last_name) AS child_names, 
-		//     ARRAY_AGG(DISTINCT responsible_adults.id) AS responsible_adult_ids,
-		//     ARRAY_AGG(DISTINCT responsible_adults.first_name || ' ' || responsible_adults.last_name) AS responsible_adult_names
-		// FROM "user"
-		// JOIN families ON "user".family_id = families.id
-		// JOIN children ON children.family_id = families.id
-		// JOIN responsible_adults ON responsible_adults.family_id = families.id
-		// WHERE "user".id = $1
-		// GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
-		// `;
-		pool
-			.query(queryText, [userId])
-			.then((result) => {
-				res.send(result.rows);
-				console.log('in family booking process GET and result.rows are:', result.rows);
-			})
-			.catch((error) => {
-				console.log("ERROR IN family bookings details GET", error);
-				res.sendStatus(500);
-			});
-	} else {
-		res.sendStatus(403);
-	}
+GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
+`;
+    pool
+      .query(queryText, [userId])
+      .then((result) => {
+        res.send(result.rows);
+        console.log(
+          "in family booking process GET and result.rows are:",
+          result.rows
+        );
+      })
+      .catch((error) => {
+        console.log("ERROR IN family bookings details GET", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 //GET for provider data needed in bookings process
@@ -329,20 +317,23 @@ router.get("/booking_process/provider/:id", (req, res) => {
 		const queryText = `SELECT providers.business_name, 
 	providers.contract_language
 	FROM providers
-	WHERE providers.id = $1;`
-		pool
-			.query(queryText, [providerId])
-			.then((result) => {
-				res.send(result.rows);
-				console.log('in provider booking process GET and result.rows are:', result.rows);
-			})
-			.catch((error) => {
-				console.log("ERROR IN provider bookings details GET", error);
-				res.sendStatus(500);
-			});
-	} else {
-		res.sendStatus(403);
-	}
+	WHERE providers.id = $1;`;
+    pool
+      .query(queryText, [providerId])
+      .then((result) => {
+        res.send(result.rows);
+        console.log(
+          "in provider booking process GET and result.rows are:",
+          result.rows
+        );
+      })
+      .catch((error) => {
+        console.log("ERROR IN provider bookings details GET", error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 // // PUT template

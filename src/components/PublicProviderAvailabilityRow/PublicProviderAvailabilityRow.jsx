@@ -27,7 +27,7 @@ function PublicProviderAvailabilityRow({ entryRow }) {
 
     const startBooking = () => {
         console.log('in startBooking function in ProviderAvailabilityTable, and providerId.id and user.family_id are:', providerId.id, user.family_id);
-        history.push(`/booking/${providerId.id}/${entryRow.id}`);
+        history.push(`/booking/${providerId.id}/${entryRow.id}/${user.family_id}`);
     }
 
     return (

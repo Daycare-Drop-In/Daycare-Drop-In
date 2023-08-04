@@ -287,22 +287,37 @@ router.get("/booking_process/family/:id", (req, res) => {
       "Inside router side of get request for FAMILY booking process data, id:",
       req.params.id
     );
-    const queryText = `SELECT 
+	const queryText = `SELECT 
     "user".id AS user_id,
     "user".first_name AS user_first_name, 
     "user".last_name AS user_last_name, 
     "user".family_id,
-    ARRAY_AGG(DISTINCT children.id) AS child_ids,
-    ARRAY_AGG(DISTINCT children.first_name || ' ' || children.last_name) AS child_names, 
-    ARRAY_AGG(DISTINCT responsible_adults.id) AS responsible_adult_ids,
-    ARRAY_AGG(DISTINCT responsible_adults.first_name || ' ' || responsible_adults.last_name) AS responsible_adult_names
+	ARRAY_AGG(ROW(children.id, children.first_name, children.last_name)) AS children,
+    responsible_adults.id,
+    responsible_adults.first_name,
+    responsible_adults.last_name
 FROM "user"
 JOIN families ON "user".family_id = families.id
 JOIN children ON children.family_id = families.id
 JOIN responsible_adults ON responsible_adults.family_id = families.id
 WHERE "user".id = $1
-GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
-`;
+GROUP BY "user".id, "children".id, "responsible_adults".id;`;
+//     const queryText = `SELECT 
+//     "user".id AS user_id,
+//     "user".first_name AS user_first_name, 
+//     "user".last_name AS user_last_name, 
+//     "user".family_id,
+//     ARRAY_AGG(DISTINCT children.id) AS child_ids,
+//     ARRAY_AGG(DISTINCT children.first_name || ' ' || children.last_name) AS child_names, 
+//     ARRAY_AGG(DISTINCT responsible_adults.id) AS responsible_adult_ids,
+//     ARRAY_AGG(DISTINCT responsible_adults.first_name || ' ' || responsible_adults.last_name) AS responsible_adult_names
+// FROM "user"
+// JOIN families ON "user".family_id = families.id
+// JOIN children ON children.family_id = families.id
+// JOIN responsible_adults ON responsible_adults.family_id = families.id
+// WHERE "user".id = $1
+// GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
+// `;
     pool
       .query(queryText, [userId])
       .then((result) => {

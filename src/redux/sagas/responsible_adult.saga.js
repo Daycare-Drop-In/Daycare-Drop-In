@@ -4,9 +4,9 @@ import axios from "axios";
 
 //Get info for all adults of a particular family
 function* getAdults(id) {
-  console.log("Inside getAdults saga for family of id:", id.payload.id);
+  console.log("Inside getAdults saga for family of id:", id.payload);
   try {
-    const adults = yield axios.get(`/api/caretaker/details/${id.payload.id}`);
+    const adults = yield axios.get(`/api/caretaker/details/${id.payload}`);
     yield put({ type: "SET_ADULTS", payload: adults.data });
   } catch (error) {
     console.log("Error in getAdults saga", error);

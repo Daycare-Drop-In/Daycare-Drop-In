@@ -159,7 +159,7 @@ WHERE families.id = $1
 ORDER BY bookings.service_date ASC;`;
 		pool
 			.query(queryText, [familyId])
-			.then(() => {
+			.then((result) => {
 				res.send(result.rows);
 			})
 			.catch((error) => {

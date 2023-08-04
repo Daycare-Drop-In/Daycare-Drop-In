@@ -36,9 +36,6 @@ function FamilyContactCards({adult}) {
 	}
 
 	return (
-		
-			<Container>
-				
 			<Grid container spacing={1}>
 				
 				<Grid item
@@ -56,7 +53,7 @@ function FamilyContactCards({adult}) {
 						<Card
 							
 							sx={{
-								width: "50%",
+								width: "100%",
 								objectFit: "contain",
 								mb: 1.5,
 								flexDirection: "column",
@@ -95,13 +92,9 @@ function FamilyContactCards({adult}) {
 							>Delete
 							</Button>
 
-
 						</Card>
-
-					
 				</Grid>
 			</Grid>
-		</Container>
 	);
 	
 }

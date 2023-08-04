@@ -1,13 +1,13 @@
 import React from 'react';
-
 import { useHistory } from 'react-router-dom';
 import RegisterFormNewFamily from '../RegisterFormNewFamily/RegisterFormNewFamily';
+import { Button, TextField, Box, Typography, Container } from "@mui/material";
 
 function RegisterPageNewFamily() {
   const history = useHistory();
 
   return (
-    <div>
+    <Container maxWidth="xs">
       <h1>NEW FAMILY REGISTRATION PAGE</h1>
       <RegisterFormNewFamily />
     
@@ -23,7 +23,7 @@ function RegisterPageNewFamily() {
           Login
         </button>
       </center>
-    </div>
+    </Container>
   );
 }
 

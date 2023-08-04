@@ -90,7 +90,6 @@ function ProviderHomePage({ provider }) {
 
       <ProviderBookingsTable provider={provider} />
 
-      <LogOutButton className="btn" />
     </div>
   );
 }

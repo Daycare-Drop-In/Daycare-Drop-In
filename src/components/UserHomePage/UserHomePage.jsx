@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import AdminHomePage from "../AdminHomePage/AdminHomePage";
 import ProviderHomePage from "../ProviderHomePage/ProviderHomePage";
 import FamilyHomePage from "../FamilyHomePage/FamilyHomePage";
+import {Container} from '@mui/material'
 
 function UserHomePage() {
   const user = useSelector((store) => store.user);
@@ -32,7 +33,7 @@ function UserHomePage() {
   } else if (userType === "provider") {
     homePage = <ProviderHomePage provider={provider} />;
   }
-  return <div className="container">{homePage}</div>;
+  return <Container maxWidth='xs'>{homePage}</Container>;
 }
 
 export default UserHomePage;

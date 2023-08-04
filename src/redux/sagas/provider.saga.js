@@ -50,7 +50,7 @@ function* getProviderUser(id) {
 }
 
 //update info for a particular provider
-function* updateProvider(id) {
+function* updateProvider(action) {
   console.log("Inside updateProvider saga:", action.payload);
   try {
     yield axios.put(

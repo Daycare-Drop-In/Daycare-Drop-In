@@ -2,7 +2,6 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-
 router.get("/", (req, res) => {
   // console.log('in db providers GET');
   if (req.isAuthenticated()) {
@@ -131,14 +130,45 @@ router.delete("/delete/:id", (req, res) => {
 });
 
 // PUT template
-router.put("/update/:id", (req, res) => {
+router.put("/update/:id", async (req, res) => {
   if (req.isAuthenticated()) {
-    const providerId = req.params.id;
-    const {
-      // !!! ADD OBJECT PROPERTIES HERE WHEN READY AND CHANGE THEM OUT FOR THE BLINGS ON LINE 118 !!!
-    } = req.body;
-    const queryText = `UPDATE providers
-SET license = $1,
+    try {
+      await client.query(`BEGIN;`);
+      const values1 = [
+        req.params.first_name,
+        req.params.last_name,
+        req.params.phone_number,
+        req.params.photo_url,
+        req.params.user_id,
+      ];
+      const queryText1 = `UPDATE user SET   first_name = $1,
+    last_name = $2,
+    phone_number = $3,
+    photo_url = $4,
+    WHERE id = $5`;
+
+      await client.query(queryText1, values1);
+
+      const values2 = [
+        req.params.license,
+        req.params.business_name,
+        req.params.street_address,
+        req.params.unit,
+        req.params.city,
+        req.params.state,
+        req.params.zip,
+        req.params.hours_open,
+        req.params.hours_close,
+        req.params.rates,
+        req.params.business_description,
+        req.params.personal_description,
+        req.params.contract_language,
+        req.params.id,
+      ];
+
+      const queryText2 = `UPDATE providers
+SET 
+	license = $1,
 	business_name = $2,
 	street_address = $3,
 	unit = $4,
@@ -148,20 +178,21 @@ SET license = $1,
 	hours_open = $8,
 	hours_close = $9,
 	rates = $10,
-	meals = $11,
-	business_description = $12,
-	personal_description = $13,
-	contract_language = $14
-WHERE id = $15;`;
-    pool
-      .query(queryText, [$1 - $14, providerId])
-      .then(() => {
-        res.sendStatus(202);
-      })
-      .catch((error) => {
-        console.log("ERROR IN providers PUT", error);
-        res.sendStatus(500);
-      });
+  business_description = $11,
+  personal_description = $12,
+  contract_language = $13
+WHERE id = $14;`;
+
+      await client.query(queryText2, values2);
+      await client.query(`COMMIT;`);
+      res.sendStatus(200);
+    } catch (error) {
+      await client.query(`ROLLBACK;`);
+      console.log("ERROR IN bookings POST", error);
+      res.sendStatus(500);
+    } finally {
+      client.release();
+    }
   } else {
     res.sendStatus(403);
   }

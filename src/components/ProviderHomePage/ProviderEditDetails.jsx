@@ -4,10 +4,11 @@ import { useParams, useHistory } from "react-router-dom";
 
 function ProviderEditDetails({ provider }) {
   const dispatch = useDispatch();
+  const user_id = useSelector((store) => store.user.id);
 
   const defaultProviderData = {
-    username: provider.email,
-    password: provider.password,
+    provider_id : provider.id,
+    user_id : user_id,
     first_name: provider.first_name,
     last_name: provider.last_name,
     email: provider.email,
@@ -44,36 +45,6 @@ function ProviderEditDetails({ provider }) {
     <div>
       <form className="formPanel">
         <h2>Update your info:</h2>
-
-        <div>
-          <label htmlFor="username">
-            Email:
-            <input
-              type="text"
-              name="username"
-              value={newProvider.username}
-              required
-              onChange={(event) =>
-                setNewProvider({ ...newProvider, username: event.target.value })
-              }
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="password">
-            Password
-            <input
-              type="text"
-              name="password"
-              value={newProvider.password}
-              required
-              onChange={(event) =>
-                setNewProvider({ ...newProvider, password: event.target.value })
-              }
-            />
-          </label>
-        </div>
 
         <div>
           <label htmlFor="first_name">
@@ -215,7 +186,7 @@ function ProviderEditDetails({ provider }) {
         </div>
 
         <div>
-          <label htmlFor="state">
+          <label htmlFor="city">
             City
             <input
               type="text"

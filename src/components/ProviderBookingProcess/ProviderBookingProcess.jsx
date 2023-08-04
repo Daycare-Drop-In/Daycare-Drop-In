@@ -113,8 +113,8 @@ function ProviderBookingProcess() {
 
         // collects all data for new booking post
         const newBooking = {
-                provider_id: providerId,
-                family_id: familyId,
+                provider_id: Number(providerId),
+                family_id: Number(familyId),
                 child_id: childId,
                 responsible_adult_id: adultId,
                 user_id: user.id,

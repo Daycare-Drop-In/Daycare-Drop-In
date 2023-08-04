@@ -6,9 +6,9 @@ const router = express.Router();
  * GET route template
  */
 router.get("/", (req, res) => {
-  // GET route code here
-  if (req.isAuthenticated()) {
-    const queryText = `SELECT bookings.id AS booking_id,
+	// GET route code here
+	if (req.isAuthenticated()) {
+		const queryText = `SELECT bookings.id AS booking_id,
 	bookings.service_date AS booked_day,
 	bookings.time_submitted AS time_booked,
 	providers.id AS provider_id,
@@ -57,80 +57,74 @@ FROM bookings
 	JOIN "user" ON bookings.user_id = "user".id
 	JOIN families ON bookings.famiily_id = families.id
 ORDER BY bookings.service_date ASC;`;
-    pool
-      .query(queryText)
-      .then(() => {
-        res.send(result.rows);
-      })
-      .catch((error) => {
-        console.log("ERROR IN bookings GET", error);
-        res.sendStatus(500);
-      });
-  } else {
-    res.sendStatus(403);
-  }
+		pool
+			.query(queryText)
+			.then(() => {
+				res.send(result.rows);
+			})
+			.catch((error) => {
+				console.log("ERROR IN bookings GET", error);
+				res.sendStatus(500);
+			});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 router.post("/", (req, res) => {
 	if (req.isAuthenticated()) {
 		console.log("POST for new booking and req.body is:", req.body);
 
-//   const newBooking = [
-// 	req.body.provider_id,
-// 	req.body.child_id,
-// 	req.body.responsible_adult_id,
-// 	req.body.user_id,
-// 	req.body.service_date,
-//   ];
+		const newBooking = [
+			req.body.provider_id,
+			req.body.family_id,
+			req.body.child_id,
+			req.body.responsible_adult_id,
+			req.body.user_id,
+			req.body.service_date,
+		];
 
-//   const queryText1 = `INSERT INTO bookings (
-// 	provider_id,
-// 	child_id,
-// 	responsible_adult_id,
-// 	user_id,
-// 	service_date)
-// 	VALUES ($1, $2, $3, $4, $5);`;
+		console.log('in booking POST and newBooking is:', newBooking);
+
+		  const postBookingQueryText = `INSERT INTO bookings (
+			provider_id,
+			family_id,
+			child_id,
+			responsible_adult_id,
+			user_id,
+			service_date)
+			VALUES ($1, $2, $3, $4, $5, $6);`;
 
 
-	// pool.query(postBookQuery, [
-	// 	book.cover_url,
-	// 	book.title,
-	// 	book.subtitle,
-	// 	book.author,
-	// 	book.publisher,
-	// 	book.published,
-	// 	book.genre,
-	// 	book.pages,
-	// 	book.description,
-	// 	book.isbn]) // book properties from req.body
-	// 	.then((bookResult) => {
-	// 	  const newBookId = bookResult.rows[0].id;
-	// 	  const userBookQuery = `
-	// 	  INSERT INTO "user_book" (user_id, book_id)
-	// 	  VALUES ($1, $2);
-	// 	  `;
-	// 	  pool.query(userBookQuery, [req.user.id, newBookId])
-	// 		.then((response) => {
-	// 		  res.sendStatus(202);
-	// 		})
-	// 		.catch((error) => {
-	// 		  console.log('ERROR LINKING USER BOOK', error);
-	// 		  res.sendStatus(500);
-	// 		});
-	// 	})
-	// 	.catch((error) => {
-	// 	  console.log('ERROR IN SERVER POST', error);
-	// 	});
-	// } else {
-	//   res.sendStatus(400);
+		pool.query(postBookingQueryText, newBooking) 
+		// 	.then((response) => {
+		// 	  const newBookId = bookResult.rows[0].id;
+		// 	  const userBookQuery = `
+		// 	  INSERT INTO "user_book" (user_id, book_id)
+		// 	  VALUES ($1, $2);
+		// 	  `;
+		// 	  pool.query(userBookQuery, [req.user.id, newBookId])
+		// 		.then((response) => {
+		// 		  res.sendStatus(202);
+		// 		})
+		// 		.catch((error) => {
+		// 		  console.log('ERROR LINKING USER BOOK', error);
+		// 		  res.sendStatus(500);
+		// 		});
+		// 	})
+			.catch((error) => {
+			  console.log('ERROR IN SERVER POST', error);
+			});
+		} else {
+		  res.sendStatus(400);
 	}
-  }); 
+});
 
 // GET for family bookings table
 router.get("/details/:id", (req, res) => {
-  if (req.isAuthenticated()) {
-    const familyId = req.params.id;
-    const queryText = `SELECT bookings.id AS booking_id,
+	if (req.isAuthenticated()) {
+		const familyId = req.params.id;
+		const queryText = `SELECT bookings.id AS booking_id,
 	bookings.service_date AS booked_day,
 	bookings.time_submitted AS time_booked,
 	providers.id AS provider_id,
@@ -180,29 +174,29 @@ FROM bookings
 	JOIN families ON bookings.family_id = families.id
 WHERE families.id = $1
 ORDER BY bookings.service_date ASC;`;
-    pool
-      .query(queryText, [familyId])
-      .then(() => {
-        res.send(result.rows);
-      })
-      .catch((error) => {
-        console.log("ERROR IN bookings details GET", error);
-        res.sendStatus(500);
-      });
-  } else {
-    res.sendStatus(403);
-  }
+		pool
+			.query(queryText, [familyId])
+			.then(() => {
+				res.send(result.rows);
+			})
+			.catch((error) => {
+				console.log("ERROR IN bookings details GET", error);
+				res.sendStatus(500);
+			});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 // GET for provider bookings table
 router.get("/provider/:id", (req, res) => {
-  if (req.isAuthenticated()) {
-    const providerId = req.params.id;
-    console.log(
-      "Inside router side of bookings request for provider of id:",
-      providerId
-    );
-    const queryText = `SELECT bookings.id AS booking_id,
+	if (req.isAuthenticated()) {
+		const providerId = req.params.id;
+		console.log(
+			"Inside router side of bookings request for provider of id:",
+			providerId
+		);
+		const queryText = `SELECT bookings.id AS booking_id,
 	bookings.service_date AS booked_day,
 	bookings.time_submitted AS time_booked,
 	providers.id AS provider_id,
@@ -252,50 +246,50 @@ FROM bookings
 	JOIN families ON bookings.family_id = families.id
 WHERE providers.id = $1
 ORDER BY bookings.service_date ASC;`;
-    pool
-      .query(queryText, [providerId])
-      .then((result) => {
-        res.send(result.rows);
-      })
-      .catch((error) => {
-        console.log("ERROR IN bookings details GET", error);
-        res.sendStatus(500);
-      });
-  } else {
-    res.sendStatus(403);
-  }
+		pool
+			.query(queryText, [providerId])
+			.then((result) => {
+				res.send(result.rows);
+			})
+			.catch((error) => {
+				console.log("ERROR IN bookings details GET", error);
+				res.sendStatus(500);
+			});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 // DELETE template
 router.delete("/delete/:id", (req, res) => {
-  console.log("IN bookings DELETE ROUTE, and req.params is:", req.params.id);
-  if (req.isAuthenticated()) {
-    const bookingId = req.params.id;
-    const queryText = `DELETE FROM bookings
+	console.log("IN bookings DELETE ROUTE, and req.params is:", req.params.id);
+	if (req.isAuthenticated()) {
+		const bookingId = req.params.id;
+		const queryText = `DELETE FROM bookings
 WHERE id = $1;`;
-    pool
-      .query(queryText, [bookingId])
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch((error) => {
-        console.log("ERROR IN bookings DELETE", error);
-        res.sendStatus(500);
-      });
-  } else {
-    res.sendStatus(403);
-  }
+		pool
+			.query(queryText, [bookingId])
+			.then(() => {
+				res.sendStatus(200);
+			})
+			.catch((error) => {
+				console.log("ERROR IN bookings DELETE", error);
+				res.sendStatus(500);
+			});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 //GET for family data needed in bookings process
 router.get("/booking_process/family/:id", (req, res) => {
-  if (req.isAuthenticated()) {
-    const userId = req.params.id;
-    console.log(
-      "Inside router side of get request for FAMILY booking process data, id:",
-      req.params.id
-    );
-	const queryText = `SELECT 
+	if (req.isAuthenticated()) {
+		const userId = req.params.id;
+		console.log(
+			"Inside router side of get request for FAMILY booking process data, id:",
+			req.params.id
+		);
+		const queryText = `SELECT 
     "user".id AS user_id,
     "user".first_name AS user_first_name, 
     "user".last_name AS user_last_name, 
@@ -310,62 +304,62 @@ JOIN children ON children.family_id = families.id
 JOIN responsible_adults ON responsible_adults.family_id = families.id
 WHERE "user".id = $1
 GROUP BY "user".id, "children".id, "responsible_adults".id;`;
-//     const queryText = `SELECT 
-//     "user".id AS user_id,
-//     "user".first_name AS user_first_name, 
-//     "user".last_name AS user_last_name, 
-//     "user".family_id,
-//     ARRAY_AGG(DISTINCT children.id) AS child_ids,
-//     ARRAY_AGG(DISTINCT children.first_name || ' ' || children.last_name) AS child_names, 
-//     ARRAY_AGG(DISTINCT responsible_adults.id) AS responsible_adult_ids,
-//     ARRAY_AGG(DISTINCT responsible_adults.first_name || ' ' || responsible_adults.last_name) AS responsible_adult_names
-// FROM "user"
-// JOIN families ON "user".family_id = families.id
-// JOIN children ON children.family_id = families.id
-// JOIN responsible_adults ON responsible_adults.family_id = families.id
-// WHERE "user".id = $1
-// GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
-// `;
-    pool
-      .query(queryText, [userId])
-      .then((result) => {
-        res.send(result.rows);
-		console.log('in family booking process GET and result.rows are:', result.rows);
-      })
-      .catch((error) => {
-        console.log("ERROR IN family bookings details GET", error);
-        res.sendStatus(500);
-      });
-  } else {
-    res.sendStatus(403);
-  }
+		//     const queryText = `SELECT 
+		//     "user".id AS user_id,
+		//     "user".first_name AS user_first_name, 
+		//     "user".last_name AS user_last_name, 
+		//     "user".family_id,
+		//     ARRAY_AGG(DISTINCT children.id) AS child_ids,
+		//     ARRAY_AGG(DISTINCT children.first_name || ' ' || children.last_name) AS child_names, 
+		//     ARRAY_AGG(DISTINCT responsible_adults.id) AS responsible_adult_ids,
+		//     ARRAY_AGG(DISTINCT responsible_adults.first_name || ' ' || responsible_adults.last_name) AS responsible_adult_names
+		// FROM "user"
+		// JOIN families ON "user".family_id = families.id
+		// JOIN children ON children.family_id = families.id
+		// JOIN responsible_adults ON responsible_adults.family_id = families.id
+		// WHERE "user".id = $1
+		// GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
+		// `;
+		pool
+			.query(queryText, [userId])
+			.then((result) => {
+				res.send(result.rows);
+				console.log('in family booking process GET and result.rows are:', result.rows);
+			})
+			.catch((error) => {
+				console.log("ERROR IN family bookings details GET", error);
+				res.sendStatus(500);
+			});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 //GET for provider data needed in bookings process
 router.get("/booking_process/provider/:id", (req, res) => {
-  if (req.isAuthenticated()) {
-    const providerId = req.params.id;
-    console.log(
-      "Inside router side of get request for PROVIDER booking process data, id:",
-      req.params.id
-    );
-    const queryText = `SELECT providers.business_name, 
+	if (req.isAuthenticated()) {
+		const providerId = req.params.id;
+		console.log(
+			"Inside router side of get request for PROVIDER booking process data, id:",
+			req.params.id
+		);
+		const queryText = `SELECT providers.business_name, 
 	providers.contract_language
 	FROM providers
 	WHERE providers.id = $1;`
-    pool
-      .query(queryText, [providerId])
-      .then((result) => {
-        res.send(result.rows);
-		console.log('in provider booking process GET and result.rows are:', result.rows);
-      })
-      .catch((error) => {
-        console.log("ERROR IN provider bookings details GET", error);
-        res.sendStatus(500);
-      });
-  } else {
-    res.sendStatus(403);
-  }
+		pool
+			.query(queryText, [providerId])
+			.then((result) => {
+				res.send(result.rows);
+				console.log('in provider booking process GET and result.rows are:', result.rows);
+			})
+			.catch((error) => {
+				console.log("ERROR IN provider bookings details GET", error);
+				res.sendStatus(500);
+			});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 // // PUT template

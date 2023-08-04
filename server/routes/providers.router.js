@@ -34,6 +34,7 @@ FROM providers
  */
 router.post("/", (req, res) => {
   // POST route code here
+
   if (req.isAuthenticated()) {
     pool
       .query()
@@ -131,6 +132,11 @@ router.delete("/delete/:id", (req, res) => {
 
 // PUT template
 router.put("/update/:id", async (req, res) => {
+  console.log(
+    "Inside router side of update request for provider details:",
+    req.body
+  );
+  const client = await pool.connect();
   if (req.isAuthenticated()) {
     try {
       await client.query(`BEGIN;`);
@@ -141,10 +147,10 @@ router.put("/update/:id", async (req, res) => {
         req.params.photo_url,
         req.params.user_id,
       ];
-      const queryText1 = `UPDATE user SET   first_name = $1,
+      const queryText1 = `UPDATE "user" SET first_name = $1,
     last_name = $2,
     phone_number = $3,
-    photo_url = $4,
+    photo_url = $4
     WHERE id = $5`;
 
       await client.query(queryText1, values1);
@@ -163,7 +169,7 @@ router.put("/update/:id", async (req, res) => {
         req.params.business_description,
         req.params.personal_description,
         req.params.contract_language,
-        req.params.id,
+        req.params.provider_id,
       ];
 
       const queryText2 = `UPDATE providers

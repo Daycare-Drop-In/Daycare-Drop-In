@@ -5,10 +5,11 @@ import { useParams, useHistory } from "react-router-dom";
 function ProviderEditDetails({ provider }) {
   const dispatch = useDispatch();
   const user_id = useSelector((store) => store.user.id);
+  const provider_id = provider.id;
 
   const defaultProviderData = {
-    provider_id : provider.id,
-    user_id : user_id,
+    provider_id: provider_id,
+    user_id: user_id,
     first_name: provider.first_name,
     last_name: provider.last_name,
     email: provider.email,
@@ -34,7 +35,7 @@ function ProviderEditDetails({ provider }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Submitting updated provider data,");
+    console.log("Submitting updated provider data;", newProvider);
 
     dispatch({ type: "UPDATE_PROVIDER", payload: newProvider });
   };

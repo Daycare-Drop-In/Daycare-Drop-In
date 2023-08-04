@@ -14,8 +14,8 @@ function PublicProviderHomePage() {
 
   useEffect(() => {
     //dispatches request for provider info based on ID in url
-    // console.log("Dispatching request for data of provider ID:", providerId);
-    dispatch({ type: "GET_PROVIDER", payload: providerId });
+    console.log("Dispatching request for data of provider ID:", providerId.id);
+    dispatch({ type: "GET_PROVIDER", payload: providerId.id});
   }, []);
 
   const provider = useSelector((store) => store.provider);

@@ -98,6 +98,7 @@ VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
+  console.log('this is reqParams', req.params.id);
   if (req.isAuthenticated()) {
     const famId = req.params.id
     const queryText = `SELECT *
@@ -123,8 +124,8 @@ router.delete('/delete/:id', (req, res) => {
   if (req.isAuthenticated()) {
     const adultId = req.params.id
     const queryText = `DELETE FROM responsible_adults WHERE id = $1;`;
-    pool.query(queryText, adultId)
-    .then(() => {
+    pool.query(queryText, [adultId])
+    .then((result) => {
       res.sendStatus(200);
     })
     .catch((error) => {

@@ -13,9 +13,9 @@ import axios from "axios";
 
 //Retrieve data for all children of a particular family ID
 function* getChildren(id) {
-  console.log("Inside getChildren saga for family of id:", id.payload.id);
+  console.log("Inside getChildren saga for family of id:", id.payload);
   try {
-    const children = yield axios.get(`/api/child/details/${id.payload.id}`);
+    const children = yield axios.get(`/api/child/details/${id.payload}`);
     yield put({ type: "SET_CHILDREN", payload: children.data });
   } catch (error) {
     console.log("Error in getChildren saga", error);
@@ -35,9 +35,9 @@ function* postChild(action) {
 // Update info for a particular child
 function* updateChild(action) {
   console.log("Inside updateChild saga", action.payload);
-  try {
-    yield axios.put(`/api/child/${action.payload.id}`, action.payload);
-    yield put({ type: "GET_CHILDREN", payload: action.payload.id });
+    try {
+    yield axios.put(`/api/child/update/${action.payload.childId}`, action.payload);
+    yield put({ type: "GET_CHILDREN", payload: action.payload.family_id });
   } catch (error) {
     console.log("error in updateChild saga", error);
   }
@@ -47,11 +47,14 @@ function* updateChild(action) {
 function* deleteChild(id) {
 	console.log("Inside deleteChild saga for child of ID:", id.payload);
 	try {
-	  yield axios.delete(`/api/child/${id.payload}`);
+	  yield axios.delete(`/api/child/delete/${id.payload.id}`);
+    yield put({type: "GET_CHILDREN", payload: id.payload.familyId})
 	} catch (error) {
 	  console.log("Error in deleteChild saga", error);
 	}
 }
+
+
 
 
 function* childrenSaga() {

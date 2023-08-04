@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function ProviderAvailabilityTable() {
+function ProviderAvailabilityTable({ provider }) {
   const dispatch = useDispatch();
-  const provider_id = useSelector((store) => store.provider.id);
+  const provider_id = provider.id;
   const availabilityArray = useSelector((store) => store.availability);
 
   console.log("Provider availability from reducer:", availabilityArray);
@@ -82,17 +82,17 @@ function ProviderAvailabilityTable() {
       provider_id: provider_id,
     };
     console.log("Handle delete triggered, payload is:", deletePayload);
-    dispatch({ type: "DELETE AVAILABILITY", payload: deletePayload });
+    dispatch({ type: "DELETE_AVAILABILITY", payload: deletePayload });
   };
 
   // formats date so it displays cleanly on table
   const formattedDate = (availableDate) => {
-    return new Date(availableDate).toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
+    return new Date(availableDate).toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
     });
-};
+  };
 
   return (
     <div className="container">

@@ -65,133 +65,140 @@ function App() {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
 
-					<ProtectedRoute
-						// logged in shows UserPage else shows LoginPage
-						exact
-						path="/user"
-					>
-						<UserHomePage />
-						<BottomNav />
-					</ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/user"
+          >
+            <UserHomePage />
+            <BottomNav />
+          </ProtectedRoute>
 
-					<ProtectedRoute
-						// logged in shows InfoPage else shows LoginPage
-						exact
-						path="/info"
-					>
-						<InfoPage />
-					</ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/info"
+          >
+            <InfoPage />
+          </ProtectedRoute>
 
-					<ProtectedRoute exact path="/details/family/:id">
-						<FamilyDetails />
-					</ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path="/details/family/:id"
+          >
+            <FamilyDetails />
+          </ProtectedRoute>
 
-					<ProtectedRoute exact path="/details/provider/:id">
-						<PublicProviderHomePage />
-					</ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path="/details/provider/:id"
+          >
+            <PublicProviderHomePage />
+          </ProtectedRoute>
 
-					<ProtectedRoute
-						exact
-						path="/booking/:providerId/:availabilityId"
-					>
-						<ProviderBookingProcess />
-					</ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path="/booking/:providerId/:availabilityId/:familyId"
+          >
+            <ProviderBookingProcess />
+          </ProtectedRoute>
 
-					<Route exact path="/login">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the login page
-							<LoginPage />
-						)}
-					</Route>
+          <Route exact path="/login">
+            {user.id ? (
+              // If the user is already logged in,
+              // redirect to the /user page
+              <Redirect to="/user" />
+            ) : (
+              // Otherwise, show the login page
+              <LoginPage />
+            )}
+          </Route>
 
-					<Route exact path="/registration">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect them to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the registration page
-							<RegistrationLanding />
-						)}
-					</Route>
+          <Route exact path="/registration">
+            {user.id ? (
+              // If the user is already logged in,
+              // redirect them to the /user page
+              <Redirect to="/user" />
+            ) : (
+              // Otherwise, show the registration page
+              <RegistrationLanding />
+            )}
+          </Route>
 
-					<Route exact path="/registration_newprovider">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect them to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the registration page
-							<RegisterPageProvider />
-						)}
-					</Route>
+          <Route exact path="/registration_newprovider">
+            {user.id ? (
+              // If the user is already logged in,
+              // redirect them to the /user page
+              <Redirect to="/user" />
+            ) : (
+              // Otherwise, show the registration page
+              <RegisterPageProvider />
+            )}
+          </Route>
 
-					<Route exact path="/registration_newfamily">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect them to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the registration page
-							<RegisterPageNewFamily />
-						)}
-					</Route>
+          <Route exact path="/registration_newfamily">
+            {user.id ? (
+              // If the user is already logged in,
+              // redirect them to the /user page
+              <Redirect to="/user" />
+            ) : (
+              // Otherwise, show the registration page
+              <RegisterPageNewFamily />
+            )}
+          </Route>
 
-					<Route exact path="/registration_joinfamily">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect them to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the registration page
-							<RegisterPageJoinFamily />
-						)}
-					</Route>
+          <Route exact path="/registration_joinfamily">
+            {user.id ? (
+              // If the user is already logged in,
+              // redirect them to the /user page
+              <Redirect to="/user" />
+            ) : (
+              // Otherwise, show the registration page
+              <RegisterPageJoinFamily />
+            )}
+          </Route>
 
-					<Route exact path="/home">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect them to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the Landing page
-							<LandingPage />
-						)}
-					</Route>
+          <Route exact path="/home">
+            {user.id ? (
+              // If the user is already logged in,
+              // redirect them to the /user page
+              <Redirect to="/user" />
+            ) : (
+              // Otherwise, show the Landing page
+              <LandingPage />
+            )}
+          </Route>
 
-					<Route exact path="/static_list">
-						<StaticListPage />
-						<BottomNav />
-					</Route>
+          <Route exact path="/static_list">
+            <StaticListPage />
+            <BottomNav />
+          </Route>
 
-					<ProtectedRoute
-						// logged in shows admin page else shows LoginPage
-						exact
-						path="/admin"
-					>
-						<AdminHomePage />
-					</ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows admin page else shows LoginPage
+            exact
+            path="/admin"
+          >
+            <AdminHomePage />
+          </ProtectedRoute>
 
-					<Route exact path="/provider_list">
-						<ListPage />
-						<BottomNav />
-					</Route>
-					<Route exact path="/styles">
-						<Styled />
-						<BottomNav />
-					</Route>
-					{/* If none of the other routes matched, we will show a 404. */}
-					<Route>
-						<h1>404</h1>
-					</Route>
-				</Switch>
-				<Footer />
-			</div>
-		</Router>
+          <Route exact path="/provider_list">
+            <ListPage />
+            <BottomNav />
+          </Route>
+          <Route
+            exact path='/styles'
+          >
+            <Styled />
+          </Route>
+          {/* If none of the other routes matched, we will show a 404. */}
+          <Route>
+            <h1>404</h1>
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

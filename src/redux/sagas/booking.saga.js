@@ -3,9 +3,9 @@ import axios from "axios";
 
 //Gets all the bookings for the provider of the given ID
 function* getProviderBookings(id) {
-  // console.log("Inside getProviderBookings for provider of id:", id.payload);
+  console.log("Inside getProviderBookings for provider of id:", id.payload);
   try {
-    const bookings = yield axios.get(`/api/booking/provider/${id?.payload}`);
+    const bookings = yield axios.get(`/api/booking/provider/${id.payload}`);
     yield put({ type: "SET_BOOKINGS", payload: bookings.data });
   } catch (error) {
     console.log("Error in getProviderBookings saga", error);
@@ -60,9 +60,10 @@ function* getProviderBookingProcessData(id) {
 
 //Add a booking
 function* postBooking(action) {
-  // console.log("Inside postBooking saga:", action.payload);
+  console.log("Inside postBooking saga:", action.payload);
+  const newBooking = action.payload;
   try {
-    yield axios.post("/api/booking", action.payload);
+    yield axios.post("/api/booking", newBooking);
     yield put({ type: "GET_BOOKINGS" });
   } catch {
     console.log("error with postBooking saga", error);

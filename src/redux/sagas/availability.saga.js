@@ -13,9 +13,9 @@ function* getAllAvailability() {
 }
 
 function* getProviderAvailability(id) {
-  console.log("Inside getAvailability saga for provider of id:", id.payload.id);
+  console.log("Inside getAvailability saga for provider of id:", id.payload);
   try {
-    const availability = yield axios.get(`/api/availability/details/${id.payload.id}`);
+    const availability = yield axios.get(`/api/availability/details/${id.payload}`);
     yield put({ type: "SET_AVAILABILITY", payload: availability.data });
   } catch (error) {
     console.log("Error in getProviderAvailability saga:", error);
@@ -58,12 +58,22 @@ function* deleteAvailability(action) {
   }
 }
 
+function* updateAvailability(id) {
+  console.log("Inside updateAvailability saga and update data via id.payload is:", id.payload);
+  try {
+    yield axios.put(`/api/availability/update/${id.payload.id}`, id.payload);
+  } catch (error) {
+    console.log("Error in getBookingAvailability saga:", error);
+  }
+}
+
 function* availabilitySaga() {
   yield takeLatest("GET_ALL_AVAILABILITY", getAllAvailability);
   yield takeLatest("GET_PROVIDER_AVAILABILITY", getProviderAvailability);
   yield takeLatest("GET_BOOKING_AVAILABILITY", getBookingAvailability);
   yield takeLatest("ADD_AVAILABILITY", addAvailability);
   yield takeLatest("DELETE_AVAILABILITY", deleteAvailability);
+  yield takeLatest("UPDATE_AVAILABILITY", updateAvailability);
   // yield takeLatest("GET_FILTERED_AVAIL", getFilteredAvailability);
 }
 

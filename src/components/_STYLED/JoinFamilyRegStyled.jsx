@@ -5,6 +5,18 @@ import {
 	Typography,
 	Container,
 } from "@mui/material";
+// WE CAN GET RID OF photo_url USE STATE AND REMOVE IT FROM THE OBJECT BEING DISPATCHED.
+function fileSelected(event) {
+	console.log("IN FILE SELECTED");
+	const selectedFile = event.target.files[0];
+	console.log("selectedFile", selectedFile);
+	dispatch({
+		type: "AWS_REG_PHOTO",
+		payload: {
+			file: selectedFile,
+		},
+	});
+}
 
 {
 	code.hide ? (
@@ -64,6 +76,7 @@ import {
 				onSubmit={registerUser}
 				sx={{ mt: 1 }}
 				autoComplete="off"
+				encType="multipart/form-data"
 			>
 				<TextField
 					margin="normal"
@@ -132,11 +145,10 @@ import {
 					required
 					fullWidth
 					name="photo_url"
-					value={photo_Url}
 					label="Photo"
-					type="url"
-					id="url"
-					onChange={(event) => setPhoto_Url(event.target.value)}
+					type="file"
+					id="photo"
+					onChange={fileSelected}
 					InputLabelProps={{ shrink: true }}
 				/>
 

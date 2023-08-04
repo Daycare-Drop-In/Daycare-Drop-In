@@ -2,6 +2,36 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+const multer = require("multer");
+const { s3Upload } = require("../s3Service");
+
+let awsCache = "";
+const storage = multer.memoryStorage();
+
+const fileFilter = (req, file, cb) => {
+	if (file.mimetype.split("/")[0] === "image") {
+		cb(null, true);
+	} else {
+		cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"), false);
+	}
+};
+
+const upload = multer({ storage, fileFilter });
+
+router.put("/aws", upload.single("file"), async (req, res) => {
+	console.log("req.file", req.file);
+	try {
+		const results = await s3Upload(req.file);
+		console.log("AWS S3 upload success");
+		console.log("Location", results.Location);
+		awsCache = results.Location;
+		console.log(awsCache);
+	} catch (err) {
+		res.sendStatus(500);
+		console.log("AWS S3 upload fail", err);
+	}
+});
+
 /**
  * GET route template
  */

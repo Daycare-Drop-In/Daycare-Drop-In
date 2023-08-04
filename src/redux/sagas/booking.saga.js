@@ -60,9 +60,10 @@ function* getProviderBookingProcessData(id) {
 
 //Add a booking
 function* postBooking(action) {
-  // console.log("Inside postBooking saga:", action.payload);
+  console.log("Inside postBooking saga:", action.payload);
+  const newBooking = action.payload;
   try {
-    yield axios.post("/api/booking", action.payload);
+    yield axios.post("/api/booking", newBooking);
     yield put({ type: "GET_BOOKINGS" });
   } catch {
     console.log("error with postBooking saga", error);

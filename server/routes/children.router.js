@@ -70,7 +70,7 @@ VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
-  console.log("ASDJKASHDKHJKAHDJKHASKJHDJAKD", req.params.id)
+  // console.log("children details GET for req.params.id", req.params.id)
   if (req.isAuthenticated()) {
     const famId = req.params.id
     const queryText = `

@@ -98,7 +98,7 @@ function App() {
 
           <ProtectedRoute
             exact
-            path="/booking/:providerId/:availabilityId"
+            path="/booking/:providerId/:availabilityId/:familyId"
           >
             <ProviderBookingProcess />
           </ProtectedRoute>
@@ -186,10 +186,11 @@ function App() {
             <ListPage />
             <BottomNav />
           </Route>
-   <Route
-          exact path = '/styles'
+          <Route
+            exact path='/styles'
           >
             <Styled />
+          </Route>
           {/* If none of the other routes matched, we will show a 404. */}
           </Route>
           <Route>

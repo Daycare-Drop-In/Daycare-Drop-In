@@ -24,11 +24,16 @@ function ProviderBookingProcess() {
         const availability = useSelector((store) => store.availability);
         const children = useSelector((store) => store.children);
         const responsibleAdults = useSelector((store) => store.responsibleAdults);
+        const provider = useSelector((store) => store.provider);
+
+        // bring in sweetalerts
+        const MySwal = withReactContent(Swal);
 
 
 
-        // console.log("in ProviderBookingProcess and providerId from useParams is providerId:", providerId);
-        // console.log(" in ProviderBookingProcess and availabilityId from useParams is providerId:", availabilityId);
+        console.log("in ProviderBookingProcess and providerId from useParams is providerId:", Number(providerId));
+        console.log(" in ProviderBookingProcess and availabilityId from useParams is providerId:", Number(availabilityId));
+        console.log(" in ProviderBookingProcess and availabilityId from useParams is providerId:", Number(familyId));
         // console.log('in ProviderBookingProcess and booking from store is:', booking);
         // console.log('in ProviderBookingProcess and user.id from store is:', user.id);
         // console.log('in ProviderBookingProcess and user from store is:', user);
@@ -36,16 +41,21 @@ function ProviderBookingProcess() {
         // console.log('in ProviderBookingProcess and availability from store is:', availability);
         // console.log('in ProviderBookingProcess and children store is:', children);
         // console.log('in ProviderBookingProcess and responsibleAdults store is:', responsibleAdults);
+        console.log('in ProviderBookingProcess and provider store is:', provider);
 
 
 
-        const [childId, setChildId] = useState('');
-        const [adultId, setAdultId] = useState('');
+        // const [childId, setChildId] = useState('');
+        const [childData, setChildData] = useState({ id: '', name: '' });
+        const [adultData, setAdultData] = useState({ id: '', name: '' });
+        // const [childData, setChildData] = useState({ id: '', name: '' });
         const [ageGroup, setAgeGroup] = useState('');
         const [agreed, setAgreed] = useState(false);
         console.log('in ProviderBookingProcess and agreed is:', agreed);
         console.log('in ProviderBookingProcess and ageGroup is:', ageGroup);
-       
+        console.log('in ProviderBookingProcess and childData is:', childData);
+        console.log('in ProviderBookingProcess and adultData is:', adultData);
+
 
         // const ageInDays = (ageInYears) => (ageInYears * 365);
         // const infantMaxAge = ageInDays(1);
@@ -70,11 +80,16 @@ function ProviderBookingProcess() {
         useEffect(() => {
                 // dispatch requests for booking data based on providerId from useParams, specific booking
                 // availability from useParams, and family booking data from user id
-                dispatch({ type: "GET_FAMILY_BOOKING_PROCESS_DATA", payload: user.id });
-                dispatch({ type: "GET_PROVIDER_BOOKING_PROCESS_DATA", payload: providerId });
-                dispatch({ type: "GET_BOOKING_AVAILABILITY", payload: availabilityId });
-                dispatch({ type: "GET_CHILDREN", payload: familyId });
-                dispatch({ type: "GET_ADULTS", payload: familyId });
+                // dispatch({ type: "GET_FAMILY_BOOKING_PROCESS_DATA", payload: user.id });
+                dispatch({ type: "GET_PROVIDER_BOOKING_PROCESS_DATA", payload: Number(providerId) });
+                dispatch({ type: "GET_BOOKING_AVAILABILITY", payload: Number(availabilityId) });
+                dispatch({ type: "GET_CHILDREN", payload: Number(familyId) });
+                dispatch({ type: "GET_ADULTS", payload: Number(familyId) });
+                dispatch({ type: "GET_PROVIDER", payload: Number(providerId) });
+                console.log('in ProviderBookingProcess useEffect and providerId is:', providerId);
+                console.log('in ProviderBookingProcess useEffect and Number(providerId) is:', Number(providerId));
+
+                
         }, []);
 
         // quick delay on loading to ensure dom doesn't break while data arrives
@@ -110,20 +125,32 @@ function ProviderBookingProcess() {
                 setAgreed(!agreed)
         };
 
+        const handleChildSelect = (event) => {
+                const { value } = event.target;
+                const selectedChild = children.find((child) => child.id === value);
+                setChildData({ id: value, name: selectedChild ? selectedChild.first_name : '' });
+        };
+
+        const handleAdultSelect = (event) => {
+                const { value } = event.target;
+                const selectedAdult = responsibleAdults.find((adult) => adult.id === value);
+                setAdultData({ id: value, name: selectedAdult ? selectedAdult.first_name : '' });
+        };
 
         // collects all data for new booking post
         const newBooking = {
                 provider_id: Number(providerId),
                 family_id: Number(familyId),
-                child_id: childId,
-                responsible_adult_id: adultId,
+                child_id: childData.id,
+                responsible_adult_id: adultData.id,
                 user_id: user.id,
                 service_date: formattedDate(availability[0].date)
         };
 
         console.log('newBooking is now:', newBooking);
 
-        const makeBooking = () => {
+        const makeBooking = (event) => {
+                event.preventDefault();
                 const newAvailability = { ...availability[0] };
                 if (ageGroup === "infant") {
                         newAvailability.infant -= 1;
@@ -142,7 +169,55 @@ function ProviderBookingProcess() {
                         type: "UPDATE_AVAILABILITY",
                         payload: newAvailability
                 });
-                // - triggers some kind of confirmation or error modal for user
+                MySwal.fire({
+                        title: `Booking confirmed for ${childData.name} on ${newBooking.service_date} at ${provider.business_name}!`,
+                        text: "Make another booking or return to home?",
+                        icon: "success",
+                        showCloseButton: true,
+                        showDenyButton: true,
+                        confirmButtonText: 'BOOK AGAIN',
+                        denyButtonText: `HOME`,
+                        confirmButtonColor: "#2E9CCA",
+                        denyButtonColor: "#390854",
+                }).then((result) => {
+                        // if (result.isConfirmed) {
+                        //     history.push('/search');
+                        // } else if (result.isDenied) {
+                        //     history.push('/library');
+                        // }
+                })
+                //     MySwal.fire({
+                //         title: "Changes saved!",
+                //         icon: "success",
+                //         showButtons: false,
+                //     })
+                //     MySwal.fire({
+                //         title: "Please confirm you want to delete this book from your MyBrary.",
+                //         text: "Click confirm to complete deletion.",
+                //         icon: "warning",
+                //         showCancelButton: true,
+                //         confirmButtonText: "Delete",
+                //         cancelButtonText: "Cancel",
+                //     }).then((result) => {
+                //         if (result.isConfirmed) {
+                //             MySwal.fire("Book deleted!", {
+                //                 icon: "success",
+                //                 timer: 1000,
+                //                 buttons: false,
+                //             });
+                //         //     dispatch({
+                //         //         type: 'DELETE_USER_BOOK',
+                //         //         payload: bookDetails[0].book_id
+                //         //     });
+                //         //     history.push('/library');
+                //         } else {
+                //             MySwal.fire("Delete canceled!", {
+                //                 icon: "info",
+                //                 timer: 1500,
+                //                 buttons: false,
+                //             })
+                //         }
+                //     })
         };
 
 
@@ -194,10 +269,12 @@ function ProviderBookingProcess() {
                                         <Select
                                                 labelId="which-child-selector"
                                                 id="child-selector"
-                                                value={childId}
+                                                value={childData.id}
                                                 label="Child Name"
                                                 // input={<OutlinedInput label="Child Name" />}
-                                                onChange={(event) => setChildId(event.target.value)}
+                                                // onChange={(event) => setChildId(event.target.value)}
+                                                onChange={handleChildSelect}
+                                                
                                         >
                                                 {children.map((child, i) => {
                                                         // if (userChoice.age <=> calculateDaysOld(formattedDate(child.child_age))) {
@@ -216,10 +293,13 @@ function ProviderBookingProcess() {
                                         <Select
                                                 labelId="which-adult-selector"
                                                 id="adult-selector"
-                                                value={adultId}
+                                                value={adultData.id}
                                                 label="Who is dropping off?"
                                                 // input={<OutlinedInput label="Who is dropping off?" />}
-                                                onChange={(event) => setAdultId(event.target.value)}
+                                                // onChange={(event) => setAdultId(event.target.value)}
+                                                onChange={handleAdultSelect}
+
+                                                
                                         >
                                                 {responsibleAdults.map((adult, i) => {
                                                         return (

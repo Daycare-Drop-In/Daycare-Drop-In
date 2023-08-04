@@ -18,7 +18,7 @@ function PublicProviderPhotoGallery() {
   useEffect(() => {
       dispatch({
         type: "GET_PHOTOS",
-        payload: providerId,
+        payload: providerId.id,
       });
   }, []);
 

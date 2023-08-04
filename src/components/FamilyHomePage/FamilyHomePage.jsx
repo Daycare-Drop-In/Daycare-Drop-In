@@ -41,6 +41,7 @@ function FamilyHomePage() {
           <br></br>
           <img src={user.photo_url} height="200" />
         </h2>
+        {/* <LogOutButton className="btn" /> */}
         <center>
           <h1>{family.family_name} Home Page</h1>
         </center>
@@ -85,6 +86,7 @@ function FamilyHomePage() {
         <FamilyContactCards key={adult.id} adult={adult} />
       ))}
 
+      {/* <LogOutButton className="btn" /> */}
 
       <FamilyDropOffs />
     </div>

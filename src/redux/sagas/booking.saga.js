@@ -14,10 +14,10 @@ function* getProviderBookings(id) {
 
 //Gets all the bookings for the family of the given ID
 function* getFamilyBookings(id) {
-  // console.log("Inside getFamilyBookings for family of id:", id.payload);
+  console.log("Inside getFamilyBookings for family of id:", id.payload);
   try {
-    const bookings = yield axios.get(`/api/booking/${id.payload}`);
-    yield put({ type: "SET_BOOKINGS", payload: bookings.data[0] });
+    const bookings = yield axios.get(`/api/booking//details/${id.payload}`);
+    yield put({ type: "SET_BOOKINGS", payload: bookings.data });
   } catch (error) {
     console.log("Error in getFamilyBookings saga", error);
   }

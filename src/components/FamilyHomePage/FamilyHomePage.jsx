@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
+import { Container } from "@mui/material";
 
 //Component Imports
 import LogOutButton from "../LogOutButton/LogOutButton";
@@ -8,7 +9,8 @@ import FamilyContactCards from "../FamilyContactCards/FamilyContactCards";
 import FamilyChildCards from "../FamilyChildCards/FamilyChildCards";
 import FamilyDropOffs from "../FamilyDropOffs/FamilyDropOffs";
 import AddChildForm from "../AddChildForm/AddChildForm";
-import AddAdultForm from "../AddAdultForm/AddAdultForm"
+import AddAdultForm from "../AddAdultForm/AddAdultForm";
+
 
 function FamilyHomePage() {
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ function FamilyHomePage() {
 
   return (
     
-    <div className="container">
+    <Container maxWidth='xs'>
       <div className="family-home-page-header">
         <h2>
           Welcome, {user.first_name} {user.last_name}!
@@ -71,27 +73,31 @@ function FamilyHomePage() {
       
       
       
-      
       <h3>Kids in this Family</h3>
+      
+
       {/* need to map this component  */}
       {children?.map((kid)=>(
         
       <FamilyChildCards key={kid.id} kid={kid} />
       ))}
+      <AddChildForm />
+
 <h3>Responsible Adults</h3>
+
       {rAdult?.map((adult) => (
         <FamilyContactCards key={adult.id} adult={adult} />
       ))}
 
       {/* <LogOutButton className="btn" /> */}
-
-      <FamilyDropOffs />
-
-      <h3>Add family members</h3>
       <AddAdultForm/>
-      <AddChildForm />
+
+      <h3>Upcoming Drop Offs</h3>
+
+      <FamilyDropOffs />      
       
-    </div>
+
+    </Container>
   );
 }
 

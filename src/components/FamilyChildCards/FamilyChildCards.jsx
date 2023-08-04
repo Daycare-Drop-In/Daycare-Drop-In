@@ -111,7 +111,7 @@ function FamilyChildCards({kid}) {
 
                         <Card
                             sx={{
-                                width: "50%",
+                                width: "100%",
                                 objectFit: "contain",
                                 mb: 1.5,
                                 flexDirection: "column",
@@ -119,7 +119,9 @@ function FamilyChildCards({kid}) {
                                 alignItems: "center",
                                 borderRadius: 4
                             }}
-                            raised>
+                            raised
+                            key={kid.id}
+                            >
 
 
                             <CardContent

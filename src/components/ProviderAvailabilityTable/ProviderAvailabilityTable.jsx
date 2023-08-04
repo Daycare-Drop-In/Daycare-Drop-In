@@ -97,6 +97,7 @@ function ProviderAvailabilityTable({ provider }) {
   return (
     <div className="container">
       <table border="1">
+        <thead>
         <tr>
           <th>Date</th>
           <th>Infant</th>
@@ -104,6 +105,8 @@ function ProviderAvailabilityTable({ provider }) {
           <th>Preschooler</th>
           <th>School Age</th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
           <td>
             <select onChange={handleDateChange}>
@@ -166,6 +169,7 @@ function ProviderAvailabilityTable({ provider }) {
             </td>
           </tr>
         ))}
+        </tbody>
       </table>
     </div>
   );

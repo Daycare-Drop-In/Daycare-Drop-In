@@ -45,27 +45,7 @@ function ProviderBookingProcess() {
         const [agreed, setAgreed] = useState(false);
         console.log('in ProviderBookingProcess and agreed is:', agreed);
         console.log('in ProviderBookingProcess and ageGroup is:', ageGroup);
-
-        // const [age, setAge] = useState(['Infant', 'Toddler', 'Pre-K', 'School age']);
-
-        // const picked = {
-        //         age: "",
-        // };
-        // const [userChoice, setUserChoice] = useState(picked);
-        // let chosenAge = '';
-        // if (`${userChoice.age.toLowerCase()}` === 'school age') {
-        //         chosenAge = 'schoolage'
-        // } else if (`${userChoice.age.toLowerCase()}` === "pre-k") {
-        //         chosenAge = 'pre_k'
-        // } else {
-        //         chosenAge = `${userChoice.age.toLowerCase()}`;
-        // }
-        // console.log('userchoice age', chosenAge);
-
-        // console.log('userChoice is:', userChoice);
-        // console.log('picked is:', picked);
-        // console.log('age is:', age);
-
+       
 
         // const ageInDays = (ageInYears) => (ageInYears * 365);
         // const infantMaxAge = ageInDays(1);
@@ -144,22 +124,25 @@ function ProviderBookingProcess() {
         console.log('newBooking is now:', newBooking);
 
         const makeBooking = () => {
+                const newAvailability = { ...availability[0] };
+                if (ageGroup === "infant") {
+                        newAvailability.infant -= 1;
+                } else if (ageGroup === "toddler") {
+                        newAvailability.toddler -= 1;
+                } else if (ageGroup === "pre_k") {
+                        newAvailability.pre_k -= 1;
+                } else if (ageGroup === "schoolage") {
+                        newAvailability.schoolage -= 1;
+                }
                 dispatch({
                         type: "POST_BOOKING",
                         payload: newBooking
                 });
-                dispatch({
-                        type: "UPDATE_AVAILABILITY",
-                        payload: providerId,
-
-                });
-                // - dispatches bookingInfo to "POST_BOOKING"
-                // - POST_BOOKING goes to '/api/booking'
-                //         - SQL query needs to:
-                //               - Post to bookings table
-                //               - Update provider availability by subtracting 1 from the correct child age category column
+                // dispatch({
+                //         type: "UPDATE_AVAILABILITY",
+                //         payload: newAvailability
+                // });
                 // - triggers some kind of confirmation or error modal for user
-
         };
 
 

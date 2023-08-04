@@ -71,52 +71,60 @@ ORDER BY bookings.service_date ASC;`;
   }
 });
 
-router.post("/", async (req, res) => {
-  console.log("Inside router side of post request for new booking");
-  const client = await pool.connect();
-  if (req.isAuthenticated()) {
-    try {
-      await client.query(`BEGIN;`);
+router.post("/", (req, res) => {
+	if (req.isAuthenticated()) {
+		console.log("POST for new booking and req.body is:", req.body);
 
-      const values1 = [
-        req.body.provider_id,
-        req.body.child_id,
-        req.body.responsible_adult_id,
-        req.body.user_id,
-        req.body.service_date,
-      ];
+//   const newBooking = [
+// 	req.body.provider_id,
+// 	req.body.child_id,
+// 	req.body.responsible_adult_id,
+// 	req.body.user_id,
+// 	req.body.service_date,
+//   ];
 
-      const queryText1 = `INSERT INTO bookings (
-		  provider_id,
-		  child_id,
-		  responsible_adult_id,
-		  user_id,
-		  service_date)
-		  VALUES ($1, $2, $3, $4, $5);`;
+//   const queryText1 = `INSERT INTO bookings (
+// 	provider_id,
+// 	child_id,
+// 	responsible_adult_id,
+// 	user_id,
+// 	service_date)
+// 	VALUES ($1, $2, $3, $4, $5);`;
 
-      await client.query(queryText1, values1);
 
-      const columnName = req.body.availability_id;
-      const ageCategory = req.body.age_category;
-
-      const queryText2 = `UPDATE availability SET ${columnName} = (${columnName} - 1) WHERE id = $1`;
-
-      await client.query(queryText2, [ageCategory]);
-
-      await client.query(`COMMIT;`);
-      console.log("Booking successful!");
-      res.sendStatus(200);
-    } catch (error) {
-      await client.query(`ROLLBACK;`);
-      console.log("ERROR IN bookings POST", error);
-      res.sendStatus(500);
-    } finally {
-      client.release();
-    }
-  } else {
-    res.sendStatus(403);
-  }
-});
+	// pool.query(postBookQuery, [
+	// 	book.cover_url,
+	// 	book.title,
+	// 	book.subtitle,
+	// 	book.author,
+	// 	book.publisher,
+	// 	book.published,
+	// 	book.genre,
+	// 	book.pages,
+	// 	book.description,
+	// 	book.isbn]) // book properties from req.body
+	// 	.then((bookResult) => {
+	// 	  const newBookId = bookResult.rows[0].id;
+	// 	  const userBookQuery = `
+	// 	  INSERT INTO "user_book" (user_id, book_id)
+	// 	  VALUES ($1, $2);
+	// 	  `;
+	// 	  pool.query(userBookQuery, [req.user.id, newBookId])
+	// 		.then((response) => {
+	// 		  res.sendStatus(202);
+	// 		})
+	// 		.catch((error) => {
+	// 		  console.log('ERROR LINKING USER BOOK', error);
+	// 		  res.sendStatus(500);
+	// 		});
+	// 	})
+	// 	.catch((error) => {
+	// 	  console.log('ERROR IN SERVER POST', error);
+	// 	});
+	// } else {
+	//   res.sendStatus(400);
+	}
+  }); 
 
 // GET for family bookings table
 router.get("/details/:id", (req, res) => {

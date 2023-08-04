@@ -2,6 +2,33 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
+let awsCache = "";
+const storage = multer.memoryStorage();
+
+const fileFilter = (req, file, cb) => {
+	if (file.mimetype.split("/")[0] === "image") {
+		cb(null, true);
+	} else {
+		cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"), false);
+	}
+};
+
+const upload = multer({ storage, fileFilter });
+
+router.put("/aws", upload.single("file"), async (req, res) => {
+	console.log("req.file", req.file);
+	try {
+		const results = await s3Upload(req.file);
+		console.log("AWS S3 upload success");
+		console.log("Location", results.Location);
+		awsCache = results.Location;
+		console.log(awsCache);
+	} catch (err) {
+		res.sendStatus(500);
+		console.log("AWS S3 upload fail", err);
+	}
+});
+
 /**
  * GET route template
  */
@@ -36,7 +63,7 @@ router.post("/", (req, res) => {
   if (req.isAuthenticated()) {
     const values = [
       req.body.provider_id,
-      req.body.photo_url,
+      awsCache,
       req.body.description,
     ];
     const queryText = `INSERT INTO provider_photos (
@@ -49,9 +76,11 @@ router.post("/", (req, res) => {
     pool
       .query(queryText, values)
       .then(() => {
+        awsCache = ''
         res.sendStatus(202);
       })
       .catch((error) => {
+        awsCache = ''
         console.log("ERROR IN photos POST", error);
         res.sendStatus(500);
       });

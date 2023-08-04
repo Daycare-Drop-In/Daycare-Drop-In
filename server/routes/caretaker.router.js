@@ -2,6 +2,33 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+let awsCache = "";
+const storage = multer.memoryStorage();
+
+const fileFilter = (req, file, cb) => {
+	if (file.mimetype.split("/")[0] === "image") {
+		cb(null, true);
+	} else {
+		cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"), false);
+	}
+};
+
+const upload = multer({ storage, fileFilter });
+
+router.put("/aws", upload.single("file"), async (req, res) => {
+	console.log("req.file", req.file);
+	try {
+		const results = await s3Upload(req.file);
+		console.log("AWS S3 upload success");
+		console.log("Location", results.Location);
+		awsCache = results.Location;
+		console.log(awsCache);
+	} catch (err) {
+		res.sendStatus(500);
+		console.log("AWS S3 upload fail", err);
+	}
+});
+
 /**
  * GET route template
  */
@@ -53,12 +80,14 @@ VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 		phone_number,
 		email,
 		relationship_to_child,
-    photo_url
+    awsCache
 	])
 		.then(() => {
+      awsCache = ''
 			res.sendStatus(201);
 		})
 		.catch((error) => {
+      awsCache = ''
 			console.log("ERROR IN caretaker POST", error);
 			res.sendStatus(500);
 		});
@@ -122,11 +151,13 @@ SET first_name = $1,
 	relationship_to_child = $5,
 	photo_url = $6
 WHERE id = $7;`;
-      pool.query(queryText, [$1-$6, adultId])
+      pool.query(queryText, [$1-$5, awsCache, adultId])
       .then(() => {
+        awsCache = '';
         res.sendStatus(202);
       })
       .catch((error) => {
+        awsCache = '';
         console.log('ERROR IN caretaker PUT', error);
         res.sendStatus(500);
       });

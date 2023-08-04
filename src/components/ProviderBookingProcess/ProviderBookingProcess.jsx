@@ -29,27 +29,43 @@ function ProviderBookingProcess() {
 
         // console.log("in ProviderBookingProcess and providerId from useParams is providerId:", providerId);
         // console.log(" in ProviderBookingProcess and availabilityId from useParams is providerId:", availabilityId);
-        console.log('in ProviderBookingProcess and booking from store is:', booking);
+        // console.log('in ProviderBookingProcess and booking from store is:', booking);
         // console.log('in ProviderBookingProcess and user.id from store is:', user.id);
-        console.log('in ProviderBookingProcess and user from store is:', user);
+        // console.log('in ProviderBookingProcess and user from store is:', user);
         // console.log('in ProviderBookingProcess and user.family_id from store is:', user.family_id);
-        console.log('in ProviderBookingProcess and availability from store is:', availability);
-        console.log('in ProviderBookingProcess and children store is:', children);
-        console.log('in ProviderBookingProcess and responsibleAdults store is:', responsibleAdults);
+        // console.log('in ProviderBookingProcess and availability from store is:', availability);
+        // console.log('in ProviderBookingProcess and children store is:', children);
+        // console.log('in ProviderBookingProcess and responsibleAdults store is:', responsibleAdults);
 
 
 
-        const [childId, setChildId] = useState();
-        const [adultId, setAdultId] = useState();
-        const [agreed, setAgreed] = useState(true);
+        const [childId, setChildId] = useState('');
+        const [adultId, setAdultId] = useState('');
+        const [ageGroup, setAgeGroup] = useState('');
+        const [agreed, setAgreed] = useState(false);
+        console.log('in ProviderBookingProcess and agreed is:', agreed);
+        console.log('in ProviderBookingProcess and ageGroup is:', ageGroup);
 
-        const [age, setAge] = useState(['Infant', 'Toddler', 'Pre-K', 'School age']);
+        // const [age, setAge] = useState(['Infant', 'Toddler', 'Pre-K', 'School age']);
 
-        const picked = {
-                age: "",
-                name: "",
-        };
-        const [userChoice, setUserChoice] = useState(picked);
+        // const picked = {
+        //         age: "",
+        // };
+        // const [userChoice, setUserChoice] = useState(picked);
+        // let chosenAge = '';
+        // if (`${userChoice.age.toLowerCase()}` === 'school age') {
+        //         chosenAge = 'schoolage'
+        // } else if (`${userChoice.age.toLowerCase()}` === "pre-k") {
+        //         chosenAge = 'pre_k'
+        // } else {
+        //         chosenAge = `${userChoice.age.toLowerCase()}`;
+        // }
+        // console.log('userchoice age', chosenAge);
+
+        // console.log('userChoice is:', userChoice);
+        // console.log('picked is:', picked);
+        // console.log('age is:', age);
+
 
         // const ageInDays = (ageInYears) => (ageInYears * 365);
         // const infantMaxAge = ageInDays(1);
@@ -96,56 +112,6 @@ function ProviderBookingProcess() {
                 return <div>Loading...</div>;
         };
 
-
-
-
-        // /* Booking process notes:
-
-        // RENDER:
-
-        //      "You are booking a spot for one [child age category] at [provider.business_name] for the date [service date]."
-
-        //     "Which child is this spot for?"
-
-        //             - drop down menu renders all child.first_names
-        //             ---> select of one gathers child_id to a UseState [childID, setChildID]
-
-        //     "Is an adult besides you going to be dropping off/picking up?"
-
-        //             - drop down menu renders all responsible_adult.first_name + responsible_adult.last_name
-        //             - default value of dropdown menu is "I'll be handling pickup/dropoff"
-        //             ---> select of one gathers responsible_adult.id to a UseState [responsibleAdult, setResponsibleAdult]
-
-        //      Button Continue with Booking gathers info (to useState [bookingInfo, setBookingInfo]?), renders the contract view
-
-        //               bookingInfo = {
-        //                 provider_id = provider.id,
-        //                 family_id = family.id,
-        //                 user_id = user.id,
-        //                 child_id = child.id,
-        //                 responsible_adult_id = responsible_adult.id, -- can be null
-        //                 user_id = user.id
-        //                 service_date = entryRow.date
-        //                 **** some kind of variable that will allow us to subtract 1 from the correct age column in provider availability!
-        //               }
-
-        //      Render contract language, autofilled with user.first_name, user.last_name, etc
-
-        //             - check box to indicate agreement, sets value of [checkbox, setCheckbox] to "true" 
-        //                   - if "false" (unchecked) a click on the submit button triggers a sweetalert saying 
-        //                   "you must agree to the contract to proceed"
-
-        //      Submit button click
-
-        //             - dispatches bookingInfo to "POST_BOOKING"
-        //             - POST_BOOKING goes to '/api/booking'
-        //                     - SQL query needs to:
-        //                           - Post to bookings table
-        //                           - Update provider availability by subtracting 1 from the correct child age category column
-        //             - triggers some kind of confirmation or error modal for user
-
-        // */
-
         // formatting for inputs
         const btn = { my: 1, mx: 1, height: "3.5rem", padding: 1 };
         const drop = { mx: 0.75, width: 159, my: 1 };
@@ -162,18 +128,16 @@ function ProviderBookingProcess() {
         // hanldes click of check box for agreeing to provider contract
         const markAgreed = () => {
                 setAgreed(!agreed)
-                console.log('checkbox has been clicked, triggering markAgreed, and agreed is now:', agreed);
-
         };
-        
+
 
         // collects all data for new booking post
         const newBooking = {
                 provider_id: providerId,
                 family_id: familyId,
-                user_id: user.id,
                 child_id: childId,
                 responsible_adult_id: adultId,
+                user_id: user.id,
                 service_date: formattedDate(availability[0].date)
         };
 
@@ -183,6 +147,11 @@ function ProviderBookingProcess() {
                 dispatch({
                         type: "POST_BOOKING",
                         payload: newBooking
+                });
+                dispatch({
+                        type: "UPDATE_AVAILABILITY",
+                        payload: providerId,
+
                 });
                 // - dispatches bookingInfo to "POST_BOOKING"
                 // - POST_BOOKING goes to '/api/booking'
@@ -209,33 +178,30 @@ function ProviderBookingProcess() {
                                         <Select
                                                 labelId="age-group-required-label"
                                                 id="age-select-required"
-                                                value={userChoice.age}
-                                                label="Age *"
-                                                onChange={(e) => {
-                                                        setUserChoice({ ...userChoice, age: e.target.value });
-                                                }}
+                                                value={ageGroup}
+                                                label="Child Age Group"
+                                                onChange={(event) => setAgeGroup(event.target.value)}
                                         >
                                                 {(availability[0].infant && availability[0].infant > 0) && (
-                                                        <MenuItem value={age}>
+                                                        <MenuItem value="infant">
                                                                 Infant
                                                         </MenuItem>
                                                 )}
                                                 {(availability[0].toddler && availability[0].toddler > 0) && (
-                                                        <MenuItem value={age}>
+                                                        <MenuItem value="toddler">
                                                                 Toddler
                                                         </MenuItem>
                                                 )}
                                                 {(availability[0].pre_k && availability[0].pre_k > 0) && (
-                                                        <MenuItem value={age}>
+                                                        <MenuItem value="pre_k">
                                                                 Pre-K
                                                         </MenuItem>
                                                 )}
                                                 {(availability[0].schoolage && availability[0].schoolage > 0) && (
-                                                        <MenuItem value={age}>
+                                                        <MenuItem value="schoolage">
                                                                 School-age
                                                         </MenuItem>
                                                 )}
-
                                         </Select>
                                 </FormControl>
                                 <FormControl>
@@ -246,18 +212,17 @@ function ProviderBookingProcess() {
                                                 labelId="which-child-selector"
                                                 id="child-selector"
                                                 value={childId}
-                                                label="Child *"
-                                                input={<OutlinedInput label="Which child is this spot for?" />}
+                                                label="Child Name"
+                                                // input={<OutlinedInput label="Child Name" />}
                                                 onChange={(event) => setChildId(event.target.value)}
                                         >
                                                 {children.map((child, i) => {
                                                         // if (userChoice.age <=> calculateDaysOld(formattedDate(child.child_age))) {
-                                                        {
-                                                                return (<MenuItem key={i} value={child.id}>
+                                                        return (
+                                                                <MenuItem key={i} value={child.id}>
                                                                         {child.first_name}
                                                                 </MenuItem>
-                                                                );
-                                                        }
+                                                        )
                                                 })}
                                         </Select>
                                 </FormControl>
@@ -269,37 +234,36 @@ function ProviderBookingProcess() {
                                                 labelId="which-adult-selector"
                                                 id="adult-selector"
                                                 value={adultId}
-                                                label="Who will be handling pickup/dropoff?"
-                                                input={<OutlinedInput label="Who will be handling pickup/dropoff?" />}
+                                                label="Who is dropping off?"
+                                                // input={<OutlinedInput label="Who is dropping off?" />}
                                                 onChange={(event) => setAdultId(event.target.value)}
                                         >
                                                 {responsibleAdults.map((adult, i) => {
-                                                        {
-                                                                return (<MenuItem key={i} value={adult.id}>
+                                                        return (
+                                                                <MenuItem key={i} value={adult.id}>
                                                                         {adult.first_name}
                                                                 </MenuItem>
-                                                                );
-                                                        }
+                                                        )
                                                 })}
                                         </Select>
                                 </FormControl>
                                 <Typography>{booking.providerData.contract_language}</Typography>
-                                <Typography>If above information is correct and you agree to provider's contract, please click here to agree, and then submit.</Typography>
                                 <FormControl>
                                         <FormControlLabel
-                                                value={agreed}
+                                                checked={agreed}
                                                 required
                                                 control={<Checkbox />}
                                                 label="Click to Agree"
-                                                onClick={() => markAgreed()}
+                                                onClick={markAgreed}
                                         />
                                 </FormControl>
-
-                                <Button
-                                        onClick={() => makeBooking}>
-                                        SUBMIT BOOKING
-                                </Button>
-                        </FormGroup>
+                                {agreed ? (<>
+                                        {/* <Typography>Having agreed to provider's contract, please click here to book this spot for {}.</Typography> */}
+                                        <Button onClick={makeBooking}>CONFIRM BOOKING</Button>
+                                </>) : (
+                                        <Button disabled>CONFIRM BOOKING</Button>
+                                )}
+                        </FormGroup >
                 </>
         );
 }

@@ -140,16 +140,25 @@ WHERE id = $1;`;
 // PUT template
 router.put("/update/:id", (req, res) => {
   if (req.isAuthenticated()) {
-    const availId = req.params.id;
-    const queryText = `UPDATE availability
-SET infant = $1,
-	toddler = $2,
-	pre_k = $3,
-	schoolage = $4
-WHERE id = $5;`;
-    pool
-      .query(queryText, [availId])
-      .then(() => {
+    console.log('in availability PUT and req.params is:', req.params);
+    console.log('in availability PUT and req.body is:', req.body);
+    const updateInfo = [
+      req.body.id,
+      req.body.infant,
+      req.body.toddler,
+      req.body.pre_k,
+      req.body.schoolage,
+    ];
+    const updateQueryText = `
+    UPDATE availability
+    SET infant = $2,
+	    toddler = $3,
+	    pre_k = $4,
+	    schoolage = $5
+    WHERE id = $1;
+    `;
+    pool.query(updateQueryText, updateInfo)
+      .then((response) => {
         res.sendStatus(202);
       })
       .catch((error) => {

@@ -59,13 +59,9 @@ function* deleteAvailability(action) {
 }
 
 function* updateAvailability(id) {
-  console.log("Inside updateAvailability saga for availability of id:", id.payload);
+  console.log("Inside updateAvailability saga and update data via id.payload is:", id.payload);
   try {
-    yield axios.put(`/api/availability//update/${id.payload}`);
-    yield put({
-      type: "GET_PROVIDER_AVAILABILITY",
-      payload: action.payload.provider_id,
-    });
+    yield axios.put(`/api/availability/update/${id.payload.id}`, id.payload);
   } catch (error) {
     console.log("Error in getBookingAvailability saga:", error);
   }

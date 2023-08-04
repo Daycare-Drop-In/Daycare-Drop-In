@@ -138,10 +138,10 @@ function ProviderBookingProcess() {
                         type: "POST_BOOKING",
                         payload: newBooking
                 });
-                // dispatch({
-                //         type: "UPDATE_AVAILABILITY",
-                //         payload: newAvailability
-                // });
+                dispatch({
+                        type: "UPDATE_AVAILABILITY",
+                        payload: newAvailability
+                });
                 // - triggers some kind of confirmation or error modal for user
         };
 

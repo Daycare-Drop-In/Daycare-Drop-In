@@ -74,7 +74,6 @@ ORDER BY bookings.service_date ASC;`;
 router.post("/", (req, res) => {
 	if (req.isAuthenticated()) {
 		console.log("POST for new booking and req.body is:", req.body);
-
 		const newBooking = [
 			req.body.provider_id,
 			req.body.family_id,
@@ -83,10 +82,8 @@ router.post("/", (req, res) => {
 			req.body.user_id,
 			req.body.service_date,
 		];
-
 		console.log('in booking POST and newBooking is:', newBooking);
-
-		  const postBookingQueryText = `INSERT INTO bookings (
+		const postBookingQueryText = `INSERT INTO bookings (
 			provider_id,
 			family_id,
 			child_id,
@@ -94,29 +91,15 @@ router.post("/", (req, res) => {
 			user_id,
 			service_date)
 			VALUES ($1, $2, $3, $4, $5, $6);`;
-
-
-		pool.query(postBookingQueryText, newBooking) 
-		// 	.then((response) => {
-		// 	  const newBookId = bookResult.rows[0].id;
-		// 	  const userBookQuery = `
-		// 	  INSERT INTO "user_book" (user_id, book_id)
-		// 	  VALUES ($1, $2);
-		// 	  `;
-		// 	  pool.query(userBookQuery, [req.user.id, newBookId])
-		// 		.then((response) => {
-		// 		  res.sendStatus(202);
-		// 		})
-		// 		.catch((error) => {
-		// 		  console.log('ERROR LINKING USER BOOK', error);
-		// 		  res.sendStatus(500);
-		// 		});
-		// 	})
+		pool.query(postBookingQueryText, newBooking)
+			.then((response) => {
+				res.sendStatus(202);
+			})
 			.catch((error) => {
-			  console.log('ERROR IN SERVER POST', error);
+				console.log('ERROR IN SERVER POST', error);
 			});
-		} else {
-		  res.sendStatus(400);
+	} else {
+		res.sendStatus(400);
 	}
 });
 

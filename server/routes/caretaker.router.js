@@ -69,6 +69,7 @@ VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 
 // detail view GET route template
 router.get('/details/:id', (req, res) => {
+  console.log('this is reqParams', req.params.id);
   if (req.isAuthenticated()) {
     const famId = req.params.id
     const queryText = `SELECT *

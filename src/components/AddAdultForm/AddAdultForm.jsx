@@ -42,6 +42,7 @@ function AddAdultForm () {
 	const [open, setOpen] = useState(false);
 
     const addNewAdult = () => {
+        console.log('this is new adult', newAdult);
 		dispatch({ type: "POST_ADULT", payload: newAdult });
 		setOpen(!open);
 		setNewAdult(responsibleAdult);

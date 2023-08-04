@@ -13,9 +13,9 @@ import axios from "axios";
 
 //Retrieve data for all children of a particular family ID
 function* getChildren(id) {
-  console.log("Inside getChildren saga for family of id:", id.payload.id);
+  console.log("Inside getChildren saga for family of id:", id.payload);
   try {
-    const children = yield axios.get(`/api/child/details/${id.payload.id}`);
+    const children = yield axios.get(`/api/child/details/${id.payload}`);
     yield put({ type: "SET_CHILDREN", payload: children.data });
   } catch (error) {
     console.log("Error in getChildren saga", error);

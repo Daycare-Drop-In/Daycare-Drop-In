@@ -37,6 +37,7 @@ function addChildForm() {
     const registerChild = (event) => {
         event.preventDefault();
         console.log('birthday', newChild.birthdate);
+        console.log('this is new child', newChild);
         dispatch({ type: "POST_CHILD", payload: newChild });
         setClicked(!clicked);
         setNewChild(myKid);

@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from 'react-router-dom';
 import {
 	Box,
 	Card,
@@ -20,6 +21,8 @@ import {
 } from "@mui/material";
 
 function StaticListProviderCards({choice}) {
+	const history = useHistory();
+
   	const bioItem = {
 		display: "flex",
 		flexDirection: "column",
@@ -61,6 +64,7 @@ function StaticListProviderCards({choice}) {
 					ml: -1,
 				}}
 				raised
+				onClick={() => history.push(`/details/provider/${choice.id}`)}
 			>
 				<CardContent
 					sx={{

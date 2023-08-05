@@ -84,19 +84,17 @@ function ListPageSearchBar ({avail}) {
 		}
         console.log('userchoice age', chosenAge);
 		for (let entry of avail) {
-			if (entry.biz_name === userChoice.name) {
-				filteredSearch.push(entry);
-			} else if (entry.on_date === userChoice.date) {
-				filteredSearch.push(entry);
-			} else if (entry.provider_city === userChoice.city) {
-				filteredSearch.push(entry);
-			} else if (entry[`${chosenAge}`] > 0) {
-				filteredSearch.push(entry);
-		    }
-		// console.log("filteredSearch", filteredSearch);
-        }
+			let cache = [];
+			if (userChoice.date) cache.push(entry.on_date === userChoice.date);
+			   if (userChoice.name) cache.push(entry.biz_name === userChoice.name);
+			   if (userChoice.city) cache.push(entry.provider_city === userChoice.city);
+			   if (chosenAge) cache.push(entry[`${chosenAge}`] > 0);
 
-		return filteredSearch;
+			   if (cache.every((condition) => condition)) {
+				filteredSearch.push(entry);
+			}
+		}
+			return filteredSearch;
 	};
 
 	const newResults = findRelevantInfo();
@@ -264,4 +262,18 @@ export default ListPageSearchBar;
 
         //     }
 		// });
+
+
         // console.log('IS THIS THING ON?', filteredSearch);
+		// for (let entry of avail) {
+		// 	if (entry.biz_name === userChoice.name) {
+		// 		filteredSearch.push(entry);
+		// 	} else if (entry.on_date === userChoice.date) {
+		// 		filteredSearch.push(entry);
+		// 	} else if (entry.provider_city === userChoice.city) {
+		// 		filteredSearch.push(entry);
+		// 	} else if (entry[`${chosenAge}`] > 0) {
+		// 		filteredSearch.push(entry);
+		//     }
+		// // console.log("filteredSearch", filteredSearch);
+        // }

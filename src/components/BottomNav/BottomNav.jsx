@@ -38,7 +38,8 @@ function BottomNav(){
 					bottom: 0,
 					left: 0,
 					right: 0,
-					bgcolor: "#4b00a1",
+					zIndex: 999,
+					bgcolor: "#390854",
 					padding: 0.25,
 				}}
 				elevation={10}

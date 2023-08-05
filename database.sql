@@ -920,3 +920,124 @@ VALUES
 (16, 1, 0, 1, 0, '2023-08-29'),
 (16, 0, 0, 1, 1, '2023-08-30'),
 (16, 1, 1, 0, 0, '2023-08-31');
+
+
+-- Provider 7
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (7, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (7, 'https://i.pinimg.com/1200x/af/37/c6/af37c60ab81070891ab8c22eefc80f2d.jpg', 'Outdoor area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (7, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Art room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (7, 'https://shiningspiralahmedabad.files.wordpress.com/2017/04/ss-daycare-tbd-sleeparea.jpg', 'Nap room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (7, 'https://www.stonybrook.edu/childcare/images/panoramas/infant-toddler-dining-art-area.jpg', 'Dining area');
+
+-- Provider 8
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (8, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (8, 'https://www.stonybrook.edu/childcare/images/panoramas/infant-toddler-dining-art-area.jpg', 'Dining area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (8, 'https://shiningspiralahmedabad.files.wordpress.com/2017/04/ss-daycare-tbd-sleeparea.jpg', 'Nap corner');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (8, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Garden');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (8, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Art area');
+
+-- Provider 9
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (9, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (9, 'https://i.pinimg.com/1200x/af/37/c6/af37c60ab81070891ab8c22eefc80f2d.jpg', 'Outdoor playground');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (9, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Art and craft area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (9, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Garden');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (9, 'https://d14s8ycyuv5nuh.cloudfront.net/assets/2018/08/cosy-book-area.jpg', 'Story corner');
+
+-- Provider 10
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (10, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (10, 'https://i.pinimg.com/1200x/af/37/c6/af37c60ab81070891ab8c22eefc80f2d.jpg', 'Outdoor play area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (10, 'https://www.stonybrook.edu/childcare/images/panoramas/infant-toddler-dining-art-area.jpg', 'Dining area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (10, 'https://shiningspiralahmedabad.files.wordpress.com/2017/04/ss-daycare-tbd-sleeparea.jpg', 'Sleeping area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (10, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Art room');
+
+-- Provider 11
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (11, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (11, 'https://d14s8ycyuv5nuh.cloudfront.net/assets/2018/08/cosy-book-area.jpg', 'Story corner');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (11, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Art area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (11, 'https://www.stonybrook.edu/childcare/images/panoramas/infant-toddler-dining-art-area.jpg', 'Dining room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (11, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Outdoor garden');
+
+-- Provider 12
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (12, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (12, 'https://i.pinimg.com/1200x/af/37/c6/af37c60ab81070891ab8c22eefc80f2d.jpg', 'Outdoor playground');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (12, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Craft area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (12, 'https://d14s8ycyuv5nuh.cloudfront.net/assets/2018/08/cosy-book-area.jpg', 'Story room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (12, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Outdoor garden');
+
+-- Provider 13
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (13, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (13, 'https://i.pinimg.com/1200x/af/37/c6/af37c60ab81070891ab8c22eefc80f2d.jpg', 'Outdoor playground');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (13, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Arts and crafts area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (13, 'https://d14s8ycyuv5nuh.cloudfront.net/assets/2018/08/cosy-book-area.jpg', 'Story room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (13, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Outdoor garden');
+
+-- Provider 14
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (14, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (14, 'https://i.pinimg.com/1200x/af/37/c6/af37c60ab81070891ab8c22eefc80f2d.jpg', 'Outdoor playground');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (14, 'https://www.stonybrook.edu/childcare/images/panoramas/infant-toddler-dining-art-area.jpg', 'Dining area');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (14, 'https://d14s8ycyuv5nuh.cloudfront.net/assets/2018/08/cosy-book-area.jpg', 'Story room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (14, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Outdoor garden');
+
+-- Provider 15
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (15, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (15, 'https://i.pinimg.com/1200x/af/37/c6/af37c60ab81070891ab8c22eefc80f2d.jpg', 'Outdoor playground');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (15, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Art room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (15, 'https://d14s8ycyuv5nuh.cloudfront.net/assets/2018/08/cosy-book-area.jpg', 'Story corner');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (15, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Outdoor garden');
+
+-- Provider 16
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (16, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (16, 'https://i.pinimg.com/1200x/af/37/c6/af37c60ab81070891ab8c22eefc80f2d.jpg', 'Outdoor playground');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (16, 'https://photo.weecare.co/public/photos/path/c55255.jpg', 'Art room');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (16, 'https://d14s8ycyuv5nuh.cloudfront.net/assets/2018/08/cosy-book-area.jpg', 'Story corner');
+INSERT INTO "provider_photos" (provider_id, photo_url, description)
+VALUES (16, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Outdoor garden');

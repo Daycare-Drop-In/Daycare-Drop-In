@@ -30,8 +30,8 @@ function PublicProviderPhotoGallery() {
 
   return (
     provider_id && (
-      <div className="container">
-        <h3>Provider Photo Gallery</h3>
+      <>
+        <Typography variant="h6" mt={3}>Check out our spaces</Typography>
         <Grid container columns={{ xs: 12 }} spacing={1}>
         <Grid item
                     xs={12}
@@ -45,10 +45,10 @@ function PublicProviderPhotoGallery() {
           {photoArray.map((photo) => (
             <PublicProviderPhotoItem key={photo.id} photo={photo} />
           ))}
-        
+
         </Grid>
         </Grid>
-      </div>
+      </>
     )
   );
 }

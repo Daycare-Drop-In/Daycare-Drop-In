@@ -44,212 +44,219 @@ function addChildForm() {
         console.log('adding new child');
 
     };
+     function fileSelected(event) {
+			console.log("IN FILE SELECTED");
+			const selectedFile = event.target.files[0];
+			console.log("selectedFile", selectedFile);
+			dispatch({
+				type: "AWS_CHILD_PHOTO",
+				payload: {
+					file: selectedFile,
+				},
+			});
+		}
+
+		console.log('NEWCHILD', newChild);
 
 
     return (
+		<Container
+			maxWidth={"sm"}
+			sx={{
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+			}}
+		>
+			{!clicked ? (
+				<IconButton
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						mb: -2,
+						
+					}}
+					onClick={() => setClicked(!clicked)}
+				>
+					<Typography color={"#409a0f"} variant="h5">
+						Add a child
+					</Typography>
+					<ChildCareIcon
+						sx={{
+							fontSize: "2rem",
+							ml: 1,
+							my: 3,
+							color: "#409a0f",
+						}}
+					/>
+				</IconButton>
+			) : (
+				<Card
+					elevation={8}
+					sx={{
+						mb: 2,
+						bgcolor: "#F2F2F2",
+						color: "#4b00a1",
+						borderRadius: 4,
+					}}
+				>
+					<CardContent>
+						<CardContent
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								justifyContent: "space-between",
 
-        <Container
-            maxWidth={"sm"}
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-            }}
-        >
-            {!clicked ? (
-                <IconButton
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        mb: -2,
-                    }}
-                    onClick={() => setClicked(!clicked)}
-                >
-                    <Typography variant="h4">Add a child</Typography>
-                    <ChildCareIcon sx={{ fontSize: "3rem", ml: 3 }} />
+								mb: -2,
+							}}
+						>
+							<CardHeader
+								title={"Add a new child"}
+								align={"center"}
+							/>
+							<IconButton
+								size="large"
+								onClick={() => setClicked(!clicked)}
+							>
+								<CloseOutlinedIcon />
+							</IconButton>
+						</CardContent>
 
+						<Box
+							component="form"
+							onSubmit={registerChild}
+							autoComplete="off"
+							encType="multipart/form-data"
+						>
+							<TextField
+								placeholder="First Name"
+								required
+								name="first_name"
+								sx={{ bgcolor: "white" }}
+								type="text"
+								margin="normal"
+								fullWidth
+								label="First Name"
+								value={newChild.first_name}
+								onChange={(event) =>
+									setNewChild({
+										...newChild,
+										first_name: event.target.value,
+									})
+								}
+								InputLabelProps={{ shrink: true }}
+							/>
 
-                </IconButton>
-            ) : (
-                <Card
-                    elevation={8}
-                    sx={{
-                        mb: 2,
-                        bgcolor: "#F2F2F2",
-                        color: "#4b00a1",
-                        borderRadius: 4,
-                    }}
-                >
-                    <CardContent>
-                        <CardContent
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-between",
+							<TextField
+								placeholder="Last Name"
+								required
+								name="last name"
+								sx={{ bgcolor: "white" }}
+								type="text"
+								margin="normal"
+								fullWidth
+								label="Last Name"
+								value={newChild.last_name}
+								onChange={(event) =>
+									setNewChild({
+										...newChild,
+										last_name: event.target.value,
+									})
+								}
+								InputLabelProps={{ shrink: true }}
+							/>
 
-                                mb: -2
-                            }}
-                        >
-                            <CardHeader
-                                title={"Add a new child"}
-                                align={"center"}
-                            />
-                            <IconButton
-                                size="large"
-                                onClick={() => setClicked(!clicked)}
-                            >
-                                <CloseOutlinedIcon />
-                            </IconButton>
+							<TextField
+								// placeholder="YYYY/MM/DD"
+								required
+								name="birthdate"
+								sx={{ bgcolor: "white" }}
+								type="date"
+								margin="normal"
+								fullWidth
+								label=""
+								value={newChild.birthdate}
+								onChange={(event) =>
+									setNewChild({
+										...newChild,
+										birthdate: event.target.value,
+									})
+								}
+								InputLabelProps={{ shrink: true }}
+							/>
 
-                        </CardContent>
+							<TextField
+								placeholder="Allergies"
+								required
+								name="allergies"
+								sx={{ bgcolor: "white" }}
+								type="text"
+								margin="normal"
+								fullWidth
+								label="Allergies"
+								value={newChild.allergies}
+								onChange={(event) =>
+									setNewChild({
+										...newChild,
+										allergies: event.target.value,
+									})
+								}
+								InputLabelProps={{ shrink: true }}
+							/>
 
-                        <Box
+							<Container
+								sx={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "space-evenly",
+									width: "100%",
+								}}
+							>
+								<FormControl>
+									<FormGroup>
+										<FormControlLabel
+											label="Potty Trained?"
+											labelPlacement="end"
+											control={
+												<Checkbox
+													// checked={newChild.potty_trained}
+													onClick={() =>
+														setNewChild({
+															...newChild,
+															potty_trained: true,
+														})
+													}
+												/>
+											}
+										/>
+									</FormGroup>
+								</FormControl>
+							</Container>
+							<TextField
+								fullWidth
+								name="photo_url"
+								sx={{ bgcolor: "white" }}
+								type="file"
+								margin="normal"
+								label="Picture"
+								onChange={fileSelected}
+								InputLabelProps={{ shrink: true }}
+							/>
 
-                            component="form"
-                            onSubmit={registerChild}
-                            autoComplete='off'
-                            encType="multipart/form-data"
-                        >
-                            <TextField
-                                placeholder="First Name"
-                                required
-                                name="first_name"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="First Name"
-                                value={newChild.first_name}
-                                onChange={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        first_name: event.target.value,
-                                    })
-                                }
-                            />
-
-                            <TextField
-                                placeholder="Last Name"
-                                required
-                                name="last name"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="Last Name"
-                                value={newChild.last_name}
-                                onChange={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        last_name: event.target.value,
-                                    })
-                                }
-                            />
-
-                            <TextField
-                                placeholder="YYYY/MM/DD"
-                                required
-                                name="birthdate"
-                                sx={{ bgcolor: "white" }}
-                                type="date"
-                                margin="normal"
-                                fullWidth
-                                label=""
-                                value={newChild.birthdate}
-                                onChange={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        birthdate: event.target.value,
-                                    })
-                                }
-                            />
-                            <TextField
-                                placeholder="Allergies"
-                                required
-                                name="allergies"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="Allergies"
-                                value={newChild.allergies}
-                                onChange={(event) =>
-                                    setNewChild({
-                                        ...newChild,
-                                        allergies: event.target.value,
-                                    })
-                                }
-                            />
-
-                            <Container
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "space-evenly",
-                                    width: "100%",
-                                }}
-                            >
-                                <FormControl>
-                                    <FormGroup>
-                                        <FormControlLabel
-                                            label="Potty Trained"
-                                            labelPlacement="end"
-                                            control={
-                                                <Checkbox
-                                                    // checked={newChild.potty_trained}
-                                                    onClick={() =>
-                                                        setNewChild({
-                                                            ...newChild,
-                                                            potty_trained: true
-                                                        })
-                                                    }
-                                                />
-                                            }
-                                        />
-                                    </FormGroup>
-                                </FormControl>
-
-                                <Typography>Photo:</Typography>
-
-                                <TextField
-
-                                    fullWidth
-                                    name="photo_url"
-                                    sx={{ bgcolor: "white" }}
-                                    type="url"
-                                    margin="normal"
-                                    // label="Picture"
-                                    value={newChild.photo_url}
-                                    onChange={(event) =>
-                                        setNewChild({
-                                            ...newChild,
-                                            photo_url: event.target.value,
-                                        })
-                                    }
-                                />
-
-
-
-                            </Container>
-
-                            <Button
-                                type="submit"
-                                sx={{ m: 2 }}
-                                variant="contained"
-                                size="large"
-                            >
-                                Save
-                            </Button>
-                        </Box>
-                    </CardContent>
-                </Card>
-            )}
-
-
-
-
-        </Container>
-    )
+							<Button
+								type="submit"
+								sx={{ m: 2 }}
+								variant="contained"
+								size="large"
+							>
+								Save
+							</Button>
+						</Box>
+					</CardContent>
+				</Card>
+			)}
+		</Container>
+	);
 }
 
 export default addChildForm

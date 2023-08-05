@@ -55,6 +55,8 @@ router.get("/details/:id", (req, res) => {
   if (req.isAuthenticated()) {
     const providerId = req.params.id;
     const queryText = `SELECT providers.*,
+    TO_CHAR(TO_TIMESTAMP(providers.hours_open, 'HH24:MI'), 'FMHH12:MI AM') AS hours_start,
+  TO_CHAR(TO_TIMESTAMP(providers.hours_close, 'HH24:MI'), 'FMHH12:MI AM') AS hours_end,
 	"user".first_name,
 	"user".last_name,
 	"user".email,

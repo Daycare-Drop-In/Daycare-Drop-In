@@ -93,10 +93,11 @@ router.post("/", (req, res) => {
 			VALUES ($1, $2, $3, $4, $5, $6);`;
 		pool.query(postBookingQueryText, newBooking)
 			.then((response) => {
-				res.sendStatus(202);
+				res.sendStatus(201);
 			})
 			.catch((error) => {
 				console.log('ERROR IN SERVER POST', error);
+				res.sendStatus(500);
 			});
 	} else {
 		res.sendStatus(400);
@@ -108,7 +109,7 @@ router.get("/details/:id", (req, res) => {
 	if (req.isAuthenticated()) {
 		const familyId = req.params.id;
 		const queryText = `SELECT bookings.id AS booking_id,
-	bookings.service_date AS booked_day,
+	to_char(bookings.service_date, 'Mon DD, YYYY') AS booked_day,
 	bookings.time_submitted AS time_booked,
 	providers.id AS provider_id,
 	providers.business_name AS biz_name,
@@ -272,10 +273,10 @@ router.get("/booking_process/family/:id", (req, res) => {
 			"Inside router side of get request for FAMILY booking process data, id:",
 			req.params.id
 		);
-		const queryText = `SELECT 
+		const queryText = `SELECT
     "user".id AS user_id,
-    "user".first_name AS user_first_name, 
-    "user".last_name AS user_last_name, 
+    "user".first_name AS user_first_name,
+    "user".last_name AS user_last_name,
     "user".family_id,
 	ARRAY_AGG(ROW(children.id, children.first_name, children.last_name)) AS children,
     responsible_adults.id,
@@ -314,7 +315,7 @@ router.get("/booking_process/provider/:id", (req, res) => {
 			"Inside router side of get request for PROVIDER booking process data, id:",
 			req.params.id
 		);
-		const queryText = `SELECT providers.business_name, 
+		const queryText = `SELECT providers.business_name,
 	providers.contract_language
 	FROM providers
 	WHERE providers.id = $1;`;

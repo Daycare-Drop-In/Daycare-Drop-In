@@ -2,7 +2,7 @@ import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 /*
-function getFilteredProviders() -- providers to display in the list, filtered for relevance to user 
+function getFilteredProviders() -- providers to display in the list, filtered for relevance to user
 		yield put SET_FILTERED_PROVIDERS
 */
 
@@ -12,6 +12,7 @@ function* getProvider(id) {
   try {
     const provider = yield axios.get(`/api/provider/details/${id.payload}`);
     yield put({ type: "SET_PROVIDER", payload: provider.data[0] });
+    
   } catch (error) {
     console.log("Error in getProvider saga:", error);
   }
@@ -36,10 +37,10 @@ function* getProviderUser(id) {
       type: "GET_PROVIDER_BOOKINGS",
       payload: provider.data[0].id,
     });
-    yield put({
-      type: "GET_PROVIDER_AVAILABILITY",
-      payload: provider.data[0].id,
-    });
+    // yield put({
+    //   type: "GET_PROVIDER_AVAILABILITY",
+    //   payload: provider.data[0].id,
+    // });
     yield put({
       type: "GET_PHOTOS",
       payload: provider.data[0].id,

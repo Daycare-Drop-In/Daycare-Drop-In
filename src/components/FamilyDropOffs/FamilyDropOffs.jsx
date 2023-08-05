@@ -14,16 +14,12 @@ import {
 
 function FamilyDropOffs() {
   const dispatch = useDispatch();
-  const family_id = useSelector((store) => store.family.id);
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    family_id &&
-      console.log(
-        "Dispatching request for bookings data of family:",
-        family_id
-      );
-    dispatch({ type: "GET_FAMILY_BOOKINGS", payload: family_id });
-  }, [family_id]);
+		dispatch({ type: "GET_FAMILY_BOOKINGS", payload: user.family_id });
+
+  }, []);
 
   const bookingsArray = useSelector((store) => store.bookings);
   console.log("HERE ARE THE BOOKINGSSSSSS:", bookingsArray);

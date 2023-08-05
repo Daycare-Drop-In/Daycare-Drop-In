@@ -179,16 +179,15 @@ router.get(`/join/family`, (req, res) => {
 });
 
 // ----------------------------_ NEW FAMILY USER REGISTRATION _------------------------------------
-router.post("/register/new_family_user", (req, res, next) => {
+router.post("/register/new_family_user", async (req, res, next) => {
   const {
     first_name,
     last_name,
-    photo_url,
+    relationship,
     phone_number,
     accessCode,
     family_id,
   } = req.body;
-
   const family = "family";
 
   const username = req.body.username;
@@ -198,35 +197,52 @@ router.post("/register/new_family_user", (req, res, next) => {
 	INSERT INTO "user" (username, password, user_type, family_id, first_name, last_name, email, phone_number, photo_url)
 	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 	`;
-  pool
-    .query(firstQuery, [
-      username,
-      password,
-      family,
-      family_id,
-      first_name,
-      last_name,
-      username,
-      phone_number,
-      awsCache
-    ])
-    .then((result) => {
-      awsCache=''
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      console.log("error in new family reg", err);
-      res.sendStatus(500);
-    });
+  const secondQuery = `INSERT INTO "responsible_adults" (
+    family_id,
+	  first_name,
+	  last_name,
+	  phone_number,
+	  email,
+	  relationship_to_child,
+	  photo_url)
+	  VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
 
-  // const queryText = `INSERT INTO "user" (username, password)
-  // VALUES ($1, $2) RETURNING id`;
-  // pool.query(queryText, [username, password])
-  // 	.then(() => res.sendStatus(201))
-  // 	.catch((err) => {
-  // 		console.log("User registration failed: ", err);
-  // 		res.sendStatus(500);
-  // 	});
+     await client.query(firstQuery, [
+			username,
+			password,
+			family,
+			family_id,
+			first_name,
+			last_name,
+			username,
+			phone_number,
+			awsCache,
+		]);
+
+    await client.query(secondQuery, [
+        family_id,
+        first_name,
+        last_name,
+        phone_number,
+        username,
+        relationship,
+        awsCache
+      ]);
+
+    await client.query("COMMIT");
+		awsCache = "";
+		res.sendStatus(201);
+    } catch (error) {
+    awsCache = ''
+    await client.query("ROLLBACK");
+    console.log("Family registration error", error);
+    res.sendStatus(500);
+  } finally {
+    client.release();
+  }
 });
 
 // -----------------------------_ PROVIDER REGISTRATION _-----------------------------------

@@ -15,7 +15,7 @@ function RegisterFormJoinFamily() {
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [access_code, setAccessCode] = useState("");
-  const [photo_url, setPhoto_Url] = useState('');
+  const [relationship, setRelationship] = useState('');
 
 
   const errors = useSelector((store) => store.errors);
@@ -31,7 +31,7 @@ function RegisterFormJoinFamily() {
         username: username,
         password: password,
         family_id: code.family_id,
-        photo_url: photo_url,
+        relationship: relationship,
         first_name: firstName,
         last_name: lastName,
         phone_number: phoneNumber,
@@ -196,13 +196,27 @@ function RegisterFormJoinFamily() {
 							}
 							InputLabelProps={{ shrink: true }}
 						/>
+						<TextField
+							margin="normal"
+							required
+							fullWidth
+							name="relationship"
+							value={relationship}
+							label="Relationship to children"
+							type="text"
+							id="relationship"
+							onChange={(event) =>
+								setRelationship(event.target.value)
+							}
+							InputLabelProps={{ shrink: true }}
+						/>
 
 						<TextField
 							margin="normal"
 							required
 							fullWidth
 							name="photo_url"
-							label="Photo"
+							label="Profile Picture"
 							type="file"
 							id="photo"
 							onChange={fileSelected}

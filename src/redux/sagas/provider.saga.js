@@ -12,7 +12,7 @@ function* getProvider(id) {
   try {
     const provider = yield axios.get(`/api/provider/details/${id.payload}`);
     yield put({ type: "SET_PROVIDER", payload: provider.data[0] });
-    
+
   } catch (error) {
     console.log("Error in getProvider saga:", error);
   }
@@ -26,7 +26,7 @@ function* getProviderUser(id) {
   );
   try {
     const provider = yield axios.get(`/api/provider/user/${id.payload}`);
-    yield put({ type: "SET_PROVIDER", payload: provider.data[0] });
+    yield put({ type: "SET_PROVIDER_USER", payload: provider.data[0] });
 
     //Additional calls to get data for child components based on newly available provider id
     yield put({
@@ -51,7 +51,7 @@ function* getProviderUser(id) {
 }
 
 //update info for a particular provider
-function* updateProvider(id) {
+function* updateProvider(action) {
   console.log("Inside updateProvider saga:", action.payload);
   try {
     yield axios.put(

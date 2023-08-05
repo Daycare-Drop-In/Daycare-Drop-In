@@ -379,7 +379,7 @@ function ProviderBookingProcess() {
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						Make another booking or return to home?
+						Return to your account or make another booking?
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>

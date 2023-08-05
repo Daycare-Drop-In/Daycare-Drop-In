@@ -17,7 +17,7 @@ function FamilyHomePage() {
   const user = useSelector((store) => store.user);
   const rAdult = useSelector((store) => store.responsibleAdults)
   const children = useSelector((store => store.children))
-  const families = useSelector((store) => store.families)
+//   const families = useSelector((store) => store.families)
 
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function FamilyHomePage() {
 
   const family = useSelector((store) => store.family);
 
-  console.log("THESE ARE THE FAMILY DETAILS:", families);
+  console.log("THESE ARE THE FAMILY DETAILS:", family);
 
   return (
 		<>

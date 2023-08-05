@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory, Link} from "react-router-dom";
+
 import {
   Button,
   Container,
@@ -10,6 +12,7 @@ import {
   TableCell,
   TableHead,
   Paper,
+  Divider
 } from "@mui/material";
 
 
@@ -17,14 +20,14 @@ function ProviderBookingsTable({ provider }) {
   const dispatch = useDispatch();
   const provider_id = provider.id
 
-  // useEffect(() => {
-  //   // provider_id &&
-  //     console.log(
-  //       "Dispatching request for bookings data of provider:",
-  //       provider_id
-  //     );
-  //   dispatch({ type: "GET_PROVIDER_BOOKINGS", payload: provider_id });
-  // }, []);
+  useEffect(() => {
+    // provider_id &&
+      console.log(
+        "Dispatching request for bookings data of provider:",
+        provider_id
+      );
+    // dispatch({ type: "GET_PROVIDER_BOOKINGS", payload: provider_id });
+  }, []);
 
   const bookingsArray = useSelector((store) => store.bookings);
   console.log("HERE ARE THE BOOKINGSSSSSS:", bookingsArray);
@@ -44,82 +47,120 @@ function ProviderBookingsTable({ provider }) {
     );
 
     // Format the result as a string
-    const childAge = `${ageInYears} yrs ${ageInMonths} mos`;
+    // const childAge =   `${ageInYears} yrs\n ${ageInMonths} mos`
+    const childAge =  (ageInYears > 0 ? `${ageInYears} yrs \n${ageInMonths} mos` : `${ageInMonths} mos`)
 
     return childAge;
   };
 
+  const color = { backgroundColor: "#390854", color: "white" };
+  const headWide = {
+		width: ".6",
+		pr: 1.5,
+		backgroundColor: "#390854",
+		color: "white",
+  };
+  const headLeft = { backgroundColor: "#390854", color: "white", width: ".2" };
+  const headCenter = {
+		width: ".4",
+		pl: 3.2,
+		backgroundColor: "#390854",
+		color: "white",
+  };
+
+  const wideRow = { pl: 0, pr: 0.9 };
+  const rightRow = { pr: 0.55, pl:0, fontSize: ".5em" };
+
 
   return (
-    <>
-      <Paper sx={{ height: "100%", overflow: "auto" }} elevation={6}>
-        <TableContainer sx={{ maxHeight: "385px" }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">Date</TableCell>
-                <TableCell align="left">Child</TableCell>
-                <TableCell align="left">Age</TableCell>
-                <TableCell align="left">Family</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {bookingsArray?.map((booked) => (
-                <TableRow
-                  key={booked.id}
-                  sx={{
-                    "&:last-child td, &:last-child th": {
-                      border: 0,
-                    },
-                  }}
-                >
-                  <TableCell>{booked.booked_day}</TableCell>
-                  <TableCell>{booked.child_first_name}</TableCell>
-                  <TableCell>{calculateAge(booked.child_age)}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      sx={{ fontSize: ".75em", mr: 0 }}
-                      component={Link}
-                      to={`/details/family/${booking.family_id}`}
-                    >
-                      {booked.fam_account_name}
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </>
-    // <div className="container">
-    //   <table border="1">
-    //     <thead>
-    //       <tr>
-    //         <th>Service Date</th>
-    //         <th>Family Name</th>
-    //         <th>Child Name</th>
-    //         <th>Age</th>
-    //         <th>Drop-Off/Pickup</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {bookingsArray?.map((booking) => (
-    //         <tr key={booking.booking_id}>
-    //           <td>{booking.booked_day}</td>
-    //           <td>{booking.fam_account_name}</td>
-    //           <td>{booking.child_first_name}</td>
-    //           <td>{calculateAge(booking.child_age)}</td>
-    //           <td>
-    //             {booking.adult_first_name} ({booking.adult_relationship})
-    //           </td>
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-    // </div>
+		<>
+			<Paper sx={{ height: "100%", overflow: "auto" }} elevation={6}>
+				<TableContainer sx={{ maxHeight: "385px" }}>
+					<Table stickyHeader aria-label="sticky table">
+						<TableHead>
+							<TableRow>
+								<TableCell sx={color} align="left">
+									Date
+								</TableCell>
+								<TableCell sx={color} align="center">
+									Child
+								</TableCell>
+								<TableCell sx={color} align="center">
+									Family
+								</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{bookingsArray?.map((booked) => (
+								<TableRow
+									key={booked.id}
+									sx={{
+										"&:last-child td, &:last-child th": {
+											border: 0,
+										},
+									}}
+								>
+									<TableCell
+									sx={{pr:0}}
+
+									>{booked.booked_day}</TableCell>
+									<TableCell>
+										{booked.child_first_name} <br />
+										{calculateAge(booked.child_age)}
+									</TableCell>
+
+									<TableCell sx={rightRow} align="right">
+										<Button
+											variant="outlined"
+											color="secondary"
+											sx={{ fontSize: ".55em", mr: 0 }}
+											component={Link}
+											to={`/details/family/${booked.parent_fam_id}`}
+											// onClick={() =>
+											// 	console.log(booked.parent_fam_id)
+											// 	// dispatch({
+											// 	// 	type: "GET_FAMILY",
+											// 	// 	payload:
+											// 	// 		booked.parent_fam_id,
+											// 	// })
+											// }
+										>
+											{booked.fam_account_name}
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+			</Paper>
+		</>
+		// <div className="container">
+		//   <table border="1">
+		//     <thead>
+		//       <tr>
+		//         <th>Service Date</th>
+		//         <th>Family Name</th>
+		//         <th>Child Name</th>
+		//         <th>Age</th>
+		//         <th>Drop-Off/Pickup</th>
+		//       </tr>
+		//     </thead>
+		//     <tbody>
+		//       {bookingsArray?.map((booking) => (
+		//         <tr key={booking.booking_id}>
+		//           <td>{booking.booked_day}</td>
+		//           <td>{booking.fam_account_name}</td>
+		//           <td>{booking.child_first_name}</td>
+		//           <td>{calculateAge(booking.child_age)}</td>
+		//           <td>
+		//             {booking.adult_first_name} ({booking.adult_relationship})
+		//           </td>
+		//         </tr>
+		//       ))}
+		//     </tbody>
+		//   </table>
+		// </div>
   );
 }
 

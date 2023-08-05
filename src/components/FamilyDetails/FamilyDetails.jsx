@@ -15,7 +15,7 @@ function FamilyDetails() {
     const user = useSelector((store) => store.user);
     const children = useSelector((store => store.children));
     const familyId = useParams();
-    const family = useSelector((store) => store.family);
+    const family = useSelector((store) => store.familyDetails);
     const rAdult = useSelector((store) => store.responsibleAdults);
     const allMyKids = useSelector((store) => store.children);
 
@@ -25,10 +25,10 @@ function FamilyDetails() {
 
     useEffect(() => {
         //dispatches request for family info based on familyId
-        console.log("Dispatching request for data of familyId:", familyId);
-        dispatch({ type: "GET_FAMILY", payload: familyId });
-        dispatch({ type: "GET_CHILDREN", payload: familyId });
-        dispatch({ type: "GET_ADULTS", payload: familyId });
+        console.log("Dispatching request for data of familyId:", familyId.id);
+        dispatch({ type: "GET_FAMILY_DETAILS", payload: familyId.id });
+        dispatch({ type: "GET_CHILDREN", payload: familyId.id });
+        dispatch({ type: "GET_ADULTS", payload: familyId.id });
     }, []);
 
     const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +58,7 @@ function FamilyDetails() {
         <>
             <div className="family-home-page-header">
                 <center>
-                    <h1>{family[0].family_name} Family</h1>
+                    <h1>{family.family_name} Family</h1>
                 </center>
             </div>
             <Grid container columns={{ xs: 12 }} spacing={1}>
@@ -71,7 +71,7 @@ function FamilyDetails() {
                     }}
                 >
                     <img
-                        src={family[0].photo_url}
+                        src={family.photo_url}
                         style={{ width: "80%", height: "auto" }}
                         alt="Family Photo"
                     />
@@ -94,13 +94,13 @@ function FamilyDetails() {
                         variant="p"
                         sx={tF}
                     >
-                        {family[0].street_address} {family[0].unit}
+                        {family.street_address} {family.unit}
                     </Typography>
                     <Typography
                         variant="p"
                         sx={tF}
                     >
-                        {family[0].city} {family[0].state} {family[0].zip}
+                        {family.city} {family.state} {family.zip}
                     </Typography>
                 </Grid>
                 <Grid item

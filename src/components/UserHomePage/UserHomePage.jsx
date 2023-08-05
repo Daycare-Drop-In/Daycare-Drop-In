@@ -15,7 +15,7 @@ function UserHomePage() {
       //dispatches request for provider info based on userID
       console.log("Dispatching request for data of provider-user ID:", user.id);
       dispatch({ type: "GET_PROVIDER_USER", payload: user.id });
-     
+
     }
   }, []);
 
@@ -31,7 +31,7 @@ function UserHomePage() {
   } else if (userType === "family") {
     homePage = <FamilyHomePage />;
   } else if (userType === "provider") {
-    homePage = <ProviderHomePage provider={provider} />;
+    homePage = <ProviderHomePage />;
   }
   return <Container maxWidth='xs'>{homePage}</Container>;
 }

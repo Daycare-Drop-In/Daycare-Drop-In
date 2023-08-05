@@ -111,10 +111,7 @@ function AddAdultForm () {
 								mb: -2,
 							}}
 						>
-							<CardHeader
-								title={"New responsible adult"}
-								align={"center"}
-							/>
+							<Typography mt={3}>New Responsible Adult</Typography>
 							<IconButton
 								size="large"
 								onClick={() => setOpen(!open)}

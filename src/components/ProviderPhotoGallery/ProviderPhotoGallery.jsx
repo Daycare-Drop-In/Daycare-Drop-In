@@ -3,6 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import ProviderPhotoItem from "../ProviderPhotoItem/ProviderPhotoItem";
 import "./ProviderPhotoGallery.css";
 
+import {
+	Button,
+	TextField,
+	Box,
+	Typography,
+	Container,
+	InputAdornment,
+} from "@mui/material";
+
 function ProviderPhotoGallery({ provider }) {
   const dispatch = useDispatch();
   const provider_id = provider.id;
@@ -52,65 +61,122 @@ function ProviderPhotoGallery({ provider }) {
   if (!provider_id) {
     return <div>Loading...</div>;
   }
+  function fileSelected(event) {
+		console.log("IN FILE SELECTED");
+		const selectedFile = event.target.files[0];
+		console.log("selectedFile", selectedFile);
+		dispatch({
+			type: "AWS_PROVIDER_GALLERY",
+			payload: {
+				file: selectedFile,
+			},
+		});
+  }
 
   return (
-    provider_id && (
-      <div className="container">
-        <h3>Provider Photo Gallery</h3>
-        <div className="photo-gallery-container">
-          {photoArray.map((photo) => (
-            <ProviderPhotoItem
-              key={photo.id}
-              photo={photo}
-              handleDelete={handleDelete}
-            />
-          ))}
-        </div>
-        <div className="photo-upload-form">
-          <h3>Add another photo:</h3>
-          <form>
-            <div>
-              <label htmlFor="photo_url">
-                Photo URL
-                <input
-                  type="text"
-                  name="photo_url"
-                  value={newPhoto.photo_url}
-                  onChange={(event) =>
-                    setNewPhoto({
-                      ...newPhoto,
-                      photo_url: event.target.value,
-                    })
-                  }
-                />
-              </label>
-            </div>
+		provider_id && (
+			<Container>
+				<h3>My photos</h3>
 
-            <div>
-              <label htmlFor="description">
-                Description
-                <textarea
-                  rows="2"
-                  cols="30"
-                  name="description"
-                  placeholder="a caption for the photo..."
-                  value={newPhoto.description}
-                  required
-                  onChange={(event) =>
-                    setNewPhoto({
-                      ...newPhoto,
-                      description: event.target.value,
-                    })
-                  }
-                />
-              </label>
-            </div>
+					{photoArray.map((photo) => (
+						<ProviderPhotoItem
+							key={photo.id}
+							photo={photo}
+							handleDelete={handleDelete}
+						/>
+					))}
 
-            <button onClick={handleSubmit}>Submit</button>
-          </form>
-        </div>
-      </div>
-    )
+				
+					<h3>Add another photo:</h3>
+					<Box
+						component="form"
+						onSubmit={handleSubmit}
+						sx={{ mt: 1 }}
+						autoComplete="off"
+						encType="multipart/form-data"
+					>
+						<TextField
+							margin="normal"
+							required
+							fullWidth
+							name="photo"
+							label="Upload a new photo"
+							type="file"
+							id="photo"
+							onChange={fileSelected}
+							InputLabelProps={{ shrink: true }}
+						/>
+						<TextField
+							margin="normal"
+							required
+							fullWidth
+							multiline
+							rows={4}
+							name="photo_description"
+							label="Photo Description"
+							type="text"
+							id="photo_description"
+							value={newPhoto.description}
+							onChange={(event) =>
+								setNewPhoto({
+									...newPhoto,
+									description: event.target.value,
+								})
+							}
+							InputLabelProps={{ shrink: true }}
+						/>
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+							sx={{
+								mb: 5,
+								p: 2,
+								color: "white",
+								backgroundColor: "#390854",
+							}}
+						>
+							Add Photo
+						</Button>
+					</Box>
+
+					{/* <form encType="multipart/form">
+						<div>
+							<label htmlFor="photo_url">
+								Upload
+								<input
+									type="file"
+									name="photo_url"
+									onChange={fileSelected}
+								/>
+							</label>
+						</div>
+
+						<div>
+							<label htmlFor="description">
+								Description
+								<textarea
+									rows="2"
+									cols="30"
+									name="description"
+									placeholder="a caption for the photo..."
+									value={newPhoto.description}
+									required
+									onChange={(event) =>
+										setNewPhoto({
+											...newPhoto,
+											description: event.target.value,
+										})
+									}
+								/>
+							</label>
+						</div>
+
+						<button onClick={handleSubmit}>Submit</button>
+					</form> */}
+
+			</Container>
+		)
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Container } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import RegisterFormProvider from '../RegisterFormProvider/RegisterFormProvider';
 
@@ -7,10 +7,9 @@ function RegisterPageProvider() {
   const history = useHistory();
 
   return (
-    <div>
-      <h1>NEW PROVIDER REGISTRATION </h1>
+    <Container maxWidth='xs'>
       <RegisterFormProvider />
-    
+
 
       <center>
         <button
@@ -23,7 +22,7 @@ function RegisterPageProvider() {
           Login
         </button>
       </center>
-    </div>
+    </Container>
   );
 }
 

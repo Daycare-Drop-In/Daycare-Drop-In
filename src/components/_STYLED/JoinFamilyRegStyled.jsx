@@ -36,6 +36,7 @@ function fileSelected(event) {
 				onSubmit={validateAccessCode}
 				sx={{ mt: 1 }}
 				autoComplete="off"
+
 			>
 				<TextField
 					margin="normal"

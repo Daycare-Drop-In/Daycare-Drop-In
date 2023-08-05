@@ -6,7 +6,7 @@ const app = express();
 
 const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
-const expressUploader = require('express-fileupload')
+// const expressUploader = require('express-fileupload')
 
 
 // Route includes
@@ -20,7 +20,7 @@ const mapRouter = require('./routes/maps.api.router');
 const photoRouter = require('./routes/photos.api.router');
 const providerRouter = require('./routes/providers.router');
 const userRouter = require('./routes/user.router');
-const fileStack = require("./routes/fileStack.router")
+// const fileStack = require("./routes/fileStack.router")
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Passport Session Configuration //
 app.use(sessionMiddleware);
-app.use(expressUploader())
+// app.use(expressUploader())
 
 // start up passport sessions
 app.use(passport.initialize());
@@ -44,7 +44,7 @@ app.use('/api/maps', mapRouter);
 app.use('/api/photo', photoRouter);
 app.use('/api/provider', providerRouter);
 app.use('/api/user', userRouter);
-app.use('/api/file', fileStack)
+// app.use('/api/file', fileStack)
 
 
 // Serve static files

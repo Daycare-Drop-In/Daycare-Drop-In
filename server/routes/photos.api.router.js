@@ -81,7 +81,7 @@ router.post("/", (req, res) => {
       .query(queryText, values)
       .then(() => {
         awsCache = ''
-        res.sendStatus(202);
+        res.sendStatus(201);
       })
       .catch((error) => {
         awsCache = ''

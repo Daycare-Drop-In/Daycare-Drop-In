@@ -9,11 +9,10 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 const multer = require("multer");
-const { s3Upload } = require("../s3Service");
+const {s3Upload} = require('../s3Service')
 
-let awsCache = "";
-const familyProfile =
-	"https://pixabay.com/get/g4a7b05d28a35b12b53dda08a519bb9d6384bc46e069654737c4eaba9d7cc8534f7c181551a52913da108cdb0b648c426d0f2f94a98736f9e8d203e75e33999c7_1280.png";
+let awsCache = ''
+const familyProfile = 'https://i.postimg.cc/3J3cc6cN/home-5456376-1280.png'
 
 const storage = multer.memoryStorage();
 
@@ -34,12 +33,12 @@ router.put("/aws", upload.single("file"), async (req, res) => {
 		console.log("AWS S3 upload success");
 		console.log("Location", results.Location);
 		awsCache = results.Location;
-		console.log(awsCache);
+		console.log('THIS IS AWSCACHE',awsCache);
 	} catch (err) {
 		res.sendStatus(500);
 		console.log("AWS S3 upload fail", err);
 	}
-});
+})
 
 // Handles Axios request for user information if user is authenticated
 router.get("/", rejectUnauthenticated, (req, res) => {
@@ -79,7 +78,7 @@ router.post("/register/family", async (req, res, next) => {
     zip,
     photo_url,
     phone_number,
-    accessCode,
+    accessCode
   } = req.body;
   const family = "family";
 
@@ -125,7 +124,7 @@ router.post("/register/family", async (req, res, next) => {
 		state,
 		zip,
 		familyProfile,
-		accessCode,
+		accessCode
 	]);
     console.log("FIRST STEP COMPLETE HERES THE ID", firstStep.rows[0].id);
     const familyId = firstStep.rows[0].id;
@@ -138,7 +137,7 @@ router.post("/register/family", async (req, res, next) => {
       last_name,
       username,
       phone_number,
-      awsCache,
+      awsCache
     ]);
     // AWS CACHE IS THE RETURNED URL FROM THE S3 BUCKET
     console.log(secondStep);
@@ -153,14 +152,14 @@ router.post("/register/family", async (req, res, next) => {
     ]);
     console.log(thirdStep);
     await client.query("COMMIT");
+    awsCache=''
     res.sendStatus(201);
   } catch (error) {
-    awsCache = "";
+    awsCache = ''
     await client.query("ROLLBACK");
     console.log("Family registration error", error);
     res.sendStatus(500);
   } finally {
-    awsCache = "";
     client.release();
   }
 });
@@ -180,16 +179,15 @@ router.get(`/join/family`, (req, res) => {
 });
 
 // ----------------------------_ NEW FAMILY USER REGISTRATION _------------------------------------
-router.post("/register/new_family_user", (req, res, next) => {
+router.post("/register/new_family_user", async (req, res, next) => {
   const {
     first_name,
     last_name,
-    photo_url,
+    relationship,
     phone_number,
     accessCode,
     family_id,
   } = req.body;
-
   const family = "family";
 
   const username = req.body.username;
@@ -199,36 +197,52 @@ router.post("/register/new_family_user", (req, res, next) => {
 	INSERT INTO "user" (username, password, user_type, family_id, first_name, last_name, email, phone_number, photo_url)
 	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 	`;
-  pool
-    .query(firstQuery, [
-      username,
-      password,
-      family,
-      family_id,
-      first_name,
-      last_name,
-      username,
-      phone_number,
-      awsCache,
-    ])
-    .then((result) => {
-      awsCache = '';
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      awsCache = ''
-      console.log("error in", err);
-      res.sendStatus(500);
-    });
+  const secondQuery = `INSERT INTO "responsible_adults" (
+    family_id,
+	  first_name,
+	  last_name,
+	  phone_number,
+	  email,
+	  relationship_to_child,
+	  photo_url)
+	  VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
 
-  // const queryText = `INSERT INTO "user" (username, password)
-  // VALUES ($1, $2) RETURNING id`;
-  // pool.query(queryText, [username, password])
-  // 	.then(() => res.sendStatus(201))
-  // 	.catch((err) => {
-  // 		console.log("User registration failed: ", err);
-  // 		res.sendStatus(500);
-  // 	});
+     await client.query(firstQuery, [
+			username,
+			password,
+			family,
+			family_id,
+			first_name,
+			last_name,
+			username,
+			phone_number,
+			awsCache,
+		]);
+
+    await client.query(secondQuery, [
+        family_id,
+        first_name,
+        last_name,
+        phone_number,
+        username,
+        relationship,
+        awsCache
+      ]);
+
+    await client.query("COMMIT");
+		awsCache = "";
+		res.sendStatus(201);
+    } catch (error) {
+    awsCache = ''
+    await client.query("ROLLBACK");
+    console.log("Family registration error", error);
+    res.sendStatus(500);
+  } finally {
+    client.release();
+  }
 });
 
 // -----------------------------_ PROVIDER REGISTRATION _-----------------------------------
@@ -306,7 +320,7 @@ RETURNING user_id;
 		last_name,
 		username,
 		phone_number,
-		awsCache,
+		awsCache
 	]);
     const providerUserId = firstStep.rows[0].id;
     const secondStep = await client.query(secondQuery, [
@@ -328,14 +342,14 @@ RETURNING user_id;
     ]);
     console.log(secondStep);
     await client.query("COMMIT");
+    awsCache = ''
     res.sendStatus(201);
   } catch (error) {
-    awsCache = "";
+    awsCache = ''
     await client.query("ROLLBACK");
     console.log("Provider registration error", error);
     res.sendStatus(500);
   } finally {
-    awsCache = "";
     client.release();
   }
 });

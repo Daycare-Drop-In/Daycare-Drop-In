@@ -3,11 +3,21 @@ import axios from "axios";
 
 //Get family by familyId number (for rendering view-only family page)
 function* getFamily(id) {
-  console.log("Inside get family saga for family of id:", id.payload.id);
+  console.log("Inside get family saga for family of id:", id.payload);
   try {
-    const family = yield axios.get(`api/family/details/${id.payload.id}`);
+    const family = yield axios.get(`api/family/details/${id.payload}`);
     yield console.log("family.data is:", family.data);
     yield put({ type: "SET_FAMILY", payload: family.data });
+  } catch (error) {
+    console.log("Error in getFamily saga", error);
+  }
+}
+function* getFamilyDetails(id) {
+  console.log("Inside get family saga for family of id:", id.payload);
+  try {
+    const family = yield axios.get(`api/family/details/${id.payload}`);
+    yield console.log("family.data is:", family.data);
+    yield put({ type: "SET_FAMILY_DETAILS", payload: family.data[0] });
   } catch (error) {
     console.log("Error in getFamily saga", error);
   }
@@ -59,6 +69,7 @@ function* deleteFamily(id) {
 function* familySaga() {
   yield takeLatest("GET_ALL_FAMILIES", getAllFamilies);
   yield takeLatest("GET_FAMILY", getFamily);
+  yield takeLatest("GET_FAMILY_DETAILS", getFamilyDetails);
   yield takeLatest("GET_FAMILY_USER", getFamilyUser);
   yield takeLatest("UPDATE_FAMILY", updateFamily);
   yield takeLatest("DELETE_FAMILY", deleteFamily);

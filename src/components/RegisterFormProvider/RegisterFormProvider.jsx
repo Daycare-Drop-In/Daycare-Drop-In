@@ -73,7 +73,7 @@ function RegisterFormProvider() {
 	}}
 >
 	<Typography component="h1" variant="h5">
-		Register for an account
+		Register as a provider
 	</Typography>
 	<Box
 		component="form"

@@ -71,7 +71,7 @@ function App() {
             path="/user"
           >
             <UserHomePage />
-            <BottomNav />
+            {/* <BottomNav /> */}
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -171,7 +171,7 @@ function App() {
 
           <Route exact path="/static_list">
             <StaticListPage />
-            <BottomNav />
+            {/* <BottomNav /> */}
           </Route>
 
           <ProtectedRoute
@@ -184,7 +184,7 @@ function App() {
 
           <Route exact path="/provider_list">
             <ListPage />
-            <BottomNav />
+            {/* <BottomNav /> */}
           </Route>
           <Route
             exact path='/styles'
@@ -196,7 +196,8 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
+        <BottomNav />
       </div>
     </Router>
   );

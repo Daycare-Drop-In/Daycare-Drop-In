@@ -15,3 +15,5 @@ exports.s3Upload = async (files) => {
 
 	return await s3.upload(params).promise();
 };
+
+

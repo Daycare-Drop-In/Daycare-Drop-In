@@ -1,9 +1,9 @@
-const bookingProcess = (state = {}, action) => {
+const bookingProcess = (state = [], action) => {
   switch (action.type) {
     case "SET_FAMILY_BOOKING_PROCESS_DATA":
-      return { ...state, familyData: action.payload };
+      return  action.payload ;
     case "SET_PROVIDER_BOOKING_PROCESS_DATA":
-      return { ...state, providerData: action.payload };
+      return action.payload ;
     default:
       return state;
   }

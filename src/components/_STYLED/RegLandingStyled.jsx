@@ -30,4 +30,4 @@ import {
 	>
 		Join an existing family
 	</Button>
-</Container>;
+</Container>

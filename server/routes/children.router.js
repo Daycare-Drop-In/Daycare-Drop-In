@@ -84,12 +84,14 @@ VALUES ($1, $2, $3, $4, $5, $6, $7);`;
     birthdate,
     allergies,
     potty_trained,
-    photo_url
+    awsCache
     ])
       .then(() => {
+        awsCache=''
         res.sendStatus(201);
       })
       .catch((error) => {
+        awsCache = ''
         console.log('ERROR IN children POST', error);
         res.sendStatus(500);
       });
@@ -154,12 +156,12 @@ router.put('/update/:id', (req, res) => {
         last_name,
         allergies,
         potty_trained,
-        
-      
+
+
     } = req.body
     console.log('this is reqbody', req.body);
     const queryText = `
-    UPDATE children SET first_name = $1, last_name = $2,  allergies = $3, potty_trained = $4 
+    UPDATE children SET first_name = $1, last_name = $2,  allergies = $3, potty_trained = $4
     WHERE id = $5;
     `;
       pool.query(queryText, [first_name, last_name, allergies, potty_trained, childId])

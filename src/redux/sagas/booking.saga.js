@@ -16,7 +16,7 @@ function* getProviderBookings(id) {
 function* getFamilyBookings(id) {
   console.log("Inside getFamilyBookings for family of id:", id.payload);
   try {
-    const bookings = yield axios.get(`/api/booking//details/${id.payload}`);
+    const bookings = yield axios.get(`/api/booking/details/${id.payload}`);
     yield put({ type: "SET_BOOKINGS", payload: bookings.data });
   } catch (error) {
     console.log("Error in getFamilyBookings saga", error);
@@ -30,7 +30,7 @@ function* getFamilyBookingProcessData(id) {
     const responseData = yield axios.get(
       `/api/booking/booking_process/family/${id.payload}`
     );
-    // console.log('in getFamilyBookingProcessData and responseData.data is:', responseData.data);
+    console.log('in getFamilyBookingProcessData and responseData.data is:', responseData.data);
     yield put({
       type: "SET_FAMILY_BOOKING_PROCESS_DATA",
       payload: responseData.data[0],
@@ -42,12 +42,12 @@ function* getFamilyBookingProcessData(id) {
 
 //Get  booking PROCESS data for PROVIDER corresponding to this ID
 function* getProviderBookingProcessData(id) {
-  // console.log("Inside getProviderBookingProcessData for provider id:", id.payload);
+  console.log("Inside getProviderBookingProcessData for provider id:", id.payload);
   try {
     const responseData = yield axios.get(
       `/api/booking/booking_process/provider/${id.payload}`
     );
-    // console.log('in getProviderBookingProcessData and responseData.data is:', responseData.data);
+    console.log('in getProviderBookingProcessData and responseData.data is:', responseData.data);
 
     yield put({
       type: "SET_PROVIDER_BOOKING_PROCESS_DATA",
@@ -64,7 +64,8 @@ function* postBooking(action) {
   const newBooking = action.payload;
   try {
     yield axios.post("/api/booking", newBooking);
-    yield put({ type: "GET_BOOKINGS" });
+    yield put({ type: "GET_FAMILY_BOOKINGS", payload:action.payload.family_id });
+    yield put({ type: "GET_PROVIDER_BOOKINGS", payload:action.payload.family_id });
   } catch {
     console.log("error with postBooking saga", error);
   }

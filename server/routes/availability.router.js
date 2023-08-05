@@ -84,7 +84,15 @@ router.get("/details/:id", (req, res) => {
       "Inside router side of availability request for provider of id:",
       providerId
     );
-    const queryText = `SELECT availability.*,
+    const queryText = `SELECT
+  availability.id,
+  availability.provider_id,
+  availability.infant,
+  availability.toddler,
+  availability.pre_k,
+  availability.schoolage,
+  to_char(availability.date, 'MM/DD/YY') AS date,
+  availability.time_created,
 	providers.id AS provider_id,
 	providers.business_name AS biz_name,
 	providers.street_address AS provider_street,
@@ -92,8 +100,8 @@ router.get("/details/:id", (req, res) => {
 	providers.city AS provider_city,
 	providers.state AS provider_state,
 	providers.zip AS provider_zip,
-	providers.hours_open AS provider_open,
-	providers.hours_close AS provider_close,
+	TO_CHAR(TO_TIMESTAMP(providers.hours_open, 'HH24:MI'), 'FMHH12:MI AM') AS provider_open,
+  TO_CHAR(TO_TIMESTAMP(providers.hours_close, 'HH24:MI'), 'FMHH12:MI AM') AS provider_close,
 	providers.meals AS provider_meal
 FROM availability
 	JOIN providers ON availability.provider_id = providers.id
@@ -176,7 +184,14 @@ router.get("/details/specific/:id", (req, res) => {
     const availabilityId = req.params.id;
     console.log("Inside router availability get for availabilityId:", availabilityId);
     const queryText = `
-    SELECT availability.*
+    SELECT availability.id,
+  availability.provider_id,
+  availability.infant,
+  availability.toddler,
+  availability.pre_k,
+  availability.schoolage,
+  to_char(availability.date, 'MM/DD/YY') AS date,
+  availability.time_created
     FROM availability
     WHERE availability.id = $1;
     `;

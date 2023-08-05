@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory, Link } from "react-router-dom";
-import { Container } from "@mui/material";
+import { Container, Typography, Box, Grid, Divider } from "@mui/material";
 
 //Component Imports
 import LogOutButton from "../LogOutButton/LogOutButton";
@@ -17,7 +17,7 @@ function FamilyHomePage() {
   const user = useSelector((store) => store.user);
   const rAdult = useSelector((store) => store.responsibleAdults)
   const children = useSelector((store => store.children))
-  const families = useSelector((store) => store.families)
+//   const families = useSelector((store) => store.families)
 
 
   useEffect(() => {
@@ -32,72 +32,100 @@ function FamilyHomePage() {
 
   const family = useSelector((store) => store.family);
 
-  console.log("THESE ARE THE FAMILY DETAILS:", families);
+  console.log("THESE ARE THE FAMILY DETAILS:", family);
 
   return (
-    
-    <Container maxWidth='xs'>
-      <div className="family-home-page-header">
-        <h2>
-          Welcome, {user.first_name} {user.last_name}!
-          <br></br>
-          <img src={user.photo_url} height="200" />
-        </h2>
-        {/* <LogOutButton className="btn" /> */}
-        <center>
-          <h1>{family.family_name} Home Page</h1>
-        </center>
-      </div>
+		<>
+			<Grid
+				container
+				spacing={0}
+				direction="row"
+				alignItems="flex-end"
+				justifyContent="center"
+				sx={{ mb: 5 }}
+			>
+				<Box
+					component="img"
+					sx={{
+						height: 50,
+						boxShadow: "4",
+						borderRadius: 2,
+            mx:1
+					}}
+					alt="Profile Picture"
+					src={user.photo_url}
+				/>
+				<Typography variant="h6">
+					Welcome, {user.first_name} {user.last_name}!{" "}
+				</Typography>
+			</Grid>
 
-      <div className="family-photo">
-        <center>
-          {" "}
-          <img src={family.photo_url} height="200" />
-        </center>
-      </div>
-      <div className="family-bio"></div>
+			<Typography sx={{ mb: 2 }} variant="h5">
+				{family.family_name} Details
+			</Typography>
 
-      <div className="family-details">
-        <p>
-          <b>Primary Address: </b>
-          {family.street_address} {family.unit}
-          {", "}
-          {family.city} {family.state} {family.zip}
-        </p>
-        <p>
-          <b>Family Access Code:</b> {family.access_code}
-        </p>
-      </div>
+			{/* <div className="family-photo">
+				<center>
+					{" "}
+					<img src={family.photo_url} height="200" />
+				</center>
+			</div> */}
+			{/* <div className="family-bio"></div> */}
+			<Box>
+				<Typography>Primary Address:</Typography>
+				<Typography>
+					{family.unit
+						? `${family.street_address} ${family.unit}`
+						: `${family.street_address}`}
+				</Typography>
+				<Typography>
+					{`${family.city}, ${family.state} ${family.zip}`}
+				</Typography>
+				<Divider sx={{ my: 2 }} variant="middle" />
+			</Box>
 
-      
-      
-      
-      
-      <h3>Kids in this Family</h3>
-      
+			{/* <div className="family-details">
+				<p>
+					<b>Primary Address: </b>
+					{family.street_address} {family.unit}
+					{", "}
+					{family.city} {family.state} {family.zip}
+				</p>
+				<p>
+					<b>Family Access Code:</b> {family.access_code}
+				</p>
+			</div> */}
 
-      {/* need to map this component  */}
-      {children?.map((kid)=>(
-        
-      <FamilyChildCards key={kid.id} kid={kid} />
-      ))}
-      <AddChildForm />
+			<Typography sx={{ mb: 2 }} variant="h6">
+				Kids in this Family
+			</Typography>
 
-<h3>Responsible Adults</h3>
+			{/* need to map this component  */}
+			{children?.map((kid) => (
+				<FamilyChildCards key={kid.id} kid={kid} />
+			))}
+			<AddChildForm />
+			<Divider sx={{ my: 2 }} variant="middle" />
 
-      {rAdult?.map((adult) => (
-        <FamilyContactCards key={adult.id} adult={adult} />
-      ))}
+			<Typography sx={{ mb: 2 }} variant="h6">
+				Responsible Adults
+			</Typography>
 
-      {/* <LogOutButton className="btn" /> */}
-      <AddAdultForm/>
+			{rAdult?.map((adult) => (
+				<FamilyContactCards key={adult.id} adult={adult} />
+			))}
 
-      <h3>Upcoming Drop Offs</h3>
+			{/* <LogOutButton className="btn" /> */}
 
-      <FamilyDropOffs />      
-      
+			<AddAdultForm />
+			<Divider sx={{ my: 2 }} variant="middle" />
 
-    </Container>
+			<Typography sx={{ mb: 2 }} variant="h6">
+				Upcoming Drop Offs
+			</Typography>
+
+			<FamilyDropOffs />
+		</>
   );
 }
 

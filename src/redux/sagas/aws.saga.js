@@ -16,11 +16,12 @@ function* registrationPhoto(action){
         const data = new FormData(); //declare FormData
         data.append('file', newFile) // this data contains this file and contains this header
         yield console.log('Post new files to /api/user/aws', data);
-       yield axios.put('/api/user/aws', data, {
+       const upload = yield axios.put('/api/user/aws', data, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         });
+        yield console.log(upload);
 
     } catch (error) {
         console.log("PROBLEM WITH REGISTRATION AWS  ", error);

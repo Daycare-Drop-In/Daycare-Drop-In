@@ -23,10 +23,11 @@ function* getProviderAvailability(id) {
 }
 
 function* getBookingAvailability(id) {
-  // console.log("Inside getBookingAvailability saga for availability of id:", id.payload);
+  console.log("Inside getBookingAvailability saga for availability of id:", id.payload);
   try {
     const availability = yield axios.get(`/api/availability/details/specific/${id.payload}`);
-    yield put({ type: "SET_AVAILABILITY", payload: availability.data });
+    yield put({ type: "SET_BOOKING_AVAILABILITY", payload: availability.data[0] });
+    // this is now setting singleBookingAvailability reducer so that we don't overwrite availability reducer with hyper specific data.
   } catch (error) {
     console.log("Error in getBookingAvailability saga:", error);
   }

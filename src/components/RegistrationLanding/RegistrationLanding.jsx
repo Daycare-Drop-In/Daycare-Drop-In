@@ -1,49 +1,41 @@
 import React from "react";
 import { useHistory } from 'react-router-dom';
+import { Button, Container } from "@mui/material";
+import {Link} from 'react-router-dom'
 
 function RegistrationLanding() {
   const history = useHistory();
 
   return (
-    <div className="container">
-      <center>
-  
-
-        <button
-          type="button"
-          className="btn btn_asLink"
-          onClick={() => {
-            history.push('/registration_newprovider');
-          }}
-        >
-          Register as a New Provider
-        </button>
-
-        <br/>
-
-        <button
-          type="button"
-          className="btn btn_asLink"
-          onClick={() => {
-            history.push('/registration_newfamily');
-          }}
-        >
-          Register as a New Family
-        </button>
-
-        <br/>
-
-        <button
-          type="button"
-          className="btn btn_asLink"
-          onClick={() => {
-            history.push('/registration_joinfamily');
-          }}
-        >
-          Join an existing family
-        </button>
-        </center>
-    </div>
+		<Container
+			maxWidth="xs"
+			sx={{ display: "flex", flexDirection: "column" }}
+		>
+			<Button
+				variant="contained"
+				component={Link}
+				to="/registration_newprovider"
+				sx={{ p: 3, my: 1.5, bgcolor: "#390854", fontWeight: "bolder" }}
+			>
+				Register as a New Provider
+			</Button>
+			<Button
+				variant="contained"
+				component={Link}
+				to="/registration_newfamily"
+				sx={{ p: 3, my: 1.5, bgcolor: "#390854", fontWeight: "bolder" }}
+			>
+				Register a New Family
+			</Button>
+			<Button
+				variant="contained"
+				component={Link}
+				to="/registration_joinfamily"
+				sx={{ p: 3, my: 1.5, bgcolor: "#390854", fontWeight: "bolder" }}
+			>
+				Join an existing family
+			</Button>
+		</Container>
   );
 }
 

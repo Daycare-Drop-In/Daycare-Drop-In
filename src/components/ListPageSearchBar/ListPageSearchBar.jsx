@@ -93,7 +93,7 @@ function ListPageSearchBar ({avail}) {
 			} else if (entry[`${chosenAge}`] > 0) {
 				filteredSearch.push(entry);
 		    }
-		console.log("filteredSearch", filteredSearch);
+		// console.log("filteredSearch", filteredSearch);
         }
 
 		return filteredSearch;

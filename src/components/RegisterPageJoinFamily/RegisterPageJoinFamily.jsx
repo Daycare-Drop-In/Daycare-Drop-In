@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+	Button,
+	TextField,
+	Box,
+	Typography,
+	Container,
+} from "@mui/material";
 
 import { useHistory } from 'react-router-dom';
 import RegisterFormJoinFamily from '../RegisterFormJoinFamily/RegisterFormJoinFamily';
@@ -6,11 +13,11 @@ import RegisterFormJoinFamily from '../RegisterFormJoinFamily/RegisterFormJoinFa
 function RegisterPageJoinFamily() {
   const history = useHistory();
 
+
   return (
-    <div>
-      <h1>JOIN FAMILY REGISTRATION </h1>
+    <Container maxWidth='xs'>
       <RegisterFormJoinFamily />
-    
+
 
       <center>
         <button
@@ -23,7 +30,7 @@ function RegisterPageJoinFamily() {
           Login
         </button>
       </center>
-    </div>
+    </Container>
   );
 }
 

@@ -57,8 +57,7 @@ FROM bookings
 	JOIN "user" ON bookings.user_id = "user".id
 	JOIN families ON bookings.famiily_id = families.id
 ORDER BY bookings.service_date ASC;`;
-		pool
-			.query(queryText)
+		pool.query(queryText)
 			.then(() => {
 				res.send(result.rows);
 			})
@@ -82,7 +81,7 @@ router.post("/", (req, res) => {
 			req.body.user_id,
 			req.body.service_date,
 		];
-		console.log('in booking POST and newBooking is:', newBooking);
+		console.log("in booking POST and newBooking is:", newBooking);
 		const postBookingQueryText = `INSERT INTO bookings (
 			provider_id,
 			family_id,
@@ -93,10 +92,11 @@ router.post("/", (req, res) => {
 			VALUES ($1, $2, $3, $4, $5, $6);`;
 		pool.query(postBookingQueryText, newBooking)
 			.then((response) => {
-				res.sendStatus(202);
+				res.sendStatus(201);
 			})
 			.catch((error) => {
-				console.log('ERROR IN SERVER POST', error);
+				console.log("ERROR IN SERVER POST", error);
+				res.sendStatus(500);
 			});
 	} else {
 		res.sendStatus(400);
@@ -107,8 +107,9 @@ router.post("/", (req, res) => {
 router.get("/details/:id", (req, res) => {
 	if (req.isAuthenticated()) {
 		const familyId = req.params.id;
+		console.log("FAMILY ID IS:",familyId);
 		const queryText = `SELECT bookings.id AS booking_id,
-	bookings.service_date AS booked_day,
+	to_char(bookings.service_date, 'Mon DD, YYYY') AS booked_day,
 	bookings.time_submitted AS time_booked,
 	providers.id AS provider_id,
 	providers.business_name AS biz_name,
@@ -157,8 +158,7 @@ FROM bookings
 	JOIN families ON bookings.family_id = families.id
 WHERE families.id = $1
 ORDER BY bookings.service_date ASC;`;
-		pool
-			.query(queryText, [familyId])
+		pool.query(queryText, [familyId])
 			.then((result) => {
 				res.send(result.rows);
 			})
@@ -180,7 +180,7 @@ router.get("/provider/:id", (req, res) => {
 			providerId
 		);
 		const queryText = `SELECT bookings.id AS booking_id,
-	bookings.service_date AS booked_day,
+		to_char(bookings.service_date, 'Mon DD')AS booked_day,
 	bookings.time_submitted AS time_booked,
 	providers.id AS provider_id,
 	providers.business_name AS biz_name,
@@ -229,8 +229,7 @@ FROM bookings
 	JOIN families ON bookings.family_id = families.id
 WHERE providers.id = $1
 ORDER BY bookings.service_date ASC;`;
-		pool
-			.query(queryText, [providerId])
+		pool.query(queryText, [providerId])
 			.then((result) => {
 				res.send(result.rows);
 			})
@@ -250,8 +249,7 @@ router.delete("/delete/:id", (req, res) => {
 		const bookingId = req.params.id;
 		const queryText = `DELETE FROM bookings
 WHERE id = $1;`;
-		pool
-			.query(queryText, [bookingId])
+		pool.query(queryText, [bookingId])
 			.then(() => {
 				res.sendStatus(200);
 			})
@@ -272,10 +270,10 @@ router.get("/booking_process/family/:id", (req, res) => {
 			"Inside router side of get request for FAMILY booking process data, id:",
 			req.params.id
 		);
-		const queryText = `SELECT 
+		const queryText = `SELECT
     "user".id AS user_id,
-    "user".first_name AS user_first_name, 
-    "user".last_name AS user_last_name, 
+    "user".first_name AS user_first_name,
+    "user".last_name AS user_last_name,
     "user".family_id,
 	ARRAY_AGG(ROW(children.id, children.first_name, children.last_name)) AS children,
     responsible_adults.id,
@@ -288,22 +286,21 @@ JOIN responsible_adults ON responsible_adults.family_id = families.id
 WHERE "user".id = $1
 GROUP BY "user".id, "user".first_name, "user".last_name, "user".family_id;
 `;
-    pool
-      .query(queryText, [userId])
-      .then((result) => {
-        res.send(result.rows);
-        console.log(
-          "in family booking process GET and result.rows are:",
-          result.rows
-        );
-      })
-      .catch((error) => {
-        console.log("ERROR IN family bookings details GET", error);
-        res.sendStatus(500);
-      });
-  } else {
-    res.sendStatus(403);
-  }
+		pool.query(queryText, [userId])
+			.then((result) => {
+				res.send(result.rows);
+				console.log(
+					"in family booking process GET and result.rows are:",
+					result.rows
+				);
+			})
+			.catch((error) => {
+				console.log("ERROR IN family bookings details GET", error);
+				res.sendStatus(500);
+			});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 //GET for provider data needed in bookings process
@@ -314,26 +311,25 @@ router.get("/booking_process/provider/:id", (req, res) => {
 			"Inside router side of get request for PROVIDER booking process data, id:",
 			req.params.id
 		);
-		const queryText = `SELECT providers.business_name, 
+		const queryText = `SELECT providers.business_name,
 	providers.contract_language
 	FROM providers
 	WHERE providers.id = $1;`;
-    pool
-      .query(queryText, [providerId])
-      .then((result) => {
-        res.send(result.rows);
-        console.log(
-          "in provider booking process GET and result.rows are:",
-          result.rows
-        );
-      })
-      .catch((error) => {
-        console.log("ERROR IN provider bookings details GET", error);
-        res.sendStatus(500);
-      });
-  } else {
-    res.sendStatus(403);
-  }
+		pool.query(queryText, [providerId])
+			.then((result) => {
+				res.send(result.rows);
+				console.log(
+					"in provider booking process GET and result.rows are:",
+					result.rows
+				);
+			})
+			.catch((error) => {
+				console.log("ERROR IN provider bookings details GET", error);
+				res.sendStatus(500);
+			});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 // // PUT template

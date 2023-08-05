@@ -29,13 +29,13 @@ import Button from "@mui/material/Button";
 
 function Nav() {
   const user = useSelector((store) => store.user);
-  const [open, setState] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setState(open);
+    setOpen(open);
   };
 
 

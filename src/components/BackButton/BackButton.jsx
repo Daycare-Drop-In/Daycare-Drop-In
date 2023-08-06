@@ -1,17 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function BackButton() {
-    const history = useHistory();
+    // const history = useHistory();
 
     return (
-        <button 
-        id="back-button"
-        onClick={() => window.history.back()}
-        >
-            Back
-        </button>
-
+        <>
+            <IconButton
+                aria-label="back"
+                color="secondary"
+                onClick={() => window.history.back()}
+            >
+                <ArrowBackIcon />
+            </IconButton>
+        </>
     );
 }
 

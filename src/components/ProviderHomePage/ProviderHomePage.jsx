@@ -74,6 +74,7 @@ function ProviderHomePage() {
 						<Button
 							sx={{ my: 1 }}
 							variant="outlined"
+              color="secondary"
 							onClick={() => setEditMode(true)}
 						>
 							Edit Info

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
+import {Button} from "@mui/material";
 
 function ProviderEditDetails({ provider }) {
   const dispatch = useDispatch();
@@ -397,7 +398,11 @@ function ProviderEditDetails({ provider }) {
         </div>
 
         <div>
-          <button onClick={handleSubmit}>Submit</button>
+          <Button
+          variant="outlined"
+          color="secondary"
+          sx={{ fontSize: ".55em", mr: 0 }}
+          onClick={handleSubmit}>Submit</Button>
         </div>
       </form>
     </div>

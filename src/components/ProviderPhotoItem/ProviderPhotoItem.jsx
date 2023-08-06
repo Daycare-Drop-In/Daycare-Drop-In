@@ -48,7 +48,7 @@ function ProviderPhotoItem({ photo, handleDelete }) {
 					}}
 				>
 					<Typography variant="caption"> Delete</Typography>
-					<DeleteIcon sx={{ color: "#ff3939", fontSize: ".95em" }} />
+					<DeleteIcon sx={{ color: "secondary", fontSize: ".95em" }} />
 				</IconButton>
 			</CardContent>
 

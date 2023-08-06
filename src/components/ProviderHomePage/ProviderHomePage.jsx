@@ -52,8 +52,11 @@ function ProviderHomePage() {
 
 
 
-			<IconButton>
-				<IconButton onClick={() => setExpanded(!expanded)}>
+			<IconButton
+      color="secondary">
+				<IconButton 
+        color="secondary"
+        onClick={() => setExpanded(!expanded)}>
 					{!expanded ? (
 						<Typography variant="h6"> My profile info</Typography>
 					) : (

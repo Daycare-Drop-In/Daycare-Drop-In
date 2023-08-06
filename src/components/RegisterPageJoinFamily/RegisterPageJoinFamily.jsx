@@ -20,15 +20,16 @@ function RegisterPageJoinFamily() {
 
 
       <center>
-        <button
+        <Button
           type="button"
           className="btn btn_asLink"
+          color="secondary"
           onClick={() => {
             history.push('/login');
           }}
         >
           Login
-        </button>
+        </Button>
       </center>
     </Container>
   );

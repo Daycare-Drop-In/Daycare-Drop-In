@@ -11,6 +11,11 @@ function BackButton() {
             <IconButton
                 aria-label="back"
                 color="secondary"
+                sx={{
+                    position: "absolute",
+                    top: "50px",
+                    left: "15px",
+                }}
                 onClick={() => window.history.back()}
             >
                 <ArrowBackIcon />

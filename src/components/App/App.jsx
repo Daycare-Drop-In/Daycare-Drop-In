@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
+	HashRouter as Router,
+	Redirect,
+	Route,
+	Switch,
 } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -34,21 +34,22 @@ import FamilyDetails from "../FamilyDetails/FamilyDetails";
 import PublicProviderHomePage from "../PublicProviderHomePage/PublicProviderHomePage";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
 import BackButton from "../BackButton/BackButton";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function App() {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const user = useSelector((store) => store.user);
+	const user = useSelector((store) => store.user);
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_USER" });
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch({ type: "FETCH_USER" });
+	}, [dispatch]);
 
-  return (
+	return (
 		<Router>
 			<div class="all-app-container">
 				<Nav />
-        <BackButton />
+				<BackButton />
 				<Switch>
 					{/* Visiting localhost:3000 will redirect to localhost:3000/home */}
 					<Redirect exact from="/" to="/home" />
@@ -193,12 +194,11 @@ function App() {
 						<h1>404</h1>
 					</Route>
 				</Switch>
-				{/* <Footer /> */}
-        <BottomNav />
-
+				<ScrollTop />
+				<BottomNav />
 			</div>
 		</Router>
-  );
+	);
 }
 
 export default App;

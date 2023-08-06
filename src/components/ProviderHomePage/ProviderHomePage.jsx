@@ -42,15 +42,24 @@ function ProviderHomePage() {
 		<>
 			<div className="provider-header">
 				<div className="provider-business-name">
-					<h2>{provider.business_name}</h2>
+					<Typography mb variant="h5">
+						{provider.business_name}
+					</Typography>
 				</div>
 				<div className="provider-name"></div>
 			</div>
 			<div className="provider-profile-photo">
-				<img src={provider.provider_pic} height="200" />
+				<Box
+					component="img"
+					sx={{
+						height: 200,
+						boxShadow: "4",
+						borderRadius: 2,
+					}}
+					alt="Profile Picture"
+					src={provider.provider_pic}
+				/>
 			</div>
-
-
 
 			<IconButton>
 				<IconButton onClick={() => setExpanded(!expanded)}>
@@ -62,8 +71,6 @@ function ProviderHomePage() {
 					<ExpandMoreIcon sx={!expanded ? flip.close : flip.open} />
 				</IconButton>
 			</IconButton>
-
-
 
 			<Collapse in={expanded} timeout="auto" unmountOnExit>
 				<div className="edit-button">
@@ -93,39 +100,22 @@ function ProviderHomePage() {
 				) : (
 					<>
 						<div className="provider-contact-info">
-							<p>
-								<b>Provider Name:</b> {provider.first_name}{" "}
-								{provider.last_name}
-							</p>
-							<p>
-								<b>License:</b> {provider.license}{" "}
-							</p>
-							<p>
-								<b>Address:</b> {provider.street_address}{" "}
-								{provider.unit} {provider.city} {provider.state}
-								{provider.zip}
-							</p>
-							<p>
-								<b>Email:</b> {provider.email}
-							</p>
-						</div>
-
-						<div className="provider-bio">
-							<h2>About Me:</h2>
-							<p>{provider.personal_description}</p>
-						</div>
-
-						<div className="daycare-details">
-							<h2>About {provider.business_name}:</h2>
-							<p>
-								<b>Hours:</b> {provider.hours_start} {"- "}
-								{provider.hours_end}
-							</p>
-							<p>
-								<b>Meals provided? </b>
-								{provider.meals ? "Yes" : "No"}{" "}
-							</p>
-							<p>{provider.business_description}</p>
+							<Typography sx={{ mt: 2 }}>
+								{`Provider Name: ${provider.first_name} ${provider.last_name}`}
+							</Typography>
+							<Typography sx={{ mt: 2 }}>
+								{`License #: ${provider.license}`}
+							</Typography>
+							<Typography sx={{ mt: 2 }}>
+								{provider.unit
+									? `Address: ${provider.street_address} ${provider.unit}, ${provider.city}, ${provider.state}
+					${provider.zip}`
+									: `Address: ${provider.street_address}, ${provider.city}, ${provider.state}
+					${provider.zip} `}
+							</Typography>
+							<Typography sx={{ mt: 2 }}>
+								{`Email: ${provider.email}`}
+							</Typography>
 						</div>
 					</>
 				)}

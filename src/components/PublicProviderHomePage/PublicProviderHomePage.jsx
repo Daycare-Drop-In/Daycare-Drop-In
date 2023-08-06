@@ -49,7 +49,7 @@ function PublicProviderHomePage() {
 		<Container maxWidth="xs">
 			<div className="provider-header">
 				<div className="provider-business-name">
-					<Typography variant="h5">
+					<Typography mb variant="h5">
 						{provider.business_name}
 					</Typography>
 				</div>
@@ -181,7 +181,7 @@ function PublicProviderHomePage() {
 				{`Book with ${provider.first_name}`}
 			</Typography>
 
-			
+
 
 			<PublicProviderAvailabilityTable />
 

@@ -39,16 +39,16 @@ function ProviderPhotoItem({ photo, handleDelete }) {
 					size="small"
 					onClick={() => handleDelete(photo.id)}
 					sx={{
-						backgroundColor: "#ffeded",
+						backgroundColor: "secondary",
 						border: "1",
 						borderRadius: 1,
-						borderColor: "red",
+						// borderColor: "red",
 						cursor: "pointer",
 						mb: -2,
 					}}
 				>
-					<Typography variant="caption"> Delete</Typography>
-					<DeleteIcon sx={{ color: "secondary", fontSize: ".95em" }} />
+					
+					<DeleteIcon sx={{ color: "secondary", fontSize: "1em" }} />
 				</IconButton>
 			</CardContent>
 

@@ -34,9 +34,9 @@ function LoginForm() {
         alignItems: "center",
       }}
     >
-      <Typography component="h1" variant="h5" >
+      {/* <Typography component="h1" variant="h5" >
         Login
-      </Typography>
+      </Typography> */}
       <Box component="form" onSubmit={login} sx={{ mt: 1 }} autoComplete="off">
         <TextField
           margin="normal"

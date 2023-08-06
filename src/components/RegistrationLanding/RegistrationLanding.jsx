@@ -10,25 +10,28 @@ function RegistrationLanding() {
     <Container maxWidth="xs" sx={{ display: "flex", flexDirection: "column" }}>
       <Button
         variant="contained"
+        color="secondary"
         component={Link}
         to="/registration_newprovider"
-        sx={{ p: 3, my: 1.5, bgcolor: "#390854", fontWeight: "bolder" }}
+        sx={{ p: 3, my: 1.5, fontWeight: "bolder" }}
       >
         Register as a New Provider
       </Button>
       <Button
         variant="contained"
+        color="secondary"
         component={Link}
         to="/registration_newfamily"
-        sx={{ p: 3, my: 1.5, bgcolor: "#390854", fontWeight: "bolder" }}
+        sx={{ p: 3, my: 1.5, fontWeight: "bolder" }}
       >
         Register a New Family
       </Button>
       <Button
         variant="contained"
+        color="secondary"
         component={Link}
         to="/registration_joinfamily"
-        sx={{ p: 3, my: 1.5, bgcolor: "#390854", fontWeight: "bolder" }}
+        sx={{ p: 3, my: 1.5, fontWeight: "bolder" }}
       >
         Join an existing family
       </Button>

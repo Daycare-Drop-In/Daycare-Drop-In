@@ -1,75 +1,79 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Button,
-  TextField,
-  Grid,
-  Box,
-  Container,
-  TableContainer,
-  TableBody,
-  Table,
-  TableRow,
-  TableCell,
-  TableHead,
-  Paper,
+	Button,
+	TextField,
+	Grid,
+	Box,
+	Container,
+	TableContainer,
+	TableBody,
+	Table,
+	TableRow,
+	TableCell,
+	TableHead,
+	Paper,
 } from "@mui/material";
 
-function ProviderAvailabilityForm({provider}){
-    const dispatch = useDispatch();
-  const provider_id = provider.id;
+function ProviderAvailabilityForm({ provider }) {
+	const dispatch = useDispatch();
+	const provider_id = provider.id;
 
-  const [dateOptions, setDateOptions] = useState([]);
-  const [date, setDate] = useState("");
-  const [infant, setInfant] = useState(0);
-  const [toddler, setToddler] = useState(0);
-  const [preschool, setPreschool] = useState(0);
-  const [schoolage, setSchoolage] = useState(0);
+	const [dateOptions, setDateOptions] = useState([]);
+	const [date, setDate] = useState("");
+	const [infant, setInfant] = useState(0);
+	const [toddler, setToddler] = useState(0);
+	const [preschool, setPreschool] = useState(0);
+	const [schoolage, setSchoolage] = useState(0);
 
-  //Empty form state for provider availability
-  const availabilityForm = {
-    provider_id: provider_id,
-    date: date,
-    infant: infant,
-    toddler: toddler,
-    pre_k: preschool,
-    schoolage: schoolage,
-  };
+	//set current date in order to restrict date selector from making past dates available to select
+	const currentDate = new Date().toISOString().split('T')[0];
 
-  //Handle change functions for form inputs
-const handleDateChange = (event) => {
-	setDate(event.target.value);
-};
-  const handleInfantChange = (event) => {
-    setInfant(parseInt(event.target.value));
-  };
-  const handleToddlerChange = (event) => {
-    setToddler(parseInt(event.target.value));
-  };
-  const handlePreschoolChange = (event) => {
-    setPreschool(parseInt(event.target.value));
-  };
-  const handleSchoolageChange = (event) => {
-    setSchoolage(parseInt(event.target.value));
-  };
 
-  //SUBMIT NEW AVAILABILITY
+	//Empty form state for provider availability
+	const availabilityForm = {
+		provider_id: provider_id,
+		date: date,
+		infant: infant,
+		toddler: toddler,
+		pre_k: preschool,
+		schoolage: schoolage,
+	};
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("New availability being submitted!", availabilityForm);
+	//Handle change functions for form inputs
+	const handleDateChange = (event) => {
+		setDate(event.target.value);
+	};
+	const handleInfantChange = (event) => {
+		setInfant(parseInt(event.target.value));
+	};
+	const handleToddlerChange = (event) => {
+		setToddler(parseInt(event.target.value));
+	};
+	const handlePreschoolChange = (event) => {
+		setPreschool(parseInt(event.target.value));
+	};
+	const handleSchoolageChange = (event) => {
+		setSchoolage(parseInt(event.target.value));
+	};
 
-    dispatch({ type: "ADD_AVAILABILITY", payload: availabilityForm });
+	//SUBMIT NEW AVAILABILITY
 
-    //Reset input fields
-    setDate("");
-    setInfant(0);
-    setToddler(0);
-    setPreschool(0);
-    setSchoolage(0);
-  };
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		console.log("New availability being submitted!", availabilityForm);
 
-    return (
+		dispatch({ type: "ADD_AVAILABILITY", payload: availabilityForm });
+
+		//Reset input fields
+		setDate("");
+		setInfant(0);
+		setToddler(0);
+		setPreschool(0);
+		setSchoolage(0);
+	};
+
+	return (
 		<Box
 			sx={{
 				display: "flex",
@@ -140,6 +144,7 @@ const handleDateChange = (event) => {
 							id="date"
 							onChange={handleDateChange}
 							InputLabelProps={{ shrink: true }}
+							inputProps={{ min: currentDate }}
 						/>
 						<Button
 							variant="outlined"

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
+	HashRouter as Router,
+	Redirect,
+	Route,
+	Switch,
 } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -33,32 +33,35 @@ import FamilyHomePage from "../FamilyHomePage/FamilyHomePage";
 import FamilyDetails from "../FamilyDetails/FamilyDetails";
 import PublicProviderHomePage from "../PublicProviderHomePage/PublicProviderHomePage";
 import ProviderBookingProcess from "../ProviderBookingProcess/ProviderBookingProcess";
+import BackButton from "../BackButton/BackButton";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function App() {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const user = useSelector((store) => store.user);
+	const user = useSelector((store) => store.user);
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_USER" });
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch({ type: "FETCH_USER" });
+	}, [dispatch]);
 
-  return (
+	return (
 		<Router>
-			<div>
+			<div class="all-app-container">
 				<Nav />
+				<BackButton />
 				<Switch>
 					{/* Visiting localhost:3000 will redirect to localhost:3000/home */}
 					<Redirect exact from="/" to="/home" />
 
 					{/* Visiting localhost:3000/about will show the about page. */}
-					<Route
+					{/* <Route
 						// shows AboutPage at all times (logged in or not)
 						exact
 						path="/about"
 					>
 						<AboutPage />
-					</Route>
+					</Route> */}
 
 					{/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -74,13 +77,13 @@ function App() {
 						<BottomNav />
 					</ProtectedRoute>
 
-					<ProtectedRoute
+					{/* <ProtectedRoute
 						// logged in shows InfoPage else shows LoginPage
 						exact
 						path="/info"
 					>
 						<InfoPage />
-					</ProtectedRoute>
+					</ProtectedRoute> */}
 
 					<ProtectedRoute exact path="/details/family/:id">
 						<FamilyDetails />
@@ -191,10 +194,11 @@ function App() {
 						<h1>404</h1>
 					</Route>
 				</Switch>
-				<Footer />
+				<ScrollTop />
+				<BottomNav />
 			</div>
 		</Router>
-  );
+	);
 }
 
 export default App;

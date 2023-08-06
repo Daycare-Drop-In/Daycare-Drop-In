@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import StaticListProviderCards from "../StaticListProviderCards/StaticListProviderCards";
 import { useDispatch, useSelector } from "react-redux";
-import { GoogleMap, useJsApiLoader , Marker} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 
 function StaticListPage() {
-  const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-  useEffect(()=>{
-    dispatch({ type: "GET_ALL_PROVIDERS"});
-  },[])
-  const provider = useSelector((store) => store.provider);
+	useEffect(() => {
+		dispatch({ type: "GET_ALL_PROVIDERS" });
+	}, [])
+	const provider = useSelector((store) => store.provider);
 
-  return provider.length > 0 ? (
+	return provider.length > 0 ? (
 
-  <div className="container">
+		<div className="container">
 			<h1>Static List View</h1>
 			<p>
 				This will be the static list of all the providers who have
@@ -28,7 +28,7 @@ function StaticListPage() {
 				<StaticListProviderCards key={choice.id} choice={choice} />
 			))}
 		</div>
-  ): (<>WEEEE</>)
+	) : (<>WEEEE</>)
 }
 
 export default StaticListPage;

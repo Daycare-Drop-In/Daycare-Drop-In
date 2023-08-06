@@ -105,11 +105,11 @@ function ProviderBookingsTable({ provider }) {
 
 									>{booked.booked_day}</TableCell>
 									<TableCell>
-										{booked.child_first_name} <br />
-										{calculateAge(booked.child_age)}
+										<center>{booked.child_first_name} <br />
+										{calculateAge(booked.child_age)}</center>
 									</TableCell>
 
-									<TableCell sx={rightRow} align="right">
+									<TableCell sx={rightRow} align="center">
 										<Button
 											variant="outlined"
 											color="secondary"

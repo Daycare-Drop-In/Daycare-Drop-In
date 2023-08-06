@@ -42,14 +42,6 @@ function BottomNav(){
 				bgcolor: "#390854",
 				padding: 0.25,
 			  }}
-				// sx={{
-				// 	position: "fixed",
-				// 	bottom: 0,
-				// 	left: 0,
-				// 	right: 0,
-				// 	bgcolor: "#4b00a1",
-				// 	padding: 0.25,
-				// }}
 				elevation={10}
 			>
 				<Stack

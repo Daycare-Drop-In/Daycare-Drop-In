@@ -30,7 +30,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 
-function Nav() {
+function Nav(){
   const user = useSelector((store) => store.user);
 
   // const [open, setOpen] = useState(false);
@@ -49,20 +49,11 @@ function Nav() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const image = require("./drop.png");
-  return (<>
-    <div className="nav">
-      <div className="left-stuff">
-        
-          <img src={image} alt="header-logo" className="header-logo" />
 
-          <Link to="/home">
-            <p className="nav-title">Daycare Drop-in</p>
-          </Link>
-      </div>
+
 
   return (
-		<>
+
 			<div className="nav">
 				<Link to="/home">
 					<div className="logo-title">
@@ -105,8 +96,8 @@ function Nav() {
 					</div>
 				)}
 
-     
-    </>);
+			</div>
+	)
 
 }
 

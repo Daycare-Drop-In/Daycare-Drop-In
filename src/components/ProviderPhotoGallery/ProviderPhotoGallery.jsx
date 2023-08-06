@@ -76,7 +76,7 @@ function ProviderPhotoGallery({ provider }) {
   return (
     provider_id && (
       <Container>
-        <h3>My photos</h3>
+        {/* <h3>My photos</h3> */}
 
         {photoArray.map((photo) => (
           <ProviderPhotoItem
@@ -127,12 +127,13 @@ function ProviderPhotoGallery({ provider }) {
           <Button
             type="submit"
             fullWidth
-            variant="contained"
+            variant="outlined"
+            color= "secondary"
             sx={{
               mb: 5,
               p: 2,
-              color: "secondary",
-              backgroundColor: "#390854",
+            
+              // backgroundColor: "#390854",
             }}
           >
             Add Photo

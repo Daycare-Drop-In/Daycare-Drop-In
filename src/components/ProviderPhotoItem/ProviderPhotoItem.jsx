@@ -39,7 +39,7 @@ function ProviderPhotoItem({ photo, handleDelete }) {
 					size="small"
 					onClick={() => handleDelete(photo.id)}
 					sx={{
-						backgroundColor: "secondary",
+						color: "secondary",
 						border: "1",
 						borderRadius: 1,
 						// borderColor: "red",
@@ -71,7 +71,7 @@ function ProviderPhotoItem({ photo, handleDelete }) {
 					justifyContent: "flex-end",
 				}}
 			>
-				<IconButton onClick={() => setExpanded(!expanded)}>
+				<IconButton onClick={() => setExpanded(!expanded)} color="secondary">
 					{!expanded ? (
 						<Typography variant="caption"> Description</Typography>
 					) : (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { Card, CardContent, CardMedia, CardActionArea, IconButton, Typography, Button, Container, Grid, Box, CardHeader, CardActions, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Divider, Card, CardContent, CardMedia, CardActionArea, IconButton, Typography, Button, Container, Grid, Box, CardHeader, CardActions, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 
 //Component Imports
@@ -55,131 +55,158 @@ function FamilyDetails() {
     }
 
     return (
-        <>
-            <div className="family-home-page-header">
-                <center>
-                    <h1>{family.family_name} Family</h1>
-                </center>
-            </div>
-            <Grid container columns={{ xs: 12 }} spacing={1}>
-                <Grid item
-                    xs={12}
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}
-                >
-                    <img
-                        src={family.photo_url}
-                        style={{ width: "80%", height: "auto" }}
-                        alt="Family Photo"
-                    />
-                </Grid>
-                <Grid item
-                    xs={12}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center"
-                    }}
-                >
-                    <Typography
-                        variant="p"
-                        sx={tF}
-                    >
-                        Primary Address:
-                    </Typography>
-                    <Typography
-                        variant="p"
-                        sx={tF}
-                    >
-                        {family.street_address} {family.unit}
-                    </Typography>
-                    <Typography
-                        variant="p"
-                        sx={tF}
-                    >
-                        {family.city} {family.state} {family.zip}
-                    </Typography>
-                </Grid>
-                <Grid item
-                    xs={12}
-                    textAlign="center"
-                >
-                    <h3>Responsible Adults</h3>
-                </Grid>
-                <Grid item
-                    xs={12}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: "center",
-                        justifyContent: 'center',
-                    }}
-                >
-                    {rAdult.length === 0 ? (
-                        <Typography
-                            variant="p"
-                        >No additional caretakers.</Typography>
-                    ) :
-                        rAdult?.map((adult) => (
-                            <Card
-                                key={adult.id}
-                                sx={{ width: "75%", mb: 1.5 }} raised>
-                                <CardContent>
-                                    <Typography variant="h7" color="text.secondary"><b>{adult.first_name}</b></Typography>
-                                    <CardMedia
-                                        component="img"
-                                        sx={{ objectFit: "contain", height: 80 }}
-                                        image={adult.photo_url}
-                                        alt={"profile picture"}
-                                    />
-                                </CardContent>
-                            </Card>
-                        ))
-                    }
-                </Grid>
-                <Grid item
-                    xs={12}
-                    textAlign="center"
-                >
-                    <h3>Kids in this Family</h3>
-                </Grid>
-                <Grid item
-                    xs={12}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: "center",
-                        justifyContent: 'center',
-                    }}
-                >
-                    {allMyKids.length === 0 ? (
-                        <Typography
-                            variant="p"
-                        >No children added.</Typography>
-                    ) :
-                        allMyKids?.map((kid) => (
-                            <Card
-                                key={kid.id}
-                                sx={{ width: "75%", mb: 1.5 }} raised>
-                                <CardContent>
-                                    <Typography variant="h7" color="text.secondary"><b>{kid.first_name}</b></Typography>
-                                    <CardMedia
-                                        component="img"
-                                        sx={{ objectFit: "contain", height: 90 }}
-                                        image={kid.photo_url}
-                                        alt={"profile picture"}
-                                    />
-                                </CardContent>
-                            </Card>
-                        ))
-                    }
-                </Grid>
-            </Grid>
-        </>
-    );
+		<Container maxWidth="xs">
+			<Typography align="center" variant="h5">
+				{family.family_name} Family
+			</Typography>
+
+			<Grid container columns={{ xs: 12 }} spacing={1}>
+				<Grid
+					item
+					xs={12}
+					sx={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						mb: -4.5,
+					}}
+				>
+					<img
+						src={family.photo_url}
+						style={{ width: "80%", height: "auto" }}
+						alt="Family Photo"
+					/>
+				</Grid>
+				<Grid
+					item
+					xs={12}
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "center",
+						mb: -1,
+					}}
+				>
+					<Box sx={tF}>
+						<Typography sx={{ fontWeight: "bold" }}>
+							Primary Address:
+						</Typography>
+						<Typography>
+							{family.unit
+								? `${family.street_address} ${family.unit}`
+								: `${family.street_address}`}
+						</Typography>
+						<Typography>
+							{`${family.city}, ${family.state} ${family.zip}`}
+						</Typography>
+					</Box>
+					<Divider sx={{ my: 2 }} variant="middle" />
+
+					{/* <Typography variant="p" sx={tF}>
+						Primary Address:
+					</Typography>
+					<Typography variant="p" sx={tF}>
+						{family.street_address} {family.unit}
+					</Typography>
+					<Typography variant="p" sx={tF}>
+						{family.city} {family.state} {family.zip}
+					</Typography> */}
+				</Grid>
+				<Grid
+					item
+					xs={12}
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					<Typography mb={2} variant="h5">
+						Responsible Adults
+					</Typography>
+					{rAdult.length === 0 ? (
+						<Typography variant="p">
+							No additional caretakers.
+						</Typography>
+					) : (
+						rAdult?.map((adult) => (
+							<Card
+								key={adult.id}
+								sx={{ width: "75%", mb: 1.5 }}
+								raised
+							>
+								<CardContent>
+									<Typography
+										variant="h7"
+										color="text.secondary"
+									>
+										<b>{adult.first_name}</b>
+									</Typography>
+									<CardMedia
+										component="img"
+										sx={{
+											objectFit: "contain",
+											height: 80,
+										}}
+										image={adult.photo_url}
+										alt={"profile picture"}
+									/>
+								</CardContent>
+							</Card>
+						))
+					)}
+				</Grid>
+
+				<Grid item xs={12} textAlign="center">
+					<Divider sx={{ my: 2 }} variant="middle" />
+					<Typography mb={1} variant="h5">
+						Kids in this Family
+					</Typography>
+				</Grid>
+				<Grid
+					item
+					xs={12}
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					{allMyKids.length === 0 ? (
+						<Typography variant="p">No children added.</Typography>
+					) : (
+						allMyKids?.map((kid) => (
+							<Card
+								key={kid.id}
+								sx={{ width: "75%", mb: 1.5 }}
+								raised
+							>
+								<CardContent>
+									<Typography
+										variant="h7"
+										color="text.secondary"
+									>
+										<b>{kid.first_name}</b>
+									</Typography>
+									<CardMedia
+										component="img"
+										sx={{
+											objectFit: "contain",
+											height: 90,
+										}}
+										image={kid.photo_url}
+										alt={"profile picture"}
+									/>
+								</CardContent>
+							</Card>
+						))
+					)}
+				</Grid>
+			</Grid>
+		</Container>
+	);
 }
 
 export default FamilyDetails;

@@ -18,7 +18,7 @@ import {
 function ProviderAvailabilityForm({ provider }) {
 	const dispatch = useDispatch();
 	const provider_id = provider.id;
-
+	
 	const [dateOptions, setDateOptions] = useState([]);
 	const [date, setDate] = useState("");
 	const [infant, setInfant] = useState(0);

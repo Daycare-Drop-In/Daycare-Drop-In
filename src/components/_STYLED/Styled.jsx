@@ -1,4 +1,4 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import {
 // 	Button,
@@ -29,7 +29,7 @@
 
 // // import logo from './Logo/drop.png'
 
-// function Styled() {
+function Styled() {
 // 	const user = useSelector((store) => store.user);
 // 	const provider_id = useSelector((store) => store.provider.id);
 // 	// const availabilityArray = useSelector((store) => store.availability);
@@ -331,7 +331,8 @@
 
 // 	const drop = { mx: 0.75, width: 75, my: 1 };
 
-// 	return (
+	return (
+<></>
 // 		<Container maxWidth="sm">
 // 			<Container
 // 				maxWidth="xs"
@@ -552,9 +553,9 @@
 // 				</Box>
 // 			</Box>
 // 		</Container>
-// 	);
-// }
+	);
+}
 
-// export default Styled;
+export default Styled;
 
 // //

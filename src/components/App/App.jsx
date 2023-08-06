@@ -47,7 +47,7 @@ function App() {
 
 	return (
 		<Router>
-			<div class="all-app-container">
+			<div className="all-app-container">
 				<Nav />
 				<BackButton />
 				<Switch>

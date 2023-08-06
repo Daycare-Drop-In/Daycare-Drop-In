@@ -65,17 +65,17 @@ function Nav() {
 
           <Box>
             {/* If no user is logged in, show these links */}
-            {!user.id && (
+            {/* {!user.id && (
               // If there's no user, show login/registration links
               <Link className="navLink" to="/login">
                 Login / Register
               </Link>
-            )}
-            <br />
+            )} */}
+            {/* <br /> */}
             {/* If a user is logged in, show these links */}
             {user.id && (
               <>
-                <Link className="navLink" to="/user">
+                {/* <Link className="navLink" to="/user">
                   Home
                 </Link>
                 <br />
@@ -91,14 +91,14 @@ function Nav() {
                     </Link>
                   )
                 }
-                <br />
+                <br /> */}
                 <LogOutButton className="navLink" />
               </>
             )}
-            <br />
+            {/* <br />
             <Link className="navLink" to="/about">
               About
-            </Link>
+            </Link> */}
           </Box>
         </Drawer>
 

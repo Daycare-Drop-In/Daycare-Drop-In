@@ -16,7 +16,6 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import ReorderIcon from "@mui/icons-material/Reorder";
 
 import MapIcon from "@mui/icons-material/Map";
-import './BottomNav.css';
 
 
 function BottomNav(){
@@ -40,7 +39,7 @@ function BottomNav(){
 				left: 0,
 				right: 0,
 				zIndex: 999,
-				bgcolor: "#4b00a1",
+				bgcolor: "#390854",
 				padding: 0.25,
 			  }}
 				// sx={{

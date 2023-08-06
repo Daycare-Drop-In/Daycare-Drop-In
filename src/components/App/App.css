@@ -2,11 +2,18 @@ html,
 body,
 #react-root {
   height: 100%;
+  overscroll-behavior: none;
+  /* pointer-events: none; */
+
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
+}
+
+.all-app-container {
+  padding-bottom: 80px; 
 }
 
 img {

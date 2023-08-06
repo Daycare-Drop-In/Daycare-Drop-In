@@ -97,7 +97,7 @@ function FamilyHomePage() {
 			</div> */}
 
 			<Typography sx={{ mb: 2 }} variant="h6">
-				Kids in this Family
+				Our kids
 			</Typography>
 
 			{/* need to map this component  */}

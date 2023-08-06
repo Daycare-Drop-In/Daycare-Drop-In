@@ -84,30 +84,61 @@ function ListPageSearchBar ({avail}) {
 		}
         console.log('userchoice age', chosenAge);
 		for (let entry of avail) {
-			if (entry.biz_name === userChoice.name) {
-				filteredSearch.push(entry);
-			} else if (entry.on_date === userChoice.date) {
-				filteredSearch.push(entry);
-			} else if (entry.provider_city === userChoice.city) {
-				filteredSearch.push(entry);
-			} else if (entry[`${chosenAge}`] > 0) {
-				filteredSearch.push(entry);
-		    }
-		// console.log("filteredSearch", filteredSearch);
-        }
+			let cache = [];
+			if (userChoice.date) cache.push(entry.on_date === userChoice.date);
+			   if (userChoice.name) cache.push(entry.biz_name === userChoice.name);
+			   if (userChoice.city) cache.push(entry.provider_city === userChoice.city);
+			   if (chosenAge) cache.push(entry[`${chosenAge}`] > 0);
 
-		return filteredSearch;
+			   if (cache.every((condition) => condition)) {
+				filteredSearch.push(entry);
+			}
+		}
+			return filteredSearch;
 	};
 
 	const newResults = findRelevantInfo();
 
-	console.log("RESULTS ARRAY TO BE DISPATCHED", newResults);
-	console.log("FILTER FIELDS", userChoice);
-    console.log('USERCHOICE AGE age', `${userChoice.age.toLowerCase()}`);
+
+	const resultMessage = () => {
+		let filteredMessage = `Openings`;
+		let terms = userChoice;
+		let age = "";
+		let city = "";
+		let date = "";
+		let care = "";
+
+		if (terms.age === "Toddler" || terms.age === "Infant") {
+			age = `for ${terms.age.toLowerCase()}s`;
+			filteredMessage = `${filteredMessage} ${age}`;
+		} else if (terms.age === "Pre-K" || terms.age === "School age") {
+			age = `for ${terms.age.toLowerCase()}`;
+			filteredMessage = `${filteredMessage} ${age}`;
+		}
+		if (terms.city) {
+			city = `in ${terms.city}`;
+			filteredMessage = `${filteredMessage} ${city}`;
+		}
+		if (terms.name) {
+			care = `at ${terms.name}`;
+			filteredMessage = `${filteredMessage} ${care}`;
+		}
+		if (terms.date) {
+			date = `on ${terms.date}`;
+			filteredMessage = `${filteredMessage} ${date}`;
+		}
+		return `${filteredMessage}:`;
+	};
+	const message = resultMessage();
+
+	console.log(message.replace(`Openings`, ''));
+
+
+
 
 	const filterProviders = (event) => {
 		event.preventDefault();
-		dispatch({ type: "FETCH_FILTERED_RESULTS", payload: [{filterTerms: userChoice}, {newResults: newResults}] });
+		dispatch({ type: "FETCH_FILTERED_RESULTS", payload: [{filterTerms: message}, {newResults: newResults}] });
 		// dispatch({ type: "SET_FILTER" });
 	};
 
@@ -225,10 +256,10 @@ function ListPageSearchBar ({avail}) {
 				</Select>
 				{/* <FormHelperText>Filter by provider</FormHelperText> */}
 			</FormControl>
-			<Button type="submit" sx={btn} variant="contained">
+			<Button type="submit" sx={btn} variant="contained" color="secondary">
 				Filter
 			</Button>
-			<Button sx={btn} onClick={resetFilter} variant="contained">
+			<Button sx={btn} onClick={resetFilter} variant="contained" color="secondary">
 				Reset
 			</Button>
 		</Box>
@@ -264,4 +295,18 @@ export default ListPageSearchBar;
 
         //     }
 		// });
+
+
         // console.log('IS THIS THING ON?', filteredSearch);
+		// for (let entry of avail) {
+		// 	if (entry.biz_name === userChoice.name) {
+		// 		filteredSearch.push(entry);
+		// 	} else if (entry.on_date === userChoice.date) {
+		// 		filteredSearch.push(entry);
+		// 	} else if (entry.provider_city === userChoice.city) {
+		// 		filteredSearch.push(entry);
+		// 	} else if (entry[`${chosenAge}`] > 0) {
+		// 		filteredSearch.push(entry);
+		//     }
+		// // console.log("filteredSearch", filteredSearch);
+        // }

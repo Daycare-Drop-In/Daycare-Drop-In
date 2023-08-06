@@ -198,7 +198,9 @@ function ProviderAvailabilityTable({ provider }) {
 										{entryRow.date}
 										<Button
 											variant="outlined"
+                      color="secondary"
 											sx={{
+                        
 												fontSize: ".75em",
 												padding: 0,
 												mt: 0.55,

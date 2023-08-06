@@ -48,7 +48,7 @@ function ProviderBookingsTable({ provider }) {
 
     // Format the result as a string
     // const childAge =   `${ageInYears} yrs\n ${ageInMonths} mos`
-    const childAge =  (ageInYears > 0 ? `${ageInYears} yrs \n${ageInMonths} mos` : `${ageInMonths} mos`)
+    const childAge =  (ageInYears > 0 ? `${ageInYears} yr \n${ageInMonths} mo` : `${ageInMonths} mo`)
 
     return childAge;
   };
@@ -85,6 +85,9 @@ function ProviderBookingsTable({ provider }) {
 								<TableCell sx={color} align="center">
 									Child
 								</TableCell>
+                <TableCell sx={color} align="center">
+									Age
+								</TableCell>
 								<TableCell sx={color} align="center">
 									Family
 								</TableCell>
@@ -105,11 +108,15 @@ function ProviderBookingsTable({ provider }) {
 
 									>{booked.booked_day}</TableCell>
 									<TableCell>
-										{booked.child_first_name} <br />
-										{calculateAge(booked.child_age)}
+										<center>{booked.child_first_name}<br />
+										</center>
 									</TableCell>
 
-									<TableCell sx={rightRow} align="right">
+                  <TableCell>
+                    <center>{calculateAge(booked.child_age)}</center>
+                  </TableCell>
+
+									<TableCell sx={rightRow} align="center">
 										<Button
 											variant="outlined"
 											color="secondary"
@@ -125,7 +132,7 @@ function ProviderBookingsTable({ provider }) {
 											// 	// })
 											// }
 										>
-											{booked.fam_account_name}
+											Info
 										</Button>
 									</TableCell>
 								</TableRow>

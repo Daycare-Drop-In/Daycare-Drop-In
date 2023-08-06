@@ -17,15 +17,16 @@ function RegisterPageNewFamily() {
 			<RegisterFormNewFamily />
 
 			<center>
-				<button
+				<Button
 					type="button"
+					color="secondary"
 					className="btn btn_asLink"
 					onClick={() => {
 						history.push("/login");
 					}}
 				>
 					Login
-				</button>
+				</Button>
 			</center>
 		</Container>
   );

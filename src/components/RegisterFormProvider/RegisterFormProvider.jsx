@@ -52,8 +52,8 @@ function RegisterFormProvider() {
     city: "",
     state: "",
     zip: "",
-    hours_open: "",
-    hours_close: "",
+    hours_open: "07:00",
+    hours_close: "17:00",
     rates: "",
     meals: false,
     business_description: "",
@@ -62,6 +62,7 @@ function RegisterFormProvider() {
   };
 
   const [newProvider, setNewProvider] = useState(providerData);
+  console.log(newProvider);
 
   return (
     <Box
@@ -440,6 +441,7 @@ function RegisterFormProvider() {
 			type="submit"
 			fullWidth
 			variant="contained"
+      color="secondary"
 			sx={{ mt: 3, mb: 2, p: 2 }}
 		>
 			Register

@@ -18,7 +18,7 @@ import {
 function ProviderAvailabilityForm({ provider }) {
 	const dispatch = useDispatch();
 	const provider_id = provider.id;
-
+	
 	const [dateOptions, setDateOptions] = useState([]);
 	const [date, setDate] = useState("");
 	const [infant, setInfant] = useState(0);
@@ -147,7 +147,9 @@ function ProviderAvailabilityForm({ provider }) {
 							inputProps={{ min: currentDate }}
 						/>
 						<Button
-							variant="outlined"
+								variant="outlined"
+								color="secondary"
+								sx={{ fontSize: ".55em", mr: 0 }}
 							onClick={handleSubmit}
 							sx={{ mx: 2, my: 3 }}
 						>

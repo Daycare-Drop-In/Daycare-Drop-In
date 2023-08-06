@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import logo from './Logo/drop.png'
 
 
 import IconButton from "@mui/material/IconButton";
@@ -29,7 +30,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 
-function Nav() {
+function Nav(){
   const user = useSelector((store) => store.user);
 
   // const [open, setOpen] = useState(false);
@@ -50,91 +51,54 @@ function Nav() {
   };
 
 
+
   return (
-    <>
-      <div className="nav">
-        <Link to="/home">
-          <h2 className="nav-title">Daycare Drop-in</h2>
-        </Link>
-        {user.id && (
-          <div>
-            <IconButton
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              edge="start"
-              color="white"
-              aria-label="open drawer"
-              onClick={handleClick}
-              sx={{ color: "white", mr: 2, display: { xs: 'block', sm: 'none', }, }}>
-              <MenuIcon />
-            </IconButton>
 
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-            >
-              <MenuItem onClick={handleClose}>
-                <LogOutButton />
-              </MenuItem>
-            </Menu>
-          </div>
-        )}
-        {/* <Drawer
-          anchor="right" // drawer side
-          variant="temporary" // how easily the drawer closes
-          open={open} // true = drawer open
-          onClose={toggleDrawer(false)}
-          onOpen={toggleDrawer(true)}
-        > */}
+			<div className="nav">
+				<Link to="/home">
+					<div className="logo-title">
+						<img id='logo' src={logo} alt="logo" height="25" />
+						<h2 className="nav-title">Daycare Drop-in</h2>
+					</div>
+				</Link>
+				{user.id && (
+					<div>
+						<IconButton
+							aria-controls={open ? "basic-menu" : undefined}
+							aria-haspopup="true"
+							aria-expanded={open ? "true" : undefined}
+							edge="start"
+							color="white"
+							aria-label="open drawer"
+							onClick={handleClick}
+							sx={{
+								color: "white",
+								mr: 2,
+								display: { xs: "block", sm: "none" },
+							}}
+						>
+							<MenuIcon />
+						</IconButton>
 
-        {/* <Box> */}
-        {/* If no user is logged in, show these links */}
-        {/* {!user.id && (
-              // If there's no user, show login/registration links
-              <Link className="navLink" to="/login">
-                Login / Register
-              </Link>
-            )} */}
-        {/* <br /> */}
-        {/* If a user is logged in, show these links */}
-        {/* {user.id && ( */}
-        <>
-          {/* <Link className="navLink" to="/user">
-                  Home
-                </Link>
-                <br />
-                <Link className="navLink" to="/info">
-                  Info Page
-                </Link>
-                <br />
-                {
-                  // only display if admin
-                  user.user_type === "admin" && (
-                    <Link className="navLink" to="/admin">
-                      Admin
-                    </Link>
-                  )
-                }
-                <br /> */}
-          {/* <LogOutButton className="navLink" /> */}
-        </>
-        {/* )} */}
-        {/* <br />
-            <Link className="navLink" to="/about">
-              About
-            </Link> */}
-        {/* </Box> */}
-        {/* </Drawer> */}
+						<Menu
+							id="basic-menu"
+							anchorEl={anchorEl}
+							open={open}
+							onClose={handleClose}
+							MenuListProps={{
+								"aria-labelledby": "basic-button",
+							}}
+						>
+							<MenuItem onClick={handleClose}>
+								<LogOutButton />
+							</MenuItem>
+						</Menu>
+					</div>
+				)}
 
-        {/* </div> */}
-      </div >
-    </>);
+			</div>
+	)
+
 }
 
 export default Nav;

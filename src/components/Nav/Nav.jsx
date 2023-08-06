@@ -23,59 +23,89 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
+import LogoutIcon from '@mui/icons-material/Logout';
 
-
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
 function Nav() {
   const user = useSelector((store) => store.user);
-  const [open, setOpen] = useState(false);
 
-  const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setOpen(open);
+  // const [open, setOpen] = useState(false);
+  // const toggleDrawer = (open) => (event) => {
+  //   if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+  //     return;
+  //   }
+  //   setOpen(open);
+  // };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
 
-
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Daycare Drop-in</h2>
-      </Link>
-      <div>
-        <IconButton
-          edge="start"
-          color="white"
-          aria-label="open drawer"
-          onClick={toggleDrawer(true)}
-          sx={{ color: "white", mr: 2, display: { xs: 'block', sm: 'none', }, }}>
-          <MenuIcon />
-        </IconButton>
+    <>
+      <div className="nav">
+        <Link to="/home">
+          <h2 className="nav-title">Daycare Drop-in</h2>
+        </Link>
+        {user.id && (
+          <div>
+            <IconButton
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              edge="start"
+              color="white"
+              aria-label="open drawer"
+              onClick={handleClick}
+              sx={{ color: "white", mr: 2, display: { xs: 'block', sm: 'none', }, }}>
+              <MenuIcon />
+            </IconButton>
 
-        <Drawer
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              <MenuItem onClick={handleClose}>
+                <LogOutButton />
+              </MenuItem>
+            </Menu>
+          </div>
+        )}
+        {/* <Drawer
           anchor="right" // drawer side
           variant="temporary" // how easily the drawer closes
           open={open} // true = drawer open
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
-        >
+        > */}
 
-          <Box>
-            {/* If no user is logged in, show these links */}
-            {/* {!user.id && (
+        {/* <Box> */}
+        {/* If no user is logged in, show these links */}
+        {/* {!user.id && (
               // If there's no user, show login/registration links
               <Link className="navLink" to="/login">
                 Login / Register
               </Link>
             )} */}
-            {/* <br /> */}
-            {/* If a user is logged in, show these links */}
-            {user.id && (
-              <>
-                {/* <Link className="navLink" to="/user">
+        {/* <br /> */}
+        {/* If a user is logged in, show these links */}
+        {/* {user.id && ( */}
+        <>
+          {/* <Link className="navLink" to="/user">
                   Home
                 </Link>
                 <br />
@@ -92,19 +122,19 @@ function Nav() {
                   )
                 }
                 <br /> */}
-                <LogOutButton className="navLink" />
-              </>
-            )}
-            {/* <br />
+          {/* <LogOutButton className="navLink" /> */}
+        </>
+        {/* )} */}
+        {/* <br />
             <Link className="navLink" to="/about">
               About
             </Link> */}
-          </Box>
-        </Drawer>
+        {/* </Box> */}
+        {/* </Drawer> */}
 
-      </div>
-    </div>
-  );
+        {/* </div> */}
+      </div >
+    </>);
 }
 
 export default Nav;

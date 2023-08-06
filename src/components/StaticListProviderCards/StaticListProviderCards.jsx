@@ -102,7 +102,7 @@ function StaticListProviderCards({choice}) {
 						</Typography>
 					</CardContent>
 				</CardContent>
-				<CardContent
+				{/* <CardContent
 					sx={{
 						width: "100%",
 						display: "flex",
@@ -111,7 +111,7 @@ function StaticListProviderCards({choice}) {
 					}}
 				>
 					MAP
-				</CardContent>
+				</CardContent> */}
 
 				{/* <Button
 					sx={{ mx: 6, mb: 2.5, p: 1, mt: -1 }}

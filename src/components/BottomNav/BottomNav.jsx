@@ -8,15 +8,11 @@ import {
 } from "@mui/material";
 
 import { Link} from 'react-router-dom'
-
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-
 import ReorderIcon from "@mui/icons-material/Reorder";
-
 import MapIcon from "@mui/icons-material/Map";
-
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 function BottomNav(){
 
@@ -75,8 +71,9 @@ function BottomNav(){
 						component={Link}
 						to={"/static_list"}
 					>
-						<MapIcon />
-						<div style={text}> Provider Map</div>
+						<ViewListIcon />
+						{/* <MapIcon /> */}
+						<div style={text}> Providers</div>
 					</IconButton>
 				</Stack>
 			</Box>

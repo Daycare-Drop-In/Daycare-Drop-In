@@ -49,7 +49,9 @@ function App() {
 		<Router>
 			<div class="all-app-container">
 				<Nav />
-				<BackButton />
+				{user.id && (
+					<BackButton />
+				)}
 				<Switch>
 					{/* Visiting localhost:3000 will redirect to localhost:3000/home */}
 					<Redirect exact from="/" to="/home" />

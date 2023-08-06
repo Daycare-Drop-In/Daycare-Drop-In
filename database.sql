@@ -594,8 +594,9 @@ VALUES ($1, $2, $3, $4, $5, $6, $7);`
 
 
 
-
-
+-- ^^^ ^^^ --
+-------------------------------------------------------------------------------------------------------------------------------
+-- ⌄⌄⌄ PROVIDER DUMMY USERS  ⌄⌄⌄ --
 
 
 
@@ -612,6 +613,15 @@ VALUES
   ('pachouac', 'pachouaspassword', 'provider', null, 'Pachoua', 'Thao', 'pachoua.thao@email.com', '(612) 345-6789', 'https://www.wpr.org/sites/default/files/200929_language01.jpg'),
   ('davidg', 'davidspassword', 'provider', null, 'David', 'Greene', 'david.greene@email.com', '(651) 890-1234', 'https://media.istockphoto.com/id/1139540335/photo/mature-african-american-man-standing-outside-home.jpg?s=612x612&w=0&k=20&c=edtu8O48eQDngiX1eBnnOe_uxCPkxioX6Cjn-n3BIzg='),
   ('laurap', 'lauraspassword', 'provider', null, 'Laura', 'Parker', 'laura.parker@email.com', '(612) 345-6789', 'https://images.pexels.com/photos/1492156/pexels-photo-1492156.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+
+
+
+
+-- ^^^ PROVIDER DUMMY USERS ^^^ --
+-------------------------------------------------------------------------------------------------------------------------------
+-- ⌄⌄⌄ PROVIDER DUMMY PROFILES ⌄⌄⌄ --
+
+
 
 -- Insert data into "providers" table using the corresponding "user_id"
 INSERT INTO providers (user_id, license, business_name, street_address, unit, city, state, zip, hours_open, hours_close, rates, meals, business_description, personal_description, contract_language)
@@ -638,7 +648,15 @@ VALUES
   'Drop-ins are considered to be an odd day where care is needed. Each provider has a set price offered for a full day of care within they''re operating daily hours. Payment is confirmed and none refundable once a booking has been made. I/We as the legal parents/caregivers of the child, have read, understand and agree to the provider''s drop-in care terms as stated in this contract and in their profile on Daycare Drop-in. We further agree: - to provide the following supplies requested by the provider: [diapers, milk, formula, food, medication] - that the Childcare Provider may administer the following medications as appropriate and necessary for the child''s health: [medication authorization] - that the Childcare Provider may transport the child according to the terms of their license - to communicate in a timely manner with the provider on anything related to the child''s care for this date. The Childcare Provider agrees - to provide a safe and positive environment for the child - to provide any necessary items for the child''s care not requested above - to communicate in a timely manner with the parents/guardians of the child on anything related to the child''s care for this date. Completing this booking confirms that I/we agree to abide by the terms of this contract.'),
 
 
--- Availability data
+
+
+
+-- ^^^ PROVIDER DUMMY PROFILES ^^^ --
+-------------------------------------------------------------------------------------------------------------------------------
+-- ⌄⌄⌄ PROVIDER DUMMY AVAILABILITY ⌄⌄⌄ --
+
+
+
 INSERT INTO availability (provider_id, infant, toddler, pre_k, schoolage, date)
 VALUES 
 -- Provider 7
@@ -932,6 +950,11 @@ VALUES
 (16, 1, 1, 0, 0, '2023-08-31');
 
 
+-- ^^^ PROVIDER DUMMY AVAILABILITY ^^^ --
+-------------------------------------------------------------------------------------------------------------------------
+-- ⌄⌄⌄ PROVIDER DUMMY PHOTOS ⌄⌄⌄ --
+
+
 -- Provider 7
 INSERT INTO "provider_photos" (provider_id, photo_url, description)
 VALUES (7, 'https://s3-media0.fl.yelpcdn.com/bphoto/WIQoZ3DvhgjEd1Od0Heobg/348s.jpg', 'Play room');
@@ -1051,3 +1074,46 @@ INSERT INTO "provider_photos" (provider_id, photo_url, description)
 VALUES (16, 'https://d14s8ycyuv5nuh.cloudfront.net/assets/2018/08/cosy-book-area.jpg', 'Story corner');
 INSERT INTO "provider_photos" (provider_id, photo_url, description)
 VALUES (16, 'https://content.ces.ncsu.edu/media/images/20150707_112833.jpg', 'Outdoor garden');
+
+
+
+-- ^^^ PROVIDER DUMMY PHOTOS ^^^ --
+--------------------------------------------------------------------------------------------------------------------------
+-- ⌄⌄⌄ FAMILY DUMMY DATA ⌄⌄⌄ --
+
+INSERT INTO "user" ("username", "password", "user_type", "family_id", "first_name", "last_name", "email", "phone_number","photo_url")
+VALUES ('Halima@gmail.com', 'family','family', 3, 'Halima', 'Farah', 'Halima@gmail.com', '612-249-1234', 'https://dcdi-spike.s3.us-east-2.amazonaws.com/uploads/990ebd08-06b8-4747-8916-c848f4348feb-daycare-dropIn-Halima.png' );
+ 
+     
+INSERT INTO families ("family_name", "street_address", "unit", "city", "state", "zip", "photo_url", "access_code")
+VALUES ('Ali Family', '123 4th Ave S', '1', 'Minneapolis', 'MN', 55409, 'https://i.postimg.cc/3J3cc6cN/home-5456376-1280.png', 'baby shark' )
+RETURNING id;
+
+INSERT INTO "children" ("family_id", "first_name", "last_name", "birthdate", "allergies", "potty_trained", "photo_url")
+VALUES (3, 'Layla', 'Ali', '2022-10-01', 'none', 'FALSE', 'https://dcdi-spike.s3.us-east-2.amazonaws.com/uploads/7eafa8ce-38f3-454b-a3da-2bed61d33450-daycare-dropIn-infant.jpeg'),
+(3, 'Aden', 'Ali', '2013-05-05', 'Cats', 'TRUE', 'https://dcdi-spike.s3.us-east-2.amazonaws.com/uploads/ac79f76a-d53a-4e85-b338-b9c7baa97691-daycare-dropIn-schoolAge.jpeg');
+
+
+
+
+
+INSERT INTO "user" ("username", "password", "user_type", "family_id", "first_name", "last_name", "email", "phone_number", "photo_url")
+VALUES ('fred@example.com', 'flinstones', 'family', 1, 'Fred', 'Flinstone', 'fred@example.com', '555-123-4567', 'https://example.com/fred_photo.png');
+
+
+INSERT INTO families ("family_name", "street_address", "unit", "city", "state", "zip", "photo_url", "access_code")
+VALUES ('Flinstone Family', '123 Bedrock St', '1', 'Bedrock', 'CA', 12345, 'https://example.com/flinstone_home.png', 'yabbadabbadoo');
+
+INSERT INTO "children" ("family_id", "first_name", "last_name", "birthdate", "allergies", "potty_trained", "photo_url")
+VALUES (1, 'Pebbles', 'Flinstone', '2023-01-15', 'Dust', 'FALSE', 'https://example.com/pebbles_photo.png'),
+(1, 'Bam-Bam', 'Rubble', '2022-08-20', 'None', 'TRUE', 'https://example.com/bambam_photo.png');
+
+
+INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
+VALUES (1, 'Wilma', 'Flintstone', '(555)123-4567', 'wilma@example.com', 'Mother', 'https://example.com/wilma_photo.png');
+
+INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
+VALUES (2, 'Barney', 'Rubble', '(555)987-6543', 'barney@example.com', 'Uncle', 'https://example.com/barney_photo.png');
+
+INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
+VALUES (2, 'Betty', 'Rubble', '(555)246-1357', 'betty@example.com', 'Aunt', 'https://example.com/betty_photo.png');

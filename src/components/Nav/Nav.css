@@ -6,7 +6,7 @@
   margin: 0 0 30px;
   background-color: #390854;
   overflow: hidden;
-} 
+}
 
 .nav a {
   text-decoration: none;
@@ -42,3 +42,14 @@
 /* .navLink:hover {
   background-color: #390854;
 } */
+.logo-title{
+  display: flex;
+  flex-direction: row;
+  /* justify-content: flex-end; */
+  align-items: center;
+}
+
+#logo{
+  margin-left: 8px;
+  margin-right: 2px;
+}

@@ -1,34 +1,27 @@
-import React from 'react';
-import {
-	Button,
-	TextField,
-	Box,
-	Typography,
-	Container,
-} from "@mui/material";
+import React from "react";
+import { Button, TextField, Box, Typography, Container } from "@mui/material";
 
-import { useHistory } from 'react-router-dom';
-import RegisterFormJoinFamily from '../RegisterFormJoinFamily/RegisterFormJoinFamily';
+import { useHistory } from "react-router-dom";
+import RegisterFormJoinFamily from "../RegisterFormJoinFamily/RegisterFormJoinFamily";
 
 function RegisterPageJoinFamily() {
   const history = useHistory();
 
-
   return (
-    <Container maxWidth='xs'>
+    <Container maxWidth="xs">
       <RegisterFormJoinFamily />
 
-
       <center>
-        <button
+        <Button
           type="button"
-          className="btn btn_asLink"
+          variant="outlined"
+          color="secondary"
           onClick={() => {
-            history.push('/login');
+            history.push("/login");
           }}
         >
           Login
-        </button>
+        </Button>
       </center>
     </Container>
   );

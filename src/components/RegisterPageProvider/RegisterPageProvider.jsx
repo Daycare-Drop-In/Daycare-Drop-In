@@ -1,26 +1,26 @@
-import React from 'react';
-import { Container } from '@mui/material';
-import { useHistory } from 'react-router-dom';
-import RegisterFormProvider from '../RegisterFormProvider/RegisterFormProvider';
+import React from "react";
+import { Container, Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
+import RegisterFormProvider from "../RegisterFormProvider/RegisterFormProvider";
 
 function RegisterPageProvider() {
   const history = useHistory();
 
   return (
-    <Container maxWidth='xs'>
+    <Container maxWidth="xs">
       <RegisterFormProvider />
 
-
       <center>
-        <button
+        <Button
           type="button"
+          color="secondary"
           className="btn btn_asLink"
           onClick={() => {
-            history.push('/login');
+            history.push("/login");
           }}
         >
           Login
-        </button>
+        </Button>
       </center>
     </Container>
   );

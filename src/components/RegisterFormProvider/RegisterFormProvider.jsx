@@ -440,6 +440,7 @@ function RegisterFormProvider() {
 			type="submit"
 			fullWidth
 			variant="contained"
+      color="secondary"
 			sx={{ mt: 3, mb: 2, p: 2 }}
 		>
 			Register

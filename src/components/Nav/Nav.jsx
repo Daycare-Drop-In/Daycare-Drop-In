@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
-import { useSelector } from 'react-redux';
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import LogOutButton from "../LogOutButton/LogOutButton";
+import "./Nav.css";
+import { useSelector } from "react-redux";
 
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -48,27 +47,27 @@ function Nav() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const image = require("./drop.png");
+  return (<>
+    <div className="nav">
+      <div className="left-stuff">
+        
+          <img src={image} alt="header-logo" className="header-logo" />
 
+          <Link to="/home">
+            <p className="nav-title">Daycare Drop-in</p>
+          </Link>
+      </div>
 
-  return (
-    <>
-      <div className="nav">
-        <Link to="/home">
-          <h2 className="nav-title">Daycare Drop-in</h2>
-        </Link>
-        {user.id && (
-          <div>
-            <IconButton
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              edge="start"
-              color="white"
-              aria-label="open drawer"
-              onClick={handleClick}
-              sx={{ color: "white", mr: 2, display: { xs: 'block', sm: 'none', }, }}>
-              <MenuIcon />
-            </IconButton>
+        <IconButton
+          edge="start"
+          color="white"
+          aria-label="open drawer"
+          onClick={handleClick}
+          sx={{ color: "white", mr: 2, display: { xs: "block", sm: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
 
             <Menu
               id="basic-menu"
@@ -83,8 +82,8 @@ function Nav() {
                 <LogOutButton />
               </MenuItem>
             </Menu>
-          </div>
-        )}
+        </div>
+        
         {/* <Drawer
           anchor="right" // drawer side
           variant="temporary" // how easily the drawer closes
@@ -104,7 +103,7 @@ function Nav() {
         {/* <br /> */}
         {/* If a user is logged in, show these links */}
         {/* {user.id && ( */}
-        <>
+        
           {/* <Link className="navLink" to="/user">
                   Home
                 </Link>
@@ -123,7 +122,7 @@ function Nav() {
                 }
                 <br /> */}
           {/* <LogOutButton className="navLink" /> */}
-        </>
+        
         {/* )} */}
         {/* <br />
             <Link className="navLink" to="/about">
@@ -133,7 +132,7 @@ function Nav() {
         {/* </Drawer> */}
 
         {/* </div> */}
-      </div >
+     
     </>);
 }
 

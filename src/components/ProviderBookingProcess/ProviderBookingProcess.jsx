@@ -350,8 +350,9 @@ function ProviderBookingProcess() {
 					<>
 						{/* <Typography>Having agreed to provider's contract, please click here to book this spot for {}.</Typography> */}
 						<Button
-							variant="contained"
-							sx={{ bgcolor: "#390854" }}
+								variant="outlined"
+								color="secondary"
+								sx={{ fontSize: ".55em", mr: 0 }}
 							onClick={makeBooking}
 						>
 							CONFIRM BOOKING
@@ -384,8 +385,9 @@ function ProviderBookingProcess() {
 				</DialogContent>
 				<DialogActions>
 					<Button
-						variant="contained"
-						sx={{ bgcolor: "#390854" }}
+							variant="outlined"
+							color="secondary"
+							sx={{ fontSize: ".55em", mr: 0 }}
 						component={Link}
 						to="/user"
 						onClick={() => setToggle(!toggle)}
@@ -394,8 +396,9 @@ function ProviderBookingProcess() {
 						home
 					</Button>
 					<Button
-						variant="outlined"
-						sx={{ borderColor: "#409a0f", color: "#409a0f" }}
+							variant="outlined"
+							color="secondary"
+							sx={{ fontSize: ".55em", mr: 0 }}
 						component={Link}
 						to="/provider_list"
 						onClick={() => setToggle(!toggle)}

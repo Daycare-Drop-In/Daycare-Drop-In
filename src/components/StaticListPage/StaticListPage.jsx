@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import StaticListProviderCards from "../StaticListProviderCards/StaticListProviderCards";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-
+import { Typography, Container} from "@mui/material";
 
 function StaticListPage() {
 	const dispatch = useDispatch()
@@ -14,12 +14,9 @@ function StaticListPage() {
 
 	return provider.length > 0 ? (
 
-		<div className="container">
-			<h1>Static List View</h1>
-			<p>
-				This will be the static list of all the providers who have
-				registered with the site
-			</p>
+		<Container maxWidth='xs'>
+			<Typography align="center" sx={{my:4}} variant="h6">Daycare Drop-in's Provider Network</Typography>
+
 
 
 			{/* This component will get mapped over in order to generate the list */}
@@ -27,8 +24,8 @@ function StaticListPage() {
 			{provider?.map((choice) => (
 				<StaticListProviderCards key={choice.id} choice={choice} />
 			))}
-		</div>
-	) : (<>WEEEE</>)
+		</Container>
+	) : (<Typography>Thank you for your patience as we build our network of providers.</Typography>)
 }
 
 export default StaticListPage;

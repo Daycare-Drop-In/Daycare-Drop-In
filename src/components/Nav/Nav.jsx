@@ -5,6 +5,7 @@ import './Nav.css';
 import { useSelector } from 'react-redux';
 import logo from './Logo/drop.png'
 
+
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
@@ -48,7 +49,17 @@ function Nav() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const image = require("./drop.png");
+  return (<>
+    <div className="nav">
+      <div className="left-stuff">
+        
+          <img src={image} alt="header-logo" className="header-logo" />
 
+          <Link to="/home">
+            <p className="nav-title">Daycare Drop-in</p>
+          </Link>
+      </div>
 
   return (
 		<>
@@ -93,57 +104,10 @@ function Nav() {
 						</Menu>
 					</div>
 				)}
-				{/* <Drawer
-          anchor="right" // drawer side
-          variant="temporary" // how easily the drawer closes
-          open={open} // true = drawer open
-          onClose={toggleDrawer(false)}
-          onOpen={toggleDrawer(true)}
-        > */}
 
-				{/* <Box> */}
-				{/* If no user is logged in, show these links */}
-				{/* {!user.id && (
-              // If there's no user, show login/registration links
-              <Link className="navLink" to="/login">
-                Login / Register
-              </Link>
-            )} */}
-				{/* <br /> */}
-				{/* If a user is logged in, show these links */}
-				{/* {user.id && ( */}
-				<>
-					{/* <Link className="navLink" to="/user">
-                  Home
-                </Link>
-                <br />
-                <Link className="navLink" to="/info">
-                  Info Page
-                </Link>
-                <br />
-                {
-                  // only display if admin
-                  user.user_type === "admin" && (
-                    <Link className="navLink" to="/admin">
-                      Admin
-                    </Link>
-                  )
-                }
-                <br /> */}
-					{/* <LogOutButton className="navLink" /> */}
-				</>
-				{/* )} */}
-				{/* <br />
-            <Link className="navLink" to="/about">
-              About
-            </Link> */}
-				{/* </Box> */}
-				{/* </Drawer> */}
+     
+    </>);
 
-				{/* </div> */}
-			</div>
-		</>
-  );
 }
 
 export default Nav;

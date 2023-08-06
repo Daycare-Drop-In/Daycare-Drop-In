@@ -147,7 +147,9 @@ function ProviderAvailabilityForm({ provider }) {
 							inputProps={{ min: currentDate }}
 						/>
 						<Button
-							variant="outlined"
+								variant="outlined"
+								color="secondary"
+								sx={{ fontSize: ".55em", mr: 0 }}
 							onClick={handleSubmit}
 							sx={{ mx: 2, my: 3 }}
 						>

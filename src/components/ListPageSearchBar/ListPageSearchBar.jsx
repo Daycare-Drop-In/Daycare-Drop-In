@@ -256,10 +256,10 @@ function ListPageSearchBar ({avail}) {
 				</Select>
 				{/* <FormHelperText>Filter by provider</FormHelperText> */}
 			</FormControl>
-			<Button type="submit" sx={btn} variant="contained">
+			<Button type="submit" sx={btn} variant="contained" color="secondary">
 				Filter
 			</Button>
-			<Button sx={btn} onClick={resetFilter} variant="contained">
+			<Button sx={btn} onClick={resetFilter} variant="contained" color="secondary">
 				Reset
 			</Button>
 		</Box>

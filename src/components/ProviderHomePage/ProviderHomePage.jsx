@@ -61,8 +61,18 @@ function ProviderHomePage() {
 				/>
 			</div>
 
-			<IconButton>
-				<IconButton onClick={() => setExpanded(!expanded)}>
+
+			
+				
+
+
+
+			<IconButton
+      color="secondary">
+				<IconButton 
+        color="secondary"
+        onClick={() => setExpanded(!expanded)}>
+
 					{!expanded ? (
 						<Typography variant="h6"> My profile info</Typography>
 					) : (
@@ -78,6 +88,7 @@ function ProviderHomePage() {
 						<Button
 							sx={{ my: 1 }}
 							variant="outlined"
+              color="secondary"
 							onClick={() => setEditMode(true)}
 						>
 							Edit Info

@@ -99,13 +99,46 @@ function ListPageSearchBar ({avail}) {
 
 	const newResults = findRelevantInfo();
 
-	console.log("RESULTS ARRAY TO BE DISPATCHED", newResults);
-	console.log("FILTER FIELDS", userChoice);
-    console.log('USERCHOICE AGE age', `${userChoice.age.toLowerCase()}`);
+
+	const resultMessage = () => {
+		let filteredMessage = `Openings`;
+		let terms = userChoice;
+		let age = "";
+		let city = "";
+		let date = "";
+		let care = "";
+
+		if (terms.age === "Toddler" || terms.age === "Infant") {
+			age = `for ${terms.age.toLowerCase()}s`;
+			filteredMessage = `${filteredMessage} ${age}`;
+		} else if (terms.age === "Pre-K" || terms.age === "School age") {
+			age = `for ${terms.age.toLowerCase()}`;
+			filteredMessage = `${filteredMessage} ${age}`;
+		}
+		if (terms.city) {
+			city = `in ${terms.city}`;
+			filteredMessage = `${filteredMessage} ${city}`;
+		}
+		if (terms.name) {
+			care = `at ${terms.name}`;
+			filteredMessage = `${filteredMessage} ${care}`;
+		}
+		if (terms.date) {
+			date = `on ${terms.date}`;
+			filteredMessage = `${filteredMessage} ${date}`;
+		}
+		return `${filteredMessage}:`;
+	};
+	const message = resultMessage();
+
+	console.log(message.replace(`Openings`, ''));
+
+
+
 
 	const filterProviders = (event) => {
 		event.preventDefault();
-		dispatch({ type: "FETCH_FILTERED_RESULTS", payload: [{filterTerms: userChoice}, {newResults: newResults}] });
+		dispatch({ type: "FETCH_FILTERED_RESULTS", payload: [{filterTerms: message}, {newResults: newResults}] });
 		// dispatch({ type: "SET_FILTER" });
 	};
 

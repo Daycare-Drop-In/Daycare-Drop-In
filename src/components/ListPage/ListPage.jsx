@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ListPageSearchBar from "../ListPageSearchBar/ListPageSearchBar";
 import ProviderListCards from "../ListPageProviderCards/ListPageProviderCards";
 import { useDispatch, useSelector } from "react-redux";
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 function ListPage() {
 	const dispatch = useDispatch()
@@ -14,8 +14,12 @@ function ListPage() {
 
 
 
+
+
+
 	useEffect(() => {
 		dispatch({ type: "GET_ALL_AVAILABILITY" });
+
 		// dispatch({ type: "FETCH_FILTERED_RESULTS" });
 		// if(!filter){
 		//   dispatch({ type: "GET_ALL_AVAILABILITY" });
@@ -31,11 +35,9 @@ function ListPage() {
 	// console.log(filter);
 	console.log(filter);
 
-
-
 	return (
 		<Container maxWidth="xs">
-			<h1>Provider Availability</h1>
+			<Typography variant="h6" align="center">Filtered Serach</Typography>
 
 			{/* Here's the import for the search bar component */}
 
@@ -44,26 +46,37 @@ function ListPage() {
 			{/* This component will get mapped over to display the list of providers */}
 			{!filter ? (
 				<>
-					<h4>All Availabilities</h4>
+					<Typography sx={{ my: 2, fontSize:'1.25em', fontWeight:'bold'}}  >All availabilities</Typography>
 					{avail?.map((choice) => (
 						<ProviderListCards key={choice.id} choice={choice} />
 					))}
 				</>
 			) : (
 				<>
-					<h4>
-						Results for
-						{Object.values(filteredAvail[0].filterTerms).map(
-							(value, index) => (
-								<span key={index}>{` ${value}`}</span>
-							)
-						)}
-						{/* Results for at least one
-						{filteredAvail[0].filterTerms.age}, and in
-						{filteredAvail[0].filterTerms.city}, and for
-						{filteredAvail[0].filterTerms.date}, with
-						{filteredAvail[0].filterTerms.name}. */}
-					</h4>
+					{filteredAvail[1].newResults.length > 0 ? (
+						<Typography sx={{ mt: 4, mb:3, fontStyle: "italic" }}>
+							{filteredAvail[0].filterTerms}
+						</Typography>
+					) : (
+						<>
+							<Typography
+								align="center"
+								sx={{ mt: 4, fontStyle: "italic" }}
+								paragraph
+								variant="h7"
+							>
+								{`Sorry, no availabilities found ${filteredAvail[0].filterTerms
+									.replace(`Openings`, "")
+									.replace(`:`, "")}.`}
+							</Typography>
+							<Typography
+								align="center"
+								sx={{ fontWeight: "bold", fontSize: ".95em" }}
+							>
+								Please reset the filters to start a new search.
+							</Typography>
+						</>
+					)}
 					{filteredAvail[1]?.newResults.map((choice) => (
 						<ProviderListCards key={choice.id} choice={choice} />
 					))}

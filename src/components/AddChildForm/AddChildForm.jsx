@@ -15,13 +15,28 @@ import FormData from "form-data"
 function addChildForm() {
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
+	const now = new Date();
+
+	const limitFuture = () =>{
+		now.setDate(now.getDate() - 42);
+		return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2,"0")}-${String(now.getDate()).padStart(2, "0")}`;
+
+	}
+	const sixWeeksAgo = limitFuture()
+
+	const limitPast = ()=>{
+		now.setFullYear(now.getFullYear() - 11);
+		return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+	}
+	const elevenYearsAgo = limitPast()
+
 
     const myKid = {
 
         family_id: user.family_id,
         first_name: "",
         last_name: "",
-        birthdate: "",
+        birthdate: "2018-01-01",
         allergies: "",
         photo_url: "",
         potty_trained: false
@@ -74,7 +89,6 @@ function addChildForm() {
 						display: "flex",
 						flexDirection: "row",
 						mb: -2,
-						
 					}}
 					onClick={() => setClicked(!clicked)}
 				>
@@ -106,14 +120,12 @@ function addChildForm() {
 								display: "flex",
 								flexDirection: "row",
 								justifyContent: "space-between",
-
 								mb: -2,
 							}}
 						>
-							<CardHeader
-								title={"Add a new child"}
-								align={"center"}
-							/>
+							<Typography mt={2}>
+								New Child
+							</Typography>
 							<IconButton
 								size="large"
 								onClick={() => setClicked(!clicked)}
@@ -174,8 +186,8 @@ function addChildForm() {
 								type="date"
 								margin="normal"
 								fullWidth
-								label=""
-								value={newChild.birthdate}
+								label="Birthday"
+								defaultValue={newChild.birthdate}
 								onChange={(event) =>
 									setNewChild({
 										...newChild,
@@ -183,6 +195,7 @@ function addChildForm() {
 									})
 								}
 								InputLabelProps={{ shrink: true }}
+								inputProps={{min:elevenYearsAgo, max: sixWeeksAgo}}
 							/>
 
 							<TextField
@@ -234,6 +247,7 @@ function addChildForm() {
 							</Container>
 							<TextField
 								fullWidth
+								required
 								name="photo_url"
 								sx={{ bgcolor: "white" }}
 								type="file"

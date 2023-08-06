@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
-import { IconButton, Grid, Collapse, CardActions } from "@mui/material";
+import { IconButton, Button, Grid, Collapse, CardActions } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
@@ -35,11 +35,13 @@ function ProviderPhotoItem({ photo, handleDelete }) {
 					justifyContent: "flex-end",
 				}}
 			>
-				<IconButton
+				<Button
 					size="small"
 					onClick={() => handleDelete(photo.id)}
+					color= "secondary"
+					variant="outlined"
 					sx={{
-						color: "secondary",
+						
 						border: "1",
 						borderRadius: 1,
 						// borderColor: "red",
@@ -47,9 +49,9 @@ function ProviderPhotoItem({ photo, handleDelete }) {
 						mb: -2,
 					}}
 				>
-					
-					<DeleteIcon sx={{ color: "secondary", fontSize: "1em" }} />
-				</IconButton>
+					Delete
+					{/* <DeleteIcon sx={{ color: "secondary", fontSize: "1em" }} /> */}
+				</Button>
 			</CardContent>
 
 			<CardContent sx={{ mb: -3 }}>

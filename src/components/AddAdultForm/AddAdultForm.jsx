@@ -82,7 +82,9 @@ function AddAdultForm () {
 					}}
 					onClick={() => setOpen(!open)}
 				>
-					<Typography color={'#409a0f'} variant="h5">Add an adult</Typography>
+					<Typography color={"#409a0f"} variant="h5">
+						Add an adult
+					</Typography>
 					<PersonAddAlt1Icon
 						sx={{
 							fontSize: "2rem",
@@ -111,7 +113,9 @@ function AddAdultForm () {
 								mb: -2,
 							}}
 						>
-							<Typography mt={3}>New Responsible Adult</Typography>
+							<Typography mt={3}>
+								New Responsible Adult
+							</Typography>
 							<IconButton
 								size="large"
 								onClick={() => setOpen(!open)}
@@ -126,6 +130,7 @@ function AddAdultForm () {
 							autoComplete="off"
 						>
 							<TextField
+								autoComplete="off"
 								placeholder="First Name"
 								required
 								name="first_name"
@@ -144,6 +149,7 @@ function AddAdultForm () {
 								InputLabelProps={{ shrink: true }}
 							/>
 							<TextField
+								autoComplete="off"
 								placeholder="Last Name"
 								required
 								name="last_name"
@@ -162,6 +168,7 @@ function AddAdultForm () {
 								InputLabelProps={{ shrink: true }}
 							/>
 							<TextField
+								autoComplete="off"
 								placeholder="Phone Number"
 								required
 								name="phone_number"
@@ -180,6 +187,7 @@ function AddAdultForm () {
 								InputLabelProps={{ shrink: true }}
 							/>
 							<TextField
+								autoComplete="off"
 								placeholder="Email"
 								required
 								name="email"
@@ -198,6 +206,7 @@ function AddAdultForm () {
 								InputLabelProps={{ shrink: true }}
 							/>
 							<TextField
+								autoComplete="off"
 								placeholder="Relationship"
 								required
 								name="relationship_to_child"
@@ -218,6 +227,7 @@ function AddAdultForm () {
 							/>
 
 							<TextField
+								autoComplete="off"
 								// placeholder="Photo"
 								required
 								fullWidth

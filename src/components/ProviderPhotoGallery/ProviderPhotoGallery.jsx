@@ -74,73 +74,75 @@ function ProviderPhotoGallery({ provider }) {
   }
 
   return (
-    provider_id && (
-      <Container>
-        {/* <h3>My photos</h3> */}
+		provider_id && (
+			<Container>
+				{/* <h3>My photos</h3> */}
 
-        {photoArray.map((photo) => (
-          <ProviderPhotoItem
-            key={photo.id}
-            photo={photo}
-            handleDelete={handleDelete}
-          />
-        ))}
+				{photoArray.map((photo) => (
+					<ProviderPhotoItem
+						key={photo.id}
+						photo={photo}
+						handleDelete={handleDelete}
+					/>
+				))}
 
-        <h3>Add another photo:</h3>
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{ mt: 1 }}
-          autoComplete="off"
-          encType="multipart/form-data"
-        >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="photo"
-            label="Upload a new photo"
-            type="file"
-            id="photo"
-            onChange={fileSelected}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            multiline
-            rows={4}
-            name="photo_description"
-            label="Photo Description"
-            type="text"
-            id="photo_description"
-            value={newPhoto.description}
-            onChange={(event) =>
-              setNewPhoto({
-                ...newPhoto,
-                description: event.target.value,
-              })
-            }
-            InputLabelProps={{ shrink: true }}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            color= "secondary"
-            sx={{
-              mb: 5,
-              p: 2,
-            
-              // backgroundColor: "#390854",
-            }}
-          >
-            Add Photo
-          </Button>
-        </Box>
+				<h3>Add another photo:</h3>
+				<Box
+					component="form"
+					onSubmit={handleSubmit}
+					sx={{ mt: 1 }}
+					autoComplete="off"
+					encType="multipart/form-data"
+				>
+					<TextField
+						autoComplete="off"
+						margin="normal"
+						required
+						fullWidth
+						name="photo"
+						label="Upload a new photo"
+						type="file"
+						id="photo"
+						onChange={fileSelected}
+						InputLabelProps={{ shrink: true }}
+					/>
+					<TextField
+						autoComplete="off"
+						margin="normal"
+						required
+						fullWidth
+						multiline
+						rows={4}
+						name="photo_description"
+						label="Photo Description"
+						type="text"
+						id="photo_description"
+						value={newPhoto.description}
+						onChange={(event) =>
+							setNewPhoto({
+								...newPhoto,
+								description: event.target.value,
+							})
+						}
+						InputLabelProps={{ shrink: true }}
+					/>
+					<Button
+						type="submit"
+						fullWidth
+						variant="outlined"
+						color="secondary"
+						sx={{
+							mb: 5,
+							p: 2,
 
-        {/* <form encType="multipart/form">
+							// backgroundColor: "#390854",
+						}}
+					>
+						Add Photo
+					</Button>
+				</Box>
+
+				{/* <form encType="multipart/form">
 						<div>
 							<label htmlFor="photo_url">
 								Upload
@@ -174,8 +176,8 @@ function ProviderPhotoGallery({ provider }) {
 
 						<button onClick={handleSubmit}>Submit</button>
 					</form> */}
-      </Container>
-    )
+			</Container>
+		)
   );
 }
 

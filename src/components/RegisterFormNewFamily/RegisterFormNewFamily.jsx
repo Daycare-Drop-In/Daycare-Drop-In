@@ -80,6 +80,7 @@ function RegisterFormNewFamily() {
 				encType="multipart/form-data"
 			>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -92,6 +93,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -104,6 +106,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -116,6 +119,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -128,6 +132,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -141,6 +146,7 @@ function RegisterFormNewFamily() {
 				/>
 
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -153,6 +159,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -165,6 +172,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					fullWidth
 					name="unit"
@@ -176,6 +184,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -188,6 +197,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -201,6 +211,7 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth
@@ -214,18 +225,20 @@ function RegisterFormNewFamily() {
 					InputLabelProps={{ shrink: true }}
 				/>
 
-					<TextField
-						margin="normal"
-						required
-						fullWidth
-						name="photo_url"
-						label="Photo"
-						type="file"
-						id="photo"
-						onChange={fileSelected}
-						InputLabelProps={{ shrink: true }}
-					/>
 				<TextField
+					autoComplete="off"
+					margin="normal"
+					required
+					fullWidth
+					name="photo_url"
+					label="Photo"
+					type="file"
+					id="photo"
+					onChange={fileSelected}
+					InputLabelProps={{ shrink: true }}
+				/>
+				<TextField
+					autoComplete="off"
 					margin="normal"
 					required
 					fullWidth

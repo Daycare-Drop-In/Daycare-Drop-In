@@ -123,9 +123,7 @@ function addChildForm() {
 								mb: -2,
 							}}
 						>
-							<Typography mt={2}>
-								New Child
-							</Typography>
+							<Typography mt={2}>New Child</Typography>
 							<IconButton
 								size="large"
 								onClick={() => setClicked(!clicked)}
@@ -141,6 +139,7 @@ function addChildForm() {
 							encType="multipart/form-data"
 						>
 							<TextField
+								autoComplete="off"
 								placeholder="First Name"
 								required
 								name="first_name"
@@ -160,6 +159,7 @@ function addChildForm() {
 							/>
 
 							<TextField
+								autoComplete="off"
 								placeholder="Last Name"
 								required
 								name="last name"
@@ -179,6 +179,7 @@ function addChildForm() {
 							/>
 
 							<TextField
+								autoComplete="off"
 								// placeholder="YYYY/MM/DD"
 								required
 								name="birthdate"
@@ -195,10 +196,14 @@ function addChildForm() {
 									})
 								}
 								InputLabelProps={{ shrink: true }}
-								inputProps={{min:elevenYearsAgo, max: sixWeeksAgo}}
+								inputProps={{
+									min: elevenYearsAgo,
+									max: sixWeeksAgo,
+								}}
 							/>
 
 							<TextField
+								autoComplete="off"
 								placeholder="Allergies"
 								required
 								name="allergies"
@@ -246,6 +251,7 @@ function addChildForm() {
 								</FormControl>
 							</Container>
 							<TextField
+								autoComplete="off"
 								fullWidth
 								required
 								name="photo_url"

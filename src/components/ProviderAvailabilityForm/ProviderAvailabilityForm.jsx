@@ -18,7 +18,7 @@ import {
 function ProviderAvailabilityForm({ provider }) {
 	const dispatch = useDispatch();
 	const provider_id = provider.id;
-	
+
 	const [dateOptions, setDateOptions] = useState([]);
 	const [date, setDate] = useState("");
 	const [infant, setInfant] = useState(0);
@@ -85,6 +85,7 @@ function ProviderAvailabilityForm({ provider }) {
 				<Grid container spacing={1}>
 					<Grid item xs={2.5}>
 						<TextField
+							autoComplete="off"
 							margin="normal"
 							name="infant"
 							value={infant}
@@ -97,6 +98,7 @@ function ProviderAvailabilityForm({ provider }) {
 					</Grid>
 					<Grid item xs={2.5}>
 						<TextField
+							autoComplete="off"
 							margin="normal"
 							fullWidth
 							name="toddler"
@@ -110,6 +112,7 @@ function ProviderAvailabilityForm({ provider }) {
 					</Grid>
 					<Grid item xs={2.5}>
 						<TextField
+							autoComplete="off"
 							margin="normal"
 							fullWidth
 							name="pre-k"
@@ -123,6 +126,7 @@ function ProviderAvailabilityForm({ provider }) {
 					</Grid>
 					<Grid item xs={3.5}>
 						<TextField
+							autoComplete="off"
 							margin="normal"
 							fullWidth
 							name="schoolage"
@@ -136,6 +140,7 @@ function ProviderAvailabilityForm({ provider }) {
 					</Grid>
 					<Grid item xs={12}>
 						<TextField
+							autoComplete="off"
 							margin="normal"
 							name="date"
 							value={date}
@@ -147,11 +152,10 @@ function ProviderAvailabilityForm({ provider }) {
 							inputProps={{ min: currentDate }}
 						/>
 						<Button
-								variant="outlined"
-								color="secondary"
-								sx={{ fontSize: ".55em", mr: 0 }}
+							variant="outlined"
+							color="secondary"
+							sx={{ fontSize: ".55em", mr: 0, mx: 2, my: 3 }}
 							onClick={handleSubmit}
-							sx={{ mx: 2, my: 3 }}
 						>
 							Submit
 						</Button>

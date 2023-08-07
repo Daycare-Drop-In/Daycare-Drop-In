@@ -74,6 +74,13 @@ function PublicProviderHomePage() {
 					{`Provider Name: ${provider.first_name} ${provider.last_name}`}
 				</Typography>
 				<Typography sx={{ mt: 2 }}>
+					{`Phone Number: ${provider.phone_number}`}
+				</Typography>
+				<Typography sx={{ mt: 2 }}>
+					{`Email: ${provider.email}`}
+				</Typography>
+
+				<Typography sx={{ mt: 2 }}>
 					{`License #: ${provider.license}`}
 				</Typography>
 				<Typography sx={{ mt: 2 }}>
@@ -82,9 +89,6 @@ function PublicProviderHomePage() {
 					${provider.zip}`
 						: `Address: ${provider.street_address}, ${provider.city}, ${provider.state}
 					${provider.zip} `}
-				</Typography>
-				<Typography sx={{ mt: 2 }}>
-					{`Email: ${provider.email}`}
 				</Typography>
 
 				{/* <p>
@@ -103,7 +107,7 @@ function PublicProviderHomePage() {
 					<b>Email:</b> {provider.email}
 				</p> */}
 			</div>
-			<Divider sx={{ mt: 2, mb:1 }} variant="middle" />
+			<Divider sx={{ mt: 2, mb: 1 }} variant="middle" />
 
 			<Grid
 				container
@@ -180,8 +184,6 @@ function PublicProviderHomePage() {
 			<Typography variant="h6" sx={{ my: 1 }}>
 				{`Book with ${provider.first_name}`}
 			</Typography>
-
-
 
 			<PublicProviderAvailabilityTable />
 

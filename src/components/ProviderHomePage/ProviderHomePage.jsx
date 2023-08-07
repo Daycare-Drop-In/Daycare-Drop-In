@@ -61,18 +61,11 @@ function ProviderHomePage() {
 				/>
 			</div>
 
-
-			
-				
-
-
-
-			<IconButton
-      color="secondary">
-				<IconButton 
-        color="secondary"
-        onClick={() => setExpanded(!expanded)}>
-
+			<IconButton color="secondary">
+				<IconButton
+					color="secondary"
+					onClick={() => setExpanded(!expanded)}
+				>
 					{!expanded ? (
 						<Typography variant="h6"> My profile info</Typography>
 					) : (
@@ -88,7 +81,7 @@ function ProviderHomePage() {
 						<Button
 							sx={{ my: 1 }}
 							variant="outlined"
-              color="secondary"
+							color="secondary"
 							onClick={() => setEditMode(true)}
 						>
 							Edit Info
@@ -115,6 +108,12 @@ function ProviderHomePage() {
 								{`Provider Name: ${provider.first_name} ${provider.last_name}`}
 							</Typography>
 							<Typography sx={{ mt: 2 }}>
+								{`Phone Number: ${provider.phone_number}`}
+							</Typography>
+							<Typography sx={{ mt: 2 }}>
+								{`Email: ${provider.email}`}
+							</Typography>
+							<Typography sx={{ mt: 2 }}>
 								{`License #: ${provider.license}`}
 							</Typography>
 							<Typography sx={{ mt: 2 }}>
@@ -123,9 +122,6 @@ function ProviderHomePage() {
 					${provider.zip}`
 									: `Address: ${provider.street_address}, ${provider.city}, ${provider.state}
 					${provider.zip} `}
-							</Typography>
-							<Typography sx={{ mt: 2 }}>
-								{`Email: ${provider.email}`}
 							</Typography>
 						</div>
 					</>

@@ -129,6 +129,7 @@ function FamilyChildCards({ kid }) {
             sx={{
               width: "100%",
               m: 1,
+              borderRadius: 2,
             }}
             raised
             key={kid.id}
@@ -140,7 +141,7 @@ function FamilyChildCards({ kid }) {
                 justifyContent: "center",
               }}
             >
-              <Typography variant="h6">
+              <Typography variant="h7">
                 <b>
                   {kid.first_name} {kid.last_name}
                 </b>
@@ -175,7 +176,7 @@ function FamilyChildCards({ kid }) {
               </Grid>
             </CardContent>
 
-            <Button
+            {/* <Button
               variant="outlined"
               color="secondary"
               size="small"
@@ -183,14 +184,14 @@ function FamilyChildCards({ kid }) {
               onClick={() => deleteKid(kid.id)}
             >
               Delete
-            </Button>
+            </Button> */}
 
             {!edit ? (
               <Button
                 variant="outlined"
                 color="secondary"
                 size="small"
-                sx={{ m: 2, ml: 0 }}
+                sx={{ m: 2}}
                 onClick={() => {
                   makeUpdatedChild(kid), setEdit(!edit);
                 }}

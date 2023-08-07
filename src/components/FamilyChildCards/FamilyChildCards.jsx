@@ -14,14 +14,9 @@ import FormData from "form-data"
 
 
 
-function FamilyChildCards({kid}) {
-
+function FamilyChildCards({ kid }) {
 
     const dispatch = useDispatch();
-    
-
-
-    
     const user = useSelector((store) => store.user);
 
 
@@ -32,55 +27,53 @@ function FamilyChildCards({kid}) {
         allergies: kid.allergies || "",
         potty_trained: kid.potty_trained,
         family_id: kid.family_id
-
     }
 
-    
-  
+
     const [updatedChild, setUpdatedChild] = useState(updatedMyKid)
-
-
-
-     
     const [edit, setEdit] = useState(false)
-    
-  
 
     const editChild = (event) => {
         event.preventDefault();
         console.log(updatedChild);
-        dispatch({type: "UPDATE_CHILD", payload: updatedChild});
+        dispatch({ type: "UPDATE_CHILD", payload: updatedChild });
         setEdit(!edit);
-        
         setUpdatedChild(updatedMyKid);
         console.log('updated child is', updatedChild);
     }
 
-    const makeUpdatedChild = (kid) =>{
+    const makeUpdatedChild = (kid) => {
         console.log('MAKE UPDATED CHILD', kid);
-        setUpdatedChild({...updatedChild, childId: kid.id})
-        setUpdatedChild({...updatedChild, first_name: kid.first_name})
-        setUpdatedChild({...updatedChild, last_name: kid.last_name})
-        setUpdatedChild({...updatedChild, allergies: kid.allergies})
-        setUpdatedChild({...updatedChild, potty_trained: kid.potty_trained})
-        setUpdatedChild({...updatedChild, family_id: kid.family_id})
-
-       
-        
-       
-        
-        
-        
+        setUpdatedChild({
+            ...updatedChild,
+            childId: kid.id,
+            first_name: kid.first_name,
+            last_name: kid.last_name,
+            allergies: kid.allergies,
+            potty_trained: kid.potty_trained,
+            family_id: kid.family_id,
+        });
     }
 
     const deleteKid = (childId) => {
-
         console.log('Clicked delete', childId);
-        dispatch({type: "DELETE_CHILD", payload: {id: childId, familyId: user.family_id}})
+        dispatch({ type: "DELETE_CHILD", payload: { id: childId, familyId: user.family_id } })
     }
 
     // console.log('NEW CHILD OBJECT', newChild);
     console.log('updated CHILD', updatedChild);
+
+
+    const setAllergy = (event) => {
+        event.preventDefault();
+        const presetAllergy = "strawberries";
+
+        // Populate the form inputs with the pre-set values
+        setUpdatedChild({
+            ...updatedChild,
+            allergies: presetAllergy,
+        });
+    }
     return (
         <Container
             maxWidth={"sm"}
@@ -89,7 +82,7 @@ function FamilyChildCards({kid}) {
                 flexDirection: "column",
                 justifyContent: "center",
             }}
-            
+
         >
             {/* <Typography variant="h7" sx={{ mb: 1 }}>
                 All My Children
@@ -107,24 +100,24 @@ function FamilyChildCards({kid}) {
                     {/* {!edit ? (
                     
                     ) : */}
-                    
-
-                        <Card
-                            sx={{
-                                width: "100%",
-                                objectFit: "contain",
-                                mb: 1.5,
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                borderRadius: 4
-                            }}
-                            raised
-                            key={kid.id}
-                            >
 
 
-                            <CardContent
+                    <Card
+                        sx={{
+                            width: "100%",
+                            objectFit: "contain",
+                            mb: 1.5,
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: 4
+                        }}
+                        raised
+                        key={kid.id}
+                    >
+
+
+                        <CardContent
                             sx={{
                                 display: "flex",
                                 flexDirection: "column",
@@ -133,76 +126,78 @@ function FamilyChildCards({kid}) {
                                 mt: 3,
                                 ml: 2
                             }}
-                            >
-                                <Typography variant="h6" color="text.secondary" textAlign="center"><b>{kid.first_name} {kid.last_name}</b></Typography>
-                                <CardMedia
-                                    component="img"
-                                    sx={{ objectFit: "contain", height: 80 }}
-                                    image={kid.photo_url}
-                                    alt={"profile picture"}
-                                />
-                                <Typography variant="h8" color="text.secondary"><b>Allergies:</b> {kid.allergies}</Typography>
-                                <Typography variant="h8" color="text.secondary"><b>Potty Trained:</b> {JSON.stringify(kid.potty_trained)}</Typography>
-                                
-                            </CardContent>
-                            <Button onClick={() => deleteKid(kid.id)}
-                            sx={{color: "red"}}
-                            >Delete
+                        >
+                            <Typography variant="h6" color="text.secondary" textAlign="center"><b>{kid.first_name} {kid.last_name}</b></Typography>
+                            <CardMedia
+                                component="img"
+                                sx={{ objectFit: "contain", height: 80 }}
+                                image={kid.photo_url}
+                                alt={"profile picture"}
+                            />
+                            <Typography onClick={setAllergy} variant="h8" color="text.secondary"><b>Allergies:</b> {kid.allergies}</Typography>
+                            <Typography variant="h8" color="text.secondary"><b>Potty Trained:</b> {JSON.stringify(kid.potty_trained)}</Typography>
+
+                        </CardContent>
+                        <Button onClick={() => deleteKid(kid.id)}
+                            sx={{ color: "red" }}
+                        >Delete
+                        </Button>
+
+
+                        {!edit ? (
+                            <Button onClick={() => {
+                                makeUpdatedChild(kid),
+                                    setEdit(!edit)
+                            }}>
+                                Edit
                             </Button>
+                        ) : (
 
-
-                            {!edit ? (
-                                <Button onClick={() => {makeUpdatedChild(kid),
-                                setEdit(!edit)}}>
-                                    Edit
-                                </Button>
-                            ):(
-                                
-                                <Box
+                            <Box
                                 component="form"
-                            onSubmit={editChild}
-                            autoComplete='off'
+                                onSubmit={editChild}
+                                autoComplete='off'
                             >
                                 <IconButton
-                                size="large"
-                                onClick={() => setEdit(!edit)}
-                            >
-                                <CloseOutlinedIcon />
-                            </IconButton>
+                                    size="large"
+                                    onClick={() => setEdit(!edit)}
+                                >
+                                    <CloseOutlinedIcon />
+                                </IconButton>
                                 <TextField
-                                placeholder="First Name"
-                                name="first_name"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="First Name"
-                                value={updatedChild.first_name}
-                                onChange={(event) =>
-                                    setUpdatedChild({
-                                        ...updatedChild,
-                                        first_name: event.target.value,
-                                    })
-                                }
-                            />
-                            <TextField
-                                placeholder="Last Name"
-                                name="last name"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="last name"
-                                value={updatedChild.last_name}
-                                onChange={(event) =>
-                                    setUpdatedChild({
-                                        ...updatedChild,
-                                        last_name: event.target.value,
-                                    })
-                                }
-                            />
+                                    placeholder="First Name"
+                                    name="first_name"
+                                    sx={{ bgcolor: "white" }}
+                                    type="text"
+                                    margin="normal"
+                                    fullWidth
+                                    label="First Name"
+                                    value={updatedChild.first_name}
+                                    onChange={(event) =>
+                                        setUpdatedChild({
+                                            ...updatedChild,
+                                            first_name: event.target.value,
+                                        })
+                                    }
+                                />
+                                <TextField
+                                    placeholder="Last Name"
+                                    name="last name"
+                                    sx={{ bgcolor: "white" }}
+                                    type="text"
+                                    margin="normal"
+                                    fullWidth
+                                    label="last name"
+                                    value={updatedChild.last_name}
+                                    onChange={(event) =>
+                                        setUpdatedChild({
+                                            ...updatedChild,
+                                            last_name: event.target.value,
+                                        })
+                                    }
+                                />
 
-                            {/* <TextField
+                                {/* <TextField
                                 placeholder="YYYY/MM/DD"
                                 required
                                 name="birthdate"
@@ -219,63 +214,65 @@ function FamilyChildCards({kid}) {
                                     })
                                 }
                             /> */}
-                             <TextField
-                                placeholder="allergies"
-                                name="allergies"
-                                sx={{ bgcolor: "white" }}
-                                type="text"
-                                margin="normal"
-                                fullWidth
-                                label="allergies"
-                                value={updatedChild.allergies}
-                                onChange={(event) =>
-                                    setUpdatedChild({
-                                        ...updatedChild,
-                                        allergies: event.target.value,
-                                    })
-                                }
-                            />
-                            <FormControl>
+
+                                <div onClick={setAllergy}></div>
+                                <TextField
+                                    placeholder="allergies"
+                                    name="allergies"
+                                    sx={{ bgcolor: "white" }}
+                                    type="text"
+                                    margin="normal"
+                                    fullWidth
+                                    label="allergies"
+                                    value={updatedChild.allergies}
+                                    onChange={(event) =>
+                                        setUpdatedChild({
+                                            ...updatedChild,
+                                            allergies: event.target.value,
+                                        })
+                                    }
+                                />
+                                <FormControl>
                                     <FormGroup>
                                         <FormControlLabel
-                                        label="Potty Trained"
-                                        labelPlacement="end"
-                                        control={
-                                            <Checkbox 
-                                            checked={updatedChild.potty_trained}
-                                            onClick={() =>
-                                                setUpdatedChild({
-                                                    ...updatedChild,
-                                                    potty_trained:true
-                                                })
+                                            label="Potty Trained"
+                                            labelPlacement="end"
+                                            control={
+                                                <Checkbox
+                                                    checked={updatedChild.potty_trained}
+                                                    onClick={() =>
+                                                        setUpdatedChild({
+                                                            ...updatedChild,
+                                                            potty_trained: true
+                                                        })
+                                                    }
+                                                />
                                             }
-                                            />
-                                        }
                                         />
                                     </FormGroup>
-                                </FormControl>    
+                                </FormControl>
                                 <Button
-                                type="submit"
-                                sx={{ m: 2 }}
-                                variant="contained"
-                                size="large"
-                               
-                            >
-                                Save
-                            </Button>
+                                    type="submit"
+                                    sx={{ m: 2 }}
+                                    variant="contained"
+                                    size="large"
 
-                                </Box>
-                            )}
-                            
+                                >
+                                    Save
+                                </Button>
 
-                            
+                            </Box>
+                        )}
 
 
-                        </Card>
 
-                    
 
-                    
+
+                    </Card>
+
+
+
+
                 </Grid>
             </Grid>
 

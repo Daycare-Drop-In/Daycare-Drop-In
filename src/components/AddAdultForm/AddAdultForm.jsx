@@ -23,7 +23,6 @@ import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { useDispatch, useSelector } from "react-redux";
 
 function AddAdultForm() {
-
 	const dispatch = useDispatch();
 	const user = useSelector((store) => store.user);
 
@@ -37,12 +36,11 @@ function AddAdultForm() {
 		photo_url: "",
 	};
 
-
 	const [newAdult, setNewAdult] = useState(responsibleAdult);
 	const [open, setOpen] = useState(false);
 
 	const addNewAdult = () => {
-		console.log('this is new adult', newAdult);
+		console.log("this is new adult", newAdult);
 		dispatch({ type: "POST_ADULT", payload: newAdult });
 		setOpen(!open);
 		setNewAdult(responsibleAdult);
@@ -77,7 +75,7 @@ function AddAdultForm() {
 			phone_number: presetPhoneNumber,
 			email: presetEmail,
 			relationship_to_child: presetRelationship,
-		  });
+		});
 	}
 
 
@@ -91,25 +89,13 @@ function AddAdultForm() {
 			}}
 		>
 			{!open ? (
-				<IconButton
-					sx={{
-						display: "flex",
-						flexDirection: "row",
-
-						mb: 0,
-					}}
+				<Button
+					color="secondary"
+					variant="contained"
 					onClick={() => setOpen(!open)}
 				>
-					<Typography color={'#409a0f'} variant="h5">Add an adult</Typography>
-					<PersonAddAlt1Icon
-						sx={{
-							fontSize: "2rem",
-							ml: 1,
-							my: 3,
-							color: "#409a0f",
-						}}
-					/>
-				</IconButton>
+					Add an adult
+				</Button>
 			) : (
 				<Card
 					elevation={8}
@@ -135,19 +121,12 @@ function AddAdultForm() {
 							>
 								New Responsible Adult
 							</Typography>
-							<IconButton
-								size="large"
-								onClick={() => setOpen(!open)}
-							>
+							<IconButton size="large" onClick={() => setOpen(!open)}>
 								<CloseOutlinedIcon />
 							</IconButton>
 						</CardContent>
 
-						<Box
-							component="form"
-							onSubmit={addNewAdult}
-							autoComplete="off"
-						>
+						<Box component="form" onSubmit={addNewAdult} autoComplete="off">
 							<TextField
 								placeholder="First Name"
 								required
@@ -233,8 +212,7 @@ function AddAdultForm() {
 								onChange={(event) =>
 									setNewAdult({
 										...newAdult,
-										relationship_to_child:
-											event.target.value,
+										relationship_to_child: event.target.value,
 									})
 								}
 								InputLabelProps={{ shrink: true }}
@@ -256,8 +234,8 @@ function AddAdultForm() {
 							<Button
 								type="submit"
 								sx={{ m: 2 }}
-								variant="contained"
-								size="large"
+								variant="outlined"
+								color="secondary"
 							>
 								Save
 							</Button>
@@ -269,4 +247,4 @@ function AddAdultForm() {
 	);
 }
 
-export default AddAdultForm
+export default AddAdultForm;

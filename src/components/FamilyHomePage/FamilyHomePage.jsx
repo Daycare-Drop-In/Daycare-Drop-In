@@ -84,23 +84,12 @@ function FamilyHomePage() {
 				<Divider sx={{ my: 2 }} variant="middle" />
 			</Box>
 
-			{/* <div className="family-details">
-				<p>
-					<b>Primary Address: </b>
-					{family.street_address} {family.unit}
-					{", "}
-					{family.city} {family.state} {family.zip}
-				</p>
-				<p>
-					<b>Family Access Code:</b> {family.access_code}
-				</p>
-			</div> */}
 
 			<Typography sx={{ mb: 2 }} variant="h6">
-				Our kids
+				Our Kids
 			</Typography>
 
-			{/* need to map this component  */}
+			
 			{children?.map((kid) => (
 				<FamilyChildCards key={kid.id} kid={kid} />
 			))}
@@ -115,7 +104,6 @@ function FamilyHomePage() {
 				<FamilyContactCards key={adult.id} adult={adult} />
 			))}
 
-			{/* <LogOutButton className="btn" /> */}
 
 			<AddAdultForm />
 			<Divider sx={{ my: 2 }} variant="middle" />

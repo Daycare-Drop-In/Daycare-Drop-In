@@ -64,7 +64,7 @@ function RegisterFormJoinFamily() {
 
   const fillPresetUser = (event) => {
     event.preventDefault();
-    const presetUsername = "ismail@gmail.com";
+    const presetUsername = "ismail@email.com";
     const presetPassword = "family1";
     const presetFirstName = "Ismail";
     const presetLastName = "Ali";

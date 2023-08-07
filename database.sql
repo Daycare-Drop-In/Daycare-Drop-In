@@ -1068,22 +1068,35 @@ VALUES (3, 'Layla', 'Ali', '2022-10-01', 'none', 'FALSE', 'https://dcdi-spike.s3
 
 
 INSERT INTO "user" ("username", "password", "user_type", "family_id", "first_name", "last_name", "email", "phone_number", "photo_url")
-VALUES ('fred@example.com', 'flinstones', 'family', 1, 'Fred', 'Flinstone', 'fred@example.com', '555-123-4567', 'https://example.com/fred_photo.png');
+VALUES ('fred@email.com', 'flinstones', 'family', 6, 'Fred', 'Flintstone', 'fred@example.com', '555-123-4567', 'https://static.wikia.nocookie.net/flinstones/images/e/ee/The_Flintstones_-_Character_Profile_Image_-_Fred_Flintstone.png/revision/latest?cb=20200128031714');
 
 
 INSERT INTO families ("family_name", "street_address", "unit", "city", "state", "zip", "photo_url", "access_code")
-VALUES ('Flinstone Family', '123 Bedrock St', '1', 'Bedrock', 'CA', 12345, 'https://example.com/flinstone_home.png', 'yabbadabbadoo');
+VALUES ('Flintstone Family', '123 Bedrock St', '1', 'Bedrock', 'CA', 12345, 'https://www.remindmagazine.com/wp-content/uploads/2023/07/the-flinstones-cartoon-1014x570.jpg', 'yabbadabbadoo');
 
 INSERT INTO "children" ("family_id", "first_name", "last_name", "birthdate", "allergies", "potty_trained", "photo_url")
-VALUES (1, 'Pebbles', 'Flinstone', '2023-01-15', 'Dust', 'FALSE', 'https://example.com/pebbles_photo.png'),
-(1, 'Bam-Bam', 'Rubble', '2022-08-20', 'None', 'TRUE', 'https://example.com/bambam_photo.png');
+VALUES (6, 'Pebbles', 'Flintstone', '2023-01-15', 'Dust', 'FALSE', 'https://www.pngkit.com/png/detail/230-2307650_baby-flintstones-baby-cartoon-characters-baby-clip-pebbles.png');
+
+INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
+VALUES (6, 'Wilma', 'Flintstone', '(555)123-4567', 'wilma@email.com', 'Mother', 'https://upload.wikimedia.org/wikipedia/en/9/97/Wilma_Flintstone.png');
+
+INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
+VALUES (6, 'Barney', 'Rubble', '(555)987-6543', 'barney@email.com', 'Uncle', 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/Barney_Rubble.png/160px-Barney_Rubble.png');
+
+INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
+VALUES (6, 'Betty', 'Rubble', '(555)246-1357', 'betty@email.com', 'Aunt', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Betty_Rubble.png');
+
+
+
+
+
+INSERT INTO "children" ("family_id", "first_name", "last_name", "birthdate", "allergies", "potty_trained", "photo_url")
+VALUES (7, 'Elroy', 'Jetson', '2018-01-15', 'Gravity', 'TRUE', 'https://static.wikia.nocookie.net/warner-bros-entertainment/images/8/89/Elroy_Jetson.png/revision/latest?cb=20160830064250');
+
 
 
 INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
-VALUES (1, 'Wilma', 'Flintstone', '(555)123-4567', 'wilma@example.com', 'Mother', 'https://example.com/wilma_photo.png');
+VALUES (7, 'Jane', 'Jetson', '(555)123-4567', 'jane@email.com', 'Mother', 'https://static.wikia.nocookie.net/warner-bros-entertainment/images/6/63/Jane_Jetson.jpg/revision/latest?cb=20160830064111');
 
 INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
-VALUES (2, 'Barney', 'Rubble', '(555)987-6543', 'barney@example.com', 'Uncle', 'https://example.com/barney_photo.png');
-
-INSERT INTO responsible_adults (family_id, first_name, last_name, phone_number, email, relationship_to_child, photo_url)
-VALUES (2, 'Betty', 'Rubble', '(555)246-1357', 'betty@example.com', 'Aunt', 'https://example.com/betty_photo.png');
+VALUES (7, 'Rosie', 'Robot', '(555)987-6543', 'rosie@email.com', 'Housekeeper', 'https://w7.pngwing.com/pngs/409/47/png-transparent-george-jetson-judy-jetson-elroy-jetson-rosie-the-robot-cartoon-amusement-park-cartoon-television-white-fictional-character-thumbnail.png');

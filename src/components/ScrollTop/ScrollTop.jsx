@@ -51,7 +51,7 @@ function ScrollTop() {
                 <Fab
                     onClick={scrollToTop}
                     color="secondary"
-                    size="large"
+                    size="medium"
                     aria-label="scroll back to top"
                 >
                     <KeyboardArrowUp />

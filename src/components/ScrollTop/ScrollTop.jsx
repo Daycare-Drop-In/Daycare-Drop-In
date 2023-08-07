@@ -42,7 +42,7 @@ function ScrollTop() {
                 role="presentation"
                 sx={{
                     position: "fixed",
-                    bottom: 75,
+                    bottom: 30,
                     // right: 32,
                     right: 15,
                     zIndex: 999,
@@ -51,7 +51,7 @@ function ScrollTop() {
                 <Fab
                     onClick={scrollToTop}
                     color="secondary"
-                    size="large"
+                    size="medium"
                     aria-label="scroll back to top"
                 >
                     <KeyboardArrowUp />

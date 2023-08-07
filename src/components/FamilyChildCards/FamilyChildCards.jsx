@@ -98,6 +98,20 @@ function FamilyChildCards({ kid }) {
     return childAge;
   };
 
+  // console.log('NEW CHILD OBJECT', newChild);
+  console.log('updated CHILD', updatedChild);
+
+
+  const setAllergy = (event) => {
+    event.preventDefault();
+    const presetAllergy = "strawberries";
+
+    // Populate the form inputs with the pre-set values
+    setUpdatedChild({
+      ...updatedChild,
+      allergies: presetAllergy,
+    });
+  }
   return (
     <Container
       maxWidth={"sm"}
@@ -106,6 +120,7 @@ function FamilyChildCards({ kid }) {
         flexDirection: "column",
         justifyContent: "center",
       }}
+
     >
       {/* <Typography variant="h7" sx={{ mb: 1 }}>
                 All My Children
@@ -165,7 +180,8 @@ function FamilyChildCards({ kid }) {
                     <b>Age: </b>
                     {calculateAge(kid.birthdate)}
                   </Typography>
-                  <Typography>
+                  <Typography
+                  onClick={setAllergy}>
                     <b>Allergies: </b> {kid.allergies}
                   </Typography>
                   <Typography>
@@ -191,7 +207,7 @@ function FamilyChildCards({ kid }) {
                 variant="outlined"
                 color="secondary"
                 size="small"
-                sx={{ m: 2}}
+                sx={{ m: 2 }}
                 onClick={() => {
                   makeUpdatedChild(kid), setEdit(!edit);
                 }}
@@ -238,7 +254,7 @@ function FamilyChildCards({ kid }) {
                     })
                   }
                 />
-
+                <div onClick={setAllergy}></div>
                 {/* <TextField
                                 placeholder="YYYY/MM/DD"
                                 required

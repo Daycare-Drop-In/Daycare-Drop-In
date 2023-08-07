@@ -53,6 +53,33 @@ function RegisterFormJoinFamily() {
     });
   }
 
+
+  const fillAccessCode = (event) => {
+    event.preventDefault();
+    const presetAccessCode = "baby shark";
+
+    // Populate the form inputs with the pre-set value
+    setAccessCode(presetAccessCode);
+  }
+
+  const fillPresetUser = (event) => {
+    event.preventDefault();
+    const presetUsername = "ismail@gmail.com";
+    const presetPassword = "family1";
+    const presetFirstName = "Ismail";
+    const presetLastName = "Ali";
+    const presetPhoneNumber = "612-555-4321";
+    const presetRelationship = "Parent";
+
+    // Populate the form inputs with the pre-set values
+    setUsername(presetUsername);
+    setPassword(presetPassword);
+    setFirstName(presetFirstName);
+    setLastName(presetLastName);
+    setPhoneNumber(presetPhoneNumber);
+    setRelationship(presetRelationship);
+  }
+
   console.log("this is code", code);
   return (
     <>
@@ -65,7 +92,11 @@ function RegisterFormJoinFamily() {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography 
+          component="h1" 
+          variant="h5"
+          onClick={fillAccessCode}
+          >
             Enter your family's access code
           </Typography>
           <Box
@@ -106,7 +137,10 @@ function RegisterFormJoinFamily() {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography 
+          component="h1" 
+          variant="h5"
+          onClick={fillPresetUser}>
             Register your account
           </Typography>
           <Box

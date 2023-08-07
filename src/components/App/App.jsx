@@ -24,7 +24,7 @@ import ListPage from "../ListPage/ListPage";
 import RegisterPageProvider from "../RegisterPageProvider/RegisterPageProvider";
 import RegisterPageNewFamily from "../RegisterPageNewFamily/RegisterPageNewFamily";
 import RegisterPageJoinFamily from "../RegisterPageJoinFamily/RegisterPageJoinFamily";
-import BottomNav from "../BottomNav/BottomNav";
+// import BottomNav from "../BottomNav/BottomNav";
 import Styled from "../_STYLED/Styled";
 
 import "./App.css";
@@ -47,9 +47,13 @@ function App() {
 
 	return (
 		<Router>
+							<Nav />
+
 			<div className="all-app-container">
-				<Nav />
-				<BackButton />
+				{/* <Nav /> */}
+				{/* {user.id && (
+					<BackButton />
+				)} */}
 				<Switch>
 					{/* Visiting localhost:3000 will redirect to localhost:3000/home */}
 					<Redirect exact from="/" to="/home" />
@@ -74,7 +78,7 @@ function App() {
 						path="/user"
 					>
 						<UserHomePage />
-						<BottomNav />
+						{/* <BottomNav /> */}
 					</ProtectedRoute>
 
 					{/* <ProtectedRoute
@@ -87,12 +91,12 @@ function App() {
 
 					<ProtectedRoute exact path="/details/family/:id">
 						<FamilyDetails />
-						<BottomNav />
+						{/* <BottomNav /> */}
 					</ProtectedRoute>
 
 					<ProtectedRoute exact path="/details/provider/:id">
 						<PublicProviderHomePage />
-						<BottomNav />
+						{/* <BottomNav /> */}
 					</ProtectedRoute>
 
 					<ProtectedRoute
@@ -100,7 +104,7 @@ function App() {
 						path="/booking/:providerId/:availabilityId/:familyId"
 					>
 						<ProviderBookingProcess />
-						<BottomNav />
+						{/* <BottomNav /> */}
 					</ProtectedRoute>
 
 					<Route exact path="/login">
@@ -171,7 +175,7 @@ function App() {
 
 					<Route exact path="/static_list">
 						<StaticListPage />
-						<BottomNav />
+						{/* <BottomNav /> */}
 					</Route>
 
 					<ProtectedRoute
@@ -184,7 +188,7 @@ function App() {
 
 					<Route exact path="/provider_list">
 						<ListPage />
-						<BottomNav />
+						{/* <BottomNav /> */}
 					</Route>
 					<Route exact path="/styles">
 						<Styled />
@@ -195,7 +199,7 @@ function App() {
 					</Route>
 				</Switch>
 				<ScrollTop />
-				<BottomNav />
+				{/* <BottomNav /> */}
 			</div>
 		</Router>
 	);

@@ -101,7 +101,7 @@ function addChildForm() {
         <Button
           color="secondary"
           variant="contained"
-          onClick={() => setOpen(!open)}
+          onClick={() => setClicked(!clicked)}
         >
           Add a child
         </Button>
@@ -256,8 +256,9 @@ function addChildForm() {
               <Button
                 type="submit"
                 sx={{ m: 2 }}
-                variant="contained"
-                size="large"
+                variant="outlined"
+                size="small"
+                color="secondary"
               >
                 Save
               </Button>

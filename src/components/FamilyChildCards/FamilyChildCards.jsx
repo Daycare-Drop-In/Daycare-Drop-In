@@ -180,7 +180,8 @@ function FamilyChildCards({ kid }) {
                     <b>Age: </b>
                     {calculateAge(kid.birthdate)}
                   </Typography>
-                  <Typography>
+                  <Typography
+                  onClick={setAllergy}>
                     <b>Allergies: </b> {kid.allergies}
                   </Typography>
                   <Typography>

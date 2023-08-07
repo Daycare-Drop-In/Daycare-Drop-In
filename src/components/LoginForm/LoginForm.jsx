@@ -27,8 +27,8 @@ function LoginForm() {
 
   const signIn = (event) => {
     event.preventDefault();
-    const presetUserName = "baby shark@email.com";
-    const presetPassword = "baby shark";
+    const presetUserName = "anna@gmail.com";
+    const presetPassword = "family1";
     // Populate the form inputs with the pre-set value
     setUsername(presetUserName);
     setPassword(presetPassword);

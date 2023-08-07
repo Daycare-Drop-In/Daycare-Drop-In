@@ -91,7 +91,7 @@ router.get("/details/:id", (req, res) => {
   availability.toddler,
   availability.pre_k,
   availability.schoolage,
-  to_char(availability.date, 'MM/DD/YY') AS date,
+  to_char(availability.date, 'Mon DD, YYYY') AS date,
   availability.time_created,
 	providers.id AS provider_id,
 	providers.business_name AS biz_name,
@@ -190,7 +190,7 @@ router.get("/details/specific/:id", (req, res) => {
   availability.toddler,
   availability.pre_k,
   availability.schoolage,
-  to_char(availability.date, 'MM/DD/YY') AS date,
+  to_char(availability.date, 'Mon DD, YYYY') AS date,
   availability.time_created
     FROM availability
     WHERE availability.id = $1;

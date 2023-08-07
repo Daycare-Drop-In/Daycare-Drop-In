@@ -37,7 +37,7 @@ function ListPage() {
 
 	return (
 		<Container maxWidth="xs">
-			<Typography variant="h6" align="center">Filtered Serach</Typography>
+			<Typography variant="h6" align="center">Filtered Search</Typography>
 
 			{/* Here's the import for the search bar component */}
 

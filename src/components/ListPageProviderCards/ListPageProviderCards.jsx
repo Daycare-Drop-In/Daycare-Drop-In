@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
 import {
-	Box,
-	Card,
-	CardHeader,
-	CardContent,
-	CardActions,
-	CardMedia,
-    Chip,
-	Button,
-	Container,
-	Grid,
-	TextField,
-	Typography,
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	IconButton,
-	CardActionArea,
+  Box,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  CardMedia,
+  Chip,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  CardActionArea,
+  Divider,
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 
-function ListPageProviderCards({ choice}) {
-	const dispatch = useDispatch();
-	const history = useHistory();
+function ListPageProviderCards({ choice }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const visitProvider = (id) => {
     console.log("PROVIDER ID", id);
@@ -48,36 +49,20 @@ function ListPageProviderCards({ choice}) {
         raised
       >
         <Grid container direction="row" justifyContent="space-between">
-          <Grid container direction="column" sx={{ width: "80%" }}>
-            <Typography variant="h7" align="left" sx={{ fontSize: 18, fontWeight:"bold" }} >
+          <Grid container direction="column" sx={{ width: "100%" }}>
+            <Typography variant="h7" align="left" sx={{ fontSize: 18, fontWeight: "bold" }} >
               {choice.biz_name}
             </Typography>
             <Typography variant="caption" align="left" sx={{ mt: 0.25 }}>
               {choice.provider_open} - {choice.provider_close}
             </Typography>
-          </Grid>
-          <Grid
-            container
-            direction="row"
-            sx={{ width: "20%" }}
-            justifyContent="flex-end"
-            alignItems="flex-start"
-          >
             <Typography
               variant="body2"
               align="left"
               color="purple"
-              sx={{ mb: 0.25 }}
+              sx={{ mb: -3 }}
             >
-              {choice.provider_city}
-            </Typography>
-            <Typography
-              variant="body2"
-              align="left"
-              color="purple"
-              sx={{ mb: 0.25 }}
-            >
-              {choice.provider_zip}
+              {choice.provider_city}, {choice.provider_zip}
             </Typography>
           </Grid>
         </Grid>
@@ -90,12 +75,20 @@ function ListPageProviderCards({ choice}) {
           <Grid sx={{ width: "50%" }}>
             <CardMedia
               component="img"
-              sx={{ objectFit: "contain", height: 140, marginTop: 1 }}
+              sx={{
+                borderRadius: 2,
+                objectFit: "cover",
+                height: 140,
+                marginTop: 1
+              }}
               image={choice.provider_photo}
               alt={"profile picture"}
             />
           </Grid>
-          <Grid sx={{ width: "50%" }}>
+          <Grid sx={{
+            width: "50%",
+            marginTop: 0
+          }}>
             <CardContent>
               <Typography align="center" sx={{ fontSize: 14 }}>
                 Availability for:{" "}

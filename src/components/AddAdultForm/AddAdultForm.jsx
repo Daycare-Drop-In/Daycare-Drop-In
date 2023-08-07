@@ -22,12 +22,12 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { useDispatch, useSelector } from "react-redux";
 
-function AddAdultForm () {
+function AddAdultForm() {
 
-    const dispatch = useDispatch();
-    const user = useSelector((store) => store.user);
+	const dispatch = useDispatch();
+	const user = useSelector((store) => store.user);
 
-    const responsibleAdult = {
+	const responsibleAdult = {
 		family_id: user.family_id,
 		first_name: "",
 		last_name: "",
@@ -38,18 +38,18 @@ function AddAdultForm () {
 	};
 
 
-    const [newAdult, setNewAdult] = useState(responsibleAdult);
+	const [newAdult, setNewAdult] = useState(responsibleAdult);
 	const [open, setOpen] = useState(false);
 
-    const addNewAdult = () => {
-        console.log('this is new adult', newAdult);
+	const addNewAdult = () => {
+		console.log('this is new adult', newAdult);
 		dispatch({ type: "POST_ADULT", payload: newAdult });
 		setOpen(!open);
 		setNewAdult(responsibleAdult);
 		console.log("Submitting");
 	};
 
-    function fileSelected(event) {
+	function fileSelected(event) {
 		console.log("IN FILE SELECTED");
 		const selectedFile = event.target.files[0];
 		console.log("selectedFile", selectedFile);
@@ -61,9 +61,27 @@ function AddAdultForm () {
 		});
 	}
 
+	const fillPresetAdult = (event) => {
+		event.preventDefault();
+		const presetFirstName = "Abdul";
+		const presetLastName = "Ali";
+		const presetPhoneNumber = "612-555-7890";
+		const presetEmail = "abdul1@gmail.com";
+		const presetRelationship = "Uncle";
+
+		// Populate the form inputs with the pre-set values
+		setNewAdult({
+			...newAdult,
+			first_name: presetFirstName,
+			last_name: presetLastName,
+			phone_number: presetPhoneNumber,
+			email: presetEmail,
+			relationship_to_child: presetRelationship,
+		  });
+	}
 
 
-    return (
+	return (
 		<Container
 			maxWidth={"sm"}
 			sx={{
@@ -111,7 +129,12 @@ function AddAdultForm () {
 								mb: -2,
 							}}
 						>
-							<Typography mt={3}>New Responsible Adult</Typography>
+							<Typography
+								mt={3}
+								onClick={fillPresetAdult}
+							>
+								New Responsible Adult
+							</Typography>
 							<IconButton
 								size="large"
 								onClick={() => setOpen(!open)}

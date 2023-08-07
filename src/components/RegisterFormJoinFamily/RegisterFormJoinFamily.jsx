@@ -54,7 +54,7 @@ function RegisterFormJoinFamily() {
   }
 
 
-  const addCode = (event) => {
+  const fillAccessCode = (event) => {
     event.preventDefault();
     const presetAccessCode = "baby shark";
 
@@ -62,7 +62,7 @@ function RegisterFormJoinFamily() {
     setAccessCode(presetAccessCode);
   }
 
-  const addIsmail = (event) => {
+  const fillPresetUser = (event) => {
     event.preventDefault();
     const presetUsername = "ismail@gmail.com";
     const presetPassword = "family1";
@@ -95,7 +95,7 @@ function RegisterFormJoinFamily() {
           <Typography 
           component="h1" 
           variant="h5"
-          onClick={addCode}
+          onClick={fillAccessCode}
           >
             Enter your family's access code
           </Typography>
@@ -140,7 +140,7 @@ function RegisterFormJoinFamily() {
           <Typography 
           component="h1" 
           variant="h5"
-          onClick={addIsmail}>
+          onClick={fillPresetUser}>
             Register your account
           </Typography>
           <Box

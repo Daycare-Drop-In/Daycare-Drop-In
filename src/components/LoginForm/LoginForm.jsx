@@ -61,10 +61,10 @@ function LoginForm() {
             onChange={(event) => setUsername(event.target.value)}
             InputLabelProps={{ shrink: true }}
           />
-          {/* <div
+          <div
             id="preset-username-login-info"
             onClick={signIn}>
-          </div> */}
+          </div>
           <TextField
             margin="normal"
             required

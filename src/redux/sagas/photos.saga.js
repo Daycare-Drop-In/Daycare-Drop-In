@@ -15,8 +15,30 @@ function* getPhotos(id) {
 //add a new photo to the gallery
 function* postPhoto(action) {
   try {
-    console.log("Inside postPhoto saga", action.payload.provider_id);
-    yield axios.post("/api/photo", action.payload);
+    const newPhoto = action.payload
+    console.log('newPhoto object inside postPhoto saga function:', newPhoto)
+
+    // Need to create the FormData object, because in order to send a file
+    // to our server, it needs to be encoded as multipart/form-data. (This
+    // is where the Multer library name comes from!)
+    const data = new FormData(); //declare FormData
+
+    // Now, we need to add key-value pairs to our FormData object. At the
+    // end of the day, we need it to look like:
+    // {provider_id: 1, description: 'Some text content', file: FILE}
+    data.append('provider_id', newPhoto.provider_id)
+    data.append('description', newPhoto.description)
+    data.append('file', newPhoto.photo_file)
+
+    // Let's send this shit to the server:
+    yield axios({
+      method: 'POST',
+      url: '/api/photo',
+      data: data,
+      headers: {'content-type': 'multipart/form-data'}
+    })
+
+    // Our POST apparently worked, so let's be sure to refresh the photo reducer:
     yield put({ type: "GET_PHOTOS", payload: action.payload.provider_id});
   } catch (error) {
     console.log("error in postPhoto saga", error);

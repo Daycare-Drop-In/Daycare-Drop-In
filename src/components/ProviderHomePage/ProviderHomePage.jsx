@@ -22,8 +22,7 @@ function ProviderHomePage() {
   useEffect(()=>{
     dispatch({ type: "GET_PROVIDER_USER", payload: user.id });
   }, [])
-  // const { providerId } = useParams();
-  // const userId = useSelector((store) => store.user.id);
+
 
   console.log("THESE ARE THE PROVIDER DETAILS:", provider);
 

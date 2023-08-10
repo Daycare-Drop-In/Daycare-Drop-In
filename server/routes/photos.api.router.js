@@ -2,7 +2,6 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-
 const multer = require("multer");
 const { s3Upload } = require("../s3Service");
 
@@ -10,28 +9,28 @@ let awsCache = "";
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
-	if (file.mimetype.split("/")[0] === "image") {
-		cb(null, true);
-	} else {
-		cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"), false);
-	}
+  if (file.mimetype.split("/")[0] === "image") {
+    cb(null, true);
+  } else {
+    cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"), false);
+  }
 };
 
 const upload = multer({ storage, fileFilter });
 
-router.put("/aws", upload.single("file"), async (req, res) => {
-	console.log("req.file", req.file);
-	try {
-		const results = await s3Upload(req.file);
-		console.log("AWS S3 upload success");
-		console.log("Location", results.Location);
-		awsCache = results.Location;
-		console.log(awsCache);
-	} catch (err) {
-		res.sendStatus(500);
-		console.log("AWS S3 upload fail", err);
-	}
-});
+// router.put("/aws", upload.single("file"), async (req, res) => {
+// 	console.log("req.file", req.file);
+// 	try {
+// 		const results = await s3Upload(req.file);
+// 		console.log("AWS S3 upload success");
+// 		console.log("Location", results.Location);
+// 		awsCache = results.Location;
+// 		console.log(awsCache);
+// 	} catch (err) {
+// 		res.sendStatus(500);
+// 		console.log("AWS S3 upload fail", err);
+// 	}
+// });
 
 /**
  * GET route template
@@ -62,34 +61,42 @@ router.get("/:id", (req, res) => {
 /**
  * POST route template
  */
-router.post("/", (req, res) => {
-  console.log("Inside router side of post photo request", req.body);
-  if (req.isAuthenticated()) {
-    const values = [
-      req.body.provider_id,
-      awsCache,
-      req.body.description,
-    ];
-    const queryText = `INSERT INTO provider_photos (
-      provider_id,
-      photo_url,
-     description
-    )
-  VALUES($1, $2, $3)`;
+router.post("/", upload.single("file"), async (req, res) => {
+  console.log('req.body:', req.body)
+  console.log('req.file', req.file)
 
-    pool
-      .query(queryText, values)
-      .then(() => {
-        awsCache = ''
-        res.sendStatus(201);
-      })
-      .catch((error) => {
-        awsCache = ''
-        console.log("ERROR IN photos POST", error);
-        res.sendStatus(500);
-      });
+  if (req.isAuthenticated()) {
+    try {
+      // Upload the photo to Amazon:
+      const results = await s3Upload(req.file)
+      console.log("Location", results.Location)
+
+      // Gonna need this URL. Thanks, Amazon!
+      const photoUrlFromAmazon = results.Location
+
+      const sqlQuery = `
+        INSERT INTO provider_photos
+          (provider_id, photo_url, description)
+          VALUES
+          ($1, $2, $3)
+      `
+
+      const sqlValues = [
+        req.body.provider_id,
+        photoUrlFromAmazon,
+        req.body.description
+      ]
+
+      // We've uploaded the photo to Amazon (thx Jeff!), now
+      // we need to insert a row into provider_photos
+      const dbRes = await pool.query(sqlQuery, sqlValues)
+      res.sendStatus(201);
+    } catch (err) {
+      console.log("POST /api/photo failed:", err)
+      res.sendStatus(500)
+    }
   } else {
-    res.sendStatus(403);
+    res.sendStatus(403)
   }
 });
 

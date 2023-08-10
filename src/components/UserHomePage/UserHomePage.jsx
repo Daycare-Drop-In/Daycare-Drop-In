@@ -10,16 +10,16 @@ function UserHomePage() {
   const userType = user.user_type;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (userType === "provider") {
-      //dispatches request for provider info based on userID
-      console.log("Dispatching request for data of provider-user ID:", user.id);
-      dispatch({ type: "GET_PROVIDER_USER", payload: user.id });
+  // useEffect(() => {
+  //   if (userType === "provider") {
+  //     //dispatches request for provider info based on userID
+  //     console.log("Dispatching request for data of provider-user ID:", user.id);
+  //     dispatch({ type: "GET_PROVIDER_USER", payload: user.id });
 
-    }
-  }, []);
+  //   }
+  // }, []);
 
-  const provider = useSelector((store) => store.provider);
+  // const provider = useSelector((store) => store.provider);
 
   console.log("Inside user home page for user: ", user);
   console.log("user type is:", userType);

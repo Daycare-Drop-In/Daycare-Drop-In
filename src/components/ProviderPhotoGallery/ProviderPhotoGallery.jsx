@@ -17,37 +17,44 @@ function ProviderPhotoGallery({ provider }) {
   const provider_id = provider.id;
   const photoArray = useSelector((store) => store.photo);
 
-  // useEffect(() => {
-  //   provider_id &&
-  //     dispatch({
-  //       type: "GET_PHOTOS",
-  //       payload: provider_id,
-  //     });
-  // }, [provider_id]);
+  useEffect(() => {
+    provider_id &&
+      dispatch({
+        type: "GET_PHOTOS",
+        payload: provider_id,
+      });
+  }, [provider_id]);
 
-  const newPhotoInfo = {
-    provider_id: provider_id,
-    photo_url: "",
-    description: "",
-  };
-
-  const [newPhoto, setNewPhoto] = useState(newPhotoInfo);
+  const [newPhotoFile, setNewPhotoFile] = useState("");
+  const [newPhotoDescription, setNewPhotoDescription] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setNewPhoto({
-      ...newPhoto,
-      provider_id: provider_id,
-    });
-    console.log("New photo being submitted:", newPhoto);
 
+    // Bundling up all the data that we need for the whole process:
+    // NOTE: We are inside the handleSubmit function. At this moment in
+    //       time, we should not need to call any other setState kinds
+    //       things. At this moment in time, the data we "need" must be
+    //       available to us, and now our job is to send it to a Saga function.
+    const newPhoto = {
+      provider_id: provider_id,
+      description: newPhotoDescription, // From React state that's tied to the form input.
+      photo_file: newPhotoFile, // From React state that's tied to the "file" form input.
+      // NOTE: We have not yet uploaded anything to AWS. We will
+      //       handle that inside the:
+      //         1. postPhoto saga function
+      //         2. /api/photo POST route
+    };
+    console.log("newPhoto object IMMEDIATELY BEFORE DISPATCH:", newPhoto);
+
+    // Sending this lovely lil' object off to Sagaland, where we'll
+    // make a FormData object that includes the photo file, then
+    // send that to our server. :)
     dispatch({ type: "POST_PHOTO", payload: newPhoto });
 
-    setNewPhoto({
-      provider_id: provider_id,
-      photo_url: "",
-      description: "",
-    });
+    // Cleaning up the form inputs:
+    setNewPhotoFile("");
+    setNewPhotoDescription("");
   };
 
   const handleDelete = (id) => {
@@ -61,23 +68,10 @@ function ProviderPhotoGallery({ provider }) {
   if (!provider_id) {
     return <div>Loading...</div>;
   }
-  function fileSelected(event) {
-    console.log("IN FILE SELECTED");
-    const selectedFile = event.target.files[0];
-    console.log("selectedFile", selectedFile);
-    dispatch({
-      type: "AWS_PROVIDER_GALLERY",
-      payload: {
-        file: selectedFile,
-      },
-    });
-  }
 
   return (
     provider_id && (
       <Container>
-        {/* <h3>My photos</h3> */}
-
         {photoArray.map((photo) => (
           <ProviderPhotoItem
             key={photo.id}
@@ -102,7 +96,7 @@ function ProviderPhotoGallery({ provider }) {
             label="Upload a new photo"
             type="file"
             id="photo"
-            onChange={fileSelected}
+            onChange={(event) => setNewPhotoFile(event.target.files[0])}
             InputLabelProps={{ shrink: true }}
           />
           <TextField
@@ -115,65 +109,25 @@ function ProviderPhotoGallery({ provider }) {
             label="Photo Description"
             type="text"
             id="photo_description"
-            value={newPhoto.description}
-            onChange={(event) =>
-              setNewPhoto({
-                ...newPhoto,
-                description: event.target.value,
-              })
-            }
+            value={newPhotoDescription}
+            onChange={(event) => setNewPhotoDescription(event.target.value)}
             InputLabelProps={{ shrink: true }}
           />
           <Button
             type="submit"
             fullWidth
             variant="outlined"
-            color= "secondary"
+            color="secondary"
             sx={{
               mb: 5,
               p: 2,
-            
+
               // backgroundColor: "#390854",
             }}
           >
             Add Photo
           </Button>
         </Box>
-
-        {/* <form encType="multipart/form">
-						<div>
-							<label htmlFor="photo_url">
-								Upload
-								<input
-									type="file"
-									name="photo_url"
-									onChange={fileSelected}
-								/>
-							</label>
-						</div>
-
-						<div>
-							<label htmlFor="description">
-								Description
-								<textarea
-									rows="2"
-									cols="30"
-									name="description"
-									placeholder="a caption for the photo..."
-									value={newPhoto.description}
-									required
-									onChange={(event) =>
-										setNewPhoto({
-											...newPhoto,
-											description: event.target.value,
-										})
-									}
-								/>
-							</label>
-						</div>
-
-						<button onClick={handleSubmit}>Submit</button>
-					</form> */}
       </Container>
     )
   );

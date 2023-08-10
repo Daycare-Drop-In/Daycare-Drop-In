@@ -72,23 +72,23 @@ function* adultPhoto(action){
 
 
 // /api/photo/aws
-function* providerGallery(action) {
-	console.log("INSIDE PROVIDER AWS action.payload:", action.payload);
-	try {
-        const newFile = action.payload.file;
-        console.log('newFile', newFile)
-        const data = new FormData(); //declare FormData
-        data.append('file', newFile) // this data contains this file and contains this header
-        yield console.log('Post new files to /api/photo/aws', data);
-       yield axios.put('/api/photo/aws', data, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        });
-	} catch (error) {
-		console.log("PROBLEM WITH PROVIDER AWS", error);
-	}
-}
+// function* providerGallery(action) {
+// 	console.log("INSIDE PROVIDER AWS action.payload:", action.payload);
+// 	try {
+//         const newFile = action.payload.file;
+//         console.log('newFile', newFile)
+//         const data = new FormData(); //declare FormData
+//         data.append('file', newFile) // this data contains this file and contains this header
+//         yield console.log('Post new files to /api/photo/aws', data);
+//        yield axios.put('/api/photo/aws', data, {
+//             headers: {
+//                 'content-type': 'multipart/form-data'
+//             }
+//         });
+// 	} catch (error) {
+// 		console.log("PROBLEM WITH PROVIDER AWS", error);
+// 	}
+// }
 
 
 
@@ -96,7 +96,7 @@ function* awsSaga() {
 	yield takeLatest("AWS_REG_PHOTO", registrationPhoto);
 	yield takeLatest("AWS_CHILD_PHOTO", childPhoto);
 	yield takeLatest("AWS_ADULT_PHOTO", adultPhoto);
-	yield takeLatest("AWS_PROVIDER_GALLERY", providerGallery);
+	// yield takeLatest("AWS_PROVIDER_GALLERY", providerGallery);
 }
 
 export default awsSaga;

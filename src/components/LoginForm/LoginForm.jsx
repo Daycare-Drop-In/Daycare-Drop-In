@@ -25,15 +25,14 @@ function LoginForm() {
     }
   }; // end login
 
-  const signIn = (event) => {
-    event.preventDefault();
-    const presetUserName = "anna@gmail.com";
-    const presetPassword = "family1";
+  // const signIn = (event) => {
+  //   event.preventDefault();
+    // const presetUserName = "anna@gmail.com";
+    // const presetPassword = "family1";
     // Populate the form inputs with the pre-set value
-    setUsername(presetUserName);
-    setPassword(presetPassword);
-  };
-
+  //   setUsername(presetUserName);
+  //   setPassword(presetPassword);
+  // };
 
   return (
     <>
@@ -48,7 +47,12 @@ function LoginForm() {
         {/* <Typography component="h1" variant="h5" >
         Login
       </Typography> */}
-        <Box component="form" onSubmit={login} sx={{ mt: 1 }} autoComplete="off">
+        <Box
+          component="form"
+          onSubmit={login}
+          sx={{ mt: 1 }}
+          autoComplete="off"
+        >
           <TextField
             margin="normal"
             required
@@ -61,10 +65,10 @@ function LoginForm() {
             onChange={(event) => setUsername(event.target.value)}
             InputLabelProps={{ shrink: true }}
           />
-          <div
+          {/* <div
             id="preset-username-login-info"
-            onClick={signIn}>
-          </div>
+            onClick={signIn}
+          ></div> */}
           <TextField
             margin="normal"
             required
@@ -76,7 +80,7 @@ function LoginForm() {
             id="password"
             onChange={(event) => setPassword(event.target.value)}
             InputLabelProps={{ shrink: true }}
-            onClick={signIn}
+            // onClick={signIn}
           />
           <Button
             type="submit"
